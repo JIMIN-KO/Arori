@@ -34,6 +34,7 @@
 		<update id="loginUpdate" parameterType="memberDto">
 			UPDATE MEMBER SET MEMBER_LOGIN = SYSDATE WHERE MEMBER_ID = #{member_id}
 		</update>
+		
 	
 	<!-- 아로리 회원 -->
 		<!-- 아로리 회원 가입일 경우 해당 회원 등록 -->
@@ -45,4 +46,19 @@
 		<select id="getArori" resultType="aroriMemberDto" parameterType="memberDto">
 			SELECT * FROM ARORI_MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{member_id})
 		</select>
+		
+		<!-- 아이디 찾기 -->
+		<select id="findId" resultType="memberDto" parameterType="memberDto">
+			SELECT * FROM MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO FROM ARORI_MEMBER WHERE MEMBER_PHONE = #{member_phone} AND MEMBER_Q = #{member_q} AND MEMBER_A = #{member_a})
+		</select>
+		
+		<!-- 비밀번호 찾기 > 반환 : AroriMemberDto.getMember_email-->
+		<select id="findPw" resultType="string" parameterType="map">
+			SELECT B.MEMBER_EMAIL FROM MEMBER A INNER JOIN ARORI_MEMBER B ON A.MEMBER_NO = B.MEMBER_NO WHERE A.MEMBER_ID = #{member_id} AND B.MEMBER_Q = #{member_q} AND B.MEMBER_A = #{member_a}
+		</select>
+		
+		<!-- 해당 이메일을 소유하고 있는 회원의 비밀번호를 임시 비밀번호로 변경 -->
+		<update id="changeTempPw" parameterType="aroriMemberDto">
+			UPDATE ARORI_MEMBER SET MEMBER_PW = #{member_pw} WHERE MEMBER_EMAIL = #{member_email}
+		</update>
 </mapper>

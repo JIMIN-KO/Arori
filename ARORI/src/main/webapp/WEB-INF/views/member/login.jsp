@@ -33,6 +33,8 @@
 		<input type="submit" value="Sing In">
 		<br><br>
 	</form>
+	<a href="find"><button>Find</button></a>
+	<br><hr><br>
 <!-- 로그인 버튼 -->
 	<div>
 		<div onclick="login(this);" id="google" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button">

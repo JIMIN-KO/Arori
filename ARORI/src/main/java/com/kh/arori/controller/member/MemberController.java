@@ -1,4 +1,4 @@
-package com.kh.arori.controller;
+package com.kh.arori.controller.member;
 
 import java.util.List;
 
@@ -93,6 +93,38 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("userinfo");
 		return "redirect:/";
+	}
+	
+	// 아이디 / 비밀번호 찾기 페이지 
+	@GetMapping("/find")
+	public String find(Model model) {
+		List<PasswordQDto> passwordQ = memberDao.getPasswordQ();
+		model.addAttribute("passwordQ", passwordQ);
+		
+		return "member/find";
+	}
+	
+	// 아이디 / 비밀번호 찾기 결과 페이지 
+	@GetMapping("/findResult")
+	public String findResult() {
+		return "member/findResult";
+	}
+	
+	// 아이디 찾기 
+	@PostMapping("/findId")
+	public String findId(@ModelAttribute AroriMemberDto aroriMemberDto, HttpSession session) {
+		MemberDto member = memberDao.findId(aroriMemberDto);
+		session.setAttribute("findId", member);
+		return "redirect:findResult";
+	}
+	
+	// 비밀번호 찾기
+	@PostMapping("/findPw")
+	public String findPw(@RequestParam String member_id, @RequestParam String member_q, @RequestParam String member_a, HttpSession session) throws Exception {
+		String member_email = memberService.findPw(member_id, member_q, member_a);
+		member_email = member_email.substring(0, member_email.indexOf("@"));
+		session.setAttribute("findPw", member_email);
+		return "redirect:findResult";
 	}
 
 }

@@ -61,7 +61,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/**"/>
-			<exclude-mapping path="/member/login"/>
+			<exclude-mapping path="/member/"/>
 			<beans:bean class="com.kh.arori.interceptor.AuthInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
@@ -70,7 +70,7 @@
 		Web Socket
 		- websocket 을 사용하기 위해서 namespace를 해당 xml 에 등록
 	-->
-<!-- 	<beans:bean id="test" class="com.d0.oauth.websocket.WebSocketTestServer"></beans:bean>
+<!-- 	<beans:bean id="test" class="com.kh.arori.websocket.WebSocketTestServer"></beans:bean>
 	<websocket:handlers>
 		접속 주소 > ws://localhost:포트번호/spring/basic
 		<websocket:mapping handler="test" path="/test/basic"/>
