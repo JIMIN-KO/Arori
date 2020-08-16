@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	
+	<!--  회원 시퀀스 번호 발급 -->
+	<select id="seq" resultType="int">
+		SELECT MEMBER_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 전체 회원 -->
+		<!-- 비밀번호 질문 받아오기 -->
+		<select id="getPasswordQ" resultType="passwordQDto">
+			SELECT * FROM PASSWORD_Q ORDER BY PQ_NO ASC
+		</select>
+		
+		<!-- 회원 단일 조회 > MEMBER TABLE -->
+		<select id="get" resultType="memberDto" parameterType="memberDto">
+			SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+		</select>
+		
+		<!-- 회원 가입 -->
+		<insert id="join" parameterType="memberDto">
+			INSERT INTO MEMBER VALUES(#{member_no}, #{member_id}, #{member_nick}, #{member_state}, SYSDATE, NULL)
+		</insert>
+		
+		<!-- 전체 회원 조회 -->
+		<select id="getList" resultType="memberDto">
+			SELECT * FROM MEMBER ORDER BY MEMBER_NO DESC
+		</select>
+		
+		<!-- 로그인 성공 시 로그인 시간 갱신 -->
+		<update id="loginUpdate" parameterType="memberDto">
+			UPDATE MEMBER SET MEMBER_LOGIN = SYSDATE WHERE MEMBER_ID = #{member_id}
+		</update>
+	
+	<!-- 아로리 회원 -->
+		<!-- 아로리 회원 가입일 경우 해당 회원 등록 -->
+		<insert id="joinArori" parameterType="aroriMemberDto">
+			INSERT INTO ARORI_MEMBER VALUES(#{member_no}, #{member_pw}, #{member_email},#{member_phone}, #{member_q}, #{member_a})
+		</insert>
+		
+		<!-- 아로리 상제 정보 가지고 오기 -->
+		<select id="getArori" resultType="aroriMemberDto" parameterType="memberDto">
+			SELECT * FROM ARORI_MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{member_id})
+		</select>
+</mapper>
