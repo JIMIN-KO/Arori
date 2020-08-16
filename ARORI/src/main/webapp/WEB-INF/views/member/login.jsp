@@ -15,112 +15,13 @@
 <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
 <!-- Firebase 클라이언트 -->
-<script>
-	// Your web app's Firebase configuration
-	var firebaseConfig = {
-		apiKey : "AIzaSyD_SXWgHkEe9FSR2k6T5HT_V-IPSFgcqX0",
-		authDomain : "d0-project.firebaseapp.com",
-		databaseURL : "https://d0-project.firebaseio.com",
-		projectId : "d0-project",
-		storageBucket : "d0-project.appspot.com",
-		messagingSenderId : "684872143927",
-		appId : "1:684872143927:web:eb18bd47cbfd7a8fbbdbb2",
-		measurementId : "G-63NPBL99Q9"
-	};
-	// Initialize Firebase
-	firebase.initializeApp(firebaseConfig);
-	firebase.analytics();
-</script>
+<script src="${pageContext.request.contextPath }/resources/js/member/firebase_client.js"></script>
 <!-- Firebase Style js / css -->
 <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-<script>	
-	// 참고 사이트
-	// > http://blog.naver.com/PostView.nhn?blogId=wj8606&logNo=221206395970
-
-	// 로그인
-	function login(tag) {
-
-		var tag = tag.id;
-		var provider;
-		
-		if(tag == "google") {
-			provider = new firebase.auth.GoogleAuthProvider();
-		} else if(tag == "github") {
-			provider = new firebase.auth.GithubAuthProvider();
-		} else {
-			window.location.href = "joinArori";
-		}
-		//인증서비스 제공업체설정
-		
-		//로그인창 호출
-		firebase.auth().signInWithPopup(provider);
-		
-		//공식API 활용 예제
-		firebase.auth().signInWithPopup(provider).then(function(result) {
-			
-			var emailPath = result.additionalUserInfo.providerId;
-			var memberNick = result.user.displayName;
-			var loginEmail = result.user.email;
-			
-			axios({
-				url:"${pageContext.request.contextPath}/memberAjax/checkEmail?member_id=" + loginEmail,
-				method:"get"
-				}).then(function (resp) {
-					console.log(resp)
-					if(!resp.data) {
-						// 소셜 로그인 > 로그아웃 
-						this.logout();
-						
-						// 회원가입 페이지로 이동 
-						window.location.href = "joinSocial?emailPath=" + emailPath + "&member_id=" + loginEmail + "&member_nick=" + memberNick;
-					} else {
-						// 해당 소셜 아이디가 있을 경우 > 홈으로 
-						window.location.href = "loginSuccess?member_id=" + loginEmail;
-					}
-				})
-			  
-		  var token = result.credential.accessToken;
-		  var user = result.user;
-
-		}).catch(function(error) {
-		  var errorCode = error.code;
-		  var errorMessage = error.message;
-		  var email = error.email;
-		  var credential = error.credential;
-		});	
-	}
-	
-	// 로그아웃
-	function logout() {
-		firebase.auth().signOut().then(function() {
-			  // Sign-out successful.
-			  console.log("로그아웃 성공")
-		}).catch(function(error) {
-			  // An error happened.
-		});
-	}
-	
-	// 정보 가지고 오기
-	firebase.auth().onAuthStateChanged(function(user) {
-
-	});
-</script>
-
-<style>
-	.firebaseui-idp-button {
-		min-height: 20px;
-		max-width: 155px;
-	}
-	
-	.firebaseui-idp-twitter {
-		background-color: #4A70F6;
-	}
-	
-	body {
-		text-align: center;
-	}
-</style>
+<!-- 로그인 JavaScript -->
+<script src="${pageContext.request.contextPath }/resources/js/member/login.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/login.css">
 </head>
 <body>
 	<h1>Sign In</h1>

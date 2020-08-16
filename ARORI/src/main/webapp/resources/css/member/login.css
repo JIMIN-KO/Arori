@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.firebaseui-idp-button {
+	min-height: 20px;
+	max-width: 155px;
+}
+
+.firebaseui-idp-twitter {
+	background-color: #4A70F6;
+}
+
+body {
+	text-align: center;
+}
