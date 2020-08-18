@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 @Retention(RUNTIME)
 @Target(METHOD)
-public @interface Auth {
+public @interface Member {
 
 	public enum Role {ADMIN, USER}
 	

@@ -61,8 +61,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/**"/>
-			<exclude-mapping path="/member/"/>
-			<beans:bean class="com.kh.arori.interceptor.AuthInterceptor"></beans:bean>
+			<beans:bean class="com.kh.arori.interceptor.MemberInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
 	

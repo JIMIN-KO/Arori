@@ -27,11 +27,11 @@
 			var loginEmail = result.user.email;
 			
 			axios({
-				url:"${pageContext.request.contextPath}/memberAjax/checkEmail?member_id=" + loginEmail,
+				url:"/arori/nonMemberAjax/checkEmail?member_id=" + loginEmail,
 				method:"get"
 				}).then(function (resp) {
 					console.log(resp)
-					if(!resp.data) {
+					if(resp.data.email == false) {
 						// 소셜 로그인 > 로그아웃 
 						this.logout();
 						
@@ -59,6 +59,7 @@
 		firebase.auth().signOut().then(function() {
 			  // Sign-out successful.
 			  console.log("로그아웃 성공")
+			  window.location.href = "member/logout";
 		}).catch(function(error) {
 			  // An error happened.
 		});

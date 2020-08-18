@@ -135,7 +135,7 @@ public class MemberServiceImple implements MemberService {
 		
 		// 4. 임시 비밀번호 발급 
 		String temporaryPw= this.temporaryPw();
-		AroriMemberDto member = AroriMemberDto.builder().member_email(email).member_pw(temporaryPw).build();
+		AroriMemberDto member = AroriMemberDto.builder().member_email(email).member_pw(encoder.encode(temporaryPw)).build();
 		
 		// 5. 임시 비밀번호로 회원 비밀번호 변경 
 		memberDao.changeTempPw(member);
