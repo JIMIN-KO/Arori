@@ -25,18 +25,19 @@
 			var emailPath = result.additionalUserInfo.providerId;
 			var memberNick = result.user.displayName;
 			var loginEmail = result.user.email;
+			console.log(result);
 			
 			axios({
 				url:"/arori/nonMemberAjax/checkEmail?member_id=" + loginEmail,
 				method:"get"
 				}).then(function (resp) {
-					console.log(resp)
-					if(resp.data.email == false) {
-						// 소셜 로그인 > 로그아웃 
-						this.logout();
-						
+					
+					if(resp.data === false) {
+
 						// 회원가입 페이지로 이동 
 						window.location.href = "joinSocial?emailPath=" + emailPath + "&member_id=" + loginEmail + "&member_nick=" + memberNick;
+						// 소셜 로그인 > 로그아웃 
+						firebase.auth().signOut().then(function() {});
 					} else {
 						// 해당 소셜 아이디가 있을 경우 > 홈으로 
 						window.location.href = "loginSuccess?member_id=" + loginEmail;

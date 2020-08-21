@@ -33,12 +33,12 @@ public class NonMemberController {
 		return "member/login";
 	}
 	
+	String path = "redirect:/?loginFail";
+	
 	// 소셜 로그인 
 	@GetMapping("/loginSuccess")
 	public String loginSuccess(@ModelAttribute MemberDto memberDto, HttpSession session) {
 		MemberDto member = memberService.loginSuccess(memberDto.getMember_id());
-
-		String path = "redirect:/?loginFail";
 
 		if (member != null) {
 			session.setAttribute("userinfo", member);
@@ -52,8 +52,6 @@ public class NonMemberController {
 	public String loginSuccess(@RequestParam String member_id, @RequestParam String member_pw, HttpSession session) {
 		MemberDto member = memberService.aroriLogin(member_id, member_pw);
 		
-		String path = "redirect:/?loginFail";
-
 		if (member != null) {
 			session.setAttribute("userinfo", member);
 			path = "redirect:/";
@@ -80,6 +78,7 @@ public class NonMemberController {
 	// 소셜 회원 가입 
 	@GetMapping("/joinSocial")
 	public String joinSocial(@RequestParam String emailPath, @ModelAttribute MemberDto memberDto) {
+		System.out.println("Controller");
 		memberService.join(emailPath, memberDto);
 		return "redirect:/";
 	}

@@ -54,6 +54,8 @@ public class MemberServiceImple implements MemberService {
 
 		// 3. 회원 가입
 		memberDao.join(memberDto);
+		
+		System.out.println("Service");
 
 	}
 
