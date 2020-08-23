@@ -22,7 +22,7 @@
 		
 		<!-- 회원 가입 -->
 		<insert id="join" parameterType="memberDto">
-			INSERT INTO MEMBER VALUES(#{member_no}, #{member_id}, #{member_nick}, #{member_state}, SYSDATE, NULL)
+			INSERT INTO MEMBER VALUES(#{member_no}, #{member_id}, #{member_nick}, #{member_state}, SYSDATE, NULL, '정상', NULL)
 		</insert>
 		
 		<!-- 전체 회원 조회 -->
