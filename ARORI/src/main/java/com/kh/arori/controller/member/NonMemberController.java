@@ -26,12 +26,6 @@ public class NonMemberController {
 
 	@Autowired
 	private MemberDao memberDao;
-
-	// 기본 로그인 페이지 
-	@GetMapping("/login")
-	public String login() {
-		return "member/login";
-	}
 	
 	String path = "redirect:/?loginFail";
 	

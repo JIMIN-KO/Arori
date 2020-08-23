@@ -54,12 +54,12 @@
         <div class="row login-header mt-5">
             <div class="col-sm-12 offset-md-2 col-md-8">
                 <div class="row mt-5">
-                    <div class="col-sm-12 offset-md-2 col-md-8">
+                    <div class="offset-1 col-10 offset-md-2 col-md-8">
                         <div class="row d-flex justify-content-around">
-                            <div class="col-md-5 col-sm-4">
-                                <img class="logo float-sm-right" alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png">
+                            <div class="col-md-5 col-4">
+                                <img class="logo float-right" alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png">
                             </div>
-                            <div class="col-md-7 col-sm-8">
+                            <div class="col-md-7 col-8">
                                 <span class="title font-weight-bolder">ARORI</span>
                                 <span class="sub-title font-weight-bold font-italic"> 당신의 지식</span>
                             </div>
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 mt-4 login-box text-center">
+            <div class="offset-1 col-10 offset-md-3 col-md-6 mt-4 login-box text-center">
                 <div class="row mt-5">
                     <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 h1 font-weight-bolder">Sign In</div>
                 </div>
@@ -128,8 +128,8 @@
                 <div class="row">
                     <div class="offset-1 col-10">
                         <div class="row">
-                            <div class="col-6 text-left text-info">Sign Up</div>
-                            <div class="col-6 text-right text-info">Find ID/PW</div>
+                            <div class="col-6 text-left text-info"><a href="joinArori"><button class="btn btn-link">Sign Up</button></a></div>
+                            <div class="col-6 text-right text-info"><a href="find"><button class="btn btn-link">Find ID/PW</button></a></div>
                         </div>
                     </div>
                 </div>
