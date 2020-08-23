@@ -92,19 +92,19 @@
                     <div class="offset-2 col-8">
                         <form action="joinArori" method="post">
                             <div class="form-group">
-                                <input type="text" name="member_id" class="form-control form-control-sm" placeholder="ID">
+                                <input type="text" name="member_id" class="form-control form-control-sm" placeholder="ID" required="required">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="member_pw" class="form-control form-control-sm" placeholder="PW">
+                                <input type="password" name="member_pw" class="form-control form-control-sm" placeholder="PW" required="required">
                             </div>
                             <div class="form-group">
-                                <input type="email" name="member_email" class="form-control form-control-sm" placeholder="EMAIL">
+                                <input type="email" name="member_email" class="form-control form-control-sm" placeholder="EMAIL" required="required">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="member_nick" class="form-control form-control-sm" placeholder="NICK">
+                                <input type="text" name="member_nick" class="form-control form-control-sm" placeholder="NICK" required="required">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="member_phone" class="form-control form-control-sm" placeholder="HP">
+                                <input type="text" name="member_phone" class="form-control form-control-sm" placeholder="HP" required="required">
                             </div>
                             <div class="form-group">
                                 <select name="member_q" class="form-control form-control-sm">
@@ -114,7 +114,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="member_a" class="form-control form-control-sm" placeholder="ANSWER">
+                                <input type="text" name="member_a" class="form-control form-control-sm" placeholder="ANSWER" required="required">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-warning btn-block btn-lg text-white">Sing In</button>

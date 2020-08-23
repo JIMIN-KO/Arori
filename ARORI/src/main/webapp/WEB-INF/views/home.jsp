@@ -113,10 +113,10 @@
                     <div class="offset-2 col-8">
                         <form action="loginSuccess" method="post">
                             <div class="form-group">
-                                <input type="text" name="member_id" class="form-control form-control-lg" placeholder="ID">
+                                <input type="text" name="member_id" class="form-control form-control-lg" placeholder="ID" required="required">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="member_pw" class="form-control form-control-lg" placeholder="PW">
+                                <input type="password" name="member_pw" class="form-control form-control-lg" placeholder="PW" required="required">
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
