@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Arori | 당신의 지식</title>
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
                     <div class="offset-1 col-10 offset-md-2 col-md-8">
                         <div class="row d-flex justify-content-around">
                             <div class="col-md-5 col-4">
-                                <img class="logo float-right" alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png">
+                                <a href="/arori"><img class="logo float-right" alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png"></a>
                             </div>
                             <div class="col-md-7 col-8">
                                 <span class="title font-weight-bolder">ARORI</span>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="offset-1 col-10">
+                    <div class="offset-2 col-8">
                         <form action="loginSuccess" method="post">
                             <div class="form-group">
                                 <input type="text" name="member_id" class="form-control form-control-lg" placeholder="ID">
@@ -126,7 +126,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="offset-1 col-10">
+                    <div class="offset-2 col-8">
                         <div class="row">
                             <div class="col-6 text-left text-info"><a href="joinArori"><button class="btn btn-link">Sign Up</button></a></div>
                             <div class="col-6 text-right text-info"><a href="find"><button class="btn btn-link">Find ID/PW</button></a></div>
