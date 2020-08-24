@@ -23,7 +23,8 @@
 	<!-- 로그인 JavaScript -->
 	<script src="${pageContext.request.contextPath }/resources/js/member/login.js"></script>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/login.css">
-
+	<!-- Find ID/PW -->
+	<script src="${pageContext.request.contextPath }/resources/js/member/find.js" type="text/javascript"></script>
     <style>
         body {
             background-color: rgb(74, 112, 223);
@@ -47,6 +48,18 @@
             border-radius: 25px;
             background-color: white;
         }
+        .findPw {
+            display: none;
+        }
+        #findId,
+        #findPw {
+            display: none;
+        }
+        #tabfindId,
+        #tabfindPw {
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -68,5 +81,5 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="offset-1 col-10 offset-lg-3 col-lg-6 mt-4 login-box text-center">
