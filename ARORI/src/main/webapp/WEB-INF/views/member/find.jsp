@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <input type="button" class="btn btn-warning btn-block text-white" value="Find ID" onclick="findId();">
+                                <input type="button" class="btn btn-warning btn-block btn-lg text-white" value="Find ID" onclick="findId();">
                             </div>
                         </form>
                     </div>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <input type="button" class="btn btn-warning btn-block text-white" value="Find PW" onclick="findPw();">
+                                <input type="button" class="btn btn-warning btn-block btn-lg text-white" value="Find PW" onclick="findPw();">
                             </div>
                         </form>
                     </div>
