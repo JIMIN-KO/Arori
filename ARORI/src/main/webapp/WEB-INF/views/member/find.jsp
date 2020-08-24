@@ -33,7 +33,7 @@
                 </div>
                 <div class="row mt-5 findId" id="selectfindId">
                     <div class="offset-1 col-10">
-                        <form action="findId" method="post">
+                        <form action="findId" method="post" id="goId">
                             <div class="form-group">
                                 <input type="text" name="member_phone" class="form-control" placeholder="HP">
                             </div>
@@ -45,18 +45,18 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="ANSWER">
+                                <input type="text" class="form-control" name ="member_a" placeholder="ANSWER">
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <button type="submit" class="btn btn-warning btn-block text-white">Find ID</button>
+                                <input type="button" class="btn btn-warning btn-block text-white" value="Find ID" onclick="findId();">
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="row mt-5 findPw" id="selectfindPw">
                     <div class="offset-1 col-10">
-                        <form action="findPw" method="post">
+                        <form action="findPw" method="post" id="gopw">
                             <div class="form-group">
                                 <input type="text" name="member_id" class="form-control" placeholder="ID">
                             </div>
@@ -68,11 +68,11 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="ANSWER">
+                                <input type="text" class="form-control" name="member_a" placeholder="ANSWER">
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <button type="submit" class="btn btn-warning btn-block text-white">Find PW</button>
+                                <input type="button" class="btn btn-warning btn-block text-white" value="Find PW" onclick="findPw();">
                             </div>
                         </form>
                     </div>

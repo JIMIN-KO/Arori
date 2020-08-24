@@ -24,11 +24,11 @@
     }
 	
 	function findId() {
-		var formData = $("#findId").serialize();
+		var formData = $("#goId").serialize();
 		console.log(formData);
 
 		axios({
-			url: "${pageContext.request.contextPath}/nonMemberAjax/findId",
+			url: "/arori/nonMemberAjax/findId",
 			method: "post",
 			data: formData,
 			processData: false,
@@ -48,11 +48,11 @@
 	}
 
 	function findPw() {
-		var formData = $("#findPw").serialize();
+		var formData = $("#goPw").serialize();
 		console.log(formData);
 
 		axios({
-			url: "${pageContext.request.contextPath}/nonMemberAjax/findPw",
+			url: "/arori/nonMemberAjax/findPw",
 			method: "post",
 			data: formData,
 			processData: false,
