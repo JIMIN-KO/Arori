@@ -51,13 +51,13 @@ public class MemberDaoImpl implements MemberDao{
 		sqlSession.insert("member.join", memberDto);
 	}
 
-	// 아로리 회원 가입 
+	// 아로리) 회원 가입 
 	@Override
 	public void joinArori(AroriMemberDto aroriMemberDto) {
 		sqlSession.insert("member.joinArori", aroriMemberDto);
 	}
 
-	// 아로리 회원 상세 정보 조회 
+	// 아로리) 회원 상세 정보 조회 
 	@Override
 	public AroriMemberDto getArori(String member_id) {
 		AroriMemberDto aroriMember = sqlSession.selectOne("member.getArori", member_id);
@@ -68,6 +68,24 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public int loginSuccess(String member_id) {
 		return sqlSession.update("member.loginUpdate", member_id);
+	}
+
+	// 아로리) 아이디 찾기 
+	@Override
+	public MemberDto findId(AroriMemberDto aroriMemberDto) {
+		return sqlSession.selectOne("member.findId", aroriMemberDto);
+	}
+
+	// 아로리) 회원 비밀번호 찾기 > 반환 : member_email	
+	@Override
+	public String findPw(Map<String, String> findPw) {
+		return sqlSession.selectOne("member.findPw", findPw);
+	}
+
+	// 아로리) 회원 비밀번호 > 임시 비밀번호로 변경 
+	@Override
+	public int changeTempPw(AroriMemberDto aroriMemberDto) {
+		return sqlSession.update("member.changeTempPw", aroriMemberDto);
 	}
 
 	

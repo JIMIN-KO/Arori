@@ -1,49 +1,69 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
-	<title>Home</title>
-	<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-<!-- Firebase > 사용하고자 하는 app -->
-<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-<!-- Firebase 클라이언트 -->
-<script>
-	// Your web app's Firebase configuration
-	var firebaseConfig = {
-		apiKey : "AIzaSyD_SXWgHkEe9FSR2k6T5HT_V-IPSFgcqX0",
-		authDomain : "d0-project.firebaseapp.com",
-		databaseURL : "https://d0-project.firebaseio.com",
-		projectId : "d0-project",
-		storageBucket : "d0-project.appspot.com",
-		messagingSenderId : "684872143927",
-		appId : "1:684872143927:web:eb18bd47cbfd7a8fbbdbb2",
-		measurementId : "G-63NPBL99Q9"
-	};
-	// Initialize Firebase
-	firebase.initializeApp(firebaseConfig);
-	firebase.analytics();
-
-	// 로그아웃
-	function logout() {
-		firebase.auth().signOut().then(function() {
-			  // Sign-out successful.
-			  console.log("로그아웃 성공")
-			  window.location.href = "member/logout";
-		}).catch(function(error) {
-			  // An error happened.
-		});
-	}
-</script>
-</head>
-<body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
-<hr>
-<h2>${userinfo.member_id }</h2>
-<button onclick="logout();">Logout</button>
+<jsp:include page="/WEB-INF/views/template/main_header.jsp"></jsp:include>
+                <div class="row mt-5">
+                    <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 h1 font-weight-bolder">Sign In</div>
+                </div>
+                <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 h5 font-italic text-muted mt-1">with your social Network</div>
+                </div>
+                <div class="row mt-4">
+                    <div class="offset-2 col-8">
+                        <div class="row">
+                            <div class="col-6">
+                                <div onclick="login(this);" id="google" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button">
+                                    <span class="firebaseui-idp-icon-wrapper">
+                                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="firebaseui-idp-icon">
+                                    </span>
+                                    <span class="firebaseui-idp-text firebaseui-idp-text-long">Sign in with Google</span>
+                                    <span class="firebaseui-idp-text firebaseui-idp-text-short">Google</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div onclick="login(this);" id="github" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-github firebaseui-id-idp-button">
+                                    <span class="firebaseui-idp-icon-wrapper">
+                                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/github.svg" class="firebaseui-idp-icon">
+                                    </span>
+                                    <span class="firebaseui-idp-text firebaseui-idp-text-long">Sign in with Github</span>
+                                    <span class="firebaseui-idp-text firebaseui-idp-text-short">Github</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-1 col-10">
+                        <div class="row m-4">
+                            <div class="col-5"><hr></div>
+                            <div class="col-2 text-muted">or</div>
+                            <div class="col-5"><hr></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-2 col-8">
+                        <form action="loginSuccess" method="post">
+                            <div class="form-group">
+                                <input type="text" name="member_id" class="form-control form-control-lg" placeholder="ID" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="member_pw" class="form-control form-control-lg" placeholder="PW" required="required">
+                            </div>
+                            <div class="form-group">
+                                <div style="height: 50px;"></div>
+                                <button type="submit" class="btn btn-warning btn-block btn-lg text-white">Sing In</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-2 col-8">
+                        <div class="row">
+                            <div class="col-6 text-left text-info"><a href="joinArori"><button class="btn btn-link">Sign Up</button></a></div>
+                            <div class="col-6 text-right text-info"><a href="find"><button class="btn btn-link">Find ID/PW</button></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
