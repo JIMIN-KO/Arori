@@ -1,7 +1,7 @@
 # Arori
 KH Final Project
 
---클래스
+# 클래스 테이블
 CREATE  TABLE classes ( 
 c_no NUMBER PRIMARY KEY,
 MEMBER_NO REFERENCES MEMBER(MEMBER_NO) ON DELETE CASCADE UNIQUE,
