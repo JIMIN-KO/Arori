@@ -36,7 +36,7 @@ public class NonMemberController {
 
 		if (member != null) {
 			session.setAttribute("userinfo", member);
-			path = "redirect:/";
+			path = "redirect:/member/main";
 		}
 		return path;
 	}
@@ -48,7 +48,7 @@ public class NonMemberController {
 		
 		if (member != null) {
 			session.setAttribute("userinfo", member);
-			path = "redirect:/";
+			path = "redirect:/member/main";
 		}
 
 		return path;
