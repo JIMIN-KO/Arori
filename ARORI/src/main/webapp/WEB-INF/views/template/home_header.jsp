@@ -25,6 +25,8 @@
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/login.css">
 	<!-- Find ID/PW -->
 	<script src="${pageContext.request.contextPath }/resources/js/member/find.js" type="text/javascript"></script>
+	<!-- font -->
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: rgb(74, 112, 223);

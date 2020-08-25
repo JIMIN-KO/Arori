@@ -1,5 +1,6 @@
-<jsp:include page="/WEB-INF/views/template/main_header.jsp"></jsp:include>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/template/home_header.jsp"></jsp:include>
                 <div class="row mt-5">
                     <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 h1 font-weight-bolder">Sign Up</div>
                 </div>

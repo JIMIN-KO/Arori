@@ -18,4 +18,9 @@ public class MemberController {
 		session.removeAttribute("userinfo");
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/main")
+	public String mainPage() {
+		return "member/main_member";
+	}
 }

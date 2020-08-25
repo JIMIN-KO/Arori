@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 .firebaseui-idp-button {
 	/* min-height: 20px; */
 	/* max-width: 155px; */
