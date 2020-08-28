@@ -2,6 +2,7 @@ package com.kh.arori.service.member;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
 import com.kh.arori.repository.member.MemberDao;
+import com.kh.arori.service.email.EmailService;
 
 @Service
 public class MemberServiceImple implements MemberService {
@@ -20,6 +22,9 @@ public class MemberServiceImple implements MemberService {
 
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private EmailService emailService;
 
 	// 시퀀스 발급
 	@Override
@@ -49,6 +54,8 @@ public class MemberServiceImple implements MemberService {
 
 		// 3. 회원 가입
 		memberDao.join(memberDto);
+		
+		System.out.println("Service");
 
 	}
 
@@ -108,6 +115,48 @@ public class MemberServiceImple implements MemberService {
 		}
 
 		return member = null;
+	}
+
+	// 아로리) 비밀번호 찾기 > 이메일 보내기 
+	@Override
+	@Transactional
+	public String findPw(String member_id, String member_q, String member_a) throws Exception {
+		// 1. 파라미터 값 > Map 으로 객체 통합 
+		Map<String, String> findPw = new HashMap<String, String>();
+		findPw.put("member_id", member_id);
+		findPw.put("member_q", member_q);
+		findPw.put("member_a", member_a);
+		
+		// 2. 회원 존재 여부 확인 
+		String email = memberDao.findPw(findPw);
+		
+		// 3. 찾을 수 없는 회원이면 null 반환 
+		if(email.isEmpty()) {
+			return null;
+		}
+		
+		// 4. 임시 비밀번호 발급 
+		String temporaryPw= this.temporaryPw();
+		AroriMemberDto member = AroriMemberDto.builder().member_email(email).member_pw(encoder.encode(temporaryPw)).build();
+		
+		// 5. 임시 비밀번호로 회원 비밀번호 변경 
+		memberDao.changeTempPw(member);
+		
+		// 6. 해당 회원의 이메일로 임시 비밀번호 전송 
+		Map<String, String> emailAndTempPw = new HashMap<String, String>();
+		emailAndTempPw.put("email", email);
+		emailAndTempPw.put("tempPw", temporaryPw);
+		
+		emailService.sendPassword(emailAndTempPw);
+		
+		return email;
+	}
+
+	// 아로리) 임시 비밀번호 발급 
+	@Override
+	public String temporaryPw() {
+		String temporaryPw = UUID.randomUUID().toString().substring(0, 8);
+		return temporaryPw;
 	}
 
 }

@@ -24,12 +24,21 @@ public interface MemberDao {
 	// 회원 가입 > MEMBER TABLE
 	public void join(MemberDto memberDto);
 	
-	// 아로리 회원 가입
+	// 아로리) 회원 가입
 	public void joinArori(AroriMemberDto aroriMemberDto);
 	
-	// 아로리 회원 상세 정보 가지고 오기 
+	// 아로리) 회원 상세 정보 가지고 오기 
 	public AroriMemberDto getArori(String member_id);
 	
 	// 로그인 시 로그인 시간 갱신 
 	public int loginSuccess(String member_id);
+	
+	// 아로리) 회원 아이디 찾기 
+	public MemberDto findId(AroriMemberDto aroriMemberDto);
+	
+	// 아로리) 회원 비밀번호 찾기 > 반환 : member_email
+	public String findPw(Map<String, String> findPw);
+	
+	// 아로리) 회원 비밀번호 > 임시 비밀번호로 변경 
+	public int changeTempPw(AroriMemberDto aroriMemberDto);
 }
