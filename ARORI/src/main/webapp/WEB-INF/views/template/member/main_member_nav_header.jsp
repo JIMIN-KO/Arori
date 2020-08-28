@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,22 +27,21 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-	<link href="${pageContext.request.contextPath }/resources/css/common/nav.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/resources/css/common/nav.css" rel="stylesheet">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/nav_member.js"></script>
-	<!-- font -->
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="backbtn"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-1">
                 <div class="row">
-                    <div class="col-12 flex-column">
-                        <ul class="nav flex-column text-center pt-3 main-nav">
+                    <div class="col-12 flex-column main-nav-container">
+                        <ul class="nav flex-column text-center main-nav">
                             <li class="nav-itme list mt-2 mb-2">
                                 <img alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="logo">
                             </li>
-                            <hr style="margin-bottom: 0px;">
+                            <!-- <hr style="margin-bottom: 0px;"> -->
                             <li class="nav-item pt-4 pb-4" id="click1" onclick="clickTab(this);">
                                 <a class="nav-link active" href="#">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="menu-images" id="iconclick1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -76,4 +76,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-11 main-body">
+            <div class="col-sm-12 col-md-12 col-lg-11 main-body main-body-container transition">
+                <div class="row" style="height: 50px; background-color: whitesmoke; border-bottom: 1px solid rgba(190, 190, 190, 0.493);">
+                    <div class="col-10">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="header-icon hamburger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </div>
+                    <div class="col-1 text-right">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="header-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M1 15.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM11.5 2H11V1h.5A1.5 1.5 0 0 1 13 2.5V15h-1V2.5a.5.5 0 0 0-.5-.5z"/>
+                            <path fill-rule="evenodd" d="M10.828.122A.5.5 0 0 1 11 .5V15h-1V1.077l-6 .857V15H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117z"/>
+                            <path d="M8 9c0 .552.224 1 .5 1s.5-.448.5-1-.224-1-.5-1-.5.448-.5 1z"/>
+                        </svg>
+                    </div>
+                    <div class="col-1 text-center">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="header-icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                        </svg>
+                    </div>
+                </div>

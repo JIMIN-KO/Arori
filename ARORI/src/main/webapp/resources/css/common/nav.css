@@ -1,6 +1,19 @@
-@charset "UTF-8";
-* {
-	font-family: 'Noto Sans KR', sans-serif;
+@media ( max-width :992px) {
+	.main-nav-container {
+		margin-left: -148.328px;
+	}
+	.main-body.main-body-container {
+		margin-left: 0px;
+	}
+	.header-icon.hamburger {
+		display: block;
+	}
+	.close {
+		display: none;
+	}
+	.main-nav-container.active {
+		margin-left: 0px;
+	}
 }
 
 .logo {
@@ -17,11 +30,15 @@
 }
 
 .main-body {
-	z-index: -1;
+	z-index: -3;
 	height: 100%;
 	position: fixed;
 	margin-left: 8.3333%;
 	background-color: deepskyblue; /* 테스트 용 색 */
+}
+
+.main-body-container.transition {
+	transition: margin .3s ease-in;
 }
 
 .menu-images {
@@ -47,11 +64,18 @@
 	height: 100%;
 	/* min-height: 650px;  */
 	width: 8.333333%;
+	min-width: 148.328px;
 	position: fixed;
 	background-color: whitesmoke;
 	border-right: 1px solid rgba(190, 190, 190, 0.493);
 	margin: 0px;
 	padding: 0px;
+	z-index: 0;
+	transition: margin .3s ease-in;
+}
+
+.main-nav.active {
+	margin-left: -148.328px;
 }
 
 .sub-nav {
@@ -72,6 +96,49 @@
 	flex: 0.1;
 }
 
+.header-icon {
+	position: relative;
+	top: 25%;
+	width: 28px;
+	height: 28px;
+	color: #999;
+	cursor: pointer;
+}
+
+.header-icon:hover {
+	color: rgb(74, 112, 223);
+	cursor: pointer;
+}
+
+.hamburger {
+	display: none;
+}
+
+.close {
+	width: 30px;
+	height: 30px;
+	color: #999;
+	cursor: pointer;
+	display: none;
+}
+
 .off {
 	display: none;
+}
+
+.on {
+	display: block;
+}
+
+.backbtn {
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: -2;
+}
+
+.backbtn.active {
+	display: block;
 }
