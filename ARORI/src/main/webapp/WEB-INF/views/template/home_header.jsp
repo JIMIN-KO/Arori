@@ -21,10 +21,10 @@
 	<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 	<!-- 로그인 JavaScript -->
-	<script src="${pageContext.request.contextPath }/resources/js/member/login.js"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/member/login.js" charset="UTF-8"></script>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/member/login.css">
 	<!-- Find ID/PW -->
-	<script src="${pageContext.request.contextPath }/resources/js/member/find.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath }/resources/js/member/find.js" type="text/javascript" charset="UTF-8"></script>
 	<!-- font -->
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -80,6 +80,42 @@
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 	        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="modal" tabindex="-1" id="findIdModal">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Find ID</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p id="idResult"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="modal" tabindex="-1" id="findPwModal">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Find PW</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p id="pwResult"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 	      </div>
 	    </div>
 	  </div>

@@ -57,14 +57,14 @@
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <input type="button" class="btn btn-warning btn-block btn-lg text-white" value="Find ID" onclick="findId();">
+                                <input type="button" class="btn btn-warning btn-block btn-lg text-white" data-target="#findIdModal" value="Find ID" onclick="findId();">
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="row mt-5 findPw" id="selectfindPw">
                     <div class="offset-1 col-10">
-                        <form action="findPw" method="post" id="gopw">
+                        <form action="findPw" method="post" id="goPw">
                             <div class="form-group">
                                 <input type="text" name="member_id" class="form-control" placeholder="ID">
                             </div>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <input type="button" class="btn btn-warning btn-block btn-lg text-white" value="Find PW" onclick="findPw();">
+                                <input type="button" class="btn btn-warning btn-block btn-lg text-white" data-target="#findPwModal" value="Find PW" onclick="findPw();">
                             </div>
                         </form>
                     </div>

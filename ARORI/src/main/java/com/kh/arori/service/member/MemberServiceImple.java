@@ -135,7 +135,7 @@ public class MemberServiceImple implements MemberService {
 		String email = memberDao.findPw(findPw);
 		
 		// 3. 찾을 수 없는 회원이면 null 반환 
-		if(email.isEmpty()) {
+		if(email == null) {
 			return null;
 		}
 		

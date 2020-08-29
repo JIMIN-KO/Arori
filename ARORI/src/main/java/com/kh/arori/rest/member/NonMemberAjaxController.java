@@ -53,9 +53,14 @@ public class NonMemberAjaxController {
 	// 아이디 찾기 
 	@PostMapping("/findId")
 	public String findId(@ModelAttribute AroriMemberDto aroriMemberDto) {
-		System.out.println(aroriMemberDto.getMember_phone());
 		MemberDto member = memberDao.findId(aroriMemberDto);
-		String member_id = member.getMember_id().substring(0, member.getMember_id().length()-2) + "**";
+		
+		String member_id = "정보를 찾을 수 없습니다. 다시 입력해주세요.";
+		
+		if(member != null) {
+			member_id = member.getMember_id().substring(0, member.getMember_id().length()-2) + "**";
+		}
+		System.out.println(member_id);
 		return member_id;
 	}
 	
@@ -63,8 +68,14 @@ public class NonMemberAjaxController {
 	@PostMapping("/findPw")
 	public String findPw(@RequestParam String member_id, @RequestParam String member_q, @RequestParam String member_a) throws Exception {
 		String member_email = memberService.findPw(member_id, member_q, member_a);
-		String email = member_email.substring(0, member_email.indexOf("@")-4) + "****@" + member_email.substring(member_email.indexOf("@")+1,member_email.indexOf("@")+4) + "****";
 		
+		String email = "정보를 찾을 수 없습니다. 다시 입력해주세요.";
+		
+		if(member_email != null) {			
+//			email = member_email.substring(0, member_email.indexOf("@")-4) + "****@" + member_email.substring(member_email.indexOf("@")+1,member_email.indexOf("@")+4) + "****";
+			email = "회원님의 이메일로 임시 비밀번호를 발급했습니다.";
+		}
+		System.out.println(email);
 		return email;
 	}
 }

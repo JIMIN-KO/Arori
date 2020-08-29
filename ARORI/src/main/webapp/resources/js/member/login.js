@@ -1,6 +1,5 @@
 // 참고 사이트
 	// > http://blog.naver.com/PostView.nhn?blogId=wj8606&logNo=221206395970
-	$(function(){
 		// 로그인
 		function login(tag) {
 	
@@ -70,7 +69,7 @@
 		firebase.auth().onAuthStateChanged(function(user) {
 	
 		});
-		
+	$(function(){
 		// 아로리 회원 로그인 (비동기)
 		$('#loginFail').modal('hide') // 모달 숨기기 
 		$("#loginBtn").click(function(){
