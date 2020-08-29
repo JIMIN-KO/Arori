@@ -88,7 +88,11 @@ public class MemberServiceImple implements MemberService {
 		
 		AroriMemberDto aroriMember = memberDao.getArori(member_id);
 		
-		boolean pass = encoder.matches(member_pw, aroriMember.getMember_pw());
+		boolean pass = false;
+		
+		if(aroriMember != null) {			
+			pass = encoder.matches(member_pw, aroriMember.getMember_pw());
+		}
 		
 		MemberDto member;
 		

@@ -41,7 +41,7 @@
                 </div>
                 <div class="row">
                     <div class="offset-2 col-8">
-                        <form action="loginSuccess" method="post">
+                        <form action="loginSuccess" method="post" id="aroriLogin">
                             <div class="form-group">
                                 <input type="text" name="member_id" class="form-control form-control-lg" placeholder="ID" required="required">
                             </div>
@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <button type="submit" class="btn btn-warning btn-block btn-lg text-white">Sing In</button>
+                                <button type="button" class="btn btn-warning btn-block btn-lg text-white" data-target="#loginFail" id="loginBtn">Sing In</button>
                             </div>
                         </form>
                     </div>

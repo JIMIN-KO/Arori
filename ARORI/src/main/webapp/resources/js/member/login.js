@@ -70,9 +70,26 @@
 		firebase.auth().onAuthStateChanged(function(user) {
 	
 		});
-	
-		console.log(location.search)
-		if(location.search === '?loginFail') {
-			alert('아이디와 비밀번호를 확인해주세요.')
-		}
+		
+		// 아로리 회원 로그인 (비동기)
+		$('#loginFail').modal('hide') // 모달 숨기기 
+		$("#loginBtn").click(function(){
+			var formData = $("#aroriLogin").serialize();
+			
+			axios({
+				url: "/arori/nonMemberAjax/loginSuccess",
+				method: "post",
+				data: formData,
+				processData: false,
+	            contentType: false
+			}).then(function(resp){
+				if(!resp.data) {
+					// console.log("로그인 실패!")
+					$('#loginFail').modal('show') // 로그인 실패 시 모달 띄우기 
+				} else {
+					// console.log("로그인 성공!")
+					window.location.href = "member/main";
+				}
+			})
+		})
 	})

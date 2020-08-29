@@ -24,6 +24,19 @@ public class NonMemberAjaxController {
 	@Autowired
 	private MemberService memberService;
 	
+	// 아로리 회원 로그인
+	@PostMapping("/loginSuccess")
+	public MemberDto loginSuccess(@RequestParam String member_id, @RequestParam String member_pw, HttpSession session) {
+		
+		MemberDto member = memberService.aroriLogin(member_id, member_pw);
+		
+		if (member != null) {
+			session.setAttribute("userinfo", member);
+		}
+
+		return member;
+	}
+	
 	// 소셜 이메일 회원 조회 
 	@RequestMapping("/checkEmail")
 	public boolean checkEmail(@RequestParam String member_id) {
