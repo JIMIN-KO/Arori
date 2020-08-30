@@ -1,6 +1,16 @@
-<jsp:include page="/WEB-INF/views/template/main_header.jsp"></jsp:include>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% request.setCharacterEncoding("utf-8"); %>
+<% response.setContentType("text/html; charset=utf-8"); %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-                <div class="row mt-5">
+<jsp:include page="/WEB-INF/views/template/home_header.jsp"></jsp:include>
+				<div class="row mt-3">
+					<div class="offset-1 col-10 font-italic font-weight-light text-left">
+						<a class="text-link" style="cursor: pointer; color: gray;" href="${pageContext.request.contextPath }">
+							&laquo; &#32;Back
+						</a>
+					</div>
+				</div>
+                <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 h1 font-weight-bolder">Sign Up</div>
                 </div>
                 <div class="row">
