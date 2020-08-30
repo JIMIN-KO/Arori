@@ -6,11 +6,11 @@
 
 	<!-- 클래스 시퀀스 발급 -->
 		<select id="getSeq" resultType="int">
-			SELECT classe_SEQ.NEXTVAL FROM DUAL
+			SELECT classes_SEQ.NEXTVAL FROM DUAL
 		</select>
 	<!-- 클래스 생성 -->
 		<insert id="createClasses" parameterType="classesDto">
-			INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_public}, 0, SYSDATE)
+			INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_public}, 0,  SYSDATE)
 		</insert>
 
 </mapper>
