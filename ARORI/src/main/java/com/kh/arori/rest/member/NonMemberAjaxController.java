@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,7 +52,7 @@ public class NonMemberAjaxController {
 	}
 	
 	// 아이디 찾기 
-	@PostMapping("/findId")
+	@RequestMapping(value="/findId", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public String findId(@ModelAttribute AroriMemberDto aroriMemberDto) {
 		MemberDto member = memberDao.findId(aroriMemberDto);
 		
@@ -65,7 +66,7 @@ public class NonMemberAjaxController {
 	}
 	
 	// 비밀번호 찾기
-	@PostMapping("/findPw")
+	@RequestMapping(value="/findPw", method=RequestMethod.POST, produces="text/plain;charset=UTF-8")
 	public String findPw(@RequestParam String member_id, @RequestParam String member_q, @RequestParam String member_a) throws Exception {
 		String member_email = memberService.findPw(member_id, member_q, member_a);
 		

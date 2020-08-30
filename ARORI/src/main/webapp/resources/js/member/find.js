@@ -37,16 +37,13 @@
 				method: "post",
 				data: formData,
 				processData: false,
-	            contentType: false
+	            contentType: 'application/json; charset=utf-8'
 			}).then(function(resp){
 				console.log(resp.data);
 				var idResult = document.querySelector("#idResult");
 	
 				idResult.textContent = "";
 				
-				var h3 = document.createElement("h3");
-				h3.textContent = "Your ID";
-				idResult.appendChild(h3);
 				if(resp.data) {
 					var h5 = document.createElement("h5");
 					h5.textContent = resp.data;
@@ -66,15 +63,12 @@
 				method: "post",
 				data: formData,
 				processData: false,
-				contentType: false
+				contentType: 'application/json; charset=utf-8'
 			}).then(function(resp) {
 				console.log(resp.data);
 				var pwResult = document.querySelector("#pwResult");
 				pwResult.textContent = "";
-	
-				var h3 = document.createElement("h3");
-				h3.textContent = "Find PW";
-				pwResult.appendChild(h3);
+
 				if(resp.data) {
 					var h5 = document.createElement("h5");
 					h5.textContent = resp.data;
