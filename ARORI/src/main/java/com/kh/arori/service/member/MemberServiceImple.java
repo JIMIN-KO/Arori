@@ -88,7 +88,11 @@ public class MemberServiceImple implements MemberService {
 		
 		AroriMemberDto aroriMember = memberDao.getArori(member_id);
 		
-		boolean pass = encoder.matches(member_pw, aroriMember.getMember_pw());
+		boolean pass = false;
+		
+		if(aroriMember != null) {			
+			pass = encoder.matches(member_pw, aroriMember.getMember_pw());
+		}
 		
 		MemberDto member;
 		
@@ -131,7 +135,7 @@ public class MemberServiceImple implements MemberService {
 		String email = memberDao.findPw(findPw);
 		
 		// 3. 찾을 수 없는 회원이면 null 반환 
-		if(email.isEmpty()) {
+		if(email == null) {
 			return null;
 		}
 		

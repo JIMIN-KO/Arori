@@ -16,5 +16,8 @@
                         Text block 1 > .h-50 / .offset-1 > 적용
                     </div>
                 </div>
-                부모 col-11 > .main-body
+                부모 col-11 > .main-body 
+                <h1>로그인 정보</h1>
+                id : ${userinfo.member_id }
+                nick : ${userinfo.member_nick }
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
