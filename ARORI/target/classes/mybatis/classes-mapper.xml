@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="classes">
+	
+	<!-- 클래스 시퀀스 발급 -->
+		<select id="getSeq" resultType="int">
+			SELECT classe_SEQ.NEXTVAL FROM DUAL
+		</select>
+	<!-- 클래스 생성 -->
+		<insert id="createClasses" parameterType="classesDto">
+			INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_public}, 0, SYSDATE)
+		</insert>
+		
+</mapper>

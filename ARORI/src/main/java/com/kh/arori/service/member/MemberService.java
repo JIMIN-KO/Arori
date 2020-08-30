@@ -1,7 +1,5 @@
 package com.kh.arori.service.member;
 
-import java.util.UUID;
-
 import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
 
