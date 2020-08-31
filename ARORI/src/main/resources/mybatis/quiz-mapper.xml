@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="quiz">
+
+	<!--  퀴즈 시퀀스 번호 발급 -->
+	<select id="getSeq" resultType="int">
+		SELECT quiz_seq.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- 퀴즈 생성 -->
+	<insert id="createQuiz" parameterType="quizDto">
+		INSERT INTO quiz VALUES(#{q_no},#{c_no},#{q_title},#{q_score},#{q_open},#{q_close},#{q_runtime},#{q_scoring},#{q_score_open},sysdate)
+	</insert>
+
+</mapper>
