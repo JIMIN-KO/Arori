@@ -10,7 +10,15 @@
 		</select>
 	<!-- 클래스 생성 -->
 		<insert id="createClasses" parameterType="classesDto">
-			INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_public}, 0,  SYSDATE)
+			INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_public}, 0,  SYSDATE,  #{c_info})
 		</insert>
+	<!-- 단일 조회 -->
+		<select id="get" parameterType="int" resultType="classesDto">
+			SELECT * FROM classes WHERE c_no=#{c_no}
+		</select>
+	<!--  목록 조회 -->
+		<select id="getList" resultType="classesDto">
+			SELECT * FROM classes ORDER BY c_no DESC;
+		</select>
 
 </mapper>
