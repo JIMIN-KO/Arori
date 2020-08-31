@@ -23,9 +23,6 @@ public class ClassesController {
 	private ClassesService classesService;
 	
 	@Autowired
-	private SqlSession sqlSession;
-	
-	@Autowired
 	private ClassesDao classesDao;
 
 	// 나의 클래스 
@@ -60,10 +57,14 @@ public class ClassesController {
 		ClassesDto classesDto = classesDao.get(c_no);
 		model.addAttribute("classesDto", classesDto);
 		
-		// 회원 넘버를 이용한 단일 조회
-		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-		
 		return "classes/detail";
+	}
+	
+	// 클래스 게시판 영역 > Readme / Notice / QNA
+	// Readme 페이지 
+	@GetMapping("/classes/{c_no}/readme")
+	public String readme(@PathVariable String c_no, Model model) {
+		return "/classes/readme";
 	}
 
 } 
