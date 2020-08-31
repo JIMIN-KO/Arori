@@ -20,6 +20,9 @@
 }
 
 @media ( max-width :1500px) {
+	.content-top.mt-5 {
+		margin-top: 0px!important;
+	}
 	.class-menu1 {
 		display: none;
 	}
@@ -45,9 +48,9 @@
 }
 
 .main-body {
-	z-index: -100;
-	height: 100%;
-	position: fixed;
+	z-index: 0;
+	height: auto;
+	/* position: fixed; */
 	margin-left: 8.3333%;
 	/* background-color: deepskyblue; 테스트 용 색 */
 }
@@ -85,7 +88,7 @@
 	border-right: 1px solid rgba(190, 190, 190, 0.493);
 	margin: 0px;
 	padding: 0px;
-	z-index: 0;
+	z-index: 4;
 	transition: margin .3s ease-in;
 }
 
@@ -151,7 +154,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
-	z-index: -2;
+	z-index: 2;
 }
 
 .backbtn.active {

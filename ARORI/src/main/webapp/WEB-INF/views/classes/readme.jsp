@@ -3,7 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_header.jsp"></jsp:include>
                     <div class="offset-1 null-side null-side2"></div>                        
-                    <div class="col-9" style="border-right: 1px solid rgba(190, 190, 190, 0.493)">
+                    <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                         <br>
                         <h1 class="font-weight-bold mt-4">Read Me</h1>
                         <hr><br>
@@ -22,7 +22,7 @@
                             <span id="renderRange" class="render-range"></span>
                         </div>
                       
-                        <div id="calendar" class="w-100"></div>
+                        <div id="calendar" class="w-100 h-75"></div>
                     </div>
                 </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

@@ -33,6 +33,7 @@
 	<!-- nav_common -->
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/common/nav_common.js"></script>
 	<!-- Editor's Style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
     <link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css" />
@@ -90,7 +91,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-11 main-body main-body-container transition">
-                <div class="row" style="height: 50px; background-color: whitesmoke; border-bottom: 1px solid rgba(190, 190, 190, 0.493);">
+                <div class="row w-100 position-fixed" style="z-index: 1; left: 1%; height: 50px; background-color: whitesmoke; border-bottom: 1px solid rgba(190, 190, 190, 0.493);">
                     <div class="col-10">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="header-icon hamburger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>

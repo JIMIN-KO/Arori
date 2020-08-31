@@ -1,7 +1,7 @@
             </div>
         </div>
     </div>
-    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+	<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 	<script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script>
 	<script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
 	<script src="https://uicdn.toast.com/editor-plugin-table-merged-cell/latest/toastui-editor-plugin-table-merged-cell.min.js"></script>
@@ -26,7 +26,7 @@
 			  previewStyle: 'vertical',
 			  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell, chart, uml]
 		});
-		editor.getHtml();
+		/* editor.getHtml(); */
 
         var Calendar = tui.Calendar;
         var calendar = new Calendar('#calendar', {
