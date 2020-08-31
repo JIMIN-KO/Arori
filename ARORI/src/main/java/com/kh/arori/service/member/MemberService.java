@@ -28,4 +28,6 @@ public interface MemberService {
 	// 아로리) 임시 비밀번호 발급
 	public String temporaryPw();
 
+	public void deleteMember(MemberDto memberDto);
+
 }

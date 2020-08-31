@@ -41,4 +41,21 @@ public interface MemberDao {
 	
 	// 아로리) 회원 비밀번호 > 임시 비밀번호로 변경 
 	public int changeTempPw(AroriMemberDto aroriMemberDto);
+	
+	//회원탈퇴
+	public void deleteMember(MemberDto memberDto);
+
+	//회원가입시 아이디 중복검사용 
+	public MemberDto checkOverlap(String member_id);
+
+	//회원가입시 메일 중복 검사용 
+	public MemberDto checkOverlapMail(String member_email);
+		
+	//회원가입시 닉네임 중복 검사용 
+	public MemberDto checkOverlapNick(String member_nick);
+		
+	//회원가입시 핸드폰 중복 검사용 
+	public MemberDto checkOverlapPhone(String member_Phone);
+	
+	
 }

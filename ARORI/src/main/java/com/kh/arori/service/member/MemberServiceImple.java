@@ -163,4 +163,10 @@ public class MemberServiceImple implements MemberService {
 		return temporaryPw;
 	}
 
+	//회원삭제
+		@Override
+		public void deleteMember(MemberDto memberDto) {
+			memberDao.deleteMember(memberDto);		
+		}
+
 }

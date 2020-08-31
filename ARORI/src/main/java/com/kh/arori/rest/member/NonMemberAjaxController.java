@@ -3,6 +3,7 @@ package com.kh.arori.rest.member;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,4 +80,35 @@ public class NonMemberAjaxController {
 		System.out.println(email);
 		return email;
 	}
+	
+	//회원가입시 아이디 중복검사용
+			@GetMapping("/checkOverlap")
+			public MemberDto checkOverlap(@RequestParam String member_id) {
+				MemberDto memberDto = memberDao.checkOverlap(member_id);
+				return memberDto;
+			} 
+			
+		//회원가입시 메일 중복검사용
+			@GetMapping("/checkOverlapMail")
+			public MemberDto checkOverlapMail(@RequestParam String member_email) {
+				MemberDto memberDto = memberDao.checkOverlapMail(member_email);
+				return memberDto;
+			} 
+			
+		// 회원가입시 닉네임 중복검사용 
+			@GetMapping("/checkOverlapNick")
+			public MemberDto checkOverlapNick(@RequestParam String member_nick) {
+				MemberDto memberDto = memberDao.checkOverlapNick(member_nick);
+				return memberDto;
+			} 
+			
+			
+
+		//회원가입시 핸드폰 중복검사 
+			@GetMapping("/checkOverlapPhone")
+			public MemberDto checkOverlapPhone(@RequestParam String member_phone) {
+				MemberDto memberDto = memberDao.checkOverlapPhone(member_phone);
+				return memberDto;
+			} 
+	
 }

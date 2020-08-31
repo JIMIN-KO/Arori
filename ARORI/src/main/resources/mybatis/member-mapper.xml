@@ -61,4 +61,32 @@
 		<update id="changeTempPw" parameterType="aroriMemberDto">
 			UPDATE ARORI_MEMBER SET MEMBER_PW = #{member_pw} WHERE MEMBER_EMAIL = #{member_email}
 		</update>
+		
+		<!-- 회원의 상태(REPORT_STATE)를 탈퇴로 바꾸기 (회원의 탈퇴요청 ) -->
+		<update id="deleteMember" parameterType="memberDto">
+			UPDATE MEMBER SET REPORT_STATE = '탈퇴' WHERE MEMBER_NO =#{member_no}
+		</update>
+		
+		<!-- 회원가입시 아이디 중복검사 체크용  -->
+		<select id="getCheck" resultType="MemberDto" parameterType="String">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+		</select>
+		
+		<!-- 회원가입시 이메일 중복검사 체크용  -->
+		<select id="getCheckEmail" resultType="MemberDto" parameterType="String">
+		SELECT  * from ARORI_MEMBER where MEMBER_EMAIL =#{member_email}		
+		</select>
+		
+		<!-- 회원가입시 닉네임 중복검사 체크용  -->
+		<select id="getCheckNick" resultType="MemberDto" parameterType="String">
+		SELECT * FROM MEMBER where MEMBER_NICK =#{member_nick}	
+		</select>
+		
+			
+		<!-- 회원가입시 핸드폰 중복검사 체크용  -->
+		<select id="getCheckPhone" resultType="MemberDto" parameterType="String">
+		SELECT * FROM ARORI_MEMBER WHERE  MEMBER_PHONE =#{member_phone}	
+		</select>
+		
+		
 </mapper>

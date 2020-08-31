@@ -87,6 +87,40 @@ public class MemberDaoImpl implements MemberDao{
 	public int changeTempPw(AroriMemberDto aroriMemberDto) {
 		return sqlSession.update("member.changeTempPw", aroriMemberDto);
 	}
+	
+	//회원 탈퇴시 > 회원상태(REPORT_STATE)를 탈퇴로 변경
+		@Override
+		public void deleteMember(MemberDto memberDto) {
+			sqlSession.update("deleteMember",memberDto);
+		}
+		
+		
+		
+		//회원 가입시 중복닉네임을 검사 
+		@Override
+		public MemberDto checkOverlap(String member_id) {
+			return sqlSession.selectOne("member.getCheck",member_id);
+
+		}
+		
+		//회원 가입시 중복이메일을 검사 
+		@Override
+		public MemberDto checkOverlapMail(String member_email) {
+
+			return sqlSession.selectOne("member.getCheckEmail",member_email);
+		}
+		//회원 가입시 중복닉네임을 검사 
+		@Override
+		public MemberDto checkOverlapNick(String member_nick) {
+
+			return sqlSession.selectOne("member.getCheckNick",member_nick);
+		}
+		//회원 가입시 중복핸드폰을 검사 
+		@Override
+		public MemberDto checkOverlapPhone(String member_Phone) {
+
+			return sqlSession.selectOne("member.getCheckPhone",member_Phone);
+		}
 
 	
 }
