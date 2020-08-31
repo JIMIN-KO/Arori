@@ -4,8 +4,11 @@
 <h2>클래스 생성</h2>
 <form action="create" method="post">
 	제목 : <input type="text" name="c_title">
+	<br>
 	공개 여부 : <input type="text" name="c_public">
-
+	<br>
+	클래스 정보 : <textarea name="c_info"></textarea>
+	<br>
 	<button type="submit">생성</button>
 </form> 
 
