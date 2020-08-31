@@ -1,4 +1,4 @@
-package com.kh.arori.entity;
+package com.kh.arori.entity.study;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PasswordQDto {
+public class ReadmeDto {
 
-	private int pq_no;
-	private String pq_content;
+	private int r_no;
+	private int c_no;
+	private String r_content;
+	private String r_when;
 }

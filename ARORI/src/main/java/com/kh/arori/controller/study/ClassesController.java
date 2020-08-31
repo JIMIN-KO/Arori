@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.kh.arori.entity.MemberDto;
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.service.study.ClassesService;
 

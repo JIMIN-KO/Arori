@@ -3,9 +3,9 @@ package com.kh.arori.repository.member;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
-import com.kh.arori.entity.PasswordQDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.PasswordQDto;
 
 public interface MemberDao {
 

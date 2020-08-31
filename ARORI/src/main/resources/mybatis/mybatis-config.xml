@@ -5,13 +5,13 @@
  <configuration>
 	<typeAliases>
 		<!-- MEMBER Table -->
-		<typeAlias type="com.kh.arori.entity.MemberDto" alias="memberDto"/>
+		<typeAlias type="com.kh.arori.entity.member.MemberDto" alias="memberDto"/>
 		
 		<!-- ARORI_MEMBER Table -->
-		<typeAlias type="com.kh.arori.entity.AroriMemberDto" alias="aroriMemberDto"/>
+		<typeAlias type="com.kh.arori.entity.member.AroriMemberDto" alias="aroriMemberDto"/>
 		
 		<!-- PASSWORD_Q Table -->
-		<typeAlias type="com.kh.arori.entity.PasswordQDto" alias="passwordQDto"/>
+		<typeAlias type="com.kh.arori.entity.member.PasswordQDto" alias="passwordQDto"/>
 		
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>

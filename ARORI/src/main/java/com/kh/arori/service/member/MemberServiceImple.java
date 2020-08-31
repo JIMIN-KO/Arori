@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.email.EmailService;
 

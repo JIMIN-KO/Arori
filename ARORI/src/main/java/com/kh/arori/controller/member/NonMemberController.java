@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
-import com.kh.arori.entity.PasswordQDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.PasswordQDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.member.MemberService;
 
