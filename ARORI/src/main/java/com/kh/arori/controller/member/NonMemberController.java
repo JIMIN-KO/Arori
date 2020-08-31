@@ -27,32 +27,34 @@ public class NonMemberController {
 	@Autowired
 	private MemberDao memberDao;
 	
-	String path = "redirect:/?loginFail";
 	
 	// 소셜 로그인 
 	@GetMapping("/loginSuccess")
 	public String loginSuccess(@ModelAttribute MemberDto memberDto, HttpSession session) {
+		
 		MemberDto member = memberService.loginSuccess(memberDto.getMember_id());
 
 		if (member != null) {
 			session.setAttribute("userinfo", member);
-			path = "redirect:/";
+			return "redirect:member/main";
 		}
-		return path;
+		
+		return "redirect:/?loginFail";
 	}
 	
-	// 아로리 회원 로그인 
-	@PostMapping("/loginSuccess")
-	public String loginSuccess(@RequestParam String member_id, @RequestParam String member_pw, HttpSession session) {
-		MemberDto member = memberService.aroriLogin(member_id, member_pw);
-		
-		if (member != null) {
-			session.setAttribute("userinfo", member);
-			path = "redirect:/";
-		}
-
-		return path;
-	}
+//	// 아로리 회원 로그인 
+//	@PostMapping("/loginSuccess")
+//	public String loginSuccess(@RequestParam String member_id, @RequestParam String member_pw, HttpSession session) {
+//		
+//		MemberDto member = memberService.aroriLogin(member_id, member_pw);
+//
+//		if (member != null) {
+//			session.setAttribute("userinfo", member);
+//			return "redirect:member/main";
+//		}
+//
+//		return "redirect:/?loginFail";
+//	}
 
 	// 아로리 회원 가입 페이지 
 	@GetMapping("/joinArori")

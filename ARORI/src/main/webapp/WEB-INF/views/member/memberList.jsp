@@ -1,4 +1,4 @@
-<jsp:include page="/WEB-INF/views/template/main_header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -16,3 +16,4 @@ ${aroriMemberDto.member_no}
 
 <!-- 전체 리스트 불러오기 아직 구현중 -->
 
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

@@ -12,6 +12,8 @@
 		
 		<!-- PASSWORD_Q Table -->
 		<typeAlias type="com.kh.arori.entity.PasswordQDto" alias="passwordQDto"/>
-
+		
+		<!-- Classes Table -->
+		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
 	</typeAliases>
  </configuration>

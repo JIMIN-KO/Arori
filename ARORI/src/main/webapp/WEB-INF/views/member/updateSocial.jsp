@@ -1,4 +1,4 @@
-<jsp:include page="/WEB-INF/views/template/main_header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,5 +33,4 @@ $("#update").click(function(){
 <br>
 <input type="submit"  value="수정" id="update">
 </form>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

@@ -1,4 +1,7 @@
-<jsp:include page="/WEB-INF/views/template/main_header.jsp"></jsp:include>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% request.setCharacterEncoding("utf-8"); %>
+<% response.setContentType("text/html; charset=utf-8"); %>
+<jsp:include page="/WEB-INF/views/template/home_header.jsp"></jsp:include>
                 <div class="row mt-5">
                     <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 h1 font-weight-bolder">Sign In</div>
                 </div>
@@ -40,7 +43,7 @@
                 </div>
                 <div class="row">
                     <div class="offset-2 col-8">
-                        <form action="loginSuccess" method="post">
+                        <form action="loginSuccess" method="post" id="aroriLogin">
                             <div class="form-group">
                                 <input type="text" name="member_id" class="form-control form-control-lg" placeholder="ID" required="required">
                             </div>
@@ -49,7 +52,7 @@
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <button type="submit" class="btn btn-warning btn-block btn-lg text-white">Sing In</button>
+                                <button type="button" class="btn btn-warning btn-block btn-lg text-white" data-target="#loginFail" id="loginBtn">Sing In</button>
                             </div>
                         </form>
                     </div>

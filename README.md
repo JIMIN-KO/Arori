@@ -1,2 +1,1 @@
-# Arori
-KH Final Project
+

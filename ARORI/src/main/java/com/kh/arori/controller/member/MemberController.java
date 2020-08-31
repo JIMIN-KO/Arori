@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
@@ -23,9 +21,6 @@ import com.kh.arori.entity.PasswordQDto;
 import com.kh.arori.interceptor.Member;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.member.MemberService;
-import com.sun.xml.internal.fastinfoset.Encoder;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/member")
@@ -47,6 +42,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("userinfo");
+		System.out.println(session.getAttribute("userinfo"));
 		return "redirect:/";
 	}
 
@@ -129,5 +125,9 @@ public class MemberController {
 		memberService.updateSocial(memberDto);
 		return "member/socialMyPage";
 	}
-
+	
+	@RequestMapping("/main")
+	public String mainPage() {
+		return "member/main_member";
+	}
 }
