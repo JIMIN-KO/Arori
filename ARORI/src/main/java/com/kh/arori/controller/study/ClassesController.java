@@ -2,6 +2,7 @@ package com.kh.arori.controller.study;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
 
 @Controller
@@ -19,6 +21,12 @@ public class ClassesController {
 
 	@Autowired
 	private ClassesService classesService;
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Autowired
+	private ClassesDao classesDao;
 
 	// 나의 클래스 
 	@GetMapping("/classes/myclass")
@@ -43,13 +51,19 @@ public class ClassesController {
 
 	// 내가 만든 클래스 디테일 페이지
 	@GetMapping("/classes/detail/{c_no}")
-	public String detail(@PathVariable int c_no, Model model) {
+	public String detail(@PathVariable int c_no, Model model, HttpSession session) {
 		// 매개변수로 받아온 클래스 번호에 대한 디비 정보를 dao 혹은 service 를 통해서 받아온다.(classesDto 단일조회)
 		// 받아온 classesDto 를 model 로 보낸다.
 		// 이 메소드에서 클래스 번호로 조회하잖아 > 번호를 조회하면 단일조회가 되는건데 > 이 때 공개여부에 따라서 반환하는 값을 다르게 하면 되지 않을가낭?
 		model.addAttribute("c_no", c_no);
-		return "classes/detail"; // 이거는 클래스가 있는 경우
-//		return "redirect:/"; // 이거는 클래스가 없는 경우 
+		// 클래스 넘버를 이용한 단일조회
+		ClassesDto classesDto = classesDao.get(c_no);
+		model.addAttribute("classesDto", classesDto);
+		
+		// 회원 넘버를 이용한 단일 조회
+		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
+		
+		return "classes/detail";
 	}
 
 } 
