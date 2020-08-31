@@ -15,14 +15,14 @@
                     </div>
                     <div class="col-sm-3 col-md-3 col-lg-2 calendar-nav">
                         <br>
-                        <h3 class="font-weight-bold">Calendar</h3>
+                        <h3 class="font-weight-bold mt-5">Calendar</h3>
                         <div id="menu">
                             <span id="menu-navi">
                             </span>
                             <span id="renderRange" class="render-range"></span>
                         </div>
                       
-                        <div id="calendar" class="w-100 h-75"></div>
+                        <div id="calendar" class="w-100 h-50"></div>
                     </div>
                 </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
