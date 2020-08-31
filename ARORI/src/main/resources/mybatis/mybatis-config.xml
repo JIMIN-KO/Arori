@@ -12,5 +12,6 @@
 		
 		<!-- PASSWORD_Q Table -->
 		<typeAlias type="com.kh.arori.entity.PasswordQDto" alias="passwordQDto"/>
+
 	</typeAliases>
  </configuration>

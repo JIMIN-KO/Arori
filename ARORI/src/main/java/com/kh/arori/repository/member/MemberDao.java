@@ -41,4 +41,23 @@ public interface MemberDao {
 	
 	// 아로리) 회원 비밀번호 > 임시 비밀번호로 변경 
 	public int changeTempPw(AroriMemberDto aroriMemberDto);
+	
+	// 아로리) 회원정보 수정 (윤아)
+	public void updateArori(AroriMemberDto aroriMemberDto);
+
+	// 아로리) 마이페이지
+	public AroriMemberDto myInfo(int member_no);
+	
+	//아로리) 회원 조회 (윤아)
+	public List<AroriMemberDto> getAroriList();
+	
+	//아로리) 비밀번호체크
+	public boolean checkPw(String member_pw);
+
+	//소셜회원) 정보수정
+	public void updateSocial(MemberDto memberDto);
+	
+	//소셜회원)마이페이지
+	public MemberDto SocialInfo(int member_no);
+
 }
