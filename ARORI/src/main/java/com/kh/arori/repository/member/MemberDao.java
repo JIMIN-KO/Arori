@@ -68,5 +68,7 @@ public interface MemberDao {
 	public MemberDto checkOverlapNick(String member_nick);
 	//중복 폰번호 검사 
 	public MemberDto checkOverlapPhone(String member_phone);
+	//회원탈퇴 
+	public void deleteMember(MemberDto memberDto);
     
 }

@@ -182,11 +182,10 @@ public class MemberServiceImple implements MemberService {
 	public boolean checkPw(String member_pw) {
 	return memberDao.checkPw(member_pw);
 }
-
+	//회원탈퇴 
 	@Override
 	public void deleteMember(MemberDto memberDto) {
-		// TODO Auto-generated method stub
-		
+		 memberDao.deleteMember(memberDto);
 	}
 
 }
