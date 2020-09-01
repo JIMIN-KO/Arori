@@ -29,14 +29,14 @@ public class ReadmeController {
 	public String readme(@PathVariable String c_no, Model model) {
 		ReadmeDto readmeDto = readmeDao.getC(Integer.parseInt(c_no));
 		model.addAttribute("readmeDto", readmeDto);
-		return "/classes/readme";
+		return "/classes/readme/readme";
 	}
 	
 	// Readme 생성 페이지
 	@GetMapping("/classes/readme/create/{c_no}")
 	public String readmeEdit(@PathVariable String c_no, Model model) {
 		model.addAttribute("c_no", c_no);
-		return "/classes/readme_create";
+		return "/classes/readme/readme_create";
 	}
 	
 	// Read 생성 메소드 
