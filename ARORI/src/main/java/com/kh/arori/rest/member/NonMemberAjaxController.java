@@ -82,6 +82,8 @@ public class NonMemberAjaxController {
 	}
 	
 	//회원가입시 아이디 중복검사용
+	//인터페이스랑 구현체랑 메소드 이름 맞추세요
+	//아까 오류는 메이븐 업데이트 하니까 해결 됐습니다 감사하니다.
 			@GetMapping("/checkOverlap")
 			public MemberDto checkOverlap(@RequestParam String member_id) {
 				MemberDto memberDto = memberDao.checkOverlap(member_id);

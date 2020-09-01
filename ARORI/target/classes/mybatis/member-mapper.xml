@@ -42,6 +42,9 @@
 			INSERT INTO ARORI_MEMBER VALUES(#{member_no}, #{member_pw}, #{member_email},#{member_phone}, #{member_q}, #{member_a})
 		</insert>
 		
+				
+
+		
 		<!-- 아로리 상제 정보 가지고 오기 -->
 		<select id="getArori" resultType="aroriMemberDto" parameterType="memberDto">
 			SELECT * FROM ARORI_MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{member_id})
@@ -63,13 +66,11 @@
 		</update>
 		
 		<!-- MEMBER테이블의 회원정보삭제 -->
-		<!-- 회원의 상태(REPORT_STATE)를 탈퇴로 바꾸기 (회원의 탈퇴요청 ) -->
 		<update id="deleteMember" parameterType="memberDto">
 		DELETE FROM MEMBER WHERE MEMBER_NO =#{member_no}
 		</update>
 		
 		<!-- ARORI_MEMBER테이블의 회원정보삭제 -->
-		<!-- 회원의 상태(REPORT_STATE)를 탈퇴로 바꾸기 (회원의 탈퇴요청 ) -->
 		<update id="deleteAroriMember" parameterType="memberDto">
 		DELETE FROM ARORI_MEMBER WHERE MEMBER_NO =#{member_no}
 		</update>
@@ -96,5 +97,60 @@
 		SELECT * FROM ARORI_MEMBER WHERE  MEMBER_PHONE =#{member_phone}	
 		</select>
 		
+
+
+
+
+
+
+   
+   <!-- 아로리 회원 마이 페이지 -->
+    <select id="getmyInfo" parameterType="int" resultType="AroriMemberDto">
+    SELECT member_email, member_phone,member_q, member_a FROM ARORI_MEMBER where
+      member_no=#{member_no}
+      </select>
+
+   <!-- 아로리 회원 정보 수정 (윤아) -->
+   <update id="updateArori" parameterType="aroriMemberDto">
+      UPDATE ARORI_MEMBER SET
+      MEMBER_EMAIL=#{member_email}, MEMBER_PHONE=#{member_phone},
+      MEMBER_Q=#{member_q}, MEMBER_A=#{member_a}
+      WHERE MEMBER_NO=#{member_no}
+   </update>
+   
+   <!-- 소셜 회원 마이 페이지  -->
+    <!-- 아로리 회원 마이 페이지 -->
+    <select id="socialMyInfo" parameterType="int" resultType="MemberDto">
+    SELECT member_nick, member_state,member_join, member_login FROM MEMBER where
+      member_no=#{member_no}
+      </select>
+   
+   <!-- 소셜 회원 정보 수정 (윤아) -->
+   <update id ="updateSocial" parameterType="memberDto">
+   UPDATE MEMBER SET MEMBER_NICK= #{member_nick}
+   WHERE member_nick=#{member_nick}
+   </update>
+   
+   <!-- 정보수정을 위한 비밀번호 존재여부 (윤아) -->
+   <select id="getPw" resultType="int">
+      SELECT count (*) FROM arori_member
+       WHERE member_pw=#{member_pw} AND member_pw=#{member_pw}
+   </select>
+ 
+   
+ <!-- 아로리 회원 전체 조회 -->
+   <select id="getAroriList" resultType="aroriMemberDto">
+   SELECT * FROM arori_member ORDER BY member_no DESC
+   </select>
+   
 		
 </mapper>
+
+  
+  
+
+
+ 
+
+  
+ 
