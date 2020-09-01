@@ -21,15 +21,4 @@
 	<script src="https://uicdn.toast.com/editor-plugin-table-merged-cell/latest/toastui-editor-plugin-table-merged-cell.min.js"></script>
 	<script src="https://uicdn.toast.com/editor-plugin-chart/latest/toastui-editor-plugin-chart.min.js"></script>
 	<script src="https://uicdn.toast.com/editor-plugin-uml/latest/toastui-editor-plugin-uml.min.js"></script>
-	<script>
-		const content = [${readmeDto.r_content}].join('\n')
-		const viewer = toastui.Editor.factory({
-			  el: document.querySelector('#viewer'),
-			  viewer: true,
-			  height: '1000px',
-			  initialValue: content,
-			  initialEditType: 'markdown'
-		});
-	</script>
-	<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/toast_ui_viewer.js"></script> --%>
 	

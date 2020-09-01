@@ -37,6 +37,115 @@
 	                        </c:choose>
                         </div>
                     	<hr><br>
+                    	<div class="ml-3 mr-3">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>
+                                            <label for="title1">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title1">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>
+                                            <label for="title2">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title2">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>
+                                            <label for="title3">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title3">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                  <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </nav>
+                        </div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
+<script>
+	const content = ['# Readme 두번째 테스트','### 얼마나 잘될까요?!','> 이렇게 사용할 수 있다면 정말 좋을 것 같은데! 당신도 마찬가지인가요?!','> 아니 어떻게 그럴 수 있는거죠?','','* [ ] 오늘 할일','* [ ] 내일 할일','* [ ] 어제 할일','* [ ] 엊그제 할일'].join('\n')
+	var viewers = document.querySelectorAll(".viewer")
+	for(var i = 0; i < viewers.length; i++) {
+	    console.log(viewers[i])
+	    const viewer = toastui.Editor.factory({
+	        el: viewers[i],
+	        viewer: true,
+	        height: '1000px',
+	        initialValue: content,
+	        initialEditType: 'markdown'
+	    });
+	}
+	
+	// 공지사항 내용 띄우기
+	$(function(){
+	    // 라디오 숨김
+	    $("input[type=radio]").css("display","none")
+	    // 공지 제목 커서 변경
+	    $("input[type=radio]").prev().css("cursor","pointer")
+	    // 공지 게시물 본문 숨김
+	    $("input[type=radio]").parent().parent().next().css("display","none")
+	    // 공지 게시물 id 삭제
+	    $("input[type=radio]").parent().parent().next().children().children().removeAttr("class")
+	
+	    $("input[type=radio]").change(function(){
+	        $("input[type=radio]").parent().parent().next().css("display","none")
+	        $("input[type=radio]").parent().parent().next().children().children().removeAttr("class")
+	                        
+	        $(this).parent().parent().next().css("display","table-row")
+	        $(this).parent().parent().next().children().children().attr("class","viewer")
+	    })
+	})
+</script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

@@ -40,4 +40,14 @@
                         <div id="viewer"></div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
+<script>
+	const content = [${readmeDto.r_content}].join('\n')
+	const viewer = toastui.Editor.factory({
+		el: document.querySelector('#viewer'),
+		viewer: true,
+		height: '1000px',
+		initialValue: content,
+		initialEditType: 'markdown'
+	}); 
+</script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
