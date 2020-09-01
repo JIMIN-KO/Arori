@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class Question_typeDto {
+public class QuestionTypeDto {
 	private int qt_no;
 	private String qt_type;
 }

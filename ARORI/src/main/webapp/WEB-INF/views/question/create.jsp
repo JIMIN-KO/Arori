@@ -3,6 +3,7 @@
     <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <h2>퀘스천 생성</h2>
 <form action="create" method="post">
+	<input type="hidden" name="q_no" value="${q_no}">
 	
 	
 	<button type="submit">퀘스천생성</button>
