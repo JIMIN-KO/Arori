@@ -62,10 +62,18 @@
 			UPDATE ARORI_MEMBER SET MEMBER_PW = #{member_pw} WHERE MEMBER_EMAIL = #{member_email}
 		</update>
 		
+		<!-- MEMBER테이블의 회원정보삭제 -->
 		<!-- 회원의 상태(REPORT_STATE)를 탈퇴로 바꾸기 (회원의 탈퇴요청 ) -->
 		<update id="deleteMember" parameterType="memberDto">
-			UPDATE MEMBER SET REPORT_STATE = '탈퇴' WHERE MEMBER_NO =#{member_no}
+		DELETE FROM MEMBER WHERE MEMBER_NO =#{member_no}
 		</update>
+		
+		<!-- ARORI_MEMBER테이블의 회원정보삭제 -->
+		<!-- 회원의 상태(REPORT_STATE)를 탈퇴로 바꾸기 (회원의 탈퇴요청 ) -->
+		<update id="deleteAroriMember" parameterType="memberDto">
+		DELETE FROM ARORI_MEMBER WHERE MEMBER_NO =#{member_no}
+		</update>
+		
 		
 		<!-- 회원가입시 아이디 중복검사 체크용  -->
 		<select id="getCheck" resultType="MemberDto" parameterType="String">

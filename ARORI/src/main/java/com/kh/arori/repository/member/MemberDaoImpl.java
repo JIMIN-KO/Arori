@@ -88,13 +88,17 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.update("member.changeTempPw", aroriMemberDto);
 	}
 	
-	//회원 탈퇴시 > 회원상태(REPORT_STATE)를 탈퇴로 변경
+	//회원 탈퇴  아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제 
 		@Override
 		public void deleteMember(MemberDto memberDto) {
+			if(memberDto.getMember_state() =="arori") {
+			sqlSession.delete("deleteMember",memberDto);	
+			sqlSession.update("deleteAroriMember",memberDto);
+			}else {
 			sqlSession.update("deleteMember",memberDto);
+
+			}
 		}
-		
-		
 		
 		//회원 가입시 중복닉네임을 검사 
 		@Override
