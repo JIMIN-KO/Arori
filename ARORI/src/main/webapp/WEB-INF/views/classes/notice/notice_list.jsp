@@ -37,13 +37,14 @@
 	                        </c:choose>
                         </div>
                     	<hr><br>
+                    	<!-- 본문 내용 -->
                     	<div class="ml-3 mr-3">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Date</th>
+                                        <th scope="col" class="font-weight-bold">No</th>
+                                        <th scope="col" class="font-weight-bold">Title</th>
+                                        <th scope="col" class="font-weight-bold">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -84,6 +85,111 @@
                                                 정보처리기사 필기 시험 족보 공지 안내
                                             </label>
                                             <input type="radio" name="title" id="title3">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>
+                                            <label for="title4">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title4">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>
+                                            <label for="title5">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title5">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">6</th>
+                                        <td>
+                                            <label for="title6">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title6">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">7</th>
+                                        <td>
+                                            <label for="title7">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title7">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">8</th>
+                                        <td>
+                                            <label for="title8">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title8">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">9</th>
+                                        <td>
+                                            <label for="title9">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title9">
+                                        </td>
+                                        <td>2020.09.01</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="viewer"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">10</th>
+                                        <td>
+                                            <label for="title10">
+                                                정보처리기사 필기 시험 족보 공지 안내
+                                            </label>
+                                            <input type="radio" name="title" id="title10">
                                         </td>
                                         <td>2020.09.01</td>
                                     </tr>

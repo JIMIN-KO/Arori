@@ -21,7 +21,7 @@
 
 @media ( max-width :1500px) {
 	.content-top.mt-5 {
-		margin-top: 0px!important;
+		margin-top: 12%!important;
 	}
 	.class-menu1 {
 		display: none;
