@@ -5,7 +5,7 @@
                     <div class="offset-1 null-side null-side2"></div>                        
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                         <br>
-                        <h1 class="font-weight-bold mt-4">Read Me | 클래스 번호 : ${c_no }</h1>
+                        <h1 class="font-weight-bold mt-4">Read Me | Create</h1>
                         <hr><br>
                         <div id="editor"></div>
                         <div class="float-right mt-5">

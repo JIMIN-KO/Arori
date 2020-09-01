@@ -50,6 +50,7 @@
 .main-body {
 	z-index: 0;
 	height: auto;
+	min-height: 950px;
 	/* position: fixed; */
 	margin-left: 8.3333%;
 	/* background-color: deepskyblue; 테스트 용 색 */
