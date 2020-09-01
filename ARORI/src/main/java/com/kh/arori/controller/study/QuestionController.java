@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.kh.arori.entity.study.AllQuestionDto;
 
-
-
 @Controller
 public class QuestionController {
 	

@@ -19,6 +19,12 @@ public class QuizController {
 		@Autowired
 		private QuizService quizService;
 		
+		//퀴즈 메인
+		@GetMapping("/classes/{c_no}/quiz")
+		public String quizmain(@PathVariable int c_no) {
+			return "quiz/quizmain";
+		}
+		
 		@GetMapping("/classes/{c_no}/quiz/create")
 		public String create(@PathVariable int c_no) {
 			return "quiz/create";

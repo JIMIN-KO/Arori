@@ -30,9 +30,10 @@
 	</select>
 	
 
-	<!-- 퀴즈 생성 -->
-<!-- 	<insert id="createQuiz" parameterType="quizDto"> -->
-<!-- 		INSERT INTO quiz VALUES(#{q_no},#{c_no},#{q_title},#{q_score},#{q_open},#{q_close},#{q_runtime},#{q_scoring},#{q_score_open},sysdate) -->
-<!-- 	</insert> -->
+	<!-- 퀘스천 생성 -->
+	<insert id="createQuestion" parameterType="allQuestionDto">
+		INSERT INTO all_question VALUES(
+		#{question_no},#{q_no},#{qt_no}, #{aq_no},#{aq_content},#{aq_score}, sysdate)
+	</insert>
 
 </mapper>
