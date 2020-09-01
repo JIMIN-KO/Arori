@@ -2,7 +2,6 @@ package com.kh.arori.controller.study;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,13 +57,6 @@ public class ClassesController {
 		model.addAttribute("classesDto", classesDto);
 		
 		return "classes/detail";
-	}
-	
-	// 클래스 게시판 영역 > Readme / Notice / QNA
-	// Readme 페이지 
-	@GetMapping("/classes/{c_no}/readme")
-	public String readme(@PathVariable String c_no, Model model) {
-		return "/classes/readme";
 	}
 
 } 

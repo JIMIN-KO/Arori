@@ -7,22 +7,7 @@
                         <br>
                         <h1 class="font-weight-bold mt-4">Read Me</h1>
                         <hr><br>
-                        <div id="editor"></div>
-                        <div class="float-right mt-5">
-                        	<button class="btn btn-primary btn-lg font-weight-bold">취소하기</button>
-                        	<button class="btn btn-warning btn-lg font-weight-bold">작성하기</button>
-                        </div>
+                        <div id="viewer"></div>
                     </div>
-                    <div class="col-sm-3 col-md-3 col-lg-2 calendar-nav">
-                        <br>
-                        <h3 class="font-weight-bold mt-5">Calendar</h3>
-                        <div id="menu">
-                            <span id="menu-navi">
-                            </span>
-                            <span id="renderRange" class="render-range"></span>
-                        </div>
-                      
-                        <div id="calendar" class="w-100 h-50"></div>
-                    </div>
-                </div>
+<jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

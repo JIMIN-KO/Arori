@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="readme">
+
+	<!-- 리드미 고유 번호 발급 -->
+	<select id="getSeq" resultType="int">
+		SELECT README_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 리드미 작성 -->
+	<insert id="create" parameterType="readmeDto">
+		INSERT INTO README VALUES(#{r_no}, #{c_no}, #{r_content}, SYSDATE)
+	</insert>
+	
+	<!-- 리드미 단일조회 (r_no) -->
+	<select id="get" resultType="readmeDto" parameterType="readmeDto">
+		SELECT * FROM README WHERE R_NO = #{r_no}
+	</select>
+	
+	<!-- 리드미 단일조회 (c_no) -->
+	<select id="getC" resultType="readmeDto" parameterType="readmeDto">
+		SELECT * FROM README WHERE C_NO = #{c_no}
+	</select>
+	
+</mapper>
