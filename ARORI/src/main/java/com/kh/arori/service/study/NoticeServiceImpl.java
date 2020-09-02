@@ -1,5 +1,6 @@
 package com.kh.arori.service.study;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,42 +15,68 @@ import com.kh.arori.service.toast.ToastService;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
-	
+
 	@Autowired
 	private NoticeDao noticeDao;
-	
+
 	@Autowired
 	private ToastService toastService;
 
-	// 공지 게시글 작성 
+	// 공지 게시글 작성
 	@Override
 	@Transactional
 	public int create(List<String> n_content, String c_no, String n_title) {
-		// 게시글 배열 합치기 
+		// 게시글 배열 합치기
 		String content = toastService.content(n_content);
-		
+
 		// 공지 게시글 고유 번호 발급
 		int n_no = noticeDao.getSeq();
-		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(n_no).n_title(n_title).n_content(content).build();
+		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(n_no).n_title(n_title)
+				.n_content(content).build();
 		// 공지 게시글 작성
 		noticeDto.setN_no(n_no);
 		noticeDao.create(noticeDto);
-		
+
 		return n_no;
 	}
 
-	
 	// 공지 게시글 페이지 네이션 기능
 	@Override
-	public List<NoticeDto> getP(String c_no, String start, String finish) {
+	public List<NoticeDto> getP(String c_no, int pageNo) {
+
+		int pageSize = 10; // 한 페이지 넘버 당 게시글 개수 -> 10개
+		int finish = pageNo * pageSize; // 해당 페이지 번호의 마지막 번호
+		int start = finish - (pageSize - 1);
 
 		Map<String, String> pagination = new HashMap<String, String>();
 		pagination.put("c_no", c_no);
-		pagination.put("start", start);
-		pagination.put("finish", finish);
-		
+		pagination.put("start", String.valueOf(start));
+		pagination.put("finish", String.valueOf(finish));
+
 		List<NoticeDto> list = noticeDao.getP(pagination);
-		
+
 		return list;
+	}
+
+	// 페이지네이션 계산 코드
+	@Override
+	public List<Integer> pagination(int c_no, int pageNo) {
+		// 페이지 네비게이터 계산
+		int pageSize = 10; // 한 페이지에 보여질 게시글 개수 -> 10개 
+		int blockSize = 10; // 페이지네이션 블럭 개수 -> 10개
+		int startBlock = (pageNo - 1) / blockSize * blockSize + 1; // 블럭 리스트 첫 번째 블럭 번호
+		int finishBlock = startBlock + blockSize - 1; // 블럭 리스트 마지막 블럭 번호 
+		int count = noticeDao.count(c_no); // 해당 클래스의 게시물 개수 
+		int blockCount = (count + pageSize - 1) / pageSize; // 해당 클래스의 총 블럭 개수 
+
+		if (finishBlock > blockCount)
+			finishBlock = blockCount;
+
+		List<Integer> block = new ArrayList<Integer>();
+
+		for (int i = startBlock; i <= finishBlock; i++) {
+			block.add(i);
+		}
+		return block;
 	}
 }

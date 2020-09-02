@@ -24,7 +24,7 @@
 $(function(){
 	// 리드미 작성하기
 	$("#createReadme").click(function(){
-		$("#r_content").val(editor.getTextObject()._mde.toastMark.lineTexts)
+		$("#r_content").val(editor.getMarkdown())
 	})
 })
 </script>

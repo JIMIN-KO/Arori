@@ -38,15 +38,18 @@
                         </div>
                         <hr><br>
                         <div id="viewer"></div>
+                        <!-- DB 마크다운 데이터를 자바스크립트로 보내기위한 도구 -->
+                        	<input type="hidden" value="${readmeDto.r_content }" id="r_content">
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
-	const content = [${readmeDto.r_content}].join('\n')
+	var r_content = document.querySelector("#r_content").value
+	console.log(r_content)
 	const viewer = toastui.Editor.factory({
 		el: document.querySelector('#viewer'),
 		viewer: true,
 		height: '1000px',
-		initialValue: content,
+		initialValue: r_content,
 		initialEditType: 'markdown'
 	}); 
 </script>

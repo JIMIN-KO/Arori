@@ -50,4 +50,11 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.selectList("notice.getP", pagination);
 	}
 
+	// 해당 클래스 공지 게시글 개수 조회
+	@Override
+	public int count(int c_no) {
+
+		return sqlSession.selectOne("notice.count", c_no);
+	}
+
 }

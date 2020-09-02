@@ -31,12 +31,13 @@ public class ClassesController {
 		return "classes/myclass";
 	}
 
+	// 클래스 생성 페이지 
 	@GetMapping("/classes/create")
 	public String create() {
 		return "classes/create";
 	}
 
-	// 클래스 생성
+	// 클래스 생성 기능 
 	@PostMapping("/classes/create")
 	public String create(@ModelAttribute ClassesDto classesDto, HttpSession session) {
 		// 세션(userinfo) 를 MemberDto 로 받아온다.

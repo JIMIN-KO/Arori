@@ -28,4 +28,9 @@
 	<select id="getP" resultType="noticeDto" parameterType="map">
 		SELECT col.n_no, col.c_no, col.n_title, col.n_content, col.n_when FROM (SELECT ROWNUM rn, notice.* FROM NOTICE notice WHERE notice.C_NO = ${c_no}) col WHERE rn BETWEEN ${start} AND ${finish}
 	</select>
+	
+	<!-- 해당 클래스의 공지 게시글 개수 -->
+	<select id="count" resultType="int" parameterType="noticeDto">
+		SELECT COUNT(*) FROM NOTICE WHERE C_NO = #{c_no}
+	</select>
 </mapper>

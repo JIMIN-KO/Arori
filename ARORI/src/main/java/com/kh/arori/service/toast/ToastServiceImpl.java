@@ -15,13 +15,13 @@ public class ToastServiceImpl implements ToastService {
 
 		// 파라미터로 받아온 List 만큼 문자열 합치기
 		for (String list : content) {
-			bf.append("'");
+			list = list.replace('\"', '\'');
 			bf.append(list);
-			bf.append("',");
+			bf.append("\n");
 		}
 
 		// 반복문 완료 후, 마지막 쉼표 제거
-		return bf.toString().substring(0, bf.length() - 1);
+		return bf.toString().substring(0, bf.length());
 	}
 
 }

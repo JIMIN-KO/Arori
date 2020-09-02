@@ -36,7 +36,7 @@
                                             <label for="${list.n_no }">
                                                 ${list.n_title }
                                             </label>
-                                            <input type="radio" name="title" id="${list.n_no }">
+                                            <input type="radio" name="title" id="${list.n_no }" >
                                         </td>
                                         <td>${list.n_when }</td>
                                         <td>
@@ -46,7 +46,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="5">
-                                            <input type="hidden" class="n_content" data-content=${list.n_content } value="${list.n_content }">
+                                            <input type="hidden" class="n_content" value="${list.n_content }">
                                             <div class="viewer"></div>
                                         </td>
                                     </tr>
@@ -56,15 +56,16 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                   <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
+                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[0] - 1}" aria-label="Previous">
                                       <span aria-hidden="true">&laquo;</span>
+                                      
                                     </a>
                                   </li>
-                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+									<c:forEach var="block" items="${block }">
+                                  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block}">${block }</a></li>
+									</c:forEach>
                                   <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
+                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[9]+1}" aria-label="Next">
                                       <span aria-hidden="true">&raquo;</span>
                                     </a>
                                   </li>
@@ -80,20 +81,13 @@
 
 	// viewer 갯수만큼 반복하기 (최대 10개)
 	for(var i = 0; i < viewers.length; i++) {
-
-		// Controller 에서 받아온 데이터 문자열로 변경됨.
-		// 정규표현식을 이용해서 작은따옴표(') 제거 후, 쉼표(,) 를 기준으로 배열
-		var plz = n_content[i].value.replace(/'/g, "").split(',')
-		
-		// 배열로 바뀐 마크다운 데이터를 인덱스를 기준으로 나눈 후 엔터처리 
-	    const content = plz.join('\n')
-	    
+		console.log(n_content[i].value)
 	    // Toast Viewer .viewer 만큼 불러오기 
 	    const viewer = toastui.Editor.factory({
 	        el: viewers[i],
 	        viewer: true,
 	        height: '1000px',
-	        initialValue: content,
+	        initialValue: n_content[i].value,
 	        initialEditType: 'markdown'
 	    });
 	}

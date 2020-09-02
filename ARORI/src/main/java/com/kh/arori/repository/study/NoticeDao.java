@@ -21,4 +21,7 @@ public interface NoticeDao {
 	
 	// 공지 게시글 페이지 네이션 기능
 	public List<NoticeDto> getP(Map<String, String> page);
+	
+	// 해당 클래스 공지 게시글 개수 조회 
+	public int count(int c_no);
 }

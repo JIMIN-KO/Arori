@@ -40,7 +40,8 @@ $(function(){
 	
 	// 공지 게시글 작성하기
 	$("#createNotice").click(function(){
-		$("#n_content").val(editor.getTextObject()._mde.toastMark.lineTexts)
+		/* $("#n_content").val(editor.getTextObject()._mde.toastMark.lineTexts) */
+		$("#n_content").val(editor.getMarkdown());
 	})
 
 })
