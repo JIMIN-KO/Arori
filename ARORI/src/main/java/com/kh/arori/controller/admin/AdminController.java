@@ -12,4 +12,10 @@ public class AdminController {
 	public String adminPage() {
 		return "admin/main_admin";
 	}
+	
+	@GetMapping("/memberList")
+	public String memberList() {
+		return "admin/memberList";
+	}
+	
 }
