@@ -22,19 +22,28 @@ public class ReadmeServiceImpl implements ReadmeService {
 	//  Readme 생성 
 	@Override
 	@Transactional
-	public void create(List<String> r_content, String c_no) {
-		// 파라미터로 받아온 List 만큼 문자열 합치기
-		// 반복문 완료 후, 마지막 쉼표 제거 
-		String content = toastService.content(r_content);
+	public boolean create(List<String> r_content, String c_no) {
+		ReadmeDto readme = readmeDao.getC(Integer.parseInt(c_no));
 		
-		// 파라미터 값 readmeDto 에 합치기 
-		ReadmeDto readmeDto = ReadmeDto.builder().r_content(content).c_no(Integer.parseInt(c_no)).build();
+		if(readme != null) {
+			return false;
+		} else {
+			// 파라미터로 받아온 List 만큼 문자열 합치기
+			// 반복문 완료 후, 마지막 쉼표 제거 
+			String content = toastService.content(r_content);
+			
+			// 파라미터 값 readmeDto 에 합치기 
+			ReadmeDto readmeDto = ReadmeDto.builder().r_content(content).c_no(Integer.parseInt(c_no)).build();
+			
+			// Readme 고유 번호 발급 후 dto 에 합치기 
+			readmeDto.setR_no(readmeDao.getSeq());
+			
+			// 생성 
+			readmeDao.create(readmeDto);
+			
+			return true;
+		}
 		
-		// Readme 고유 번호 발급 후 dto 에 합치기 
-		readmeDto.setR_no(readmeDao.getSeq());
-		
-		// 생성 
-		readmeDao.create(readmeDto);
 	}
 
 }

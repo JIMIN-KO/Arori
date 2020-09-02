@@ -5,6 +5,6 @@ import java.util.List;
 public interface ReadmeService {
 
 	// Readme 생성
-	public void create(List<String> r_content, String c_no);
+	public boolean create(List<String> r_content, String c_no);
 
 }

@@ -35,17 +35,26 @@ public class ReadmeController {
 	// Readme 생성 페이지
 	@GetMapping("/classes/readme/create/{c_no}")
 	public String readmeEdit(@PathVariable String c_no, Model model) {
-		model.addAttribute("c_no", c_no);
-		return "/classes/readme/readme_create";
+		ReadmeDto readme = readmeDao.getC(Integer.parseInt(c_no));
+		
+		if(readme != null) {
+			return "redirect:/classes/readme/" + c_no + "?fail";
+		} else {
+			model.addAttribute("c_no", c_no);
+			return "/classes/readme/readme_create";
+		}
 	}
 	
 	// Read 생성 메소드 
 	@PostMapping("classes/readme/create")
 	public String readmeCreate(@RequestParam List<String> r_content, @RequestParam String c_no) {
 	
-		readmeService.create(r_content,c_no);
-		
-		// 작성 완료되면 readme 페이지로 이동
-		return "redirect:/classes/readme/" + c_no;
+		boolean condition = readmeService.create(r_content,c_no);
+		if(condition) {
+			// 작성 완료되면 readme 페이지로 이동
+			return "redirect:/classes/readme/" + c_no;
+		} else {
+			return "redirect:/classes/readme/" + c_no + "?fail";
+		}
 	}
 }
