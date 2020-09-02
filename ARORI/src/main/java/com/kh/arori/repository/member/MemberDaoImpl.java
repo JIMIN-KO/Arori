@@ -106,7 +106,6 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	// 회원 가입시 중복닉네임을 검사
-	//재정의하셨는데 모양이 다르네요
 	@Override
 	public MemberDto checkOverlap(String member_id) {
 		return sqlSession.selectOne("member.getCheck", member_id);
@@ -188,4 +187,17 @@ public class MemberDaoImpl implements MemberDao {
 		return result;
 	}
 
+	@Override
+	public List<MemberDto> resultMap() {
+		List<MemberDto>result = sqlSession.selectList("member.resultMap");
+		return result;
+	}
+
+	@Override
+	public List<MemberDto> resultMap2() {
+		List<MemberDto>result2 = sqlSession.selectList("member.resultMap2");
+		return result2;
+	}
+
 }
+

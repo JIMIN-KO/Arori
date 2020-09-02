@@ -6,7 +6,8 @@
 <script>
     $(document).ready(function(){
     	
-$("#update").click(function(){
+
+	$("#update").click(function(){
 
     if(confirm("수정하시겠습니까?")){
         document.form.action="${path}/member/socialMyPage";
@@ -30,6 +31,7 @@ $("#update").click(function(){
 <br>
 가입날짜
 <input type ="text" value="${memberDto.member_join}">
+
 <br>
 <input type="submit"  value="수정" id="update">
 </form>

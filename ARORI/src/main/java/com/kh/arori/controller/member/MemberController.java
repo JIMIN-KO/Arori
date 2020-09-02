@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
 import com.kh.arori.entity.PasswordQDto;
-import com.kh.arori.entity.AroriMemberDto;
+
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.member.MemberService;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-	
-	
+
+
 	@Autowired
 	private MemberService memberService;
 
@@ -67,7 +67,8 @@ public class MemberController {
 
 		if (result) {
 			memberService.updateArori(aroriMemberDto);
-			return "redirect:/";
+
+			return "member/myPage";
 
 		} else {
 			return "member/updateArori";
@@ -141,8 +142,25 @@ public class MemberController {
 	@RequestMapping("/main")
 	public String mainPage() {
 		return "member/main_member";
+
 	}
-	
+
+
+	// 소셜 + 아로리) 목록조회
+	@GetMapping("/resultMap")
+	public String resultMap(Model model, Model model2) {
+		
+		List<MemberDto> result = memberDao.resultMap();
+		model.addAttribute("result", result);
+
+
+		List<MemberDto> result2 = memberDao.resultMap2();
+		model.addAttribute("result2", result2);
+		
+		return "member/resultMap";
+
+	}
+
 	//회원탈퇴 하기 
 		@PostMapping("/delete")
 		public String delete(HttpSession session,@ModelAttribute MemberDto memberDto) {
@@ -151,5 +169,5 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	
 }
+

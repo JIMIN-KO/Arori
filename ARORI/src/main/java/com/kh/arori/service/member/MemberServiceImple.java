@@ -187,5 +187,5 @@ public class MemberServiceImple implements MemberService {
 	public void deleteMember(MemberDto memberDto) {
 		 memberDao.deleteMember(memberDto);
 	}
-
 }
+	

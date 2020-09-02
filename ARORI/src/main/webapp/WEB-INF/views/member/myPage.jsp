@@ -17,6 +17,7 @@
 		
 		회원가입일시 <input type="text"
 		value="${memberDto.member_join}" readonly="readonly"> <br>
+
 		
 		
 	<input type="submit" value="수정하기">
