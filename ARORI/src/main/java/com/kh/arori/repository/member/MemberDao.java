@@ -65,6 +65,18 @@ public interface MemberDao {
 	
 	//resultMap2 연습
 	public List<MemberDto> resultMap2();
+	
+	  //중복 아이디 검사 
+	public MemberDto checkOverlap(String member_id);
+	   //중복메일 검사
+	public MemberDto checkOverlapMail(String member_email);
+	    //중복 닉네임 검사 
+	public MemberDto checkOverlapNick(String member_nick);
+		//중복 폰번호 검사 
+	public MemberDto checkOverlapPhone(String member_phone);
+		//회원탈퇴 
+	public void deleteMember(MemberDto memberDto);
+	    
 
 	//관리자가 회원정보 수정
 	

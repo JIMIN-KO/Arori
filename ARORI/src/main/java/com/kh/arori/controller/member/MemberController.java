@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,18 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
 import com.kh.arori.entity.PasswordQDto;
-import com.kh.arori.interceptor.Member;
+
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.member.MemberService;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-	@Autowired
-	MemberDao memberDao;
+
 
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
+
+	@Autowired
+	private MemberDao memberDao;
+	
+
 
 	@Autowired
 	SqlSession sqlSession;
@@ -38,7 +42,6 @@ public class MemberController {
 	PasswordEncoder encoder;
 
 	// 로그아웃
-	@Member
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("userinfo");
@@ -64,6 +67,7 @@ public class MemberController {
 
 		if (result) {
 			memberService.updateArori(aroriMemberDto);
+
 			return "member/myPage";
 
 		} else {
@@ -87,12 +91,12 @@ public class MemberController {
 
 	// 회원 목록 리스트 (윤아)
 	@GetMapping("/memberList")
-	public String memberList(Model model, Model model2) {
+	public String memberList(Model model) {
 		List<MemberDto> list = memberDao.getList();
 		model.addAttribute("list", list);
 
 		List<AroriMemberDto> aroriList = memberDao.getAroriList();
-		model2.addAttribute("aroriList", aroriList);
+		model.addAttribute("arorList", aroriList);
 
 		return "member/memberList";
 
@@ -101,15 +105,15 @@ public class MemberController {
 	// 소셜 마이페이지
 	@GetMapping("/socialMyPage")
 	public String socialMyPage() {
-
+		
 		return "member/socialMyPage";
 	}
-
+	
 	@PostMapping("/socialMyPage")
 	public String socialMyPage(@ModelAttribute MemberDto memberDto, @RequestParam int member_no) {
-
+		
 		MemberDto socialMyPage = memberDao.SocialInfo(member_no);
-
+		
 		return "member/socialMyPage";
 	}
 
@@ -125,24 +129,45 @@ public class MemberController {
 		memberService.updateSocial(memberDto);
 		return "member/socialMyPage";
 	}
-
+	
+	//회원탈퇴 
+		@GetMapping("/delete")
+		public String delete(HttpSession session,Model model) {
+		MemberDto member = (MemberDto) session.getAttribute("userinfo"); // 로그인한 정보 userinfo를 MemberDto에  담는다. 
+		model.addAttribute("member",member);
+		return "member/delete";
+		}
+	
+	
 	@RequestMapping("/main")
 	public String mainPage() {
 		return "member/main_member";
 
 	}
 
+
 	// 소셜 + 아로리) 목록조회
 	@GetMapping("/resultMap")
 	public String resultMap(Model model, Model model2) {
+		
 		List<MemberDto> result = memberDao.resultMap();
 		model.addAttribute("result", result);
 
+
 		List<MemberDto> result2 = memberDao.resultMap2();
 		model.addAttribute("result2", result2);
-
+		
 		return "member/resultMap";
 
 	}
 
+	//회원탈퇴 하기 
+		@PostMapping("/delete")
+		public String delete(HttpSession session,@ModelAttribute MemberDto memberDto) {
+		memberService.deleteMember(memberDto);
+		session.removeAttribute("userinfo");
+		return "redirect:/";
+	}
+	
 }
+

@@ -13,32 +13,23 @@
 	<td>닉네임</td>
 	<td>회원종류</td>
 </tr>
-<c:forEach var="memberDto" items="${list}" varStatus="status">
-	<div>
-		<div>
+<c:forEach var="memberDto" items="${result}" varStatus="status">
+
 			<c:out value="${memberDto.member_no}" />
 			<c:out value="${memberDto.member_id}" />
 			<c:out value="${memberDto.member_nick}" />
-			<c:out value="${aroriList[status.index].member_email}"/>
+			<c:out value="${result2[status.index].member_email}"/>
 			<c:out value="${memberDto.member_state}" />
 			<c:out value="${memberDto.member_join}" />
 			<c:out value="${memberDto.member_login}" />
 			<c:out value="${memberDto.report_state}" />
 			<c:out value="${memberDto.suspension}" />
-		</div>
-	</div>
+	
 
-</c:forEach>
-<br>
-<c:forEach var="aroriMemberDto" items="${aroriList}">
-	<div>
-		<c:out value="${aroriMemberDto.member_no}" />
-		<c:out value="${aroriMemberDto.member_email}" />
-		<c:out value="${aroriMemberDto.member_phone}" />
-	</div>
 </c:forEach>
 
 <!-- 전체 리스트 불러오기 아직 구현중 -->
 
-<jsp:include
-	page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+

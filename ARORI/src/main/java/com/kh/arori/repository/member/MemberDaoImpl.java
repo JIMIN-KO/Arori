@@ -154,5 +154,47 @@ public class MemberDaoImpl implements MemberDao {
 		return result2;
 	}
 
+	   // 회원 가입시 중복닉네임을 검사
+	   //재정의하셨는데 모양이 다르네요
+	   @Override
+	   public MemberDto checkOverlap(String member_id) {
+	      return sqlSession.selectOne("member.getCheck", member_id);
 
+	   }
+
+
+	   // 회원 가입시 중복이메일을 검사
+	   @Override
+	   public MemberDto checkOverlapMail(String member_email) {
+
+	      return sqlSession.selectOne("member.getCheckEmail", member_email);
+	   }
+
+	 // 회원 가입시 중복닉네임을 검사
+	   @Override
+	   public MemberDto checkOverlapNick(String member_nick) {
+
+	      return sqlSession.selectOne("member.getCheckNick", member_nick);
+	   }
+
+
+	   // 회원 가입시 중복핸드폰을 검사
+	   @Override
+	   public MemberDto checkOverlapPhone(String member_Phone) {
+
+	      return sqlSession.selectOne("member.getCheckPhone", member_Phone);
+	   }
+
+	   // 회원 탈퇴 아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제
+	   //재정의하셨는데 모양이 다르네요
+	//   @Override
+	   public void deleteMember(MemberDto memberDto) {
+	      if (memberDto.getMember_state() == "arori") {
+	         sqlSession.delete("deleteMember", memberDto);
+	         sqlSession.update("deleteAroriMember", memberDto);
+	      } else {
+	         sqlSession.update("deleteMember", memberDto);
+
+	      }
+	   }
 }

@@ -163,6 +163,7 @@ public class MemberServiceImple implements MemberService {
 		return temporaryPw;
 	}
 
+
 	//소셜회원) 소셜회원 수정
 	@Override
 	public void updateSocial(MemberDto memberDto) {
@@ -181,5 +182,10 @@ public class MemberServiceImple implements MemberService {
 	public boolean checkPw(String member_pw) {
 	return memberDao.checkPw(member_pw);
 }
-
+	//회원탈퇴 
+	@Override
+	public void deleteMember(MemberDto memberDto) {
+		 memberDao.deleteMember(memberDto);
+	}
 }
+	
