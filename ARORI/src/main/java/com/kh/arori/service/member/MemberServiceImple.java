@@ -22,7 +22,7 @@ public class MemberServiceImple implements MemberService {
 
 	@Autowired
 	private PasswordEncoder encoder;
-	
+
 	@Autowired
 	private EmailService emailService;
 
@@ -54,7 +54,7 @@ public class MemberServiceImple implements MemberService {
 
 		// 3. 회원 가입
 		memberDao.join(memberDto);
-		
+
 		System.out.println("Service");
 
 	}
@@ -85,7 +85,7 @@ public class MemberServiceImple implements MemberService {
 	// 아로리 회원 로그인
 	@Override
 	public MemberDto aroriLogin(String member_id, String member_pw) {
-		
+
 		AroriMemberDto aroriMember = memberDao.getArori(member_id);
 		
 		boolean pass = false;
@@ -95,13 +95,12 @@ public class MemberServiceImple implements MemberService {
 		}
 		
 		MemberDto member;
-		
-		if(pass) {
+
+		if (pass) {
 			member = this.loginSuccess(member_id);
 			return member;
 		}
-		
-		
+
 		return member = null;
 	}
 
@@ -121,46 +120,72 @@ public class MemberServiceImple implements MemberService {
 		return member = null;
 	}
 
-	// 아로리) 비밀번호 찾기 > 이메일 보내기 
+	// 아로리) 비밀번호 찾기 > 이메일 보내기
 	@Override
 	@Transactional
 	public String findPw(String member_id, String member_q, String member_a) throws Exception {
-		// 1. 파라미터 값 > Map 으로 객체 통합 
+		// 1. 파라미터 값 > Map 으로 객체 통합
 		Map<String, String> findPw = new HashMap<String, String>();
 		findPw.put("member_id", member_id);
 		findPw.put("member_q", member_q);
 		findPw.put("member_a", member_a);
-		
-		// 2. 회원 존재 여부 확인 
+
+		// 2. 회원 존재 여부 확인
 		String email = memberDao.findPw(findPw);
 		
 		// 3. 찾을 수 없는 회원이면 null 반환 
 		if(email == null) {
 			return null;
 		}
-		
-		// 4. 임시 비밀번호 발급 
-		String temporaryPw= this.temporaryPw();
-		AroriMemberDto member = AroriMemberDto.builder().member_email(email).member_pw(encoder.encode(temporaryPw)).build();
-		
-		// 5. 임시 비밀번호로 회원 비밀번호 변경 
+
+		// 4. 임시 비밀번호 발급
+		String temporaryPw = this.temporaryPw();
+		AroriMemberDto member = AroriMemberDto.builder().member_email(email).member_pw(encoder.encode(temporaryPw))
+				.build();
+
+		// 5. 임시 비밀번호로 회원 비밀번호 변경
 		memberDao.changeTempPw(member);
-		
-		// 6. 해당 회원의 이메일로 임시 비밀번호 전송 
+
+		// 6. 해당 회원의 이메일로 임시 비밀번호 전송
 		Map<String, String> emailAndTempPw = new HashMap<String, String>();
 		emailAndTempPw.put("email", email);
 		emailAndTempPw.put("tempPw", temporaryPw);
-		
+
 		emailService.sendPassword(emailAndTempPw);
-		
+
 		return email;
 	}
 
-	// 아로리) 임시 비밀번호 발급 
+	// 아로리) 임시 비밀번호 발급
 	@Override
 	public String temporaryPw() {
 		String temporaryPw = UUID.randomUUID().toString().substring(0, 8);
 		return temporaryPw;
+	}
+
+
+	//소셜회원) 소셜회원 수정
+	@Override
+	public void updateSocial(MemberDto memberDto) {
+		memberDao.updateSocial(memberDto);
+		
+	}
+	//아로리) 아로리회원 수정
+	@Override
+	public void updateArori(AroriMemberDto aroriMemberDto) {
+		memberDao.updateArori(aroriMemberDto);
+		
+	}
+
+	//아로리) 회원정보수정위한 패스워드 존재여부
+	@Override
+	public boolean checkPw(String member_pw) {
+	return memberDao.checkPw(member_pw);
+}
+	//회원탈퇴 
+	@Override
+	public void deleteMember(MemberDto memberDto) {
+		 memberDao.deleteMember(memberDto);
 	}
 
 }

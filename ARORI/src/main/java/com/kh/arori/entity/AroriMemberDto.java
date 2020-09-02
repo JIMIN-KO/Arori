@@ -17,4 +17,6 @@ public class AroriMemberDto {
 	private String member_phone;
 	private int member_q;
 	private String member_a;
+	
+	
 }
