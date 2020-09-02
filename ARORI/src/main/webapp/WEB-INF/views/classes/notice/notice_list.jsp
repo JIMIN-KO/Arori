@@ -221,7 +221,7 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
-	const content = ['# Readme 두번째 테스트','### 얼마나 잘될까요?!','> 이렇게 사용할 수 있다면 정말 좋을 것 같은데! 당신도 마찬가지인가요?!','> 아니 어떻게 그럴 수 있는거죠?','','* [ ] 오늘 할일','* [ ] 내일 할일','* [ ] 어제 할일','* [ ] 엊그제 할일'].join('\n')
+	const content = ['# 첫 번째 공지사항','## 중요사항이니 모두들 읽어주세요!','### 안읽는 당신! 뭐하는건가!','#### 웃기는 짬뽕 아가씨~','','![image](https://pbs.twimg.com/profile_images/1147451112082907136/vFrE8I5p.png)','','## 오늘의 해야할 일!','* [ ] 공지 게시글 작성 기능','* [ ] 공지 게시판 리스트 긁어오기','* [ ] 페이지 네이션','* [ ] 공지 게시글 수정'].join('\n')
 	var viewers = document.querySelectorAll(".viewer")
 	for(var i = 0; i < viewers.length; i++) {
 	    console.log(viewers[i])

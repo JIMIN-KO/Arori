@@ -11,7 +11,7 @@
 	
 	<!-- 공지 게시글 작성 -->
 	<insert id="create" parameterType="noticeDto">
-		INSERT INTO NOTICE VALUE(#{n_no}, #{c_no}, #{n_title}, #{n_content}, SYSDATE)
+		INSERT INTO NOTICE VALUES(#{n_no}, #{c_no}, #{n_title}, #{n_content}, SYSDATE)
 	</insert>
 	
 	<!-- 공지 게시글 단일 조회 (n_no) -->

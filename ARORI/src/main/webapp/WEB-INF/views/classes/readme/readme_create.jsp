@@ -19,5 +19,13 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>
 <!-- Toast Editor 비동기 Javascript 영역 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/toast_ui_editor_readme.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/toast_ui_editor.js"></script>
+<script>
+$(function(){
+	// 리드미 작성하기
+	$("#createReadme").click(function(){
+		$("#r_content").val(editor.getTextObject()._mde.toastMark.lineTexts)
+	})
+})
+</script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

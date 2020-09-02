@@ -36,12 +36,3 @@
 				}
 			}
 		});
-		
-		$(function(){
-			// 리드미 작성하기
-			$("#createReadme").click(function(){
-				console.log(editor.getMarkdown())
-				console.log(editor.getHtml())
-				$("#r_content").val(editor.getTextObject()._mde.toastMark.lineTexts)
-			})
-		})
