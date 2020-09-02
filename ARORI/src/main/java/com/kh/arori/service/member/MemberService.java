@@ -34,6 +34,7 @@ public interface MemberService {
 	
 	//아로리)비밀번호조회
 	public boolean checkPw(String member_pw);
+
 	
 
 

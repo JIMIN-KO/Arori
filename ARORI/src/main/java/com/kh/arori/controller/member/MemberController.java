@@ -64,7 +64,7 @@ public class MemberController {
 
 		if (result) {
 			memberService.updateArori(aroriMemberDto);
-			return "redirect:/";
+			return "member/myPage";
 
 		} else {
 			return "member/updateArori";
@@ -87,12 +87,12 @@ public class MemberController {
 
 	// 회원 목록 리스트 (윤아)
 	@GetMapping("/memberList")
-	public String memberList(Model model) {
+	public String memberList(Model model, Model model2) {
 		List<MemberDto> list = memberDao.getList();
 		model.addAttribute("list", list);
 
 		List<AroriMemberDto> aroriList = memberDao.getAroriList();
-		model.addAttribute("arorList", aroriList);
+		model2.addAttribute("aroriList", aroriList);
 
 		return "member/memberList";
 
@@ -101,15 +101,15 @@ public class MemberController {
 	// 소셜 마이페이지
 	@GetMapping("/socialMyPage")
 	public String socialMyPage() {
-		
+
 		return "member/socialMyPage";
 	}
-	
+
 	@PostMapping("/socialMyPage")
 	public String socialMyPage(@ModelAttribute MemberDto memberDto, @RequestParam int member_no) {
-		
+
 		MemberDto socialMyPage = memberDao.SocialInfo(member_no);
-		
+
 		return "member/socialMyPage";
 	}
 
@@ -125,9 +125,24 @@ public class MemberController {
 		memberService.updateSocial(memberDto);
 		return "member/socialMyPage";
 	}
-	
+
 	@RequestMapping("/main")
 	public String mainPage() {
 		return "member/main_member";
+
 	}
+
+	// 소셜 + 아로리) 목록조회
+	@GetMapping("/resultMap")
+	public String resultMap(Model model, Model model2) {
+		List<MemberDto> result = memberDao.resultMap();
+		model.addAttribute("result", result);
+
+		List<MemberDto> result2 = memberDao.resultMap2();
+		model.addAttribute("result2", result2);
+
+		return "member/resultMap";
+
+	}
+
 }

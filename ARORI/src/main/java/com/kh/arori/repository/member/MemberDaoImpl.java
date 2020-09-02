@@ -136,11 +136,22 @@ public class MemberDaoImpl implements MemberDao {
 		boolean result = false;
 		Map<String,String>map = new HashMap<String, String>();
 		map.put("member_pw", member_pw);
-		map.put("member_pw", member_pw);
-		
+
 		int count = sqlSession.selectOne("member.checkPw",map);
 		if(count ==1) result = true;
 		return result;
+	}
+
+	@Override
+	public List<MemberDto> resultMap() {
+		List<MemberDto>result = sqlSession.selectList("member.resultMap");
+		return result;
+	}
+
+	@Override
+	public List<MemberDto> resultMap2() {
+		List<MemberDto>result2 = sqlSession.selectList("member.resultMap2");
+		return result2;
 	}
 
 

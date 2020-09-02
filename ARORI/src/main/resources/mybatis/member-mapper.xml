@@ -29,7 +29,7 @@
 
    <!-- 전체 회원 조회 -->
    <select id="getList" resultType="memberDto">
-      SELECT * FROM MEMBER ORDER BY MEMBER_NO DESC
+      SELECT * FROM MEMBER ORDER BY MEMBER_NO ASC
    </select>
 
    <!-- 로그인 성공 시 로그인 시간 갱신 -->
@@ -82,8 +82,8 @@
    <!-- 아로리 회원 정보 수정 (윤아) -->
    <update id="updateArori" parameterType="aroriMemberDto">
       UPDATE ARORI_MEMBER SET
-      MEMBER_EMAIL=#{member_email}, MEMBER_PHONE=#{member_phone},
-      MEMBER_Q=#{member_q}, MEMBER_A=#{member_a}
+      MEMBER_PW=#{member_pw},
+      MEMBER_EMAIL=#{member_email}, MEMBER_PHONE=#{member_phone}
       WHERE MEMBER_NO=#{member_no}
    </update>
    
@@ -103,15 +103,48 @@
    <!-- 정보수정을 위한 비밀번호 존재여부 (윤아) -->
    <select id="getPw" resultType="int">
       SELECT count (*) FROM arori_member
-       WHERE member_pw=#{member_pw} AND member_pw=#{member_pw}
+       WHERE member_pw=#{member_pw}
    </select>
  
    
  <!-- 아로리 회원 전체 조회 -->
    <select id="getAroriList" resultType="aroriMemberDto">
-   SELECT * FROM arori_member ORDER BY member_no DESC
+   SELECT * FROM arori_member ORDER BY member_no ASC
    </select>
-   
-  
+
+<!-- resultMap연습 -->
+
+<resultMap type="aroriMemberDto" id="aroriMemberDto">
+<result column="member_no" property="member_no"/>
+<result column="member_pw" property="member_pw"/>
+<result column="member_email" property="member_email"/>
+<result column="member_phone" property="member_phone"/>
+<result column="member_q" property="member_q"/>
+<result column="member_a" property="member_a"/>
+
+</resultMap>
+<resultMap type="memberDto" id="memberDto">
+<result column="member_no" property="member_no"/>
+<result column="member_id" property="member_id"/>
+<result column="member_nick" property="member_nick"/>
+<result column="member_state" property="member_state"/>
+<result column="member_join" property="member_join"/>
+<result column="member_login" property="member_login"/>
+<result column="report_state" property="member_state"/>
+<result column="suspension" property="member_suspension"/>
+</resultMap>
+
+<select id = "resultMap"  resultType="memberDto" >
+SELECT *FROM MEMBER m left OUTER JOIN arori_member a on m.member_no=a.member_no ORDER BY m.member_no ASC
+</select>
  
+ <select id = "resultMap2" resultType="aroriMemberDto" >
+SELECT *FROM MEMBER m left OUTER JOIN arori_member a on m.member_no=a.member_no ORDER BY m.member_no ASC
+</select>
+
+<update id ="updateMember">
+UPDATE MEMBER SET MEMBER_state=#{member_state}, member_nick=#{member_nick},
+report_state=#{report_state}, suspension=#{suspension}
+ WHERE member_id=#{member_id}
+ </update>
 </mapper>

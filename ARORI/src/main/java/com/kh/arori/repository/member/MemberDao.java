@@ -60,4 +60,14 @@ public interface MemberDao {
 	//소셜회원)마이페이지
 	public MemberDto SocialInfo(int member_no);
 
+	//resultMap 연습
+	public List<MemberDto> resultMap();
+	
+	//resultMap2 연습
+	public List<MemberDto> resultMap2();
+
+	//관리자가 회원정보 수정
+	
+	
+
 }
