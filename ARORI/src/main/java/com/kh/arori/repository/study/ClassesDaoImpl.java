@@ -14,6 +14,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+
 	// 시퀀스 생성
 	@Override
 	public int getSeq() {
@@ -35,8 +36,13 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	@Override
 	public List<ClassesDto> getList() {
-		List<ClassesDto> list = sqlSession.selectList("classes, getList");
+		List<ClassesDto> list = sqlSession.selectList("classes.getList");
 		return list;
+	}
+
+	@Override
+	public void edit(ClassesDto classesDto) {
+		sqlSession.update("classes.edit", classesDto);		
 	}
 
 }

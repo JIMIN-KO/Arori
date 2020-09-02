@@ -13,5 +13,7 @@ public interface ClassesDao {
 	ClassesDto get(int c_no);
 	// 클래스 목록 조회
 	List<ClassesDto> getList();
+	// 클래스 정보 수정
+	public void edit(ClassesDto classesDto);
 	
 }

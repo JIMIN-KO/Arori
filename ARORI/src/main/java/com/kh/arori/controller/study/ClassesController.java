@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.arori.entity.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
@@ -57,5 +59,42 @@ public class ClassesController {
 		
 		return "classes/detail";
 	}
+	
+//	// 클래스 수정
+//	@GetMapping("/classes/edit/{c_no}")
+//	public String edit(@PathVariable int c_no, RedirectAttributes attr, Model model, ModelAttribute classesDto) {
+//		// 정보수정
+//		classesDao.edit(classesDto);
+//
+//		// 수정한 정보 단일 조회
+//		ClassesDto classesDto = classesDao.get(c_no);
+//		model.addAttribute("classesDto", classesDto);
+//		attr.addAttribute("c_no",c_no);
+//
+//		return "classes/detail";
+//	}
+//				
+	@GetMapping("/classes/edit/{c_no}")//get매핑일때는 정보 필요없엉
+	   public String edit(@PathVariable int c_no, RedirectAttributes attr, Model model) {
+		
+	   //받아온 c_no로 정보를 조회후 classesDto에 저장
+	      ClassesDto classesDto = classesDao.get(c_no);
+	      model.addAttribute("classesDto", classesDto);
+	      attr.addAttribute("c_no",c_no);
+
+	      return "classes/edit";
+	   }
+
+	@PostMapping("/classes/edit")//post매핑일때 정보수정
+	   public String edit(@PathVariable int c_no, RedirectAttributes attr,@ModelAttribute ClassesDto classesDto) {
+
+	      // 정보수정
+	      classesDao.edit(classesDto);
+	      attr.addAttribute("c_no",c_no);
+
+	      return "classes/detail"+ c_no;
+	   }
+
+
 
 } 
