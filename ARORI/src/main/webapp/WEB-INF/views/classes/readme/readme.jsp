@@ -44,13 +44,17 @@
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
 	var r_content = document.querySelector("#r_content").value
-	console.log(r_content)
+	// Toast Plugin 불러오기 
+	const Viewer = toastui.Editor;
+    const { chart, codeSyntaxHighlight, colorSyntax, tableMergedCell, uml } = Viewer.plugin;
+    
 	const viewer = toastui.Editor.factory({
 		el: document.querySelector('#viewer'),
 		viewer: true,
 		height: '1000px',
 		initialValue: r_content,
-		initialEditType: 'markdown'
+		initialEditType: 'markdown',
+		plugins: [chart, codeSyntaxHighlight, tableMergedCell, uml]
 	}); 
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
