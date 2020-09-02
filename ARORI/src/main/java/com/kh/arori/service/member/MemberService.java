@@ -26,4 +26,16 @@ public interface MemberService {
 	// 아로리) 임시 비밀번호 발급
 	public String temporaryPw();
 
+	// 아로리) 정보수정
+	public void updateArori(AroriMemberDto aroriMemberDto);
+
+	// 소셜회원) 정보수정
+	public void updateSocial(MemberDto memberDto);
+
+	// 아로리)비밀번호조회
+	public boolean checkPw(String member_pw);
+
+	// 회원탈퇴
+	public void deleteMember(MemberDto memberDto);
+
 }
