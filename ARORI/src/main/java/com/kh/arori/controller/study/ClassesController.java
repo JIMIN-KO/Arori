@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
@@ -25,7 +26,7 @@ public class ClassesController {
 	private ClassesDao classesDao;
 
 	// 나의 클래스 
-	@GetMapping("/classes/myclass")
+	@RequestMapping("/classes/myclass")
 	public String myclass() {
 		return "classes/myclass";
 	}

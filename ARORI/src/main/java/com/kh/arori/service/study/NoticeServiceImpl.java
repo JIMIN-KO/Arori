@@ -1,6 +1,8 @@
 package com.kh.arori.service.study;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +36,20 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.create(noticeDto);
 		
 		return n_no;
+	}
+
+	
+	// 공지 게시글 페이지 네이션 기능
+	@Override
+	public List<NoticeDto> getP(String c_no, String start, String finish) {
+
+		Map<String, String> pagination = new HashMap<String, String>();
+		pagination.put("c_no", c_no);
+		pagination.put("start", start);
+		pagination.put("finish", finish);
+		
+		List<NoticeDto> list = noticeDao.getP(pagination);
+		
+		return list;
 	}
 }

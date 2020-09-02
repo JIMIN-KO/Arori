@@ -1,6 +1,7 @@
 package com.kh.arori.repository.study;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.study.NoticeDto;
 
@@ -17,4 +18,7 @@ public interface NoticeDao {
 	
 	// 클래스 별 공지 게시글 조회 (c_no)
 	public List<NoticeDto> getC(int c_no);
+	
+	// 공지 게시글 페이지 네이션 기능
+	public List<NoticeDto> getP(Map<String, String> page);
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_header.jsp"></jsp:include>
                     <div class="offset-1 null-side null-side2"></div>                        
@@ -24,159 +25,32 @@
                                         <th scope="col" class="font-weight-bold">No</th>
                                         <th scope="col" class="font-weight-bold">Title</th>
                                         <th scope="col" class="font-weight-bold">Date</th>
+                                        <th scope="col" class="font-weight-bold">Ctrl</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    	<c:forEach var="list" items="${list }">
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row">${list.n_no }</th>
                                         <td>
-                                            <label for="title1">
-                                                정보처리기사 필기 시험 족보 공지 안내
+                                            <label for="${list.n_no }">
+                                                ${list.n_title }
                                             </label>
-                                            <input type="radio" name="title" id="title1">
+                                            <input type="radio" name="title" id="${list.n_no }">
                                         </td>
-                                        <td>2020.09.01</td>
+                                        <td>${list.n_when }</td>
+                                        <td>
+                                        		<button class="">수정</button>
+                                        		<button>삭제</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td colspan="5">
+                                            <input type="hidden" class="n_content" data-content=${list.n_content } value="${list.n_content }">
                                             <div class="viewer"></div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>
-                                            <label for="title2">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title2">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>
-                                            <label for="title3">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title3">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>
-                                            <label for="title4">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title4">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td>
-                                            <label for="title5">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title5">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">6</th>
-                                        <td>
-                                            <label for="title6">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title6">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">7</th>
-                                        <td>
-                                            <label for="title7">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title7">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">8</th>
-                                        <td>
-                                            <label for="title8">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title8">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">9</th>
-                                        <td>
-                                            <label for="title9">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title9">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">10</th>
-                                        <td>
-                                            <label for="title10">
-                                                정보처리기사 필기 시험 족보 공지 안내
-                                            </label>
-                                            <input type="radio" name="title" id="title10">
-                                        </td>
-                                        <td>2020.09.01</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <div class="viewer"></div>
-                                        </td>
-                                    </tr>
+                                    </c:forEach>    
                                 </tbody>
                             </table>
                             <nav aria-label="Page navigation example">
@@ -200,10 +74,21 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
-	const content = ['# 첫 번째 공지사항','## 중요사항이니 모두들 읽어주세요!','### 안읽는 당신! 뭐하는건가!','#### 웃기는 짬뽕 아가씨~','','![image](https://pbs.twimg.com/profile_images/1147451112082907136/vFrE8I5p.png)','','## 오늘의 해야할 일!','* [ ] 공지 게시글 작성 기능','* [ ] 공지 게시판 리스트 긁어오기','* [ ] 페이지 네이션','* [ ] 공지 게시글 수정'].join('\n')
-	var viewers = document.querySelectorAll(".viewer")
+
+	var viewers = document.querySelectorAll(".viewer") /* viewer 클래스 생성 */
+	var n_content = document.querySelectorAll(".n_content") /* String 으로 뭉쳐진 마크다운 코드 받아오기 */
+
+	// viewer 갯수만큼 반복하기 (최대 10개)
 	for(var i = 0; i < viewers.length; i++) {
-	    console.log(viewers[i])
+
+		// Controller 에서 받아온 데이터 문자열로 변경됨.
+		// 정규표현식을 이용해서 작은따옴표(') 제거 후, 쉼표(,) 를 기준으로 배열
+		var plz = n_content[i].value.replace(/'/g, "").split(',')
+		
+		// 배열로 바뀐 마크다운 데이터를 인덱스를 기준으로 나눈 후 엔터처리 
+	    const content = plz.join('\n')
+	    
+	    // Toast Viewer .viewer 만큼 불러오기 
 	    const viewer = toastui.Editor.factory({
 	        el: viewers[i],
 	        viewer: true,
@@ -212,9 +97,9 @@
 	        initialEditType: 'markdown'
 	    });
 	}
-	
-	// 공지사항 내용 띄우기
+
 	$(function(){
+		
 	    // 라디오 숨김
 	    $("input[type=radio]").css("display","none")
 	    // 공지 제목 커서 변경
@@ -224,6 +109,7 @@
 	    // 공지 게시물 id 삭제
 	    $("input[type=radio]").parent().parent().next().children().children().removeAttr("class")
 	
+		// 공지사항 내용 띄우기
 	    $("input[type=radio]").change(function(){
 	        $("input[type=radio]").parent().parent().next().css("display","none")
 	        $("input[type=radio]").parent().parent().next().children().children().removeAttr("class")

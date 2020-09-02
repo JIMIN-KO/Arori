@@ -23,7 +23,11 @@ public class NoticeController {
 	// 공지 게시글 리스트 (공지 게시판)
 	@GetMapping("/classes/notice/{c_no}")
 	public String noticeList(@PathVariable String c_no, Model model) {
-		model.addAttribute("c_no", c_no);
+		List<NoticeDto> list = noticeService.getP(c_no, "1", "10");
+		for(NoticeDto a : list) {
+			System.out.println(a.getN_content());
+		}
+		model.addAttribute("list", list);
 		return "classes/notice/notice_list";
 	}
 	

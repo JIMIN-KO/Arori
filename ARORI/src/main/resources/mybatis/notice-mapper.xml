@@ -23,4 +23,9 @@
 	<select id="getC" resultType="noticeDto" parameterType="noticeDto">
 		SELECT * FROM NOTICE WHERE C_NO = #{c_no}
 	</select>
+	
+	<!-- 공지 게시글 페이지 네이션 -->
+	<select id="getP" resultType="noticeDto" parameterType="map">
+		SELECT col.n_no, col.c_no, col.n_title, col.n_content, col.n_when FROM (SELECT ROWNUM rn, notice.* FROM NOTICE notice WHERE notice.C_NO = ${c_no}) col WHERE rn BETWEEN ${start} AND ${finish}
+	</select>
 </mapper>

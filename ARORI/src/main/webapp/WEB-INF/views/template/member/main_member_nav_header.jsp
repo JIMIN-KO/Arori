@@ -82,7 +82,12 @@
                                     </svg>
                                 </a>
                                 <ul class="nav flex-column text-center sub-nav click2 animated off font-weight-bold">
-                                    <li class="nav-item"><a href="#" class="text-white">My Class</a></li>
+                                    <li class="nav-item">
+                                    	<form action="${pageContext.request.contextPath}/classes/myclass" method="post">
+                                    		<input type="hidden" value="${userinfo.member_no }">
+                                    		<input type="submit" value="My Class">
+                                    	</form>
+                                    </li>
                                     <li class="nav-item"><a href="#" class="text-white">Subscribes</a></li>
                                     <li class="nav-item"><a href="#" class="text-white">Bookmark</a></li>
                                 </ul>
