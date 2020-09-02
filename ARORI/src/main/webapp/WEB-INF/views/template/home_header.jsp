@@ -67,6 +67,7 @@
     </style>
 </head>
 <body>
+   <!--로그인실패시  나오는 모달  -->
 	<div class="modal" tabindex="-1" id="loginFail">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
@@ -86,6 +87,7 @@
 	    </div>
 	  </div>
 	</div>
+	  <!-- 아이디 찾기모달  -->
 	<div class="modal" tabindex="-1" id="findIdModal">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
@@ -104,6 +106,7 @@
 	    </div>
 	  </div>
 	</div>
+	<!-- 비번 찾기모달  -->
 	<div class="modal" tabindex="-1" id="findPwModal">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
@@ -122,6 +125,27 @@
 	    </div>
 	  </div>
 	</div>
+	<!-- 회원가입 실패 모달  -->
+	<div class="modal" tabindex="-1" id="JoinFail">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">회원가입실패</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>회원가입 조건이 맞는지 다시한번 확인해주새요 </p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
     <div class="container-fluid">
         <div class="row login-header mt-5">
             <div class="col-sm-12 offset-md-2 col-md-8">
