@@ -15,5 +15,9 @@ public interface ClassesDao {
 	List<ClassesDto> getList();
 	// 클래스 정보 수정
 	public void edit(ClassesDto classesDto);
+	// 나의 클래스 조회
+	List<ClassesDto> myList(int member_no);
+	// 클래스 삭제
+	public void delete(int c_no);
 	
 }

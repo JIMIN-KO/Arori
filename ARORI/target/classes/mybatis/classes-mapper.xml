@@ -16,6 +16,10 @@
 	<select id="get" parameterType="int" resultType="classesDto">
 		SELECT * FROM classes WHERE c_no=#{c_no}
 	</select>
+	<!-- 내 클래스 조회 -->
+	<select id="myList" parameterType="int" resultType="classesDto">
+		SELECT * FROM Classes WHERE member_no=#{member_no}
+	</select>	
 	<!-- 목록 조회 -->
 	<select id="getList" resultType="classesDto">
 		SELECT * FROM classes ORDER BY c_no DESC
@@ -24,6 +28,10 @@
 	<update id="edit" parameterType="classesDto">
 		UPDATE classes SET c_title=#{c_title}, c_info=#{c_info}, c_public=#{c_public} WHERE c_no=#{c_no}
 	</update>
+	<!-- 클래스 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE classes WHERE c_no=#{c_no}
+	</delete>
 
 </mapper>
 
