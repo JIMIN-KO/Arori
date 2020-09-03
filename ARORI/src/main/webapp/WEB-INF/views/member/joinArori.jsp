@@ -52,7 +52,7 @@
 			  });
 		  }  
 	      else{//정규표현식 안맞으면
-	    	  span.textContent="4~12글자의 영어(대,소문자) 숫자만으로 구성가능합니다";
+	    	  span.textContent="4~12글자의 영어(대,소문자) 숫자만 으로 구성가능합니다";
 		  		return false;
 
 	      }

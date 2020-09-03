@@ -49,39 +49,55 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// 회원정보수정(윤아)
+	// 회원정보수정(윤아)-김은성 고침
 	@GetMapping("/updateArori")
-	public String updatearori() {
-
+	public String updatearori(Model model,HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo"); //로그인한 정보를 세션 userinfo에 담는다. 
+		MemberDto member = memberDao.get(userinfo.getMember_id());
+		model.addAttribute("memberDto", member);
+		AroriMemberDto aroriMemberDto = memberDao.getArori(userinfo.getMember_id());
+		model.addAttribute("aroriMemberDto", aroriMemberDto);
+		List<PasswordQDto> passwordQ = memberDao.getPasswordQ();
+		model.addAttribute("passwordQ", passwordQ);
 		return "member/updateArori";
 	}
 
-	// 아로리) 회원정보수정(윤아)
+	// 아로리) 회원정보수정(윤아)  
 	@PostMapping("/updateArori")
-	public String updatearori(Model model, @ModelAttribute AroriMemberDto aroriMemberDto, HttpSession session) {
+	public String updatearori(@ModelAttribute MemberDto memberDto, @ModelAttribute AroriMemberDto aroriMemberDto, HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		memberDto.setMember_no(userinfo.getMember_no());
+		aroriMemberDto.setMember_no(userinfo.getMember_no());
+		memberService.updateinfo(memberDto, aroriMemberDto);
+		
+		return "redirect:myPage";
 
-		List<PasswordQDto> memberQ = memberDao.getPasswordQ();
-		model.addAttribute("memberQ", memberQ);
+		}
+	
 
-		boolean result = memberService.checkPw(aroriMemberDto.getMember_pw());
-
-		if (result) {
-			memberService.updateArori(aroriMemberDto);
-
-			return "member/myPage";
-
+	// 마이페이지 이동(윤아)   
+	@GetMapping("/myPage")
+	public String mypage(HttpSession session,Model model) {
+		// 세션에서 userinfo 정보를 받아온다
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo"); //로그인한 정보를 세션 userinfo에 담는다. 
+		
+		// 정보 갱신을 위한 단일 조회 > 마이 페이지에서 세션으로 정보 띄워주면 갱신 불편, 속도 느려짐 + 보안 문제
+		MemberDto member = memberDao.get(userinfo.getMember_id());
+		model.addAttribute("memberDto", member);
+		
+		// 만약에 userinfo 의 member_state 가 ARORI 일 경우 myPage_arori.jsp 띄우기
+		if(userinfo.getMember_state().equals("ARORI")) {
+			// 아로리 회원 정보 단일 조회 후 모델로 jsp 로 보내기
+			AroriMemberDto aroriMemberDto = memberDao.getArori(userinfo.getMember_id());
+			model.addAttribute("aroriMemberDto", aroriMemberDto);
+			return "member/myPage_arori";
 		} else {
-			return "member/updateArori";
+		// 아닐 경우 myPage_social.jsp 띄우기	
+			return "member/myPage_social";
 		}
 	}
 
-	// 마이페이지(윤아)
-	@GetMapping("/myPage")
-	public String mypage() {
-
-		return "member/myPage";
-	}
-
+	
 	@PostMapping("/myPage")
 	public String mypage(@ModelAttribute AroriMemberDto aroriMemberDto, @RequestParam int member_no) {
 		AroriMemberDto myPage = memberDao.myInfo(member_no);
@@ -117,7 +133,7 @@ public class MemberController {
 		return "member/socialMyPage";
 	}
 
-	// 소셜회원 정보 수정(윤아)
+	// 소셜회원 정보 수정-이동 (윤아)
 	@GetMapping("/updateSocial")
 	public String updateSocial() {
 

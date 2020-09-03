@@ -136,10 +136,18 @@ public class MemberDaoImpl implements MemberDao {
 	// 아로리 ) 회원정보 수정 (윤아)
 	@Override
 	public void updateArori(AroriMemberDto aroriMemberDto) {
-		// db에서 email을 통해서 회원을 불러온다.
+		// 아로리테이블 업데이트 
 		sqlSession.update("member.updateArori", aroriMemberDto);
 
 	}
+	
+	// 소셜 )회원정보 수정  
+		@Override
+		public void updateSocial(MemberDto memberDto) {
+			//소셜 테이블 업데이트 
+			sqlSession.update("member.updateSocial", memberDto);
+
+		}
 
 	// 아로리) 마이페이지
 	@Override
@@ -165,13 +173,7 @@ public class MemberDaoImpl implements MemberDao {
 		return aroriList;
 	}
 
-	// 소셜 멤버조회
-	@Override
-	public void updateSocial(MemberDto memberDto) {
-
-		sqlSession.update("member.updateSocial", memberDto);
-
-	}
+	
 
 	// 비밀번호 체크 여부
 	@Override

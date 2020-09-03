@@ -33,7 +33,7 @@ public class NonMemberController {
 	public String loginSuccess(@ModelAttribute MemberDto memberDto, HttpSession session) {
 		
 		MemberDto member = memberService.loginSuccess(memberDto.getMember_id());
-
+		
 		if (member != null) {
 			session.setAttribute("userinfo", member);
 			return "redirect:member/main";

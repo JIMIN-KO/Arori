@@ -187,5 +187,16 @@ public class MemberServiceImple implements MemberService {
 	public void deleteMember(MemberDto memberDto) {
 		 memberDao.deleteMember(memberDto);
 	}
+	
+	//아로리 회원정보 수정 
+	@Override
+	public void updateinfo(MemberDto memberDto, AroriMemberDto aroriMemberDto) {
+		// MEMBER 테이블 수정
+		memberDao.updateSocial(memberDto);
+		// arori 테이블 수정
+		memberDao.updateArori(aroriMemberDto);
+
+		
+	}
 }
 	

@@ -79,11 +79,10 @@
       member_no=#{member_no}
       </select>
 
-   <!-- 아로리 회원 정보 수정 (윤아) -->
+   <!-- 아로리 회원 정보 수정  -->
    <update id="updateArori" parameterType="aroriMemberDto">
       UPDATE ARORI_MEMBER SET
-      MEMBER_PW=#{member_pw},
-      MEMBER_EMAIL=#{member_email}, MEMBER_PHONE=#{member_phone}
+       MEMBER_EMAIL=#{member_email}, MEMBER_PHONE=#{member_phone},MEMBER_Q =#{member_q},MEMBER_A=#{member_a}
       WHERE MEMBER_NO=#{member_no}
    </update>
    
@@ -97,7 +96,7 @@
    <!-- 소셜 회원 정보 수정 (윤아) -->
    <update id ="updateSocial" parameterType="memberDto">
    UPDATE MEMBER SET MEMBER_NICK= #{member_nick}
-   WHERE member_nick=#{member_nick}
+   WHERE member_no=#{member_no}
    </update>
    
    <!-- 정보수정을 위한 비밀번호 존재여부 (윤아) -->
