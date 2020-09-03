@@ -71,4 +71,11 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.update("notice.edit", noticeDto);
 	}
 
+	// 공지 게시글 삭제 
+	@Override
+	public int delete(NoticeDto noticeDto) {
+
+		return sqlSession.delete("notice.delete", noticeDto);
+	}
+
 }

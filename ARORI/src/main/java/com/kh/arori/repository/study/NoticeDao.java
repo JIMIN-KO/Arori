@@ -30,4 +30,7 @@ public interface NoticeDao {
 	
 	// 공지 게시글 수정 
 	public int edit(NoticeDto noticeDto);
+	
+	// 공지 게시글 삭제 
+	public int delete(NoticeDto noticeDto);
 }

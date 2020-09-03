@@ -9,13 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.NoticeDto;
+import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.NoticeDao;
 import com.kh.arori.service.toast.ToastService;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
+	@Autowired
+	private ClassesDao classesDao;
+	
 	@Autowired
 	private NoticeDao noticeDao;
 
@@ -101,5 +106,19 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		// 실패 
 		return "redirect:" + noticeDto.getC_no() + "/1?fail";
+	}
+
+	@Override
+	// 공지 게시글 삭제 기능 
+	public String delete(NoticeDto noticeDto, int member_no) {
+		// 클래스 주인 검사 
+		ClassesDto classesDto = ClassesDto.builder().member_no(member_no).c_no(noticeDto.getC_no()).build();
+		ClassesDto checkM = classesDao.checkM(classesDto);
+		
+		if(checkM != null) {
+			noticeDao.delete(noticeDto);
+			return "redirect:/classes/notice/" + noticeDto.getC_no() + "/1";
+		}
+		return "redirect:/classes/notice/" + noticeDto.getC_no() + "/1?fail";
 	}
 }

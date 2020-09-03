@@ -17,4 +17,7 @@ public interface NoticeService {
 	
 	// 공지 게시글 수정 기능 
 	public String edit(List<String> n_content, NoticeDto noticeDto);
+	
+	//  공지 게시글 삭제 기능 
+	public String delete(NoticeDto noticeDto, int member_no);
 }

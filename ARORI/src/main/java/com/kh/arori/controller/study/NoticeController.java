@@ -2,6 +2,8 @@ package com.kh.arori.controller.study;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.repository.study.ClassesDao;
@@ -89,6 +92,21 @@ public class NoticeController {
 		
 		// 객체 > Service 에서 수정 후 URL 받아오기 
 		String result = noticeService.edit(n_content, noticeDto);
+		
+		return result;
+	}
+	
+	// 공지 게시글 삭제 기능 
+	@GetMapping("/classes/notice/delete/{c_no}/{n_no}")
+	public String noticeDelete(@PathVariable int c_no, @PathVariable int n_no, HttpSession session) {
+		// 현재 로그인 된 회원 정보 받아오기 
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		
+		// PathVariable 객체화
+		NoticeDto noticeDto = NoticeDto.builder().c_no(c_no).n_no(n_no).build();
+		
+		// 삭제 기능 시작 
+		String result = noticeService.delete(noticeDto, userinfo.getMember_no());
 		
 		return result;
 	}
