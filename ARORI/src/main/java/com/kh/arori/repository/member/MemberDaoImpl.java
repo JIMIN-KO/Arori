@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
-import com.kh.arori.entity.PasswordQDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.PasswordQDto;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -94,7 +94,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	// 회원 탈퇴 아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제
-	//재정의하셨는데 모양이 다르네요
+	// 재정의하셨는데 모양이 다르네요
 //	@Override
 	public void deleteMember(MemberDto memberDto) {
 		if (memberDto.getMember_state() == "arori") {
@@ -107,7 +107,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	// 회원 가입시 중복닉네임을 검사
-	//재정의하셨는데 모양이 다르네요
+	// 재정의하셨는데 모양이 다르네요
 //	@Override
 	public MemberDto checkOverlap(String member_id) {
 		return sqlSession.selectOne("member.getCheck", member_id);
@@ -116,7 +116,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	// 회원 가입시 중복이메일을 검사
 //	@Override
-	//재정의하셨는데 모양이 다르네요
+	// 재정의하셨는데 모양이 다르네요
 	public MemberDto checkOverlapMail(String member_email) {
 
 		return sqlSession.selectOne("member.getCheckEmail", member_email);
