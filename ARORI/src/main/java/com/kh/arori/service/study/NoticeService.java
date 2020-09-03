@@ -14,4 +14,7 @@ public interface NoticeService {
 
 	// 페이지네이션 계산 코드
 	public List<Integer> pagination(int c_no, int pageNo);
+	
+	// 공지 게시글 수정 기능 
+	public String edit(List<String> n_content, NoticeDto noticeDto);
 }

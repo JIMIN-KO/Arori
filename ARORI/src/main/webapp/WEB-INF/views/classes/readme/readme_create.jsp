@@ -9,11 +9,11 @@
                         <hr><br>
                         <div id="editor"></div>
                         <div class="float-right mt-5">
-                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소하기</a>
+                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         	<form action="${pageContext.request.contextPath }/classes/readme/create" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="r_content" id="r_content">
-	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createReadme" value="작성하기">
+	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createReadme" value="작성">
                         	</form>
                         </div>
                     </div>

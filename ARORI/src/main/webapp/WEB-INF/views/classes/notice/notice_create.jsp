@@ -17,13 +17,13 @@
 						<!-- 게시글 작성 영역 -->
                         <div id="editor"></div>
                         <div class="float-right mt-5">
-                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소하기</a>
+                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         	<!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/notice/create" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="n_title">
                         		<input type="hidden" name="n_content" id="n_content">
-	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createNotice" value="작성하기">
+	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createNotice" value="작성">
                         	</form>
                         </div>
                     </div>

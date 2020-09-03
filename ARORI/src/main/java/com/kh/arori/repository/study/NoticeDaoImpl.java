@@ -57,4 +57,18 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.selectOne("notice.count", c_no);
 	}
 
+	// 공지 게시글 c_no + n_no 단일 조회
+	@Override
+	public NoticeDto getCN(NoticeDto noticeDto) {
+
+		return sqlSession.selectOne("notice.getCN", noticeDto);
+	}
+
+	// 공지 게시글 수정
+	@Override
+	public int edit(NoticeDto noticeDto) {
+
+		return sqlSession.update("notice.edit", noticeDto);
+	}
+
 }

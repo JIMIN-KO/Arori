@@ -69,14 +69,37 @@ public class NoticeServiceImpl implements NoticeService {
 		int count = noticeDao.count(c_no); // 해당 클래스의 게시물 개수 
 		int blockCount = (count + pageSize - 1) / pageSize; // 해당 클래스의 총 블럭 개수 
 
+		// 만약 blockCount 가 finishBlock 보다 작다면 (ex. 10 > 2)
 		if (finishBlock > blockCount)
 			finishBlock = blockCount;
 
+		// startBlock ~ finishBlock 만큼 반복 후 배열 객체화 
 		List<Integer> block = new ArrayList<Integer>();
 
 		for (int i = startBlock; i <= finishBlock; i++) {
 			block.add(i);
 		}
 		return block;
+	}
+
+	// 공지 게시글 수정 기능 
+	@Override
+	public String edit(List<String> n_content, NoticeDto noticeDto) {
+		// VIEW 에서 받아온 n_content 를 재가공하는 작업 
+		String content = toastService.content(n_content);
+		
+		// Controller 에서 미리 만든 객체에 n_content 삽입 
+		noticeDto.setN_content(content);
+		
+		// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송 
+		int result = noticeDao.edit(noticeDto);
+		
+		// 성공 
+		if(result == 1) {
+			return "redirect:" + noticeDto.getC_no() + "/1";
+		}
+		
+		// 실패 
+		return "redirect:" + noticeDto.getC_no() + "/1?fail";
 	}
 }
