@@ -98,13 +98,6 @@
                                     		<input type="submit" class="text-white font-weight-bold" value="My Class">
                                     	</form>                            
                                     </li>
-                                    
-                                    <li class="nav-item">
-                                    	<form action="${pageContext.request.contextPath}/classes/myclass" method="post">
-                                    		<input type="hidden" value="${userinfo.member_no }">
-                                    		<input type="submit" value="My Class">
-                                    	</form>
-                                    </li>
 
                                     <li class="nav-item"><a href="#" class="text-white">Subscribes</a></li>
                                     <li class="nav-item"><a href="#" class="text-white">Bookmark</a></li>

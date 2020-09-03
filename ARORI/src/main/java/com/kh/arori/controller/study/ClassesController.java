@@ -98,4 +98,5 @@ public class ClassesController {
 		classesDao.delete(c_no);
 		return "redirect:/classes/myclass";
 	}
+	
 }

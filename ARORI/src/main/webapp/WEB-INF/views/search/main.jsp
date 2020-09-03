@@ -76,7 +76,7 @@
 </div>
 <div id="list">
 	<table>
-		<thead class="search_thead">
+		<thead>
 			<tr>
 				<th>클래스 번호</th>
 				<th>클래스 이름</th>
