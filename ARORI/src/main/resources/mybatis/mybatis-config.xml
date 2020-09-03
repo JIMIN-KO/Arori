@@ -5,18 +5,35 @@
  <configuration>
 	<typeAliases>
 		<!-- MEMBER Table -->
-		<typeAlias type="com.kh.arori.entity.MemberDto" alias="memberDto"/>
+		<typeAlias type="com.kh.arori.entity.member.MemberDto" alias="memberDto"/>
 		
 		<!-- ARORI_MEMBER Table -->
-		<typeAlias type="com.kh.arori.entity.AroriMemberDto" alias="aroriMemberDto"/>
+		<typeAlias type="com.kh.arori.entity.member.AroriMemberDto" alias="aroriMemberDto"/>
 		
 		<!-- PASSWORD_Q Table -->
-		<typeAlias type="com.kh.arori.entity.PasswordQDto" alias="passwordQDto"/>
+		<typeAlias type="com.kh.arori.entity.member.PasswordQDto" alias="passwordQDto"/>
 		
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
 		
+
 		<!-- MC Table -->
 		<typeAlias type="com.kh.arori.entity.study.McDto" alias="mcDto"/>
+
+		<!-- Readme Table -->
+		<typeAlias type="com.kh.arori.entity.study.ReadmeDto" alias="readmeDto"/>
+		
+		<!-- Notice Table -->
+		<typeAlias type="com.kh.arori.entity.study.NoticeDto" alias="noticeDto"/>
+		
+		<!-- QNA Table -->
+		<typeAlias type="com.kh.arori.entity.study.QnaDto" alias="qnaDto"/>
+		
+		<!-- All_IMG Table -->
+		<typeAlias type="com.kh.arori.entity.img.All_imgDto" alias="all_imgDto"/>
+		
+		<!-- This_IMG Table (각 테이블 별 오작교) -->
+		<typeAlias type="com.kh.arori.entity.img.This_imgDto" alias="this_imgDto"/>
+
 	</typeAliases>
  </configuration>

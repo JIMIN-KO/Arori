@@ -1,4 +1,4 @@
-package com.kh.arori.entity;
+package com.kh.arori.entity.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +17,4 @@ public class AroriMemberDto {
 	private String member_phone;
 	private int member_q;
 	private String member_a;
-	
-	
 }

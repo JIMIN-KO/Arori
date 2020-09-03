@@ -12,7 +12,7 @@ public interface ClassesDao {
 	// 클래스 생성
 	public void createClasses(ClassesDto classesDto);
 	// 단일 조회
-	ClassesDto get(int c_no);
+	public ClassesDto get(int c_no);
 	// 클래스 목록 조회
 	List<ClassesDto> getList();
 	// 클래스 정보 수정
@@ -23,5 +23,8 @@ public interface ClassesDao {
 	public void delete(int c_no);
 	// 검색 기능
 	public List<McDto> searchList(String searchOption, String keyword);
+	
+	// (성헌) 클래스 주인인지 조회 
+	public ClassesDto checkM(ClassesDto classesDto);
 	
 }

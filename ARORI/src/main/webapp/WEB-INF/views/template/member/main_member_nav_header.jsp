@@ -28,6 +28,9 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
     
+    <!-- Ajax -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" integrity="sha512-VZ6m0F78+yo3sbu48gElK4irv2dzPoep8oo9LEjxviigcnnnNvnTOJRSrIhuFk68FMLOpiNz+T77nNY89rnWDg==" crossorigin="anonymous"></script>
+    
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -36,8 +39,28 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+   
+    <!-- nav_member -->
     <link href="${pageContext.request.contextPath }/resources/css/common/nav.css" rel="stylesheet">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/nav_member.js"></script>
+	<!-- nav_common -->
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/common/nav_common.js"></script>
+	
+	<!-- Toast Editor Dependency -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
+	<!-- Editor's Style -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.min.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github.min.css" />
+   
+    <!-- Toast Editor Viewer -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor-viewer.min.css" />
+    <!-- Calendar -->
+    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" />
+    <!-- If you use the default popups, use this. -->
+    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
+    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" />
 </head>
 <body>
     <div class="backbtn"></div>
@@ -76,6 +99,13 @@
                                     	</form>                            
                                     </li>
                                     
+                                    <li class="nav-item">
+                                    	<form action="${pageContext.request.contextPath}/classes/myclass" method="post">
+                                    		<input type="hidden" value="${userinfo.member_no }">
+                                    		<input type="submit" value="My Class">
+                                    	</form>
+                                    </li>
+
                                     <li class="nav-item"><a href="#" class="text-white">Subscribes</a></li>
                                     <li class="nav-item"><a href="#" class="text-white">Bookmark</a></li>
                                 </ul>
@@ -93,7 +123,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-11 main-body main-body-container transition">
-                <div class="row" style="height: 50px; background-color: whitesmoke; border-bottom: 1px solid rgba(190, 190, 190, 0.493);">
+                <div class="row w-100 position-fixed" style="z-index: 1; left: 1%; height: 50px; background-color: whitesmoke; border-bottom: 1px solid rgba(190, 190, 190, 0.493);">
                     <div class="col-10">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="header-icon hamburger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>

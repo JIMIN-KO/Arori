@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.kh.arori.entity.MemberDto;
+import com.kh.arori.entity.member.MemberDto;
 
 public class MemberInterceptor extends HandlerInterceptorAdapter {
 
