@@ -24,4 +24,9 @@
 		SELECT * FROM README WHERE C_NO = #{c_no}
 	</select>
 	
+	<!-- 리드미 수정 -->
+	<update id="edit" parameterType="readmeDto">
+		UPDATE README SET R_CONTENT = #{r_content} WHERE C_NO = #{c_no}
+	</update>
+	
 </mapper>

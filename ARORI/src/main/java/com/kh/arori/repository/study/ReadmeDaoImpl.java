@@ -40,4 +40,11 @@ public class ReadmeDaoImpl implements ReadmeDao {
 		return sqlSession.selectOne("readme.getC", c_no);
 	}
 
+	// Readme 수정 
+	@Override
+	public int edit(ReadmeDto readmeDto) {
+
+		return sqlSession.update("readme.edit", readmeDto);
+	}
+
 }

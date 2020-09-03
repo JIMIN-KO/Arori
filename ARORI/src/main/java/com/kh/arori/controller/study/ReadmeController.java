@@ -34,7 +34,7 @@ public class ReadmeController {
 	
 	// Readme 생성 페이지
 	@GetMapping("/classes/readme/create/{c_no}")
-	public String readmeEdit(@PathVariable String c_no, Model model) {
+	public String readmeCreate(@PathVariable String c_no, Model model) {
 		ReadmeDto readme = readmeDao.getC(Integer.parseInt(c_no));
 		
 		if(readme != null) {
@@ -46,7 +46,7 @@ public class ReadmeController {
 	}
 	
 	// Read 생성 메소드 
-	@PostMapping("classes/readme/create")
+	@PostMapping("/classes/readme/create")
 	public String readmeCreate(@RequestParam List<String> r_content, @RequestParam String c_no) {
 	
 		boolean condition = readmeService.create(r_content,c_no);
@@ -56,5 +56,23 @@ public class ReadmeController {
 		} else {
 			return "redirect:/classes/readme/" + c_no + "?fail";
 		}
+	}
+	
+	// Readme 수정 페이지
+	@GetMapping("/classes/readme/edit/{c_no}")
+	public String readmeEdit(@PathVariable String c_no, Model model) {
+		// 수정 내용 View 로 내보내기 위한 단일 조회 
+		ReadmeDto readmeDto = readmeDao.getC(Integer.parseInt(c_no));
+		model.addAttribute("readmeDto", readmeDto);
+		return "classes/readme/readme_edit";
+	}
+	
+	// Readme 수정 메소드
+	@PostMapping("/classes/readme/edit")
+	public String readmeEdit(@RequestParam List<String> r_content, @RequestParam String c_no) {
+		// 수정
+		readmeService.edit(r_content, c_no);
+		
+		return "redirect:/classes/readme/" + c_no;
 	}
 }

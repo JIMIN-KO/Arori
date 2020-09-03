@@ -46,4 +46,16 @@ public class ReadmeServiceImpl implements ReadmeService {
 		
 	}
 
+	// Readme 수
+	@Override
+	public String edit(List<String> r_content, String c_no) {
+		String content = toastService.content(r_content);
+		
+		ReadmeDto readmeDto = ReadmeDto.builder().c_no(Integer.parseInt(c_no)).r_content(content).build();
+		int result = readmeDao.edit(readmeDto);
+		
+		System.out.println("성공결과 : " + result);
+		return null;
+	}
+
 }

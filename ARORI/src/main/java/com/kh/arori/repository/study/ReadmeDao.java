@@ -15,4 +15,7 @@ public interface ReadmeDao {
 	
 	// Readme 단일 조회 (c_no)
 	public ReadmeDto getC(int c_no);
+	
+	// Readme 수정
+	public int edit(ReadmeDto readmeDto);
 }
