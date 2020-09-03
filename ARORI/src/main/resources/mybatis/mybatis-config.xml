@@ -15,7 +15,6 @@
 		
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
-		
 
 		<!-- MC Table -->
 		<typeAlias type="com.kh.arori.entity.study.McDto" alias="mcDto"/>

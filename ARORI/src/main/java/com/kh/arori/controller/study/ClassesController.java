@@ -29,12 +29,6 @@ public class ClassesController {
 	@Autowired
 	private ClassesDao classesDao;
 
-	// 나의 클래스 
-	@RequestMapping("/classes/myclass")
-	public String myclass() {
-		return "classes/myclass";
-	}
-
 	// 클래스 생성 페이지 
 	@GetMapping("/classes/create")
 	public String create() {
