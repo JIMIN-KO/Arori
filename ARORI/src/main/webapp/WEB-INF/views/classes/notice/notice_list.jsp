@@ -84,7 +84,7 @@
     const { chart, codeSyntaxHighlight, colorSyntax, tableMergedCell, uml } = Viewer.plugin;
 	// viewer 갯수만큼 반복하기 (최대 10개)
 	for(var i = 0; i < viewers.length; i++) {
-		console.log(n_content[i].value)
+		
 	    // Toast Viewer .viewer 만큼 불러오기 
 	    const viewer = toastui.Editor.factory({
 	        el: viewers[i],

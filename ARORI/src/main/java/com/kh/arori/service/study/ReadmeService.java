@@ -9,5 +9,8 @@ public interface ReadmeService {
 	
 	//  Readme 수정
 	public String edit(List<String> r_content, String c_no);
+	
+	// Readme 삭제 
+	public String delete(int member_no, String c_no);
 
 }

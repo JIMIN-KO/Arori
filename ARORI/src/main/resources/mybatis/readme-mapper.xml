@@ -29,4 +29,9 @@
 		UPDATE README SET R_CONTENT = #{r_content} WHERE C_NO = #{c_no}
 	</update>
 	
+	<!-- 리드미 삭제 -->
+	<delete id="delete" parameterType="readmeDto">
+		DELETE README WHERE C_NO = ${c_no}
+	</delete>
+	
 </mapper>

@@ -47,4 +47,11 @@ public class ReadmeDaoImpl implements ReadmeDao {
 		return sqlSession.update("readme.edit", readmeDto);
 	}
 
+	// Readme 삭제 
+	@Override
+	public int delete(String c_no) {
+
+		return sqlSession.delete("readme.delete", c_no);
+	}
+
 }

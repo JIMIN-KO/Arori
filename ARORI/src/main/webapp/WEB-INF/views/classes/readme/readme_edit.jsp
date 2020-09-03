@@ -10,7 +10,7 @@
                         <div id="editor"></div>
                         <input type="hidden" value="${readmeDto.r_content }" id="edit_r_content">
                         <div class="float-right mt-5">
-                        	<a class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소하기</a>
+                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소하기</a>
                         	<form action="${pageContext.request.contextPath }/classes/readme/edit" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="r_content" id="r_content">
@@ -25,7 +25,7 @@
 $(function(){
 	$(function(){
 		var edit_r_content = document.querySelector("#edit_r_content")
-		console.log(edit_r_content.value)
+
 		editor.setMarkdown(edit_r_content.value)
 	})
 	// 리드미 작성하기

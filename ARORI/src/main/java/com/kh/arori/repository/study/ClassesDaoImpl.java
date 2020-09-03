@@ -27,16 +27,25 @@ public class ClassesDaoImpl implements ClassesDao {
 		sqlSession.insert("classes.createClasses", classesDto);
 	}
 
+	// 단일 조회
 	@Override
 	public ClassesDto get(int c_no) {
 		ClassesDto info = sqlSession.selectOne("classes.get", c_no);
 		return info;
 	}
-
+	
+	// 클래스 목록 조회
 	@Override
 	public List<ClassesDto> getList() {
 		List<ClassesDto> list = sqlSession.selectList("classes, getList");
 		return list;
+	}
+
+	// (성헌) 클래스 주인인지 조회
+	@Override
+	public ClassesDto checkM(ClassesDto classesDto) {
+
+		return sqlSession.selectOne("classes.checkM", classesDto);
 	}
 
 }

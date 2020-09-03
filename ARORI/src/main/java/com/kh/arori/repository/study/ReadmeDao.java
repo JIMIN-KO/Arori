@@ -18,4 +18,7 @@ public interface ReadmeDao {
 	
 	// Readme 수정
 	public int edit(ReadmeDto readmeDto);
+	
+	// Readme 삭제
+	public int delete(String c_no);
 }

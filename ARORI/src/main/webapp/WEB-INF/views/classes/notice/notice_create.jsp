@@ -17,7 +17,7 @@
 						<!-- 게시글 작성 영역 -->
                         <div id="editor"></div>
                         <div class="float-right mt-5">
-                        	<button class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소하기</button>
+                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소하기</a>
                         	<!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/notice/create" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${c_no }">
