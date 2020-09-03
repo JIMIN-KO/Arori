@@ -208,18 +208,32 @@ public class MemberDaoImpl implements MemberDao {
 		List<PasswordQDto> pwList = sqlSession.selectList("member.passQ");
 		return pwList;
 	}
-
+	//회원전체  단일조회(번호를 통한)
 	@Override
 	public MemberDto getNo(int member_no) {
 		MemberDto getNo = sqlSession.selectOne("member.getNo", member_no);
 		return getNo;
 	}
 
+	//회원상세정보 전체업데이트
 	@Override
 	public void adminUpdate(MemberDto memberDto) {
 
 		sqlSession.update("member.adminEdit", memberDto);
 
+	}
+
+	//소셜+아로리 아우터조인 단일조회
+	@Override
+	public MemberDto memberProfile(int member_no) {
+		MemberDto memberProfile = sqlSession.selectOne("member.resultMap3", member_no);
+		return memberProfile;
+	}
+
+	@Override
+	public AroriMemberDto memberProfile2(int member_no) {
+		AroriMemberDto memberProfile2 = sqlSession.selectOne("member.resultMap4", member_no);
+		return memberProfile2;
 	}
 
 }

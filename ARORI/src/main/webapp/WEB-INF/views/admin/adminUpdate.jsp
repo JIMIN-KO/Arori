@@ -20,7 +20,7 @@ ${memberDto.member_login}
 <input type ="text" name="report_state" value="${memberDto.report_state}">
 <br>
 정지일
-<input type ="text" name="suspension" value="${memberDto.suspension}">
+<input type ="text" name="suspension" value="${memberDto.suspension}" placeholder="예 :2000-01-01">
 <br>
 <input type ="hidden" name="member_id" value="${memberDto.member_id}">
 

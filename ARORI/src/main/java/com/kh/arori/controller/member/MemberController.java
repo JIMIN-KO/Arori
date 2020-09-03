@@ -142,20 +142,6 @@ public class MemberController {
 
 	}
 
-	// 소셜 + 아로리) 목록조회
-	@GetMapping("/resultMap")
-	public String resultMap(Model model, Model model2) {
-
-		List<MemberDto> result = memberDao.resultMap();
-		model.addAttribute("result", result);
-
-		List<MemberDto> result2 = memberDao.resultMap2();
-		model.addAttribute("result2", result2);
-
-		return "admin/resultMap";
-
-	}
-
 	// 회원탈퇴 하기
 	@PostMapping("/delete")
 	public String delete(HttpSession session, @ModelAttribute MemberDto memberDto) {

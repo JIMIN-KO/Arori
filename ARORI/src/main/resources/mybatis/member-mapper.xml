@@ -12,7 +12,8 @@
 	<!-- 전체 회원 -->
 	<!-- 비밀번호 질문 받아오기 -->
 	<select id="getPasswordQ" resultType="passwordQDto">
-		SELECT * FROM PASSWORD_Q ORDER BY PQ_NO ASC
+		SELECT * FROM PASSWORD_Q
+		ORDER BY PQ_NO ASC
 	</select>
 
 	<!-- 회원 단일 조회 > MEMBER TABLE -->
@@ -23,60 +24,72 @@
 
 	<!-- 회원 가입 -->
 	<insert id="join" parameterType="memberDto">
-		INSERT INTO MEMBER VALUES(#{member_no}, #{member_id}, #{member_nick},
-		#{member_state}, SYSDATE, NULL, '정상', NULL)
+		INSERT INTO MEMBER
+		VALUES(#{member_no}, #{member_id}, #{member_nick},
+		#{member_state},
+		SYSDATE, NULL, '정상', NULL)
 	</insert>
 
 	<!-- 전체 회원 조회 -->
 	<select id="getList" resultType="memberDto">
-		SELECT * FROM MEMBER ORDER BY MEMBER_NO ASC
+		SELECT * FROM MEMBER ORDER BY
+		MEMBER_NO ASC
 	</select>
 
 	<!-- 로그인 성공 시 로그인 시간 갱신 -->
 	<update id="loginUpdate" parameterType="memberDto">
-		UPDATE MEMBER SET MEMBER_LOGIN = SYSDATE WHERE MEMBER_ID = #{member_id}
+		UPDATE MEMBER SET
+		MEMBER_LOGIN = SYSDATE WHERE MEMBER_ID = #{member_id}
 	</update>
 
 
 	<!-- 아로리 회원 -->
 	<!-- 아로리 회원 가입일 경우 해당 회원 등록 -->
 	<insert id="joinArori" parameterType="aroriMemberDto">
-		INSERT INTO ARORI_MEMBER VALUES(#{member_no}, #{member_pw},
-		#{member_email},#{member_phone}, #{member_q}, #{member_a})
+		INSERT INTO ARORI_MEMBER
+		VALUES(#{member_no}, #{member_pw},
+		#{member_email},#{member_phone},
+		#{member_q}, #{member_a})
 	</insert>
 
 	<!-- 아로리 상제 정보 가지고 오기 -->
 	<select id="getArori" resultType="aroriMemberDto"
 		parameterType="memberDto">
-		SELECT * FROM ARORI_MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO FROM MEMBER
+		SELECT * FROM ARORI_MEMBER WHERE MEMBER_NO = (SELECT
+		MEMBER_NO FROM MEMBER
 		WHERE MEMBER_ID = #{member_id})
 	</select>
 
 	<!-- 아이디 찾기 -->
 	<select id="findId" resultType="memberDto"
 		parameterType="memberDto">
-		SELECT * FROM MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO FROM ARORI_MEMBER
-		WHERE MEMBER_PHONE = #{member_phone} AND MEMBER_Q = #{member_q} AND
+		SELECT * FROM MEMBER WHERE MEMBER_NO = (SELECT MEMBER_NO
+		FROM ARORI_MEMBER
+		WHERE MEMBER_PHONE = #{member_phone} AND MEMBER_Q =
+		#{member_q} AND
 		MEMBER_A = #{member_a})
 	</select>
 
 	<!-- 비밀번호 찾기 > 반환 : AroriMemberDto.getMember_email -->
 	<select id="findPw" resultType="string" parameterType="map">
-		SELECT B.MEMBER_EMAIL FROM MEMBER A INNER JOIN ARORI_MEMBER B ON A.MEMBER_NO
+		SELECT
+		B.MEMBER_EMAIL FROM MEMBER A INNER JOIN ARORI_MEMBER B ON A.MEMBER_NO
 		= B.MEMBER_NO WHERE A.MEMBER_ID = #{member_id} AND B.MEMBER_Q =
 		#{member_q} AND B.MEMBER_A = #{member_a}
 	</select>
 
 	<!-- 해당 이메일을 소유하고 있는 회원의 비밀번호를 임시 비밀번호로 변경 -->
 	<update id="changeTempPw" parameterType="aroriMemberDto">
-		UPDATE ARORI_MEMBER SET MEMBER_PW = #{member_pw} WHERE MEMBER_EMAIL =
+		UPDATE ARORI_MEMBER SET
+		MEMBER_PW = #{member_pw} WHERE MEMBER_EMAIL =
 		#{member_email}
 	</update>
 
 	<!-- 아로리 회원 마이 페이지 -->
 	<select id="getmyInfo" parameterType="int"
 		resultType="AroriMemberDto">
-		SELECT member_email, member_phone,member_q, member_a FROM ARORI_MEMBER where
+		SELECT member_email, member_phone,member_q, member_a FROM
+		ARORI_MEMBER where
 		member_no=#{member_no}
 	</select>
 
@@ -84,7 +97,8 @@
 	<update id="updateArori" parameterType="aroriMemberDto">
 		UPDATE ARORI_MEMBER SET
 		MEMBER_PW=#{member_pw},
-		MEMBER_EMAIL=#{member_email}, MEMBER_PHONE=#{member_phone},
+		MEMBER_EMAIL=#{member_email},
+		MEMBER_PHONE=#{member_phone},
 		member_Q=#{member_Q},member_a=#{member_a}
 		WHERE MEMBER_NO=#{member_no}
 	</update>
@@ -93,26 +107,30 @@
 	<!-- 아로리 회원 마이 페이지 -->
 	<select id="socialMyInfo" parameterType="int"
 		resultType="MemberDto">
-		SELECT member_nick, member_state,member_join, member_login FROM MEMBER where
+		SELECT member_nick, member_state,member_join, member_login
+		FROM MEMBER where
 		member_no=#{member_no}
 	</select>
 
 	<!-- 소셜 회원 정보 수정 (윤아) -->
 	<update id="updateSocial" parameterType="memberDto">
-		UPDATE MEMBER SET MEMBER_NICK= #{member_nick}
+		UPDATE MEMBER SET
+		MEMBER_NICK= #{member_nick}
 		WHERE member_nick=#{member_nick}
 	</update>
 
 	<!-- 정보수정을 위한 비밀번호 존재여부 (윤아) -->
-	<select id="getPw" resultType="int">
-		SELECT count (*) FROM arori_member
+	<select id="getPw" parameterType="int" resultType="int">
+		SELECT count
+		(*) FROM arori_member
 		WHERE member_pw=#{member_pw}
 	</select>
 
 
 	<!-- 아로리 회원 전체 조회 -->
 	<select id="getAroriList" resultType="aroriMemberDto">
-		SELECT * FROM arori_member ORDER BY member_no ASC
+		SELECT * FROM arori_member
+		ORDER BY member_no ASC
 	</select>
 
 	<!-- 관리자가 소셜+회원 정보 목록조회 resultMap -->
@@ -137,15 +155,32 @@
 
 	<!-- 관리자가 소셜+회원 정보 목록조회 -->
 	<select id="resultMap" resultType="memberDto">
-		SELECT *FROM MEMBER m left OUTER JOIN arori_member a on
-		m.member_no=a.member_no ORDER BY m.member_no ASC
-	</select>
-	<!-- 관리자가 소셜+회원 정보 목록조회 -->
-	<select id="resultMap2" resultType="aroriMemberDto">
-		SELECT *FROM MEMBER m left OUTER JOIN arori_member a on
-		m.member_no=a.member_no ORDER BY m.member_no ASC
+		SELECT *FROM MEMBER m left
+		OUTER JOIN arori_member a on
+		m.member_no=a.member_no ORDER BY
+		m.member_no ASC
 	</select>
 
+	<!-- 관리자가 소셜+회원 정보 목록조회 -->
+	<select id="resultMap2" resultType="aroriMemberDto">
+		SELECT *FROM MEMBER m left
+		OUTER JOIN arori_member a on
+		m.member_no=a.member_no ORDER BY
+		m.member_no ASC
+	</select>
+
+	<!-- 이너 조인으로 회원(단일) 두테이블 조회 -->
+	<select id="resultMap3" resultType="memberDto">
+		SELECT*FROM MEMBER WHERE member_no=#{member_no}
+	</select>
+
+	<!-- 이너 조인으로 회원(단일) 두테이블 조회 -->
+	<select id="resultMap4" resultType="aroriMemberDto">
+		SELECT*FROM ARORI_MEMBER
+		WHERE member_no=#{member_no}
+		
+
+	</select>
 	<!-- 패스워드 질문, 답변 조회 -->
 	<select id="passQ" resultType="passwordQDto">
 		select * from PASSWORD_Q
@@ -153,20 +188,24 @@
 
 	<!-- 관리자가 회원 정보 수정 -->
 	<update id="adminEdit" parameterType="memberDto">
-		UPDATE MEMBER SET member_nick=#{member_nick} , member_state=#{member_state}
+		UPDATE MEMBER SET
+		member_nick=#{member_nick} , member_state=#{member_state}
 		,
-		REPORT_STATE =#{report_state} , SUSPENSION =#{suspension} WHERE member_id
+		REPORT_STATE =#{report_state} , SUSPENSION =#{suspension} WHERE
+		member_id
 		=#{member_id}
 	</update>
 
 	<!-- MEMBER테이블의 회원정보삭제 -->
 	<update id="deleteMember" parameterType="memberDto">
-		DELETE FROM MEMBER WHERE MEMBER_NO =#{member_no}
+		DELETE FROM MEMBER WHERE
+		MEMBER_NO =#{member_no}
 	</update>
 
 	<!-- ARORI_MEMBER테이블의 회원정보삭제 -->
 	<update id="deleteAroriMember" parameterType="memberDto">
-		DELETE FROM ARORI_MEMBER WHERE MEMBER_NO =#{member_no}
+		DELETE FROM
+		ARORI_MEMBER WHERE MEMBER_NO =#{member_no}
 	</update>
 
 
@@ -179,7 +218,8 @@
 	<!-- 회원가입시 이메일 중복검사 체크용 -->
 	<select id="getCheckEmail" resultType="MemberDto"
 		parameterType="String">
-		SELECT * from ARORI_MEMBER where MEMBER_EMAIL =#{member_email}
+		SELECT * from ARORI_MEMBER where MEMBER_EMAIL
+		=#{member_email}
 	</select>
 
 	<!-- 회원가입시 닉네임 중복검사 체크용 -->
@@ -192,7 +232,8 @@
 	<!-- 회원가입시 핸드폰 중복검사 체크용 -->
 	<select id="getCheckPhone" resultType="MemberDto"
 		parameterType="String">
-		SELECT * FROM ARORI_MEMBER WHERE MEMBER_PHONE =#{member_phone}
+		SELECT * FROM ARORI_MEMBER WHERE MEMBER_PHONE
+		=#{member_phone}
 	</select>
 
 	<resultMap type="arorimemberDto" id="aroriMemberDto2">

@@ -89,4 +89,14 @@ public interface MemberDao {
 	
 	//소셜+아로리 업데이트 (관리자가)
 	public void adminUpdate(MemberDto memberDto);
+	
+	//소셜+아로리)아우터조인 단일조회1
+	public MemberDto memberProfile(int member_no);
+	
+	//소셜+아로리)아우터조인 단일조회2
+	public AroriMemberDto memberProfile2(int member_no);
+
+
+	
+	
 }

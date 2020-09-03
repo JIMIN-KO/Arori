@@ -3,13 +3,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<h1>회원 목록(관리자 페이지)</h1>
+<h1>회원 목록(관리자 페이지) - 수정하려면 회원아이디를 클릭</h1>
+
 
 <c:forEach var="memberDto" items="${result}" varStatus="status">
 <br>
 	<tr>
 	<td>${memberDto.member_no}</td>
-<a href="${pageContext.request.contextPath}/admin/adminUpdate/${memberDto.member_id}">	<td>${memberDto.member_id} </td></a>
+<a href="${pageContext.request.contextPath}/admin/adminUpdate/${memberDto.member_id}"><td>${memberDto.member_id} </td></a>
 	<td>${memberDto.member_nick}</td>
 	<td>${result2[status.index].member_email}</td>
 	<td>${result2[status.index].member_phone}</td>
@@ -26,7 +27,7 @@
 
 
 
-<a href="">수정하기</a>
+<a href="">홈으로</a>
 <a href="">삭제하기</a>
 
 
