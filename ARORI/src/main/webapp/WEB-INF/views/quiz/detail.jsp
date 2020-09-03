@@ -12,17 +12,15 @@
 </form> 
 <hr>
 <div>
-	<c:forEach var="quizDto" items="${list}">
-		퀴즈번호 : ${quizDto.q_no} <br>
-		퀴즈 제목 : ${quizDto.q_title}<br>
-		퀴즈 총 배점 : ${quizDto.q_score}<br>
-		퀴즈 오픈시간 : ${quizDto.q_open}<br>
-		퀴즈 클로즈 시간 : ${quizDto.q_close}<br>
-		퀴즈 제한 시간 : ${quizDto.q_runtime}<br>
-		퀴즈 채점방법 : ${quizDto.q_scoring}<br>
-		퀴즈 정답 오픈 시간 : ${quizDto.q_score_open}<br>
-		퀴즈 생성 날짜 : ${quizDto.q_when}<br>
-	</c:forEach>
+		퀴즈번호 : ${q_no} <br>
+		퀴즈 제목 : ${q_title}<br>
+		퀴즈 총 배점 : ${q_score}<br>
+		퀴즈 오픈시간 : ${q_open}<br>
+		퀴즈 클로즈 시간 : ${q_close}<br>
+		퀴즈 제한 시간 : ${q_runtime}<br>
+		퀴즈 채점방법 : ${q_scoring}<br>
+		퀴즈 정답 오픈 시간 : ${q_score_open}<br>
+		퀴즈 생성 날짜 : ${q_when}<br>
 </div>
 
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

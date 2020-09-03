@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <head>
   <style>
         textarea {
@@ -81,7 +81,9 @@
  </head>
  <body>
 
-<h2>퀘스천</h2>
+<h2>퀘스천 등록</h2>
+<h2>총 배점 : ${q_score}점</h2>
+
 <hr>
 <form action="create" method="post" class="form-create" onsubmit="return qsubmit()">
     <input type="hidden" name="q_no" value="${q_nform-createo}">
@@ -96,7 +98,7 @@
             <option value="ex-menu">단답/서술형</option>
         </select>
         <h4>배점</h4> <input type="text" placeholder="점" name="sq_score">
-        <h4>질문</h4> <textarea name="aq_content" class="aq_content"></textarea>
+        <h4>질문</h4> <textarea name="aq_content" class="aq_content" value="지문을 적어주세요"></textarea>
         
         <h4>답변</h4>
         <!--ox답변 영역-->
@@ -104,7 +106,7 @@
             <h4>OX 답안 작성</h4>
             <h4>O : </h4> <textarea name="o_content"></textarea>
             <h4>X : </h4> <textarea name="x_content"></textarea>
-            <input type="text" name="ox_answer" placeholder="둘 중 답은? O=1,X=1">
+            <input type="text" name="ox_answer" placeholder="둘 중 답은? O=1,X=0">
         </span>
         <!--선다형 답변 영역-->
         <span class="mul">
@@ -113,12 +115,12 @@
             <input type="checkbox" value="2">2. <input type="text"><br>
             <input type="checkbox" value="3">3. <input type="text"><br>
             <input type="checkbox" value="4">4. <input type="text"><br>
-            <input type="text" name="multiple_answer" placeholder="답은?">
+            <input type="text" name="multiple_answer" placeholder="답은 몇번?">
         </span>
         <!--단답/서술형 답변 영역-->
         <span class="ex">
             <h4>서술형 답안 작성</h4>
-            <input type="text" name="explane_answer" placeholder="단답형이면0 서술형이면1"><br>
+            <input type="text" name="explane_answer" placeholder="정답이면1 오답이면0"><br>
             <textarea name="explane_answer"></textarea>
         </span>
     </div>

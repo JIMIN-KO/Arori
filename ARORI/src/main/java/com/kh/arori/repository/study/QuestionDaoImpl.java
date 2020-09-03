@@ -38,7 +38,7 @@ public class QuestionDaoImpl implements QuestionDao{
 		return no;
 	}
 	
-	
+	// 퀘스천 생성
 	@Override
 	public void createQuestion(AllQuestionDto allQuestionDto) {
 		sqlSession.insert("question.createQuestion", allQuestionDto);

@@ -9,8 +9,8 @@
 	퀴즈 총 배점 : <input type="text" name="q_score">점<br><br>
 	퀴즈 제한 시간 : <input type="text" name="q_runtime">분<br><br>
 	<hr>
-	퀴즈 오픈 시간 :<input type="date" name="q_open"> 퀴즈 클로즈 시간 : <input type="date" name="q_close"> <br><br>
-	답안 오픈시간 : <input type="date" name="q_score_open"> <br><br>
+	퀴즈 오픈 시간 :<input type="datetime-local" name="q_open"> 퀴즈 클로즈 시간 : <input type="datetime-local" name="q_close"> <br><br>
+	답안 오픈시간 : <input type="datetime-local" name="q_score_open"> <br><br>
 	<hr>
 	자동채점 0/수동채점1 : <input type="text" name="q_scoring" >
 	<hr>
