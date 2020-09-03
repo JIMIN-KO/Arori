@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.ReadmeDto;
+import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.ReadmeDao;
 import com.kh.arori.service.study.ReadmeService;
 
@@ -25,12 +27,18 @@ public class ReadmeController {
 	private ReadmeService readmeService;
 
 	@Autowired
+	private ClassesDao classesDao;
+	
+	@Autowired
 	private ReadmeDao readmeDao;
 
 	// 클래스 게시판 영역 > Readme / Notice / QNA
 	// Readme 페이지
 	@GetMapping("/classes/readme/{c_no}")
 	public String readme(@PathVariable String c_no, Model model) {
+		ClassesDto classesDto = classesDao.get(Integer.parseInt(c_no));
+		model.addAttribute("classesDto", classesDto);
+		
 		ReadmeDto readmeDto = readmeDao.getC(Integer.parseInt(c_no));
 		model.addAttribute("readmeDto", readmeDto);
 		return "/classes/readme/readme";

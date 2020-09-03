@@ -8,13 +8,15 @@
                     	<br>
                         <div class="d-flex">
 	                        <h1 class="font-weight-bold mt-4" style="flex:18;">Notice</h1>
-							<a href="${pageContext.request.contextPath }/classes/notice/create/${c_no}">
-					            <button class="btn btn-link mt-4" style="flex:0.3; color: gray;">
-						            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-									</svg>
-					            </button>
-			                </a>
+	                        <c:if test="${classes.member_no == userinfo.member_no }">
+								<a href="${pageContext.request.contextPath }/classes/notice/create/${c_no}">
+						            <button class="btn btn-link mt-4" style="flex:0.3; color: gray;">
+							            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+										</svg>
+						            </button>
+				                </a>
+			                </c:if>
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
@@ -25,7 +27,9 @@
                                         <th scope="col" class="font-weight-bold">No</th>
                                         <th scope="col" class="font-weight-bold">Title</th>
                                         <th scope="col" class="font-weight-bold">Date</th>
-                                        <th scope="col" class="font-weight-bold">Ctrl</th>
+                                        	<c:if test="${classes.member_no == userinfo.member_no }">
+                                        		<th scope="col" class="font-weight-bold">Ctrl</th>
+                                        </c:if>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,10 +43,12 @@
                                             <input type="radio" name="title" id="${list.n_no }" >
                                         </td>
                                         <td>${list.n_when }</td>
-                                        <td>
-                                        		<button class="">수정</button>
-                                        		<button>삭제</button>
-                                        </td>
+                                        	<c:if test="${classes.member_no == userinfo.member_no }">
+	                                        <td>
+	                                        		<button class="">수정</button>
+	                                        		<button>삭제</button>
+	                                        </td>
+                                        </c:if>
                                     </tr>
                                     <tr>
                                         <td colspan="5">

@@ -8,7 +8,7 @@
                         <div class="d-flex">
 	                        <h1 class="font-weight-bold mt-4" style="flex:18;">Read Me</h1>
 	                        <c:choose>
-	                        	<c:when test="${empty readmeDto}">
+	                        	<c:when test="${(empty readmeDto) and (classesDto.member_no == userinfo.member_no)}">
 	                        		<a href="${pageContext.request.contextPath }/classes/readme/create/${c_no}">
 				                        <button class="btn btn-link mt-4" style="flex:0.3; color: gray;">
 				            				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@
 				                        </button>
 			                        </a>
 		                        </c:when>
-		                        <c:when test="${not empty readmeDto }">
+		                        <c:when test="${(not empty readmeDto) and (classesDto.member_no == userinfo.member_no)}">
 		                        	<a href="${pageContext.request.contextPath }/classes/readme/edit/${c_no}">
 				                        <button class="btn btn-link mt-4" style="flex:0.3; color: gray;">
 				                        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hammer" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
