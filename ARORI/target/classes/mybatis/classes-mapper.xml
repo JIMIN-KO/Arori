@@ -32,6 +32,10 @@
 	<delete id="delete" parameterType="int">
 		DELETE classes WHERE c_no=#{c_no}
 	</delete>
+	<!-- 검색 -->
+	<select id="search" parameterType="map" resultType="mcDto">
+		SELECT * FROM MC WHERE INSTR(${searchOption}, #{keyword}) > 0 ORDER BY C_WHEN DESC
+	</select>
 
 </mapper>
 

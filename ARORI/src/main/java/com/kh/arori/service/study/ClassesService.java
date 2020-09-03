@@ -1,9 +1,19 @@
 package com.kh.arori.service.study;
 
+import java.util.List;
+
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.McDto;
 
 public interface ClassesService {
 	
 	// 클래스 추가
 	public int createClasses(ClassesDto classesDto);
+	
+	// 시간 표현식 
+//	public String get_time();
+//	public String get_day();
+//	public String get_autotime();
+	
+	public List<McDto> searchList(String searchOption, String keyword);
 }

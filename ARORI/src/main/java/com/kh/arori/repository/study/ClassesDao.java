@@ -1,6 +1,8 @@
 package com.kh.arori.repository.study;
 
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.McDto;
+
 import java.util.List;
 
 public interface ClassesDao {
@@ -19,5 +21,7 @@ public interface ClassesDao {
 	List<ClassesDto> myList(int member_no);
 	// 클래스 삭제
 	public void delete(int c_no);
+	// 검색 기능
+	public List<McDto> searchList(String searchOption, String keyword);
 	
 }

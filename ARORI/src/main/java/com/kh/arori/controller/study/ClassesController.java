@@ -1,7 +1,10 @@
 package com.kh.arori.controller.study;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.print.attribute.HashAttributeSet;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.McDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
 

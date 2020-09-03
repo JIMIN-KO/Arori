@@ -2,8 +2,15 @@
 	pageEncoding="UTF-8"%>
 	
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include
-	page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
+
+<script type="text/javascript">
+
+
+</script>
+
 
 <body>
 <h1>마이클래스</h1>

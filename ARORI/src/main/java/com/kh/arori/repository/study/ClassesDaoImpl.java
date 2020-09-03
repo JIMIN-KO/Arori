@@ -4,9 +4,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.McDto;
 
 @Repository
 public class ClassesDaoImpl implements ClassesDao {
@@ -60,5 +63,17 @@ public class ClassesDaoImpl implements ClassesDao {
 		sqlSession.delete("classes.delete", c_no);		
 	}
 
+	// 검색
+	@Override
+	public List<McDto> searchList(String searchOption, String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		return sqlSession.selectList("classes.search", map);
+		
+	}
+	
+
+	
 }
 
