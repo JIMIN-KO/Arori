@@ -13,5 +13,10 @@
 	<insert id="createQuiz" parameterType="quizDto">
 		INSERT INTO quiz VALUES(#{q_no},#{c_no},#{q_title},#{q_score},#{q_open},#{q_close},#{q_runtime},#{q_scoring},#{q_score_open},sysdate)
 	</insert>
+	
+	<!-- 퀴즈 목록 -->
+	<select id="getList" resultType="quizDto" parameterType="quizDto">
+		SELECT * FROM QUIZ WHERE C_NO = ${c_no} ORDER BY Q_NO DESC
+	</select>
 
 </mapper>
