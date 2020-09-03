@@ -97,104 +97,129 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public void updateArori(AroriMemberDto aroriMemberDto) {
 		// db에서 email을 통해서 회원을 불러온다.
-		sqlSession.update("member.updateArori",aroriMemberDto);
+		sqlSession.update("member.updateArori", aroriMemberDto);
 
 	}
 
-	//아로리) 마이페이지
+	// 아로리) 마이페이지
 	@Override
 	public AroriMemberDto myInfo(int member_no) {
 
 		AroriMemberDto myInfo = sqlSession.selectOne("member.getmyInfo", member_no);
 		return myInfo;
-		
+
 	}
-	//소셜회원 마이페이지
+
+	// 소셜회원 마이페이지
 	@Override
 	public MemberDto SocialInfo(int member_no) {
-		MemberDto socialInfo = sqlSession.selectOne("member.socialMyInfo",member_no);
+		MemberDto socialInfo = sqlSession.selectOne("member.socialMyInfo", member_no);
 		return socialInfo;
 	}
-	
-	//아로리 멤버조회
+
+	// 아로리 멤버조회
 	@Override
 	public List<AroriMemberDto> getAroriList() {
 		List<AroriMemberDto> aroriList = sqlSession.selectList("member.getAroriList");
 
 		return aroriList;
 	}
-	//소셜 멤버조회
+
+	// 소셜 멤버조회
 	@Override
 	public void updateSocial(MemberDto memberDto) {
 
-			sqlSession.update("member.updateSocial",memberDto);
-	
+		sqlSession.update("member.updateSocial", memberDto);
+
 	}
-	//비밀번호 체크 여부
+
+	// 비밀번호 체크 여부
 	@Override
 	public boolean checkPw(String member_pw) {
 		boolean result = false;
-		Map<String,String>map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("member_pw", member_pw);
 
-		int count = sqlSession.selectOne("member.checkPw",map);
-		if(count ==1) result = true;
+		int count = sqlSession.selectOne("member.checkPw", map);
+		if (count == 1)
+			result = true;
 		return result;
 	}
 
+	// 소셜+아로리 목록조회
 	@Override
 	public List<MemberDto> resultMap() {
-		List<MemberDto>result = sqlSession.selectList("member.resultMap");
+		List<MemberDto> result = sqlSession.selectList("member.resultMap");
 		return result;
 	}
 
+	// 소셜+아로리 목록조회
 	@Override
 	public List<MemberDto> resultMap2() {
-		List<MemberDto>result2 = sqlSession.selectList("member.resultMap2");
+		List<MemberDto> result2 = sqlSession.selectList("member.resultMap2");
 		return result2;
 	}
 
-	   // 회원 가입시 중복닉네임을 검사
-	   //재정의하셨는데 모양이 다르네요
-	   @Override
-	   public MemberDto checkOverlap(String member_id) {
-	      return sqlSession.selectOne("member.getCheck", member_id);
+	// 회원 가입시 중복닉네임을 검사
+	// 재정의하셨는데 모양이 다르네요
+	@Override
+	public MemberDto checkOverlap(String member_id) {
+		return sqlSession.selectOne("member.getCheck", member_id);
 
-	   }
+	}
 
+	// 회원 가입시 중복이메일을 검사
+	@Override
+	public MemberDto checkOverlapMail(String member_email) {
 
-	   // 회원 가입시 중복이메일을 검사
-	   @Override
-	   public MemberDto checkOverlapMail(String member_email) {
+		return sqlSession.selectOne("member.getCheckEmail", member_email);
+	}
 
-	      return sqlSession.selectOne("member.getCheckEmail", member_email);
-	   }
+	// 회원 가입시 중복닉네임을 검사
+	@Override
+	public MemberDto checkOverlapNick(String member_nick) {
 
-	 // 회원 가입시 중복닉네임을 검사
-	   @Override
-	   public MemberDto checkOverlapNick(String member_nick) {
+		return sqlSession.selectOne("member.getCheckNick", member_nick);
+	}
 
-	      return sqlSession.selectOne("member.getCheckNick", member_nick);
-	   }
+	// 회원 가입시 중복핸드폰을 검사
+	@Override
+	public MemberDto checkOverlapPhone(String member_Phone) {
 
+		return sqlSession.selectOne("member.getCheckPhone", member_Phone);
+	}
 
-	   // 회원 가입시 중복핸드폰을 검사
-	   @Override
-	   public MemberDto checkOverlapPhone(String member_Phone) {
+	// 회원 탈퇴 아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제
+	// 재정의하셨는데 모양이 다르네요
+	@Override
+	public void deleteMember(MemberDto memberDto) {
+		if (memberDto.getMember_state() == "arori") {
+			sqlSession.delete("deleteMember", memberDto);
+			sqlSession.update("deleteAroriMember", memberDto);
+		} else {
+			sqlSession.update("deleteMember", memberDto);
 
-	      return sqlSession.selectOne("member.getCheckPhone", member_Phone);
-	   }
+		}
+	}
 
-	   // 회원 탈퇴 아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제
-	   //재정의하셨는데 모양이 다르네요
-	//   @Override
-	   public void deleteMember(MemberDto memberDto) {
-	      if (memberDto.getMember_state() == "arori") {
-	         sqlSession.delete("deleteMember", memberDto);
-	         sqlSession.update("deleteAroriMember", memberDto);
-	      } else {
-	         sqlSession.update("deleteMember", memberDto);
+	// 패스워드 조회
+	@Override
+	public List<PasswordQDto> pwList() {
+		List<PasswordQDto> pwList = sqlSession.selectList("member.passQ");
+		return pwList;
+	}
 
-	      }
-	   }
+	@Override
+	public MemberDto getNo(int member_no) {
+		MemberDto getNo = sqlSession.selectOne("member.getNo", member_no);
+		return getNo;
+	}
+
+	@Override
+	public void adminUpdate(MemberDto memberDto) {
+
+		sqlSession.update("member.adminEdit", memberDto);
+
+	}
+
 }

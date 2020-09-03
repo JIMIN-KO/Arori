@@ -18,5 +18,9 @@ public class AroriMemberDto {
 	private int member_q;
 	private String member_a;
 	
+	private PasswordQDto passwordQDto;
+	
+	
+	
 	
 }

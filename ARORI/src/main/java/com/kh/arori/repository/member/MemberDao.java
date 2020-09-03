@@ -60,26 +60,33 @@ public interface MemberDao {
 	//소셜회원)마이페이지
 	public MemberDto SocialInfo(int member_no);
 
-	//resultMap 연습
+	//resultMap1
 	public List<MemberDto> resultMap();
 	
-	//resultMap2 연습
+	//resultMap22
 	public List<MemberDto> resultMap2();
 	
-	  //중복 아이디 검사 
+	//중복 아이디 검사 
 	public MemberDto checkOverlap(String member_id);
-	   //중복메일 검사
+	
+	//중복메일 검사
 	public MemberDto checkOverlapMail(String member_email);
-	    //중복 닉네임 검사 
+	
+	//중복 닉네임 검사 
 	public MemberDto checkOverlapNick(String member_nick);
-		//중복 폰번호 검사 
+	
+	//중복 폰번호 검사 
 	public MemberDto checkOverlapPhone(String member_phone);
-		//회원탈퇴 
+	
+	//회원탈퇴 
 	public void deleteMember(MemberDto memberDto);
-	    
-
-	//관리자가 회원정보 수정
 	
+	//패스워드조회
+	public List<PasswordQDto> pwList();
 	
-
+	//소셜+아로리) 단일조회 = 번호
+	public MemberDto getNo(int member_no);
+	
+	//소셜+아로리 업데이트 (관리자가)
+	public void adminUpdate(MemberDto memberDto);
 }

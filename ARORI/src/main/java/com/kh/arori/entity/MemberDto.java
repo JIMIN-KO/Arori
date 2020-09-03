@@ -23,6 +23,5 @@ public class MemberDto {
 	
 
 	private AroriMemberDto aroriMemberDto;
-	
 
 }

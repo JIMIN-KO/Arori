@@ -37,6 +37,6 @@ public interface MemberService {
 
 	//회원탈퇴 
 	public void deleteMember(MemberDto memberDto);
-
-
+	
+	
 }

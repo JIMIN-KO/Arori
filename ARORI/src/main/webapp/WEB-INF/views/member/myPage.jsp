@@ -15,8 +15,15 @@
 	핸드폰 번호 <input type="text" value="${aroriMemberDto.member_phone}"
 		readonly="readonly"> <br> 
 		
+		<input type ="text" value="${member_q}" readonly="readonly">
+		<br>
+		<input type ="text" value="${member_a}" readonly="readonly">
+		
+		
 		회원가입일시 <input type="text"
 		value="${memberDto.member_join}" readonly="readonly"> <br>
+		
+		
 
 		
 		

@@ -6,9 +6,10 @@
 <h1>회원 목록(관리자 페이지)</h1>
 
 <c:forEach var="memberDto" items="${result}" varStatus="status">
-
-	<td>${memberDto.member_no} </td>
-	<td>${memberDto.member_id} </td>
+<br>
+	<tr>
+	<td>${memberDto.member_no}</td>
+<a href="${pageContext.request.contextPath}/admin/adminUpdate/${memberDto.member_id}">	<td>${memberDto.member_id} </td></a>
 	<td>${memberDto.member_nick}</td>
 	<td>${result2[status.index].member_email}</td>
 	<td>${result2[status.index].member_phone}</td>
@@ -16,9 +17,10 @@
 	<td>${memberDto.member_login}</td>
 	<td>${memberDto.member_state}</td>
 	<td>${memberDto.report_state}</td>
+	</tr>
+	<br>
 	
 	
-
 </c:forEach>
 
 
