@@ -15,5 +15,8 @@
 		
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
+		
+		<!-- Report table -->
+		<typeAlias type="com.kh.arori.entity.ReportDto" alias="reportDto"/>
 	</typeAliases>
  </configuration>
