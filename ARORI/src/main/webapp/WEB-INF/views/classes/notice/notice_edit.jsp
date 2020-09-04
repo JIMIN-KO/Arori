@@ -38,11 +38,12 @@ $(function(){
 	// 공지 게시글 내용 에디터 안에 넣기 
 	var n_content = $("#edit_n_content").val()
 	editor.setMarkdown(n_content)
-	
+	var origin_n_title = $("#n_title").val()
+	$("input[name=n_title]").val(origin_n_title)
+		
 	// 공지 게시글 제목 설정하기 
 	$("#n_title").on("input",function(){
 		var n_title = $("#n_title").val()
-		console.log(n_title)
 		$("input[name=n_title]").val(n_title)
 	})
 	

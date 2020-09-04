@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.ReadmeDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.ReadmeDao;
+import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.toast.ToastService;
 
 @Service
@@ -21,6 +23,9 @@ public class ReadmeServiceImpl implements ReadmeService {
 	@Autowired
 	private ReadmeDao readmeDao;
 
+	@Autowired
+	private ImgService imgService;
+	
 	@Autowired
 	private ToastService toastService;
 
@@ -76,7 +81,8 @@ public class ReadmeServiceImpl implements ReadmeService {
 
 		// 조건이 맞으면 삭제 진행
 		if (classesDto != null) {
-			readmeDao.delete(c_no);
+			imgService.delete(Integer.parseInt(c_no), NameConst.README);
+			readmeDao.delete(c_no); // 게시글 삭제 
 			return "redirect:/classes/readme/" + c_no;
 		}
 		return "redirect:/classes/readme/" + c_no + "?fali";

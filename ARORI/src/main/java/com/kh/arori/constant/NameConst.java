@@ -1,6 +1,6 @@
 package com.kh.arori.constant;
 
-public interface TableNameConst {
+public interface NameConst {
 
 	// 이미지 조회를 위한 상수 인터페이스 입니다.
 	String MEMBER = "member";
@@ -11,4 +11,7 @@ public interface TableNameConst {
 	String OX = "ox";
 	String MULTIPLE = "multiple";
 	String EXPLAIN = "explain";	
+	
+	// 파일 경로 상수
+	String imgPath = "/Users/d0/Desktop/Java/upload";
 }

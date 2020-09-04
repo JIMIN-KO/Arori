@@ -14,5 +14,6 @@ public class This_imgDto {
 	private int no;
 	private int ai_no;
 	private int this_no;
+	private String table_name;
 
 }

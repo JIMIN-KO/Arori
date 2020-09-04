@@ -2,8 +2,6 @@ package com.kh.arori.controller.study;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +33,7 @@ public class QuizController {
 			return "quiz/quizmain";
 		}
 		
+		// 퀴즈 생성 페이지 
 		@GetMapping("/classes/{c_no}/quiz/create")
 		public String create(@PathVariable int c_no) {
 			return "quiz/create";
@@ -44,7 +43,7 @@ public class QuizController {
 		@PostMapping("/classes/{c_no}/quiz/create")
 		public String create(@PathVariable int c_no, @ModelAttribute QuizDto quizDto) {		
 			int q_no = quizService.createQuiz(quizDto);
-			return "redirect:/classes/{c_no}/quiz/detail/" +q_no;
+			return "redirect:/classes/{c_no}/quiz/detail/" + q_no;
 		}
 		
 		//퀴즈 디테일
@@ -53,8 +52,5 @@ public class QuizController {
 			model.addAttribute("q_no",q_no);
 			return "quiz/detail";
 		}
-		
-		
-		
-		
+
 }

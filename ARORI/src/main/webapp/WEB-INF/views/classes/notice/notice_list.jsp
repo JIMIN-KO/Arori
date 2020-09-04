@@ -96,6 +96,12 @@
 
 	// Toast Plugin 불러오기 
 	const Viewer = toastui.Editor;
+	const chartOptions = {
+	        minWidth: 100,
+	        maxWidth: 600,
+	        minHeight: 100,
+	        maxHeight: 300
+	      };
     const { chart, codeSyntaxHighlight, colorSyntax, tableMergedCell, uml } = Viewer.plugin;
 	// viewer 갯수만큼 반복하기 (최대 10개)
 	for(var i = 0; i < viewers.length; i++) {
@@ -107,7 +113,7 @@
 	        height: '1000px',
 	        initialValue: n_content[i].value,
 	        initialEditType: 'markdown',
-	        plugins: [chart, codeSyntaxHighlight, tableMergedCell, uml]
+	        plugins: [[chart, chartOptions], codeSyntaxHighlight, tableMergedCell, uml]
 	    });
 	}
 

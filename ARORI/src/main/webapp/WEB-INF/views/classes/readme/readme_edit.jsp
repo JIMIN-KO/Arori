@@ -23,9 +23,9 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>
 <!-- Toast Editor 비동기 Javascript 영역 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/toast_ui_editor.js"></script>
 <script>
 $(function(){
+	
 	// model  로 받아온 데이터가 value 로 저장된 태그를 불러온 후 해당 데이터를 에디터에 삽입 
 	var edit_r_content = document.querySelector("#edit_r_content")
 	editor.setMarkdown(edit_r_content.value)
@@ -35,5 +35,37 @@ $(function(){
 		$("#r_content").val(editor.getMarkdown())
 	})
 })
+
+//Toast Ui Editor
+const Editor = toastui.Editor;
+const { colorSyntax } = Editor.plugin;
+const { codeSyntaxHighlight } = Editor.plugin;
+const { tableMergedCell } = Editor.plugin;
+
+const editor = new Editor({
+	  el: document.querySelector('#editor'),
+	  height: '600px',
+	  initialEditType: 'markdown',
+	  previewStyle: 'vertical',
+	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
+	  hooks:{
+		'addImageBlobHook':function(blob, callback){
+			console.log(blob, callback);
+			
+			var frm = new FormData();
+			frm.append("f", blob);
+			
+			axios({
+				contentType: false,
+				processData: false,
+				url:"/arori/imgAjax/readme/upload/${c_no}" ,
+				method:"post",
+				data:frm
+			}).then(function(resp) {
+				callback("/arori/imgAjax/readme/download/" + resp.data);
+			})
+		}
+	}
+});
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

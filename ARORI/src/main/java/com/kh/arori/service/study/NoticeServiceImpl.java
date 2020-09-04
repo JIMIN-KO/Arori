@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.NoticeDao;
+import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.toast.ToastService;
 
 @Service
@@ -23,6 +25,9 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Autowired
 	private NoticeDao noticeDao;
+	
+	@Autowired
+	private ImgService imgService;
 
 	@Autowired
 	private ToastService toastService;
@@ -116,7 +121,8 @@ public class NoticeServiceImpl implements NoticeService {
 		ClassesDto checkM = classesDao.checkM(classesDto);
 		
 		if(checkM != null) {
-			noticeDao.delete(noticeDto);
+			imgService.delete(noticeDto.getN_no(), NameConst.NOTICE);
+			noticeDao.delete(noticeDto); // 게시글 삭제 
 			return "redirect:/classes/notice/" + noticeDto.getC_no() + "/1";
 		}
 		return "redirect:/classes/notice/" + noticeDto.getC_no() + "/1?fail";
