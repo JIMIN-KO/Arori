@@ -16,6 +16,9 @@ public class QuizServiceImpl implements QuizService{
 	@Override
 	public int createQuiz(QuizDto quizDto) {
 		int q_no= quizDao.getSeq();
+		quizDto.setQ_open(quizDto.getQ_open().replace("T", " ") + ":00");
+		quizDto.setQ_close(quizDto.getQ_close().replace("T", " ") + ":00");
+		quizDto.setQ_score_open(quizDto.getQ_score_open().replace("T", " ") + ":00");
 		quizDto.setQ_no(q_no);
 		quizDao.createQuiz(quizDto);
 		return q_no;

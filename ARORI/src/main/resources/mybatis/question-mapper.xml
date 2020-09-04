@@ -10,9 +10,9 @@
 	</select>
 	
 	<!-- 퀘스천 타입 시퀀스 -->
-	<select id="getSeqAq" resultType="int">
-		SELECT qt_seq.NEXTVAL FROM DUAL
-	</select>
+<!-- 	<select id="getSeqAq" resultType="int"> -->
+<!-- 		SELECT qt_seq.NEXTVAL FROM DUAL -->
+<!-- 	</select> -->
 	
 	<!-- ox답안 시퀀스 -->
 	<select id="getSeqOx" resultType="int">

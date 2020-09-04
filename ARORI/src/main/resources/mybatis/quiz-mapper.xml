@@ -10,14 +10,14 @@
 	</select>
 
 	<!-- 퀴즈 생성 -->
-	<insert id="createQuiz" parameterType="quizDto">
-		INSERT INTO quiz VALUES(
+	<insert id="createQuiz" parameterType="quizDto">	
+		INSERT INTO QUIZ VALUES(
 		#{q_no},#{c_no},#{q_title},#{q_score},
-		to_date(#{q_open},'yyyy-mm-dd hh:mi:ss'﻿), 
-		to_date(#{q_close},'yyyy-mm-dd hh:mi:ss')﻿,
-		#{q_runtime},#{q_scoring},
-		to_date(#{q_score_open},'yyyy-mm-dd hh:mi:ss'),
-		sysdate)
+		TO_DATE(#{q_open}, 'yyyy-mm-dd hh24:mi:ss'),
+		TO_DATE(#{q_close}, 'yyyy-mm-dd hh24:mi:ss'),
+		10,10,
+		TO_DATE(#{q_score_open}, 'yyyy-mm-dd hh24:mi:ss'),
+		SYSDATE)
 	</insert>
 	
 	<!-- 퀴즈 목록 -->
