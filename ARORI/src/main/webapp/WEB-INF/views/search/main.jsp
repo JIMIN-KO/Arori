@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/template/member/member_classes_nav_header.jsp"></jsp:include>
+
                     <div class="offset-1 null-side null-side2"></div>                        
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                     	<br>
@@ -38,7 +38,7 @@
 							</div>
 							<div id="list" class="w-100">
 								<table class="w-100">
-									<theadc>
+									<thead>
 										<tr>
 											<th>클래스 번호</th>
 											<th>클래스 이름</th>
@@ -56,7 +56,7 @@
                         <!-- 저기 위에서 부터 여기ㅈ까지 내용 들어갈 칸이야 이 밑에도 이런식으로 불러와야 해 
                         우리가 원래 하던대로 라면 이게 밑에 있고 아래 스크립트가 위에 잇는거지? 그건 상관없는거지??ㅇㅇ -->
                     </div>
-<jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
+
 <script>
 $(function(){
 	/* var keyword = document.querySelector("#searchOption")
@@ -83,27 +83,28 @@ $(function(){
 			console.log(resp)
 			
 			for(var i = 0; i < resp.data.length; i++) {
+				
 				var tr = document.createElement("tr")
 				tr.classList.add("class_list" + i)
 				list.appendChild(tr)
 				var class_list = document.querySelector(".class_list" + i)
 				
 				var no = document.createElement("td")
-				var name = document.createElement("td")
+				var title = document.createElement("td")
 				var nick = document.createElement("td")
 				var info = document.createElement("td")
 				var when = document.createElement("td")
 				
 				
 				no.textContent = resp.data[i].c_no
+				title.textContent = resp.data[i].c_title
 				nick.textContent = resp.data[i].member_nick
-				nick.textContent = resp.data[i].c_title
 				info.textContent = resp.data[i].c_info
 				when.textContent = resp.data[i].c_when
 				
 				class_list.appendChild(no)
+				class_list.appendChild(title)
 				class_list.appendChild(nick)
-				class_list.appendChild(name)
 				class_list.appendChild(info)
 				class_list.appendChild(when)
 			}
