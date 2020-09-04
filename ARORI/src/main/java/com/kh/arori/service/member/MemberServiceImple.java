@@ -1,4 +1,3 @@
-
 package com.kh.arori.service.member;
 
 import java.util.HashMap;
@@ -15,6 +14,7 @@ import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.email.EmailService;
 
+
 @Service
 public class MemberServiceImple implements MemberService {
 
@@ -26,7 +26,7 @@ public class MemberServiceImple implements MemberService {
 
 	@Autowired
 	private EmailService emailService;
-
+	
 	// 시퀀스 발급
 	@Override
 	public int getSeq() {
