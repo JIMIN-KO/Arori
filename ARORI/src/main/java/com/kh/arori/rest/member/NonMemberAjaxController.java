@@ -42,7 +42,7 @@ public class NonMemberAjaxController {
 	// 소셜 이메일 회원 조회
 	@RequestMapping("/checkEmail")
 	public boolean checkEmail(@RequestParam String member_id) {
-
+		System.out.println(member_id);
 		// 1. 파라미터로 소셜 로그인 요청 회원의 이메일 데이터 조회
 		MemberDto member = memberDao.get(member_id);
 
