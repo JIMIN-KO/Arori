@@ -3,8 +3,11 @@ package com.kh.arori.controller.admin;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private SqlSession sqlSession;
 
 	@GetMapping("/main")
 	public String adminPage() {
@@ -89,10 +95,10 @@ public class AdminController {
 	public String memberProfile(@PathVariable(required = false) int member_no, Model model, Model model2) {
 
 		MemberDto memberDto = memberDao.memberProfile(member_no);
-		model.addAttribute("memberDto", memberDto); //소셜회원 정보전달
+		model.addAttribute("memberDto", memberDto); // 소셜회원 정보전달
 
 		AroriMemberDto memberDto2 = memberDao.memberProfile2(member_no);
-		model.addAttribute("memberDto2", memberDto2); //아로리회원 정보전달
+		model.addAttribute("memberDto2", memberDto2); // 아로리회원 정보전달
 
 		return "admin/memberProfile";
 	}
@@ -101,10 +107,27 @@ public class AdminController {
 	public String memberProfile(@PathVariable(required = false) int member_no, @ModelAttribute MemberDto memberDto,
 			@ModelAttribute AroriMemberDto aroriMemberDto) {
 
-		adminService.memberProfile(member_no); //소셜회원정보 get
+		adminService.memberProfile(member_no); // 소셜회원정보 get
 
-		adminService.memberProfile2(member_no); //아로리회원정보 get
+		adminService.memberProfile2(member_no); // 아로리회원정보 get
 
 		return "/memberProfile/{member_no}";
 	}
+	
+	
+	
+//	@GetMapping
+//	public String 
+//	
+//	@RequestMapping("/search")
+//	public String search(@RequestParam(required = false) String type, @RequestParam(required=false) String keyword, Model model) {
+//		Map<String, Object>map = new HashMap<>();
+//		map.put("type", type);
+//		map.put("keyword", keyword);
+//		List<MemberDto>list = sqlSession.selectList("member.search",map);
+//		model.addAttribute("list", list);
+//		
+//		return "admin/
+//		
+//	}
 }

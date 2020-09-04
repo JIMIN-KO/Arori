@@ -256,6 +256,7 @@
 		parameterType="memberDto">
 		SELECT * FROM MEMBER WHERE MEMBER_NO = #{member_no}
 	</select>
+	
 
 
 </mapper>
