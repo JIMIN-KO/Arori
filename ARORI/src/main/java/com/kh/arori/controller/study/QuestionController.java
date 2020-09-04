@@ -24,9 +24,7 @@ public class QuestionController {
 	//퀘스천 생성
 	@PostMapping("/classes/{c_no}/quiz/{q_no}/question/create")
 	public String create(@PathVariable int c_no, @PathVariable int q_no, @ModelAttribute AllQuestionDto allQuestionDto) {
-		int question_no = questionService.createQuestion(allQuestionDto);
-		
-		
+		int question_no = questionService.createQuestion(allQuestionDto);	
 		return "redirect: /quiz/detail/";
 	}
 	
