@@ -15,6 +15,16 @@
 		
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
+	
+		<!-- Quiz Table -->
+		<typeAlias type="com.kh.arori.entity.study.QuizDto" alias="quizDto"/>
+		
+		<!-- Question Table -->
+		<typeAlias type="com.kh.arori.entity.study.AllQuestionDto" alias="allQuestionDto"/>
+		<typeAlias type="com.kh.arori.entity.study.QuestionTypeDto" alias="questionTypeDto"/>
+		<typeAlias type="com.kh.arori.entity.study.OxDto" alias="oxDto"/>
+		<typeAlias type="com.kh.arori.entity.study.MultipleDto" alias="multipleDto"/>
+		<typeAlias type="com.kh.arori.entity.study.ExplainDto" alias="explainDto"/>
 
 		<!-- MC Table -->
 		<typeAlias type="com.kh.arori.entity.study.McDto" alias="mcDto"/>

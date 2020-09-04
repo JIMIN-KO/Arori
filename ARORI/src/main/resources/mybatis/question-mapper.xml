@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="question">
+
+	<!--  퀘스천 시퀀스 번호 발급 -->
+	<select id="getSeq" resultType="int">
+		SELECT aq_seq.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 퀘스천 타입 시퀀스 -->
+	<select id="getSeqAq" resultType="int">
+		SELECT qt_seq.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- ox답안 시퀀스 -->
+	<select id="getSeqOx" resultType="int">
+		SELECT ox_seq.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 선다형 답안 시퀀스 -->
+	<select id="getSeqMul" resultType="int">
+		SELECT multiple_seq.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 서술형 답안 시퀀스 -->
+	<select id="getSeqEx" resultType="int">
+		SELECT explain_seq.NEXTVAL FROM DUAL
+	</select>
+	
+
+	<!-- 퀘스천 생성 -->
+	<insert id="createQuestion" parameterType="allQuestionDto">
+		INSERT INTO all_question VALUES(
+		#{question_no},#{q_no},#{qt_no}, #{aq_no},#{aq_content},#{aq_score}, sysdate)
+	</insert>
+
+</mapper>
