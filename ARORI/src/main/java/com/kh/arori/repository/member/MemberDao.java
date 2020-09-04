@@ -1,3 +1,4 @@
+
 package com.kh.arori.repository.member;
 
 import java.util.List;
@@ -60,6 +61,12 @@ public interface MemberDao {
 	// 소셜회원)마이페이지
 	public MemberDto SocialInfo(int member_no);
 
+	// resultMap 연습
+	public List<MemberDto> resultMap();
+
+	// resultMap2 연습
+	public List<MemberDto> resultMap2();
+
 	// 중복 아이디 검사
 	public MemberDto checkOverlap(String member_id);
 
@@ -74,5 +81,4 @@ public interface MemberDao {
 
 	// 회원탈퇴
 	public void deleteMember(MemberDto memberDto);
-
 }

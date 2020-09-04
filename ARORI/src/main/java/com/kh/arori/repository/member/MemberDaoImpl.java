@@ -14,7 +14,7 @@ import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 
 @Repository
-public class MemberDaoImpl implements MemberDao {
+public class MemberDaoImpl implements MemberDao{
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -93,44 +93,20 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.update("member.changeTempPw", aroriMemberDto);
 	}
 
-	// 회원 탈퇴 아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제
-	// 재정의하셨는데 모양이 다르네요
-//	@Override
-	public void deleteMember(MemberDto memberDto) {
-		if (memberDto.getMember_state() == "arori") {
-			sqlSession.delete("deleteMember", memberDto);
-			sqlSession.update("deleteAroriMember", memberDto);
-		} else {
-			sqlSession.update("deleteMember", memberDto);
-
-		}
-	}
-
-	// 회원 가입시 중복닉네임을 검사
-	// 재정의하셨는데 모양이 다르네요
-//	@Override
-	public MemberDto checkOverlap(String member_id) {
-		return sqlSession.selectOne("member.getCheck", member_id);
-
-	}
-
-	// 회원 가입시 중복이메일을 검사
-//	@Override
-	// 재정의하셨는데 모양이 다르네요
 	public MemberDto checkOverlapMail(String member_email) {
 
 		return sqlSession.selectOne("member.getCheckEmail", member_email);
 	}
 
 	// 회원 가입시 중복닉네임을 검사
-//	@Override
+	@Override
 	public MemberDto checkOverlapNick(String member_nick) {
 
 		return sqlSession.selectOne("member.getCheckNick", member_nick);
 	}
 
 	// 회원 가입시 중복핸드폰을 검사
-//	@Override
+	@Override
 	public MemberDto checkOverlapPhone(String member_Phone) {
 
 		return sqlSession.selectOne("member.getCheckPhone", member_Phone);
@@ -139,10 +115,18 @@ public class MemberDaoImpl implements MemberDao {
 	// 아로리 ) 회원정보 수정 (윤아)
 	@Override
 	public void updateArori(AroriMemberDto aroriMemberDto) {
-		// db에서 email을 통해서 회원을 불러온다.
+		// 아로리테이블 업데이트 
 		sqlSession.update("member.updateArori", aroriMemberDto);
 
 	}
+	
+	// 소셜 )회원정보 수정  
+		@Override
+		public void updateSocial(MemberDto memberDto) {
+			//소셜 테이블 업데이트 
+			sqlSession.update("member.updateSocial", memberDto);
+
+		}
 
 	// 아로리) 마이페이지
 	@Override
@@ -168,13 +152,7 @@ public class MemberDaoImpl implements MemberDao {
 		return aroriList;
 	}
 
-	// 소셜 멤버조회
-	@Override
-	public void updateSocial(MemberDto memberDto) {
-
-		sqlSession.update("member.updateSocial", memberDto);
-
-	}
+	
 
 	// 비밀번호 체크 여부
 	@Override
@@ -190,4 +168,32 @@ public class MemberDaoImpl implements MemberDao {
 		return result;
 	}
 
+	@Override
+	public List<MemberDto> resultMap() {
+		List<MemberDto>result = sqlSession.selectList("member.resultMap");
+		return result;
+	}
+
+	@Override
+	public List<MemberDto> resultMap2() {
+		List<MemberDto>result2 = sqlSession.selectList("member.resultMap2");
+		return result2;
+	}
+
+	@Override
+	public MemberDto checkOverlap(String member_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteMember(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		
+	}
 }
+
+
+	
+
+

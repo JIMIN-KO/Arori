@@ -1,3 +1,4 @@
+
 package com.kh.arori.service.member;
 
 import java.util.HashMap;
@@ -189,4 +190,13 @@ public class MemberServiceImple implements MemberService {
 		memberDao.deleteMember(memberDto);
 	}
 
+	// 아로리 회원정보 수정
+	@Override
+	public void updateinfo(MemberDto memberDto, AroriMemberDto aroriMemberDto) {
+		// MEMBER 테이블 수정
+		memberDao.updateSocial(memberDto);
+		// arori 테이블 수정
+		memberDao.updateArori(aroriMemberDto);
+
+	}
 }
