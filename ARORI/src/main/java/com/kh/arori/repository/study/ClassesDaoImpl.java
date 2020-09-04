@@ -1,12 +1,15 @@
 package com.kh.arori.repository.study;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.McDto;
 
 @Repository
 public class ClassesDaoImpl implements ClassesDao {
@@ -28,17 +31,45 @@ public class ClassesDaoImpl implements ClassesDao {
 	}
 
 	// 단일 조회
+		@Override
+		public ClassesDto get(int c_no) {
+			ClassesDto info = sqlSession.selectOne("classes.get", c_no);
+			return info;
+		}
+		
+		// 클래스 목록 조회
+		@Override
+		public List<ClassesDto> getList() {
+			List<ClassesDto> list = sqlSession.selectList("classes, getList");
+			return list;
+		}
+	// 수정
 	@Override
-	public ClassesDto get(int c_no) {
-		ClassesDto info = sqlSession.selectOne("classes.get", c_no);
-		return info;
+	public void edit(ClassesDto classesDto) {
+		sqlSession.update("classes.edit", classesDto);		
 	}
-	
-	// 클래스 목록 조회
+
+	// 나의 클래스 목록 조회
 	@Override
-	public List<ClassesDto> getList() {
-		List<ClassesDto> list = sqlSession.selectList("classes, getList");
+	public List<ClassesDto> myList(int member_no) {
+		List<ClassesDto> list = sqlSession.selectList("classes.myList", member_no);
 		return list;
+	}
+
+	// 삭제
+	@Override
+	public void delete(int c_no) {
+		sqlSession.delete("classes.delete", c_no);		
+	}
+
+	// 검색
+	@Override
+	public List<McDto> searchList(String searchOption, String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		return sqlSession.selectList("classes.search", map);
+		
 	}
 
 	// (성헌) 클래스 주인인지 조회
@@ -49,3 +80,4 @@ public class ClassesDaoImpl implements ClassesDao {
 	}
 
 }
+
