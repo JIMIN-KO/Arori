@@ -17,21 +17,43 @@
 						<!-- 게시글 작성 영역 -->
                         <div id="editor"></div>
                         <div class="float-right mt-5">
-                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
+                        	<!-- 취소 영역 -->
+                            <a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         	<!-- 전송 영역 -->
-                        	<form action="${pageContext.request.contextPath }/classes/notice/create" method="post" style="display: inline-block;">
-                        		<input type="hidden" name="c_no" value="${c_no }">
+                        	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;">
+                        		<input type="hidden" name="c_no" value="${noticeDto.c_no }">
+                        		<input type="hidden" name="n_no" value="${noticeDto.n_no }">
                         		<input type="hidden" name="n_title">
                         		<input type="hidden" name="n_content" id="n_content">
+                        		<input type="hidden" name="n_state" value="1">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createNotice" value="작성">
                         	</form>
                         </div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>
 <!-- Toast Editor 비동기 Javascript 영역 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/toast_ui_editor.js"></script>
 <script>
 $(function(){
+	
+	$('#saveModal').modal('hide') // 모달 숨기기 
+	
+	// 취소 버튼 클릭 시 모달 띄우기 
+	$("#cancel").click(function(){
+		$('#saveModal').modal('show') // 모달 띄우기 
+	})
+	
+	// 모달 ) 취소 클릭시 해당 데이터 삭제 및 목록으로 이동 
+	$("#saveCancel").click(function(){
+		location.href = "/arori/classes/notice/delete/${noticeDto.c_no}/${noticeDto.n_no}"
+	})
+	
+	// 모달 ) 임시 저장 클릭 시 n_state 상태 0  으로 변경 
+	$("#save").click(function(){
+		$("input[name=n_state]").val(0)
+		$("#n_content").val(editor.getMarkdown()); // 에디터 데이터를 폼에 삽입 
+		$("#createNotice").trigger("click")
+	})
+	
 	// 공지 게시글 제목 설정하기 
 	$("#n_title").on("input",function(){
 		var n_title = $("#n_title").val()
@@ -43,7 +65,38 @@ $(function(){
 		/* $("#n_content").val(editor.getTextObject()._mde.toastMark.lineTexts) */
 		$("#n_content").val(editor.getMarkdown());
 	})
-
 })
+
+//Toast Ui Editor
+const Editor = toastui.Editor;
+const { colorSyntax } = Editor.plugin;
+const { codeSyntaxHighlight } = Editor.plugin;
+const { tableMergedCell } = Editor.plugin;
+
+const editor = new Editor({
+	  el: document.querySelector('#editor'),
+	  height: '600px',
+	  initialEditType: 'markdown',
+	  previewStyle: 'vertical',
+	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
+	  hooks:{
+		'addImageBlobHook':function(blob, callback){
+			console.log(blob, callback);
+			
+			var frm = new FormData();
+			frm.append("f", blob);
+			
+			axios({
+				contentType: false,
+				processData: false,
+				url:"/arori/imgAjax/notice/upload/${noticeDto.n_no }" ,
+				method:"post",
+				data:frm
+			}).then(function(resp) {
+				callback("/arori/imgAjax/notice/download/" + resp.data);
+			})
+		}
+	}
+});
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

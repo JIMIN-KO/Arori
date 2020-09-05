@@ -19,12 +19,13 @@
                         <!-- model 로 받아온 n_content 데이터 문자열 화 -->
                         <input type="hidden" id="edit_n_content" value="${noticeDto.n_content }">
                         <div class="float-right mt-5">
-                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="editCancel">취소</a>
+                        	<a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         	<!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="n_no" value="${noticeDto.n_no }">
                         		<input type="hidden" name="n_title">
+                        		<input type="hidden" name="n_state" value="1">
                         		<input type="hidden" name="n_content" id="n_content">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="editNotice" value="수정">
                         	</form>
@@ -32,9 +33,28 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>
 <!-- Toast Editor 비동기 Javascript 영역 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/toast_ui_editor.js"></script>
 <script>
 $(function(){
+
+	$('#saveModal').modal('hide') // 모달 숨기기 
+	
+	// 취소 버튼 클릭 시 모달 띄우기 
+	$("#cancel").click(function(){
+		$('#saveModal').modal('show') // 모달 띄우기 
+	})
+	
+	// 모달 ) 취소 클릭시 해당 데이터 삭제 및 목록으로 이동 
+	$("#saveCancel").click(function(){
+		history.back()
+	})
+	
+	// 모달 ) 임시 저장 클릭 시 n_state 상태 0  으로 변경 
+	$("#save").click(function(){
+		$("input[name=n_state]").val(0)
+		$("#n_content").val(editor.getMarkdown()); // 에디터 데이터를 폼에 삽입 
+		$("#editNotice").trigger("click")
+	})
+	
 	// 공지 게시글 내용 에디터 안에 넣기 
 	var n_content = $("#edit_n_content").val()
 	editor.setMarkdown(n_content)
@@ -54,5 +74,37 @@ $(function(){
 	})
 
 })
+
+//Toast Ui Editor
+const Editor = toastui.Editor;
+const { colorSyntax } = Editor.plugin;
+const { codeSyntaxHighlight } = Editor.plugin;
+const { tableMergedCell } = Editor.plugin;
+
+const editor = new Editor({
+	  el: document.querySelector('#editor'),
+	  height: '600px',
+	  initialEditType: 'markdown',
+	  previewStyle: 'vertical',
+	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
+	  hooks:{
+		'addImageBlobHook':function(blob, callback){
+			console.log(blob, callback);
+			
+			var frm = new FormData();
+			frm.append("f", blob);
+			
+			axios({
+				contentType: false,
+				processData: false,
+				url:"/arori/imgAjax/notice/upload/${noticeDto.n_no }" ,
+				method:"post",
+				data:frm
+			}).then(function(resp) {
+				callback("/arori/imgAjax/notice/download/" + resp.data);
+			})
+		}
+	}
+});
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

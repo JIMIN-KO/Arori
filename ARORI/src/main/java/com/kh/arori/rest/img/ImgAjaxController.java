@@ -19,19 +19,20 @@ public class ImgAjaxController {
 	@Autowired
 	private ImgService imgService;
 
-	// 리드미 이미지 업로드
-	@PostMapping("/readme/upload/{c_no}")
-	public int upload(@PathVariable int c_no, MultipartHttpServletRequest req) throws Exception {
+	// 이미지 업로드
+	@PostMapping("/{table_name}/upload/{this_no}")
+	public int upload(@PathVariable String table_name, @PathVariable int this_no, MultipartHttpServletRequest req)
+			throws Exception {
 		// Http 프로토콜 Stream 에서 넘어온 byte[] 를 Iterator 반복자를 이용해 하나의 파일 객체로 합친다.
-		int ai_no = imgService.readme_insert(req, c_no);
+		int ai_no = imgService.insert(req, table_name, this_no);
 
 		return ai_no;
 	}
 
-	// 리드미 이미지 다운로드
-	@RequestMapping("/readme/download/{ai_no}")
-	public ResponseEntity<ByteArrayResource> download(@PathVariable int ai_no) throws Exception {
-		ResponseEntity<ByteArrayResource> download = imgService.download(ai_no, NameConst.README);
+	// 이미지 다운로드
+	@RequestMapping("/{table_name}/download/{ai_no}")
+	public ResponseEntity<ByteArrayResource> download(@PathVariable String table_name,@PathVariable int ai_no) throws Exception {
+		ResponseEntity<ByteArrayResource> download = imgService.download(ai_no, table_name);
 
 		return download;
 	}

@@ -50,15 +50,16 @@ public class ImgServiceImpl implements ImgService {
 		return img_no;
 	}
 
+	// 이미지 파일 업로드 + 데이터 베이스 데이터 추가 
 	@Override
 	@Transactional
-	public int readme_insert(MultipartHttpServletRequest req, int c_no) throws Exception {
-		int no = imgDao.getSeq_all(NameConst.README); // 리드미 오작교 고유 번호
+	public int insert(MultipartHttpServletRequest req, String table_name, int this_no) throws Exception {
+		int no = imgDao.getSeq_all(table_name); // 리드미 오작교 고유 번호
 		int ai_no = this.upload(req); // 이미지 고유 번호 + 데이터 저장
 
 		// 데이터 객체화
-		This_imgDto this_imgDto = This_imgDto.builder().no(no).ai_no(ai_no).this_no(c_no)
-				.table_name(NameConst.README).build();
+		This_imgDto this_imgDto = This_imgDto.builder().no(no).ai_no(ai_no).this_no(this_no).table_name(table_name)
+				.build();
 
 		imgDao.insert2(this_imgDto); // 리드미 오작교 테이블 데이터 등록
 
@@ -93,26 +94,26 @@ public class ImgServiceImpl implements ImgService {
 	@Override
 	@Transactional
 	public void delete(int this_no, String table_name) {
-		// 해당 게시글 번호와 테이블 이름을 통해 객체화 
+		// 해당 게시글 번호와 테이블 이름을 통해 객체화
 		This_imgDto this_imgDto = This_imgDto.builder().this_no(this_no).table_name(table_name).build();
-		// 해당 게시글에 속한 모든 이미지 리스트 
+		// 해당 게시글에 속한 모든 이미지 리스트
 		List<This_imgDto> img_list = imgDao.get2(this_imgDto);
 
 		for (This_imgDto thisImg : img_list) {
 			System.out.println(thisImg.getAi_no());
 			System.out.println(thisImg.getThis_no());
 			System.out.println(thisImg.getTable_name());
-			thisImg.setTable_name(table_name); // 해당 테이블의 이미지를 조회하기 위한 상수 입력 
-			
-			// 이미지 통합 테이블의 해당 게시글의 이미지 조회 
+			thisImg.setTable_name(table_name); // 해당 테이블의 이미지를 조회하기 위한 상수 입력
+
+			// 이미지 통합 테이블의 해당 게시글의 이미지 조회
 			All_imgDto all_imgDto = imgDao.get(thisImg);
 			System.out.println(all_imgDto.getImg_no());
 			System.out.println(all_imgDto.getImg_name());
-			// 이미지 통합 테이블의 데이터 삭제 
+			// 이미지 통합 테이블의 데이터 삭제
 			imgDao.delete(all_imgDto);
-			
-			// 디스크에서 해당 이미지 파일 삭제 
-			File target = new File(NameConst.imgPath,String.valueOf(all_imgDto.getImg_no()));
+
+			// 디스크에서 해당 이미지 파일 삭제
+			File target = new File(NameConst.imgPath, String.valueOf(all_imgDto.getImg_no()));
 			target.delete();
 		}
 		// 해당 게시글의 모든 데이터 삭제

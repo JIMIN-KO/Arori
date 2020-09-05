@@ -35,14 +35,14 @@ public class NoticeServiceImpl implements NoticeService {
 	// 공지 게시글 작성
 	@Override
 	@Transactional
-	public int create(List<String> n_content, String c_no, String n_title) {
-		// 게시글 배열 합치기
-		String content = toastService.content(n_content);
+	public int create(String c_no) {
 
 		// 공지 게시글 고유 번호 발급
 		int n_no = noticeDao.getSeq();
-		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(n_no).n_title(n_title)
-				.n_content(content).build();
+		
+		// 더미 데이터 삽입 
+		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(n_no).n_title(c_no + "-"  + n_no + " 공지 게시글 작성 중" )
+				.n_content(c_no + "-"  + n_no + " 공지 게시글 작성 중").build();
 		// 공지 게시글 작성
 		noticeDto.setN_no(n_no);
 		noticeDao.create(noticeDto);
