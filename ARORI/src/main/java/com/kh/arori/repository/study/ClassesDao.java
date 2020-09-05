@@ -2,6 +2,7 @@ package com.kh.arori.repository.study;
 
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.McDto;
+import com.kh.arori.entity.study.SubscribeDto;
 
 import java.util.List;
 
@@ -26,5 +27,14 @@ public interface ClassesDao {
 	
 	// (성헌) 클래스 주인인지 조회 
 	public ClassesDto checkM(ClassesDto classesDto);
+	
+	// 구독 테이블 단일조회
+	public SubscribeDto checkSub(int sub_no);
+	// 구독 
+	public void sub(SubscribeDto subDto);
+	// 구독자 수 카운트
+	public int countSub(SubscribeDto subDto);
+	// 구독 취소
+	public void delSub(SubscribeDto subDto);
 	
 }

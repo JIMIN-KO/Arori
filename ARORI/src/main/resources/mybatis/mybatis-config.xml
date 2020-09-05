@@ -15,6 +15,9 @@
 		
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
+		
+		<!-- Subscribe Table -->
+		<typeAlias type="com.kh.arori.entity.study.SubscribeDto" alias="subDto"/>
 	
 		<!-- Quiz Table -->
 		<typeAlias type="com.kh.arori.entity.study.QuizDto" alias="quizDto"/>

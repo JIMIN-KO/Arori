@@ -50,11 +50,17 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				<td>${classesDto.c_when}</td>
+				<td>
+				<fmt:parseDate value="${classesDto.c_when}" 
+							var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>				
+				</td>
+				<c:if test="${userinfo.member_no==classesDto.member_no}">
 				<td>
 					<a href="edit/${classesDto.c_no}">수정</a> 
 					<a href="delete/${classesDto.c_no}">삭제</a>
 				</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</tbody>

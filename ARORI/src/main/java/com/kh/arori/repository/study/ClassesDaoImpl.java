@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.McDto;
+import com.kh.arori.entity.study.SubscribeDto;
 
 @Repository
 public class ClassesDaoImpl implements ClassesDao {
@@ -31,17 +32,17 @@ public class ClassesDaoImpl implements ClassesDao {
 	}
 
 	// 단일 조회
-		@Override
-		public ClassesDto get(int c_no) {
-			ClassesDto info = sqlSession.selectOne("classes.get", c_no);
-			return info;
+	@Override
+	public ClassesDto get(int c_no) {
+		ClassesDto info = sqlSession.selectOne("classes.get", c_no);
+		return info;
 		}
 		
-		// 클래스 목록 조회
-		@Override
-		public List<ClassesDto> getList() {
-			List<ClassesDto> list = sqlSession.selectList("classes, getList");
-			return list;
+	// 클래스 목록 조회
+	@Override
+	public List<ClassesDto> getList() {
+		List<ClassesDto> list = sqlSession.selectList("classes, getList");
+		return list;
 		}
 	// 수정
 	@Override
@@ -77,6 +78,30 @@ public class ClassesDaoImpl implements ClassesDao {
 	public ClassesDto checkM(ClassesDto classesDto) {
 
 		return sqlSession.selectOne("classes.checkM", classesDto);
+	}
+
+	// 구독자 수 카운트
+	@Override
+	public int countSub(SubscribeDto subDto) {
+		return sqlSession.selectOne("classes.countSub", subDto);
+	}
+
+	// 구독
+	@Override
+	public void sub(SubscribeDto subDto) {
+		sqlSession.insert("classes.sub", subDto);		
+	}
+
+	// 구독 취소
+	@Override
+	public void delSub(SubscribeDto subDto) {
+		sqlSession.delete("classes.delSub", subDto);
+	}
+
+	@Override
+	public SubscribeDto checkSub(int sub_no) {
+		SubscribeDto subInfo = sqlSession.selectOne("classes.checkSub", sub_no);
+		return subInfo;
 	}
 
 }
