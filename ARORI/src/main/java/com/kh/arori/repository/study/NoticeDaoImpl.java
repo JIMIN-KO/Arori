@@ -87,9 +87,9 @@ public class NoticeDaoImpl implements NoticeDao {
 	
 	// 공지 게시글 임시 데이터 조회 
 	@Override
-	public NoticeDto getTemp(NoticeDto noticeDto) {
+	public List<NoticeDto> getTemp(NoticeDto noticeDto) {
 
-		return sqlSession.selectOne("notice.getTemp", noticeDto);
+		return sqlSession.selectList("notice.getTemp", noticeDto);
 	}
 
 	// 공지 게시글 임시 데이터 삭제 
@@ -97,6 +97,13 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int deleteTemp(NoticeDto noticeDto) {
 
 		return sqlSession.delete("notice.deleteTemp", noticeDto);
+	}
+
+	// 공지 게시글 새 글 작성 중 임시 저장 전체 조회
+	@Override
+	public List<NoticeDto> getCT(int c_no) {
+
+		return sqlSession.selectList("notice.getCT", c_no);
 	}
 
 }

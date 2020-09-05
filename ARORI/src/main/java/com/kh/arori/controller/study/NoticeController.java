@@ -42,6 +42,12 @@ public class NoticeController {
 		// 페이지 네비게이터 계산
 		List<Integer> block = noticeService.pagination(Integer.parseInt(c_no), pageNo);
 
+		// 임시 저장 데이터 조회
+		List<NoticeDto> temp = noticeDao.getCT(Integer.parseInt(c_no));
+		if(temp != null) {
+			model.addAttribute("temp", temp);
+		}
+
 		// VIEW 로 던질 모델 (게시글 / 해당 클래스 정보)
 		model.addAttribute("list", list);
 		model.addAttribute("classes", classes);
@@ -66,19 +72,6 @@ public class NoticeController {
 		return "classes/notice/notice_create";
 	}
 
-//	// 공지 게시글 작성 기능
-//	@PostMapping("/classes/notice/create")
-//	public String noticeCreate(@RequestParam List<String> n_content, @RequestParam String n_no,
-//			@RequestParam String c_no, @RequestParam String n_title) {
-//
-//		// 매개변수로 받아온 데이터 객체화 
-//		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(Integer.parseInt(n_no)).n_title(n_title).build();
-//		// 작성이지만, 입력된 데이터의 값을 받아 이미 만들어진 공지 게시글 데이터 UPDATE 
-//		String result = noticeService.edit(n_content, noticeDto);
-//		
-//		return result;
-//	}
-
 	// 공지 게시글 수정 페이지
 	@GetMapping("/classes/notice/edit/{c_no}/{n_no}")
 	public String noticeEdit(@PathVariable String c_no, @PathVariable String n_no, Model model) {
@@ -87,6 +80,11 @@ public class NoticeController {
 
 		// 해당 게시글 데이터 조회
 		NoticeDto noticeDto = noticeDao.getCN(oldNotice);
+		
+		List<NoticeDto> temp = noticeDao.getTemp(noticeDto);
+		if(temp != null) {
+			model.addAttribute("temp", temp);
+		}
 
 		// Model 로 해당 데이터 전송
 		model.addAttribute("noticeDto", noticeDto);

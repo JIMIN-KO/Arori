@@ -8,6 +8,14 @@
                     	<br>
                         <div class="d-flex">
 	                        <h1 class="font-weight-bold mt-4" style="flex:18;">Notice</h1>
+	                        <c:if test="${not empty temp }">
+	                        <select class="form-control mt-4" id="tempSelect" style="flex:10;">
+	                        	<option selected="selected" disabled="disabled">임시 저장 리스트</option>
+	                        	<c:forEach var="temp" items="${temp }">
+	                        		<option value="${pageContext.request.contextPath }/classes/notice/edit/${temp.c_no}/${temp.n_no}">${temp.n_title }</option>
+	                        	</c:forEach>
+	                        </select>
+                        </c:if>
 	                        <c:if test="${classes.member_no == userinfo.member_no }">
 								<a href="${pageContext.request.contextPath }/classes/notice/create/${c_no}">
 						            <button class="btn btn-link mt-4" style="flex:0.3; color: gray;">
@@ -118,6 +126,13 @@
 	}
 
 	$(function(){
+		// 임시 저장 데이터 작성하기 
+		$("#tempSelect").on("change",function(){
+			console.log($("#tempSelect").val())
+			if($("#tempSelect").val() != "") {
+				location.href = $("#tempSelect").val()
+			}
+		})
 		
 	    // 라디오 숨김
 	    $("input[type=radio]").css("display","none")

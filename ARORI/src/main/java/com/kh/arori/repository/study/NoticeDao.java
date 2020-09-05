@@ -38,8 +38,11 @@ public interface NoticeDao {
 	public int createTemp(NoticeDto noticeDto);
 	
 	// 공지 게시글 임시 데이터 조회 
-	public NoticeDto getTemp(NoticeDto noticeDto);
+	public List<NoticeDto> getTemp(NoticeDto noticeDto);
 	
 	// 공지 게시글 임시 데이터 삭제 
 	public int deleteTemp(NoticeDto noticeDto);
+	
+	// 공지 게시글 작성 중 임시 저장 게시글 전체 조회 
+	public List<NoticeDto> getCT(int c_no);
 }

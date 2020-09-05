@@ -5,7 +5,17 @@
                     <div class="offset-1 null-side null-side2"></div>                        
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                         <br>
-                        <h1 class="font-weight-bold mt-4">Notice | Edit</h1>
+                        <div class="d-flex">
+	                        <h1 class="font-weight-bold mt-4" style="flex:18;">Notice</h1>
+	                        <c:if test="${not empty temp }">
+								<select id="tempSelect">
+									<option selected="selected" disabled="disabled">임시 저장 데이터 리스트</option>
+									<c:forEach var="temp" items="${temp }">
+										<option value="${temp.n_content }">${temp.n_title }</option>
+									</c:forEach>
+								</select>
+			                </c:if>
+                        </div>
                         <hr><br>
                         <!-- 제목 입력 영역 -->
                         <div class="input-group input-group-lg">
@@ -36,6 +46,17 @@
 <script>
 $(function(){
 
+	///////////// 임시 저장소 ///////////////
+	$("#tempSelect").on("change",function(){
+		// 제목 설정
+		$("#n_title").val($("#tempSelect option:selected").text()) // input 
+		$("input[name=n_title]").val($("#tempSelect option:selected").text()) // form
+
+		// 에디터 삽입
+		editor.setMarkdown($("#tempSelect").val())
+	})
+
+	/////////// 모달 ///////////
 	$('#saveModal').modal('hide') // 모달 숨기기 
 	
 	// 취소 버튼 클릭 시 모달 띄우기 
@@ -43,23 +64,25 @@ $(function(){
 		$('#saveModal').modal('show') // 모달 띄우기 
 	})
 	
-	// 모달 ) 취소 클릭시 해당 데이터 삭제 및 목록으로 이동 
+	// 모달 ) 취소 클릭시 목록으로 이동 
 	$("#saveCancel").click(function(){
 		history.back()
 	})
 	
-	// 모달 ) 임시 저장 클릭 시 임시 저장 테이블에 데이터 저장 
+	// 모달 ) 임시 저장 클릭 시 현재 데이터 저장 
 	$("#save").click(function(){
 		$("#n_content").val(editor.getMarkdown()); // 에디터 데이터를 폼에 삽입 
 		$("#editForm").attr("action","${pageContext.request.contextPath }/classes/notice/temp") // 경로 변경
 		$("#editNotice").trigger("click") // submit
 	})
 	
-	// 공지 게시글 내용 에디터 안에 넣기 
+	/////////////////// 에디터 기본 설정 /////////////////////
+	// 공지 게시글 기존 내용 에디터 안에 넣기 
 	var n_content = $("#edit_n_content").val()
 	editor.setMarkdown(n_content)
 	var origin_n_title = $("#n_title").val()
 	$("input[name=n_title]").val(origin_n_title)
+	$("#n_title").val(origin_n_title)
 		
 	// 공지 게시글 제목 설정하기 
 	$("#n_title").on("input",function(){
