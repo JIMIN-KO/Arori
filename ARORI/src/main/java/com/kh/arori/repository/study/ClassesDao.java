@@ -28,6 +28,8 @@ public interface ClassesDao {
 	// (성헌) 클래스 주인인지 조회 
 	public ClassesDto checkM(ClassesDto classesDto);
 	
+	// 구독 테이블 시퀀스 발급
+	public int getsubSeq();
 	// 구독 테이블 단일조회
 	public SubscribeDto checkSub(int sub_no);
 	// 구독 

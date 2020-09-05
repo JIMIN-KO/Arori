@@ -60,9 +60,12 @@
 
 <!-- 로그인한 경우에만 구독 버튼이 보이도록 -->
 <c:if test="${classesDto.member_no != userinfo.member_no}">
-	<a href="${pageContext.request.contextPath}/classes/subscribe/${c_no}">
-		<button type="button" id="sub">구독</button>
-	</a>
+	
+	<form action="${pageContext.request.contextPath}/classes/subscribe" method="post">
+		<input type="hidden" name="c_no" value="${c_no }">
+		<input type="hidden" name="member_no" value="${userinfo.member_no }">
+		<input type="submit" value="구독">
+	</form>
 </c:if>
 
 <c:if test="${classesDto.member_no==userinfo.member_no}">

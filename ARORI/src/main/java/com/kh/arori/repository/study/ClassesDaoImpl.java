@@ -80,6 +80,13 @@ public class ClassesDaoImpl implements ClassesDao {
 		return sqlSession.selectOne("classes.checkM", classesDto);
 	}
 
+	// 구독 시퀀스 발급
+	@Override
+	public int getsubSeq() {
+		int sub_no = sqlSession.selectOne("classes.getsubSeq");
+		return sub_no;
+	}
+
 	// 구독자 수 카운트
 	@Override
 	public int countSub(SubscribeDto subDto) {
@@ -98,6 +105,7 @@ public class ClassesDaoImpl implements ClassesDao {
 		sqlSession.delete("classes.delSub", subDto);
 	}
 
+	// 구독 테이블 단일조회
 	@Override
 	public SubscribeDto checkSub(int sub_no) {
 		SubscribeDto subInfo = sqlSession.selectOne("classes.checkSub", sub_no);

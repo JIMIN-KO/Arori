@@ -47,7 +47,7 @@
 		SELECT sub_SEQ.NEXTVAL FROM DUAL
 	</select> 
 	<!-- 구독-->
-	<insert id="sub">
+	<insert id="sub" parameterType="subDto">
 		INSERT INTO subscribe VALUES (#{sub_no}, #{member_no}, #{c_no}, SYSDATE)
 	</insert>
 	<!-- 구독 취소 -->
@@ -62,6 +62,10 @@
 	<select id="checkSub" resultType="int" parameterType="map">
 		SELECT * FROM subscribe WHERE member_no = #{member_no} and c_no = #{c_no}
 	</select>
+	<!-- 구독 데이터 업데이트 -->
+	<update id="subUpdate">
+		UPDATE classes SET c_subscribe=(SELECT COUNT(*) FROM subscribe WHERE c_no = #{c_no}) WHERE c_no = #{c_no}
+	</update>
 
 </mapper>
 
