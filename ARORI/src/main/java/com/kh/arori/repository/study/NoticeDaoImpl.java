@@ -78,4 +78,25 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.delete("notice.delete", noticeDto);
 	}
 
+	// 공지 게시글 임시 데이터 저장 
+	@Override
+	public int createTemp(NoticeDto noticeDto) {
+
+		return sqlSession.insert("notice.createTemp", noticeDto);
+	}
+	
+	// 공지 게시글 임시 데이터 조회 
+	@Override
+	public NoticeDto getTemp(NoticeDto noticeDto) {
+
+		return sqlSession.selectOne("notice.getTemp", noticeDto);
+	}
+
+	// 공지 게시글 임시 데이터 삭제 
+	@Override
+	public int deleteTemp(NoticeDto noticeDto) {
+
+		return sqlSession.delete("notice.deleteTemp", noticeDto);
+	}
+
 }

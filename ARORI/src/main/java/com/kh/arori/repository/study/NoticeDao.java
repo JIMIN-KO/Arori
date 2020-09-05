@@ -33,4 +33,13 @@ public interface NoticeDao {
 	
 	// 공지 게시글 삭제 
 	public int delete(NoticeDto noticeDto);
+	
+	// 공지 게시글 임시 데이터 저장 
+	public int createTemp(NoticeDto noticeDto);
+	
+	// 공지 게시글 임시 데이터 조회 
+	public NoticeDto getTemp(NoticeDto noticeDto);
+	
+	// 공지 게시글 임시 데이터 삭제 
+	public int deleteTemp(NoticeDto noticeDto);
 }

@@ -20,4 +20,7 @@ public interface NoticeService {
 	
 	//  공지 게시글 삭제 기능 
 	public String delete(NoticeDto noticeDto, int member_no);
+	
+	// 공지 게시글 임시 데이터 저장
+	public String createTemp(List<String> n_content, NoticeDto noticeDto);
 }

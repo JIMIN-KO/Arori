@@ -122,4 +122,17 @@ public class NoticeController {
 
 		return result;
 	}
+	
+	// 공지 게시글 수정 중 임시 저장 
+	@PostMapping("/classes/notice/temp")
+	public String noticeTemp(@RequestParam List<String> n_content, @RequestParam String c_no, @RequestParam String n_no,
+			@RequestParam String n_title, @RequestParam String n_state) {
+		// 매개변수 데이터 객체화 
+		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(Integer.parseInt(n_no))
+				.n_title(n_title).n_state(Integer.parseInt(n_state)).build();
+		
+		// 임시 저장 후 공지 게시판으로 이동 
+		String result = noticeService.createTemp(n_content, noticeDto);
+		return result;
+	}
 }

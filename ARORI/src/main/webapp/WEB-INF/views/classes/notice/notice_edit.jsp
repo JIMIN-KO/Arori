@@ -21,7 +21,7 @@
                         <div class="float-right mt-5">
                         	<a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         	<!-- 전송 영역 -->
-                        	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;">
+                        	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;" id="editForm">
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="n_no" value="${noticeDto.n_no }">
                         		<input type="hidden" name="n_title">
@@ -48,11 +48,11 @@ $(function(){
 		history.back()
 	})
 	
-	// 모달 ) 임시 저장 클릭 시 n_state 상태 0  으로 변경 
+	// 모달 ) 임시 저장 클릭 시 임시 저장 테이블에 데이터 저장 
 	$("#save").click(function(){
-		$("input[name=n_state]").val(0)
 		$("#n_content").val(editor.getMarkdown()); // 에디터 데이터를 폼에 삽입 
-		$("#editNotice").trigger("click")
+		$("#editForm").attr("action","${pageContext.request.contextPath }/classes/notice/temp") // 경로 변경
+		$("#editNotice").trigger("click") // submit
 	})
 	
 	// 공지 게시글 내용 에디터 안에 넣기 

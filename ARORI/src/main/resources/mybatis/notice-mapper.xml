@@ -48,4 +48,19 @@
 	<delete id="delete" parameterType="noticeDto">
 		DELETE NOTICE WHERE C_NO = #{c_no} AND N_NO = #{n_no}
 	</delete>
+	
+	<!-- 임시 저장소 데이터 저장 -->
+	<insert id="createTemp" parameterType="noticeDto">
+		INSERT INTO NOTICE_TEMP VALUES(#{n_no},#{c_no}, #{n_title}, #{n_content}, SYSDATE)
+	</insert>
+	
+	<!-- 임시 저장소 데이터 조회 -->
+	<select id="getTemp" resultType="noticeDto" parameterType="noticeDto">
+		SELECT * FROM NOTICE_TEMP WHERE N_NO = #{n_no} AND C_NO = #{c_no}
+	</select>
+
+	<!-- 임시 저장소 데이터 삭제 -->
+	<delete id="deleteTemp" parameterType="noticeDto">
+		DELETE NOTICE_TEMP WHERE N_NO = #{n_no} AND C_NO = #{c_no}
+	</delete>
 </mapper>

@@ -127,4 +127,20 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 		return "redirect:/classes/notice/" + noticeDto.getC_no() + "/1?fail";
 	}
+
+	// 공지 게시글 임시 데이터 저장 
+	@Override
+	@Transactional
+	public String createTemp(List<String> n_content, NoticeDto noticeDto) {
+		//n_content 이어붙이기 
+		String content = toastService.content(n_content);
+		
+		// dto 에 content 삽입 
+		noticeDto.setN_content(content);
+		
+		// 공지 게시글 임시 저장소에 데이터 저장 
+		noticeDao.createTemp(noticeDto);
+		
+		return "redirect:" + noticeDto.getC_no() + "/1";
+	}
 }
