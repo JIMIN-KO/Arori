@@ -12,20 +12,19 @@
 	<!-- 퀴즈 생성 -->
 	<insert id="createQuiz" parameterType="quizDto">
 		INSERT INTO QUIZ
-		VALUES(#{q_no},#{c_no},#{q_title},#{q_score},NULL,NULL,#{q_runtime},#{q_scoring},NULL,SYSDATE,NULL)
+		VALUES(#{q_no},#{c_no},#{q_title},#{q_score},NULL,NULL,#{q_runtime},#{q_scoring},NULL,SYSDATE,NULL,0)
 	</insert>
 
 	<!-- 퀴즈 목록 -->
 	<select id="getList" resultType="quizDto"
 		parameterType="quizDto">
-		SELECT * FROM QUIZ WHERE C_NO = ${c_no} ORDER BY Q_NO
+		SELECT * FROM QUIZ WHERE C_NO = ${c_no} AND Q_STATE = 1 ORDER BY Q_NO
 		DESC
 	</select>
 
 	<!-- 퀴즈 단일 조회 -->
 	<select id="get" resultType="quizDto" parameterType="quizDto">
-		SELECT *
-		FROM QUIZ WHERE C_NO = #{c_no} AND Q_NO = #{q_no}
+		SELECT * FROM QUIZ WHERE C_NO = #{c_no} AND Q_NO = #{q_no} 
 	</select>
 
 	<!-- 퀴즈 수정 / 갱신 -->
@@ -41,7 +40,8 @@
 		Q_SCORING = #{q_scoring},
 		Q_SCORE_OPEN =
 		TO_DATE(#{q_score_open},'yyyy-mm-dd hh24:mi:ss'),
-		Q_CONTENT = #{q_content}
+		Q_CONTENT = #{q_content},
+		Q_STATE = 1
 		WHERE C_NO = #{c_no}
 		AND Q_NO = #{q_no}
 	</select>

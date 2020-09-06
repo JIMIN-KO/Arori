@@ -68,9 +68,14 @@ public class QuizController {
 	@GetMapping("/classes/quiz/detail/{c_no}/{q_no}")
 	public String detail(@PathVariable int c_no, @PathVariable int q_no, Model model) {
 		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_no(q_no).build();
+		// 클래스 조회
+		ClassesDto classesDto = classesDao.get(c_no);
+		model.addAttribute("classesDto", classesDto);
+		
+		// 퀴즈 조회
 		quizDto = quizDao.get(quizDto);
 		model.addAttribute("quizDto", quizDto);
-		return "quiz/detail";
+		return "quiz/quiz_detail";
 	}
 
 }

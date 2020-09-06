@@ -8,97 +8,113 @@
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                     	<br>
                         <div class="d-flex">
-	                        <h1 class="font-weight-bold mt-4" style="flex:18;">Quiz | Create</h1>
+                        	<div class="mt-4" style="flex: 18;border-bottom: 1px solid rgba(190, 190, 190, 0.493);">
+		                        <h1 class="font-weight-bold">Quiz | Create</h1>
+                        	</div>
+	                        <ul class="nav nav-tabs justify-content-end mt-5" id="myTab" role="tablist">
+							  <li class="nav-item" role="presentation">
+							    <a class="nav-link h4 mb-0 active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Detail</a>
+							  </li>
+							  <li class="nav-item" role="presentation">
+							    <a class="nav-link h4 mb-0" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Question</a>
+							  </li>
+							</ul>
                         </div>
-                    	<hr><br>
-						<!-- 퀴즈 생성 영역 -->
-						<form action="${pageContext.request.contextPath }/classes/quiz/create" method="post">
-							<!-- 퀴즈 숨김 데이터 영역 -->
-							<input type="hidden" name="c_no" value="${quizDto.c_no }">
-							<input type="hidden" name="q_no" value="${quizDto.q_no }">
-							<input type="hidden" name="content">
-							<!-- 퀴즈 제목 영역 -->
-							<div class="input-group input-group-lg">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
+                    	<br>
+						<div class="tab-content" id="myTabContent">
+						  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+							  <!-- 퀴즈 생성 영역 -->
+							<form action="${pageContext.request.contextPath }/classes/quiz/create" method="post" id="quizDetail">
+								<!-- 퀴즈 숨김 데이터 영역 -->
+								<input type="hidden" name="c_no" value="${quizDto.c_no }">
+								<input type="hidden" name="q_no" value="${quizDto.q_no }">
+								<input type="hidden" name="content">
+								<!-- 퀴즈 제목 영역 -->
+								<div class="input-group input-group-lg mt-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
+									</div>
+									<input type="text" class="form-control" name="q_title" id="q_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 								</div>
-								<input type="text" class="form-control" name="q_title" id="q_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-							</div>
-							<!-- 퀴즈 설명 (Toast UI Editor) 영역 -->
-							<div id="editor" class="mt-5"></div>
-							<!-- 퀴즈 설정 영역 -->
-							<!-- Total Score / Score Open -->
-							<div class="form-row mt-5">
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Total Score</span>
+								<!-- 퀴즈 설명 (Toast UI Editor) 영역 -->
+								<div id="editor" class="mt-5"></div>
+								<!-- 퀴즈 설정 영역 -->
+								<!-- Total Score / Score Open -->
+								<div class="form-row mt-5">
+									<div class="form-group col-6">
+										<div class="input-group input-group-lg">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-lg">Total Score</span>
+											</div>
+											<input type="number" class="form-control" name="q_score" id="q_score" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 										</div>
-										<input type="number" class="form-control" name="q_score" id="q_score" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+									</div>
+									<div class="form-group col-6">
+										<div class="input-group input-group-lg">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
+											</div>
+											<input type="datetime-local" class="form-control" name="q_score_open" id="q_score_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+										</div>
 									</div>
 								</div>
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
+								<!-- Runtime / Scoring -->
+								<div class="form-row">
+									<div class="form-group col-6">
+										<div class="input-group input-group-lg">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
+											</div>
+											<input type="number" class="form-control" name="q_runtime" id="q_runtime" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 										</div>
-										<input type="datetime-local" class="form-control" name="q_score_open" id="q_score_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+									</div>
+									<div class="form-group col-6">
+										<div class="input-group input-group-lg">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-lg">Scoring</span>
+											</div>
+											<select class="custom-select" id="q_scoring" name="scoring">
+											    <option selected>Choose...</option>
+											    <option value="0">자동 채점</option>
+											    <option value="1">수동 채점</option>
+											  </select>
+										</div>
 									</div>
 								</div>
-							</div>
-							<!-- Runtime / Scoring -->
-							<div class="form-row">
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
+								<!-- Opening / Closing -->
+								<div class="form-row">
+									<div class="form-group col-6">
+										<div class="input-group input-group-lg">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-lg">Opening</span>
+											</div>
+											<input type="datetime-local" class="form-control" name="q_open" id="q_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 										</div>
-										<input type="number" class="form-control" name="q_runtime" id="q_runtime" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+									</div>
+									<div class="form-group col-6">
+										<div class="input-group input-group-lg">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-lg">Closing</span>
+											</div>
+											<input type="datetime-local" class="form-control" name="q_close" id="q_close" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+										</div>
 									</div>
 								</div>
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Scoring</span>
-										</div>
-										<select class="custom-select" id="q_scoring" name="scoring">
-										    <option selected>Choose...</option>
-										    <option value="0">자동 채점</option>
-										    <option value="1">수동 채점</option>
-										  </select>
-									</div>
-								</div>
-							</div>
-							<!-- Opening / Closing -->
-							<div class="form-row">
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Opening</span>
-										</div>
-										<input type="datetime-local" class="form-control" name="q_open" id="q_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-									</div>
-								</div>
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Closing</span>
-										</div>
-										<input type="datetime-local" class="form-control" name="q_close" id="q_close" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-									</div>
-								</div>
-							</div>
-							<div class="form-row float-right">
-								<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 등록</button>
-								<button type="button" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</button>
-							</div>
-						</form>
+							</form>
+						  </div>
+						  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+						</div>
+						<div class="form-row float-right">
+							<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 등록</button>
+							<button type="button" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</button>
+						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
 $(function(){
 	$("#save").click(function(){
 		$("input[name=content]").val(editor.getMarkdown())
+		document.querySelector("#quizDetail").submit()
 	})
 })
 //Toast Ui Editor

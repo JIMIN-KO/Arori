@@ -12,13 +12,13 @@
                         <!-- model 로 받아온 r_content 데이터 문자열 화 -->
                         <input type="hidden" value="${readmeDto.r_content }" id="edit_r_content">
                         <div class="float-right mt-5">
-                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         	<!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/readme/edit" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="r_content" id="r_content">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="editReadme" value="수정">
                         	</form>
+                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         </div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>

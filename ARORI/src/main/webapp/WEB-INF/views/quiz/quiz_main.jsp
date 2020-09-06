@@ -30,7 +30,7 @@
                                         	<th scope="col" class="font-weight-bold">Score</th>
                                         <th scope="col" class="font-weight-bold">Open</th>
                                         <th scope="col" class="font-weight-bold">Close</th>
-                                        	<c:if test="${classes.member_no == userinfo.member_no }">
+                                        	<c:if test="${classesDto.member_no == userinfo.member_no }">
                                         		<th scope="col" class="font-weight-bold">Ctrl</th>
                                         </c:if>
                                     </tr>
@@ -40,7 +40,7 @@
                                     <tr>
                                         <th scope="row">${quizDto.q_no }</th>
                                         <td>
-                                            	<a href="" class="font-weight-bold">
+                                            	<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}" class="font-weight-bold">
                                                 ${quizDto.q_title }
                                             	</a>
                                        	</td>
@@ -49,11 +49,11 @@
                                         	</td>
                                         	<td>
                                         		<fmt:parseDate value="${quizDto.q_open}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-											<fmt:formatDate value="${time}" pattern="yy-MM-dd HH:mm"/>부터	
+											<fmt:formatDate value="${time}" pattern="yy-MM-dd HH:mm"/> 부터	
                                         	</td>
                                         	<td>
                                         		<fmt:parseDate value="${quizDto.q_close}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-											<fmt:formatDate value="${time}" pattern="yy-MM-dd HH:mm"/>까지
+											<fmt:formatDate value="${time}" pattern="yy-MM-dd HH:mm"/> 까지
                                         	</td>
                                 			<c:if test="${classesDto.member_no == userinfo.member_no }">
 	                                        <td>
