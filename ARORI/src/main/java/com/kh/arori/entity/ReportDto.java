@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReportDto {
 	private int report_no;
-	private int report_member;
+	private String report_member;
 	private String report_type;
 	private String report_content;
-	private int report_crimi;
+	private String report_crimi;
+	private String report_date;
 }
