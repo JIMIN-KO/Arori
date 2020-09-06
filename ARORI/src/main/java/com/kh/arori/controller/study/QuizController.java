@@ -1,11 +1,17 @@
 package com.kh.arori.controller.study;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +38,14 @@ public class QuizController {
 			model.addAttribute("list",list);
 			return "quiz/quizmain";
 		}
+			
+		// 날짜 변수 타입 매핑
+//		@InitBinder 
+//		protected void initBinder(WebDataBinder binder){
+//			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+//		}
+		
 		
 		// 퀴즈 생성 페이지 
 		@GetMapping("/classes/{c_no}/quiz/create")
