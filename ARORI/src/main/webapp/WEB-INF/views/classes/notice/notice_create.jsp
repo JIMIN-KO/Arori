@@ -15,10 +15,8 @@
 							<input type="text" class="form-control" id="n_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
 						</div>
 						<!-- 게시글 작성 영역 -->
-                        <div id="editor"></div>
+                        <div id="editor" class="mt-5"></div>
                         <div class="float-right mt-5">
-                        	<!-- 취소 영역 -->
-                            <a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         	<!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${noticeDto.c_no }">
@@ -28,6 +26,8 @@
                         		<input type="hidden" name="n_state" value="1">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createNotice" value="작성">
                         	</form>
+                        	<!-- 취소 영역 -->
+                            <a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         </div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>

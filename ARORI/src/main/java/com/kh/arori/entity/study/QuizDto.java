@@ -17,4 +17,5 @@ public class QuizDto {
 	private int q_scoring;
 	private String q_score_open;
 	private String q_when;
+	private String q_content;
 }

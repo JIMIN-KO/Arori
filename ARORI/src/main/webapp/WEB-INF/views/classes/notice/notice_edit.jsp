@@ -25,11 +25,10 @@
 							<input type="text" class="form-control" id="n_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="${noticeDto.n_title }">
 						</div>
 						<!-- 게시글 작성 영역 -->
-                        <div id="editor"></div>
+                        <div id="editor" class="mt-5"></div>
                         <!-- model 로 받아온 n_content 데이터 문자열 화 -->
                         <input type="hidden" id="edit_n_content" value="${noticeDto.n_content }">
                         <div class="float-right mt-5">
-                        	<a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         	<!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;" id="editForm">
                         		<input type="hidden" name="c_no" value="${c_no }">
@@ -39,6 +38,8 @@
                         		<input type="hidden" name="n_content" id="n_content">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="editNotice" value="수정">
                         	</form>
+                        	<!-- 취소 영역 -->
+                        	<a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         </div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>
