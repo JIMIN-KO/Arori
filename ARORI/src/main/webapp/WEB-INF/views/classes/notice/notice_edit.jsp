@@ -8,8 +8,8 @@
                         <div class="d-flex">
 	                        <h1 class="font-weight-bold mt-4" style="flex:18;">Notice</h1>
 	                        <c:if test="${not empty temp }">
-								<select id="tempSelect">
-									<option selected="selected" disabled="disabled">임시 저장 데이터 리스트</option>
+								<select class="custom-select custom-select-lg mt-4" id="tempSelect" style="flex: 10;">
+									<option selected="selected" disabled="disabled">임시 저장 리스트</option>
 									<c:forEach var="temp" items="${temp }">
 										<option value="${temp.n_content }">${temp.n_title }</option>
 									</c:forEach>
