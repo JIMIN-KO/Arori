@@ -107,9 +107,14 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	// 구독 테이블 단일조회
 	@Override
-	public SubscribeDto checkSub(int sub_no) {
-		SubscribeDto subInfo = sqlSession.selectOne("classes.checkSub", sub_no);
+	public SubscribeDto checkSub(SubscribeDto subDto) {
+		SubscribeDto subInfo = sqlSession.selectOne("classes.checkSub", subDto);
 		return subInfo;
+	}
+
+	@Override
+	public void subUpdate(ClassesDto classesDto) {
+		sqlSession.update("classes.subUpdate", classesDto);		
 	}
 
 }

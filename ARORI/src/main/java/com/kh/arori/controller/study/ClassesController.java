@@ -110,56 +110,31 @@ public class ClassesController {
 	// 구독
 	@GetMapping("/classes/subscribe/{c_no}")
 	public String sub(@PathVariable int c_no, @PathVariable int member_no,Model model, HttpSession session) {
-
-		SubscribeDto subDto = SubscribeDto.builder().c_no(c_no).member_no(member_no).build();
-		// 시퀀스 발급
-		int sub_no = classesDao.getsubSeq();	
-		subDto.setSub_no(sub_no);
-		System.out.println("시퀀스 번호 = "+sub_no);
-		// 구독
-		classesDao.sub(subDto);
-		
-		// 클래스 넘버를 이용한 단일조회
-		ClassesDto classesDto = classesDao.get(c_no);
-		model.addAttribute("classesDto", classesDto);
-		
-		// 멤버넘버를 이용한 단일조회로 memberDto 보내기
-		MemberDto memberDto = memberDao.getNo(member_no);
-		model.addAttribute("memberDto", memberDto);
-		
-		System.out.println("c_no = "+c_no);
-		System.out.println("member_no = "+member_no);
 		
 		return "classes/detail";
 	}
-	
-	// 구독
-	@PostMapping("/classes/subscribe")
-	public String sub2(Model model, HttpSession session, @ModelAttribute SubscribeDto subDto) {
-
-		// 시퀀스 발급
-		int sub_no = classesDao.getsubSeq();	
-		subDto.setSub_no(sub_no);
-		System.out.println("시퀀스 번호 = "+sub_no);
-		System.out.println(subDto.getMember_no());
-		System.out.println(subDto.getC_no());
-		
-		// 구독
-		classesDao.sub(subDto);
-			
-		// 클래스 넘버를 이용한 단일조회
-		ClassesDto classesDto = classesDao.get(subDto.getC_no());
-		model.addAttribute("classesDto", classesDto);
-			
-		// 멤버넘버를 이용한 단일조회로 memberDto 보내기
-		int member_no = classesDto.getMember_no();
-		MemberDto memberDto = memberDao.getNo(member_no);
-		model.addAttribute("memberDto", memberDto);
-			
-		System.out.println("c_no = " + subDto.getC_no());
-		System.out.println("member_no = "+member_no);
-			
-		return "classes/detail";
-		}
+//	
+//	// 구독
+//	@PostMapping("/classes/subscribe")
+//	public String sub2(Model model, HttpSession session, @ModelAttribute SubscribeDto subDto) {
+//
+//		// 시퀀스 발급
+//		int sub_no = classesDao.getsubSeq();	
+//		subDto.setSub_no(sub_no);
+//
+//		// 구독
+//		classesDao.sub(subDto);
+//			
+//		// 클래스 넘버를 이용한 단일조회
+//		ClassesDto classesDto = classesDao.get(subDto.getC_no());
+//		model.addAttribute("classesDto", classesDto);
+//			
+//		// 멤버넘버를 이용한 단일조회로 memberDto 보내기
+//		int member_no = classesDto.getMember_no();
+//		MemberDto memberDto = memberDao.getNo(member_no);
+//		model.addAttribute("memberDto", memberDto);
+//
+//		return "classes/detail";
+//		}
 		
 }

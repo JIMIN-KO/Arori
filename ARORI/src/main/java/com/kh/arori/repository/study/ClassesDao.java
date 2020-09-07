@@ -31,12 +31,14 @@ public interface ClassesDao {
 	// 구독 테이블 시퀀스 발급
 	public int getsubSeq();
 	// 구독 테이블 단일조회
-	public SubscribeDto checkSub(int sub_no);
+	public SubscribeDto checkSub(SubscribeDto subDto);
 	// 구독 
 	public void sub(SubscribeDto subDto);
 	// 구독자 수 카운트
 	public int countSub(SubscribeDto subDto);
 	// 구독 취소
 	public void delSub(SubscribeDto subDto);
+	// 구독수 업데이트
+	public void subUpdate(ClassesDto classesDto);
 	
 }
