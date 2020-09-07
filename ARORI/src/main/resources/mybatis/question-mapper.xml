@@ -9,31 +9,59 @@
 		SELECT aq_seq.NEXTVAL FROM DUAL
 	</select>
 	
-	<!-- 퀘스천 타입 시퀀스 -->
-<!-- 	<select id="getSeqAq" resultType="int"> -->
-<!-- 		SELECT qt_seq.NEXTVAL FROM DUAL -->
-<!-- 	</select> -->
+	<!-- 퀘스천 생성 -->
+	<insert id="create" parameterType="allQuestionDto">
+		INSERT INTO ALL_QUESTION VALUES(#{question_no}, #{q_no}, #{qt_no}, #{aq_content}, ${aq_score}, SYSDATE)
+	</insert>
+	
+	<!-- 퀘스쳔 수정 / 갱신 -->
+	<update id="update" parameterType="allQuestionDto">
+		UPDATE ALL_QUESTION SET AQ_CONTENT = #{aq_content}, AQ_SCORE = ${aq_score} WHERE QUESTION_NO = #{question_no} AND Q_NO = #{q_no}
+	</update>
+	
+	<!-- 퀘스쳔 단일 조회 -->
+	<select id="get" resultType="allQuestionDto" parameterType="allQuestionDto">
+		SELECT * FROM ALL_QUESTION WHERE Q_NO = #{q_no} AND QUESTION_NO = #{question_no}
+	</select>
+	
+	<!-- 퀘스쳔 오작교 시퀀스 번호 발급 -->
+	<select id="getSeq2" resultType="int" parameterType="this_qDto">
+		SELECT ${table_name}_Q_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 퀘스쳔 오작교 데이터 삽입 -->
+	<insert id="insertThis" parameterType="this_qDto">
+		INSERT INTO ${table_name}_Q VALUES(#{no}, #{question_no}, #{this_no})
+	</insert>
 	
 	<!-- ox답안 시퀀스 -->
 	<select id="getSeqOx" resultType="int">
 		SELECT ox_seq.NEXTVAL FROM DUAL
 	</select>
 	
+	<!--OX 정답 생성 -->
+	<insert id="createOx">
+		INSERT INTO OX VALUES(#{no},#{o_content},#{x_content},#{ox_answer})
+	</insert>
+	
 	<!-- 선다형 답안 시퀀스 -->
 	<select id="getSeqMul" resultType="int">
 		SELECT multiple_seq.NEXTVAL FROM DUAL
 	</select>
+	
+	<!-- 선다형 정답 생성 -->
+	<insert id="createMul">
+		INSERT INTO MULTIPLE VALUES(#{no},#{multiple_content},#{mutiple_answer})
+	</insert>
 	
 	<!-- 서술형 답안 시퀀스 -->
 	<select id="getSeqEx" resultType="int">
 		SELECT explain_seq.NEXTVAL FROM DUAL
 	</select>
 	
-
-	<!-- 퀘스천 생성 -->
-	<insert id="createQuestion" parameterType="allQuestionDto">
-		INSERT INTO all_question VALUES(
-		#{question_no},#{q_no},#{qt_no}, #{aq_no},#{aq_content},#{aq_score}, sysdate)
+	<!-- 서술형 정답 생성 -->
+	<insert id="createEx">
+		INSERT INTO EXPLAIN VALUES(#{no},#{explain_state},#{explain_answer})
 	</insert>
 
 </mapper>

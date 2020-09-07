@@ -89,7 +89,7 @@
 							</div>
 						<div class="row mt-5 d-flex justify-content-center">
 							<button class="btn btn-lg btn-warning font-weight-bold mt-5">퀴즈 풀기</button>
-							<button class="btn btn-lg btn-primary font-weight-bold mt-5">돌아가기</button>
+							<button class="btn btn-lg btn-primary font-weight-bold mt-5" onclick="javascript=history.back()">돌아가기</button>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>

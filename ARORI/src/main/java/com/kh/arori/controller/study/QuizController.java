@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QuizDto;
 import com.kh.arori.repository.study.ClassesDao;
+import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.study.QuizService;
 
@@ -28,6 +29,9 @@ public class QuizController {
 
 	@Autowired
 	private QuizDao quizDao;
+	
+	@Autowired
+	private QuestionDao questionDao;
 
 	// 퀴즈 메인
 	@GetMapping("/classes/quiz/{c_no}")
@@ -49,9 +53,12 @@ public class QuizController {
 		
 		// 퀴즈 번호 + 클래스 번호 객체화
 		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_no(q_no).build();
-		
 		// 퀴즈 번호 및 클래스 번호 전달
 		model.addAttribute("quizDto", quizDto);
+		
+		// 첫 퀘스쳔 번호 생성 후 전달
+		int question_no = questionDao.getSeq();
+		model.addAttribute("question_no", question_no);
 		
 		return "quiz/quiz_create";
 	}

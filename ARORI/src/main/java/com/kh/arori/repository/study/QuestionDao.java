@@ -1,14 +1,15 @@
 package com.kh.arori.repository.study;
 
 import com.kh.arori.entity.study.AllQuestionDto;
+import com.kh.arori.entity.study.ExplainDto;
+import com.kh.arori.entity.study.MultipleDto;
+import com.kh.arori.entity.study.OxDto;
+import com.kh.arori.entity.study.This_qDto;
 
 public interface QuestionDao {
 
 	// 퀘스천 시퀀스
 	public int getSeq();
-
-	// 쿼스천 타입 시퀀스
-	public int getSeqAq();
 
 	// ox답안 시퀀스
 	public int getSeqOx();
@@ -21,5 +22,26 @@ public interface QuestionDao {
 
 	// 퀘스천 생성
 	public void createQuestion(AllQuestionDto allQuestionDto);
+
+	// 퀘스쳔 수정 / 갱신
+	public int updateAQuestion(AllQuestionDto allQuestionDto);
+
+	// OX 정답 생성
+	public void createOx(OxDto oxDto);
+
+	// 선다형 정답 생성
+	public void createMul(MultipleDto multipleDto);
+
+	// 단답형 정답 생성
+	public void createEx(ExplainDto explainDto);
+	
+	// 퀘스쳔 오작교 시퀀스 번호 발급 
+	public int getSeq2(String table_name);
+	
+	// 퀘스쳔 오작교 데이터 삽입
+	public void insertThis(This_qDto this_qDto);
+	
+	// 퀘스쳔 단일 조회 
+	public AllQuestionDto get(AllQuestionDto allQuestionDto);
 
 }

@@ -102,21 +102,187 @@
 								</div>
 							</form>
 						  </div>
-						  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+						  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+						  		<!--질문 영역-->
+						  		<div class="input-group mb-3 input-group-lg">
+								  <div class="input-group-prepend">
+								    <label class="input-group-text" id="inputGroup-sizing-lg">문제 유형을 선택해주세요.</label>
+								  </div>
+								  <select class="type_select custom-select">
+								    <option disabled="disabled" selected="selected">유형 선택</option>
+								    <option value="ox-menu">OX</option>
+								    <option value="mul-menu">선다형</option>
+								    <option value="ex-menu">단답형</option>
+								  </select>
+								</div>
+								<!-- 공통 퀘스쳔 영역 -->
+								<form>
+							        <div id="editor2" class="mb-5"></div>
+									<div class="form-row">
+							        		<div class="col">
+							        			<div class="input-group mb-3 input-group-lg">
+											  <div class="input-group-prepend">
+											    <span class="input-group-text">배점</span>
+											  </div>
+											  <input type="number" class="form-control" id="aq_score">
+											  <div class="input-group-append">
+											    <span class="input-group-text">점</span>
+											  </div>
+											</div>
+							        		</div>
+							        </div>
+								</form>
+						  	<div class="question-add">
+						  		<!-- OX -->
+						  		<form class="ox form-group" >
+						  			<!-- 숨김 영역 -->
+						  			<!-- question_no -->
+						  			<input type="hidden" name="question_no" value="${question_no }">
+						  			<!-- q_no -->
+						  			<input type="hidden" name="q_no" value="${quizDto.q_no }">
+						  			<!-- aq_content -->
+						  			<input type="hidden" name="content">
+						  			<!-- aq_score -->
+						  			<input type="hidden" name="aq_score">
+							        <!--ox답변 영역-->
+							        	<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text">O</span>
+									  </div>
+									  <input type="text" name="o_content" class="form-control" placeholder="O > 지문을 입력해주세요.">
+									</div>
+									<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text">X</span>
+									  </div>
+									  <input type="text" name="x_content" class="form-control" placeholder="X > 지문을 입력해주세요.">
+									</div>
+									<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <label class="input-group-text" id="inputGroup-sizing-lg">정답을 지정해주세요.</label>
+									  </div>
+									  <select class="custom-select">
+									    <option disabled="disabled">정답 선택</option>
+									    <option value="0" selected>O</option>
+									    <option value="1">X</option>
+									  </select>
+									</div>
+						  		</form>
+						  		<!-- 선다형 -->
+						  		<form class="mul">
+							        <!--선다형 답변 영역-->
+							       	<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text">1.</span>
+									  </div>
+									  <textarea class="form-control"></textarea>
+									</div>
+									<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text">2.</span>
+									  </div>
+									  <textarea class="form-control"></textarea>
+									</div>
+									<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text">3.</span>
+									  </div>
+									  <textarea class="form-control"></textarea>
+									</div>
+									<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text">4.</span>
+									  </div>
+									  <textarea class="form-control"></textarea>
+									</div>
+						  		</form>
+						  		<!-- 단답형 -->
+						  		<form class="ex">
+							        <!--단답형 답변 영역-->
+							            <div class="input-group mb-3 input-group-lg">
+										  <div class="input-group-prepend">
+										    <span class="input-group-text">단답형 정답</span>
+										  </div>
+										  <textarea class="form-control"></textarea>
+										</div>
+						  		</form>
+						  	</div>
+						  		<div  class="d-flex justify-content-center">
+							  		<button type="button" class="btn btn-lg btn-success add ">New Question</button>
+						  		</div>
+						  </div>
 						</div>
-						<div class="form-row float-right">
+						<div class="form-row float-right mt-5">
 							<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 등록</button>
 							<button type="button" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</button>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
-$(function(){
-	$("#save").click(function(){
-		$("input[name=content]").val(editor.getMarkdown())
-		document.querySelector("#quizDetail").submit()
+ $(function(){
+            //답안유형 숨김
+            $(".ox").hide();
+            $(".mul").hide();
+            $(".ex").hide();
+
+            //시작하자마자 .question-add 를 하나 추가용으로 백업
+            var backup = $(".question-add").first().clone();
+            
+            $(".type_select").change(function(){
+                var state = $(this).val();
+                console.log(state)
+                if(state == "ox-menu"){
+                    $(".ox").show(); $(".mul").hide(); $(".ex").hide();
+                }
+                else if(state == "mul-menu"){
+                    $(".mul").show(); $(".ox").hide(); $(".ex").hide();
+                }
+                else if(state == "ex-menu"){
+                    $(".ex").show(); $(".ox").hide(); $(".mul").hide();
+                }
+            });
+
+            //form버튼 
+            function qsubmit() {
+                return true;
+            }
+            function qsubmit2() {
+                frm.action="create";
+                frm.submit();
+                return true;
+            }
+                
+        });
+ // 최종 퀴즈 저장
+ $(function(){
+		$("#save").click(function(){
+			$("input[name=content]").val(editor.getMarkdown())
+			document.querySelector("#quizDetail").submit()
+		})
 	})
+
+//  OX 문제 저장
+$(function(){
+	// 점수 설정
+	$("#aq_score").on("input",function(){
+			$("input[name=aq_score]").val($("#aq_score").val())
+		})
+		
+	// new question 클릭 시 현재 퀘스쳔 저장 밑 새로운 퀘스쳔 생성
+	$(".add").click(function(){
+		console.log($(".ox").serialize())
+		$("input[name=content]").val(editor2.getMarkdown())
+			axios({
+					url:"/arori/questionAjax/createOXQ",
+					method:"post",
+					data:$(".ox").serialize()
+				}).then(function(resp){
+					console.log(resp.data)
+					$("input[name=question_no]").val(resp.data)
+				})
+		})
 })
+ 
 //Toast Ui Editor
 const Editor = toastui.Editor;
 const { colorSyntax } = Editor.plugin;
@@ -144,6 +310,33 @@ const editor = new Editor({
 				data:frm
 			}).then(function(resp) {
 				callback("/arori/imgAjax/quiz/download/" + resp.data);
+			})
+		}
+	}
+});
+
+// 공통 출제 내역 에디터
+const editor2 = new Editor({
+	  el: document.querySelector('#editor2'),
+	  height: '350px',
+	  initialEditType: 'markdown',
+	  previewStyle: 'vertical',
+	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
+	  hooks:{
+		'addImageBlobHook':function(blob, callback){
+			console.log(blob, callback);
+			
+			var frm = new FormData();
+			frm.append("f", blob);
+			
+			axios({
+				contentType: false,
+				processData: false,
+				url:"/arori/imgAjax/question/upload/${question_no }" ,
+				method:"post",
+				data:frm
+			}).then(function(resp) {
+				callback("/arori/imgAjax/question/download/" + resp.data);
 			})
 		}
 	}
