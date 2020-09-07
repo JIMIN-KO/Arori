@@ -161,7 +161,7 @@
 									  <div class="input-group-prepend">
 									    <label class="input-group-text" id="inputGroup-sizing-lg">정답을 지정해주세요.</label>
 									  </div>
-									  <select class="custom-select">
+									  <select class="custom-select" name="ox_answer">
 									    <option disabled="disabled">정답 선택</option>
 									    <option value="0" selected>O</option>
 									    <option value="1">X</option>
@@ -169,35 +169,55 @@
 									</div>
 						  		</form>
 						  		<!-- 선다형 -->
-						  		<form class="mul">
+						  		<form class="multiple">
+						  			<!-- question_no -->
+						  			<input type="hidden" name="question_no" value="${question_no }">
+						  			<!-- q_no -->
+						  			<input type="hidden" name="q_no" value="${quizDto.q_no }">
+						  			<!-- aq_content -->
+						  			<input type="hidden" name="content">
+						  			<!-- aq_score -->
+						  			<input type="hidden" name="aq_score">
 							        <!--선다형 답변 영역-->
 							       	<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">1.</span>
 									  </div>
-									  <textarea class="form-control"></textarea>
+									  <textarea class="form-control" name="multiple_one"></textarea>
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">2.</span>
 									  </div>
-									  <textarea class="form-control"></textarea>
+									  <textarea class="form-control" name="multiple_two"></textarea>
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
-									    <span class="input-group-text">3.</span>
+									    <span class="input-group-text" >3.</span>
 									  </div>
-									  <textarea class="form-control"></textarea>
+									  <textarea class="form-control" name="multiple_three"></textarea>
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">4.</span>
 									  </div>
-									  <textarea class="form-control"></textarea>
+									  <textarea class="form-control" name="multiple_four"></textarea>
+									</div>
+									<div class="input-group mb-3 input-group-lg">
+									  <div class="input-group-prepend">
+									    <label class="input-group-text" id="inputGroup-sizing-lg">정답을 지정해주세요.</label>
+									  </div>
+									  <select class="custom-select" name="multiple_answer">
+									    <option disabled="disabled" selected>정답 선택</option>
+									    <option value="multiple_one" >1번</option>
+									    <option value="multiple_two">2번</option>
+									    <option value="multiple_three">3번</option>
+									    <option value="multiple_four">4번</option>
+									  </select>
 									</div>
 						  		</form>
 						  		<!-- 단답형 -->
-						  		<form class="ex">
+						  		<form class="explain">
 							        <!--단답형 답변 영역-->
 							            <div class="input-group mb-3 input-group-lg">
 										  <div class="input-group-prepend">
@@ -222,23 +242,33 @@
  $(function(){
             //답안유형 숨김
             $(".ox").hide();
-            $(".mul").hide();
-            $(".ex").hide();
+            $(".multiple").hide();
+            $(".explain").hide();
 
             //시작하자마자 .question-add 를 하나 추가용으로 백업
             var backup = $(".question-add").first().clone();
             
             $(".type_select").change(function(){
+               	console.log($(".add").val())
                 var state = $(this).val();
-                console.log(state)
+
                 if(state == "ox-menu"){
-                    $(".ox").show(); $(".mul").hide(); $(".ex").hide();
+                    $(".ox").show(); 
+                    $(".multiple").hide(); 
+                    $(".explain").hide();
+                    $(".add").val("ox")
                 }
                 else if(state == "mul-menu"){
-                    $(".mul").show(); $(".ox").hide(); $(".ex").hide();
+                    $(".multiple").show(); 
+                    $(".ox").hide(); 
+                    $(".explain").hide();
+                    $(".add").val("multiple")
                 }
                 else if(state == "ex-menu"){
-                    $(".ex").show(); $(".ox").hide(); $(".mul").hide();
+                    $(".explain").show(); 
+                    $(".ox").hide(); 
+                    $(".multiple").hide();
+                    $(".add").val("explain")
                 }
             });
 
@@ -261,7 +291,7 @@
 		})
 	})
 
-//  OX 문제 저장
+// 퀘스쳔 저장
 $(function(){
 	// 점수 설정
 	$("#aq_score").on("input",function(){
@@ -270,12 +300,12 @@ $(function(){
 		
 	// new question 클릭 시 현재 퀘스쳔 저장 밑 새로운 퀘스쳔 생성
 	$(".add").click(function(){
-		console.log($(".ox").serialize())
+		var add = $(".add").val()
 		$("input[name=content]").val(editor2.getMarkdown())
 			axios({
-					url:"/arori/questionAjax/createOXQ",
+					url:"/arori/questionAjax/create/" + add,
 					method:"post",
-					data:$(".ox").serialize()
+					data:$("." + add).serialize()
 				}).then(function(resp){
 					console.log(resp.data)
 					$("input[name=question_no]").val(resp.data)

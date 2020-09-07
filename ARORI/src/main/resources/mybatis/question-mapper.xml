@@ -51,7 +51,7 @@
 	
 	<!-- 선다형 정답 생성 -->
 	<insert id="createMul">
-		INSERT INTO MULTIPLE VALUES(#{no},#{multiple_content},#{mutiple_answer})
+		INSERT INTO MULTIPLE VALUES(#{no},#{multiple_one},#{multiple_two},#{multiple_three},#{multiple_four},#{mutiple_answer})
 	</insert>
 	
 	<!-- 서술형 답안 시퀀스 -->
