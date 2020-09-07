@@ -29,21 +29,19 @@ public class NonMemberAjaxController {
 	// 아로리 회원 로그인
 	@PostMapping("/loginSuccess")
 	public MemberDto loginSuccess(@RequestParam String member_id, @RequestParam String member_pw,
-			@RequestParam HttpSession session) {
+			HttpSession session,@ModelAttribute MemberDto memberDto) {
 
 		MemberDto member = memberService.aroriLogin(member_id, member_pw);
 
-		if (member.getReport_state().equals("정상")) {
-//			System.out.println("member : " + member.getReport_state());
-			if (member != null) {
-				session.setAttribute("userinfo", member);
-				return member;
-			} else {
-				return null;
+//	         System.out.println("member : " + member.getReport_state());
+		if (member != null && member.getReport_state().equals("정상")) {
+			session.setAttribute("userinfo", member);
+			return member;
+		} else {
+			return null;
 
-			}
 		}
-		return null;
+
 	}
 
 	// 소셜 이메일 회원 조회
