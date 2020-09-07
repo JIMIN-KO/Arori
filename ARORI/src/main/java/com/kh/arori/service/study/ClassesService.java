@@ -18,11 +18,6 @@ public interface ClassesService {
 	
 	// 검색 목록 조회
 	public List<McDto> searchList(String searchOption, String keyword);
-	
-	// 구독
-	public void sub(SubscribeDto subDto);
-	// 구독 취소
-	public void delSub(SubscribeDto subDto);
-	// 구독자수 카운트
-	public int countSub(SubscribeDto subDto);
+
+	public void already(SubscribeDto subDto);
 }
