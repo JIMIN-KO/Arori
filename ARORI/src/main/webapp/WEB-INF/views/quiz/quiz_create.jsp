@@ -104,14 +104,16 @@
 						  </div>
 						  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 						  		<!-- 방금 만든 문제 확인 -->
-						  		<div class="question-list" style="display: none;">
-									<div class="p-3 bg-success text-white row mt-3 ml-3 mr-3">
-										<div class="col-11 font-weight-bold question_type"></div>
-										<div class="col-1 text-right">X</div>
-									</div>
-									<div class="p-3 bg-white text-dark ml-3 mr-3 mb-3 shadow-sm bg-white rounded">
-										<div class="question-content"></div>
-									</div>
+						  		<div class="plz">
+							  		<div class="question-list" style="display: none;">
+										<div class="p-3 bg-success text-white row mt-3 ml-3 mr-3">
+											<div class="col-11 font-weight-bold question-type"></div>
+											<div class="col-1 text-right">X</div>
+										</div>
+										<div class="p-3 bg-white text-dark ml-3 mr-3 mb-3 shadow-sm bg-white rounded">
+											<div class="question-content"></div>
+										</div>
+							  		</div>
 						  		</div>
 						  		<!--질문 영역-->
 						  		<div class="input-group mb-3 input-group-lg">
@@ -333,19 +335,21 @@ $(function(){
 					console.log(resp.data)
 					$("input[name=question_no]").val(resp.data)
 
-					var clone = backup.clone()		
-					$(".question-list").last().after(clone).css("display","block")
-				
+					var clone = backup.clone()	
+					$(".question-list").last().after(clone)
+					var questionContent = document.querySelectorAll(".question-content")
+					var questionType = document.querySelectorAll(".question-type")
+					var string
 					// 지금 만든 퀘스쳔 띄우기 		
 					if(add == "ox") {
 								var o_content = $("input[name=o_content]").val()
 								var x_content = $("input[name=x_content]").val()
 								var ox_answer = $("select[name=ox_answer]").val()
-								var string = "O : " + o_content + "<br>X : " + x_content + "<br>정답 : " + ox_answer
+								string = "O : " + o_content + "<br>X : " + x_content + "<br><br>정답 : " + ox_answer
 
-								$(".question-list").first().children().children(".col-11").text("OX 문제")
-								$(".question-list").first().children().children(".question-content").html(string)
-
+								/* $(".question-list").first().children().children(".col-11").text("OX 문제") */
+								/* $(".question-list").first().children().children(".question-content").html(string) */
+								questionType[questionType.length - 1].innerHTML = "OX 문제"
 							
 							} else if(add == "multiple") {
 								var one = $("textarea[name=multiple_one]").val()
@@ -353,18 +357,20 @@ $(function(){
 								var three = $("textarea[name=multiple_three]").val()
 								var four = $("textarea[name=multiple_four]").val()
 								var answer = $("select[name=multiple_answer]").val()
-								var string = "1번 : " + one + "<br>2번 : " + two + "<br>3번 : " + three + "<br>4번 : " + four + "<br><br>정답 : " + answer + "번"
+								string = "1번 : " + one + "<br>2번 : " + two + "<br>3번 : " + three + "<br>4번 : " + four + "<br><br>정답 : " + answer + "번"
 
-								$(".question-list").first().children().children(".col-11").text("선다형 문제")
-								$(".question-list").first().children().children(".question-content").text(string)
-								
+								/* $(".question-list").first().children().children(".col-11").text("선다형 문제") */
+								/* $(".question-list").first().children().children(".question-content").text(string) */
+								questionType[questionType.length - 1].innerHTML = "선다형 문제"
 							} else {
 								var explain_answer = $("textarea[name=explain_answer]").val()
-								var string = "정답 : " + explain_answer
-								$(".question-list").first().children().children(".col-11").text("단답형 문제")
-								$(".question-list").first().children().children(".question-content").text(string)
-
+								string = "정답 : " + explain_answer
+								/* $(".question-list").first().children().children(".col-11").text("단답형 문제") */
+								/* $(".question-list").first().children().children(".question-content").text(string) */
+								questionType[questionType.length - 1].innerHTML = "단답형 문제"
 							}	
+							questionContent[questionContent.length - 1].innerHTML = string
+							$(".question-list").last().css("display","block")
 				})
 		})
 })
