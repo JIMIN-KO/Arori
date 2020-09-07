@@ -131,7 +131,7 @@ public class QuestionServiceImpl implements QuestionService {
 		// 2. 단답형 정답 테이블 데이터 삽입
 		// 2-1. 정답 테이블 시퀀스 번호 발급
 		int ex_no = questionDao.getSeqEx();
-		explainDto.setNo(ex_no);
+		explainDto.setNo(ex_no);	
 
 		// 2-2. 단답형 정답 Dto 데이터 베이스에 삽입
 		questionDao.createEx(explainDto);

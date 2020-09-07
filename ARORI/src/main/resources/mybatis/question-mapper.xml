@@ -51,7 +51,7 @@
 	
 	<!-- 선다형 정답 생성 -->
 	<insert id="createMul">
-		INSERT INTO MULTIPLE VALUES(#{no},#{multiple_one},#{multiple_two},#{multiple_three},#{multiple_four},#{mutiple_answer})
+		INSERT INTO MULTIPLE VALUES(#{no},#{multiple_one},#{multiple_two},#{multiple_three},#{multiple_four},#{multiple_answer})
 	</insert>
 	
 	<!-- 서술형 답안 시퀀스 -->
@@ -61,7 +61,7 @@
 	
 	<!-- 서술형 정답 생성 -->
 	<insert id="createEx">
-		INSERT INTO EXPLAIN VALUES(#{no},#{explain_state},#{explain_answer})
+		INSERT INTO EXPLAIN VALUES(#{no},#{explain_answer})
 	</insert>
 
 </mapper>

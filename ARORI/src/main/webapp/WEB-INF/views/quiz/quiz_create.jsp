@@ -218,12 +218,21 @@
 						  		</form>
 						  		<!-- 단답형 -->
 						  		<form class="explain">
+						  			<!-- 숨김 영역 -->
+						  			<!-- question_no -->
+						  			<input type="hidden" name="question_no" value="${question_no }">
+						  			<!-- q_no -->
+						  			<input type="hidden" name="q_no" value="${quizDto.q_no }">
+						  			<!-- aq_content -->
+						  			<input type="hidden" name="content">
+						  			<!-- aq_score -->
+						  			<input type="hidden" name="aq_score">
 							        <!--단답형 답변 영역-->
 							            <div class="input-group mb-3 input-group-lg">
 										  <div class="input-group-prepend">
 										    <span class="input-group-text">단답형 정답</span>
 										  </div>
-										  <textarea class="form-control"></textarea>
+										  <textarea class="form-control" name="explain_answer"></textarea>
 										</div>
 						  		</form>
 						  	</div>
@@ -249,7 +258,7 @@
             var backup = $(".question-add").first().clone();
             
             $(".type_select").change(function(){
-               	console.log($(".add").val())
+          
                 var state = $(this).val();
 
                 if(state == "ox-menu"){
@@ -270,6 +279,7 @@
                     $(".multiple").hide();
                     $(".add").val("explain")
                 }
+              	console.log($(".add").val())
             });
 
             //form버튼 
