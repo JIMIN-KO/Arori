@@ -44,6 +44,7 @@ public class ClassesDaoImpl implements ClassesDao {
 		List<ClassesDto> list = sqlSession.selectList("classes, getList");
 		return list;
 		}
+	
 	// 수정
 	@Override
 	public void edit(ClassesDto classesDto) {
@@ -70,7 +71,6 @@ public class ClassesDaoImpl implements ClassesDao {
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		return sqlSession.selectList("classes.search", map);
-		
 	}
 
 	// (성헌) 클래스 주인인지 조회
@@ -112,9 +112,16 @@ public class ClassesDaoImpl implements ClassesDao {
 		return subInfo;
 	}
 
+	// 구독 후 데이터 갱신
 	@Override
 	public void subUpdate(ClassesDto classesDto) {
 		sqlSession.update("classes.subUpdate", classesDto);		
+	}
+
+	@Override
+	public List<ClassesDto> mySub(int member_no) {
+		List<ClassesDto> list = sqlSession.selectList("classes.mySub", member_no);
+		return list;
 	}
 
 }

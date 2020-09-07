@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
+
 import com.kh.arori.entity.study.SubscribeDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.ClassesDao;
@@ -113,28 +114,21 @@ public class ClassesController {
 		
 		return "classes/detail";
 	}
-//	
-//	// 구독
-//	@PostMapping("/classes/subscribe")
-//	public String sub2(Model model, HttpSession session, @ModelAttribute SubscribeDto subDto) {
-//
-//		// 시퀀스 발급
-//		int sub_no = classesDao.getsubSeq();	
-//		subDto.setSub_no(sub_no);
-//
-//		// 구독
-//		classesDao.sub(subDto);
-//			
-//		// 클래스 넘버를 이용한 단일조회
-//		ClassesDto classesDto = classesDao.get(subDto.getC_no());
-//		model.addAttribute("classesDto", classesDto);
-//			
-//		// 멤버넘버를 이용한 단일조회로 memberDto 보내기
-//		int member_no = classesDto.getMember_no();
-//		MemberDto memberDto = memberDao.getNo(member_no);
-//		model.addAttribute("memberDto", memberDto);
-//
-//		return "classes/detail";
-//		}
+	
+	// 구독 목록
+	@RequestMapping("/classes/mySub/{member_no}")
+	public String mySub(@PathVariable int member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
+
+		// userinfo에서 현재 로그인한 계정의 no를 csDto에 저장
+		MemberDto memberDto = (MemberDto)session.getAttribute("userinfo");
+		int user_no = memberDto.getMember_no();	
+		System.out.println("member_no = "+user_no);
+		classesDto.setMember_no(user_no);
+		// 구독한 목록 호출
+		List<ClassesDto> list = classesDao.mySub(member_no);
+		model.addAttribute("list", list);
 		
+		return "classes/mySub";
+	}
+	
 }

@@ -40,5 +40,6 @@ public interface ClassesDao {
 	public void delSub(SubscribeDto subDto);
 	// 구독수 업데이트
 	public void subUpdate(ClassesDto classesDto);
-	
+	// 구독 목록 조회
+	List<ClassesDto> mySub(int member_no);
 }

@@ -66,6 +66,10 @@
 	<update id="subUpdate" parameterType="classesDto">
 		UPDATE classes SET c_subscribe=(SELECT COUNT(*) FROM subscribe WHERE c_no = #{c_no}) WHERE c_no = #{c_no}
 	</update>
+	<!-- 내가 구독한 클래스 목록 조회 -->
+	<select id="mySub" parameterType="int" resultType="ClassesDto">
+		SELECT c.* FROM CLASSES c INNER JOIN SUBSCRIBE s ON c.c_no = s.c_no WHERE s.member_no= ${member_no}
+	</select>
 
 </mapper>
 
