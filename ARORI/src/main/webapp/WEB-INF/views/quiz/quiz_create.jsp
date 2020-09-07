@@ -103,6 +103,16 @@
 							</form>
 						  </div>
 						  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+						  		<!-- 방금 만든 문제 확인 -->
+						  		<div class="question-list" style="display: none;">
+									<div class="p-3 bg-success text-white row mt-3 ml-3 mr-3">
+										<div class="col-11 font-weight-bold question_type"></div>
+										<div class="col-1 text-right">X</div>
+									</div>
+									<div class="p-3 bg-white text-dark ml-3 mr-3 mb-3 shadow-sm bg-white rounded">
+										<div class="question-content"></div>
+									</div>
+						  		</div>
 						  		<!--질문 영역-->
 						  		<div class="input-group mb-3 input-group-lg">
 								  <div class="input-group-prepend">
@@ -209,10 +219,10 @@
 									  </div>
 									  <select class="custom-select" name="multiple_answer">
 									    <option disabled="disabled" selected>정답 선택</option>
-									    <option value="multiple_one" >1번</option>
-									    <option value="multiple_two">2번</option>
-									    <option value="multiple_three">3번</option>
-									    <option value="multiple_four">4번</option>
+									    <option value="1" >1번</option>
+									    <option value="2">2번</option>
+									    <option value="3">3번</option>
+									    <option value="4">4번</option>
 									  </select>
 									</div>
 						  		</form>
@@ -303,6 +313,7 @@
 
 // 퀘스쳔 저장
 $(function(){
+	var backup = $(".question-list").first().clone()
 	// 점수 설정
 	$("#aq_score").on("input",function(){
 			$("input[name=aq_score]").val($("#aq_score").val())
@@ -310,7 +321,9 @@ $(function(){
 		
 	// new question 클릭 시 현재 퀘스쳔 저장 밑 새로운 퀘스쳔 생성
 	$(".add").click(function(){
+		// 클릭한 폼의 정보를 불러온다.
 		var add = $(".add").val()
+		// 해당 퀘스쳔 등록하고 새로운 퀘스쳔 생성
 		$("input[name=content]").val(editor2.getMarkdown())
 			axios({
 					url:"/arori/questionAjax/create/" + add,
@@ -319,6 +332,39 @@ $(function(){
 				}).then(function(resp){
 					console.log(resp.data)
 					$("input[name=question_no]").val(resp.data)
+
+					var clone = backup.clone()		
+					$(".question-list").last().after(clone).css("display","block")
+				
+					// 지금 만든 퀘스쳔 띄우기 		
+					if(add == "ox") {
+								var o_content = $("input[name=o_content]").val()
+								var x_content = $("input[name=x_content]").val()
+								var ox_answer = $("select[name=ox_answer]").val()
+								var string = "O : " + o_content + "<br>X : " + x_content + "<br>정답 : " + ox_answer
+
+								$(".question-list").first().children().children(".col-11").text("OX 문제")
+								$(".question-list").first().children().children(".question-content").html(string)
+
+							
+							} else if(add == "multiple") {
+								var one = $("textarea[name=multiple_one]").val()
+								var two = $("textarea[name=multiple_two]").val()
+								var three = $("textarea[name=multiple_three]").val()
+								var four = $("textarea[name=multiple_four]").val()
+								var answer = $("select[name=multiple_answer]").val()
+								var string = "1번 : " + one + "<br>2번 : " + two + "<br>3번 : " + three + "<br>4번 : " + four + "<br><br>정답 : " + answer + "번"
+
+								$(".question-list").first().children().children(".col-11").text("선다형 문제")
+								$(".question-list").first().children().children(".question-content").text(string)
+								
+							} else {
+								var explain_answer = $("textarea[name=explain_answer]").val()
+								var string = "정답 : " + explain_answer
+								$(".question-list").first().children().children(".col-11").text("단답형 문제")
+								$(".question-list").first().children().children(".question-content").text(string)
+
+							}	
 				})
 		})
 })

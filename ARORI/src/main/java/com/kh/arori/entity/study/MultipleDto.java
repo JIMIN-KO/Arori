@@ -12,5 +12,5 @@ public class MultipleDto {
 	private String multiple_two;
 	private String multiple_three;
 	private String multiple_four;
-	private String multiple_answer;
+	private int multiple_answer;
 }
