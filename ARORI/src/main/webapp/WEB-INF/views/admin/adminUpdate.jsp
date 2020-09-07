@@ -16,8 +16,15 @@ ${memberDto.member_join}
 최근 로그인
 ${memberDto.member_login}
 <br>
-회원상태
-<input type ="text" name="report_state" value="${memberDto.report_state}">
+현재상태
+
+<select name="report_state">
+	<option selected="selected">${memberDto.report_state}</option>
+	<option value="정상">정상</option>
+	<option value="일시 정지">일시 정지</option>
+	<option value="영구 정지">영구 정지</option>
+	<option value="탈퇴">탈퇴</option>
+</select>
 <br>
 정지일
 <input type ="text" name="suspension" value="${memberDto.suspension}" placeholder="예 :2000-01-01">

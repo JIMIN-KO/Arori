@@ -19,7 +19,7 @@
 </select>
 
 <br><br>
-신고내용 <textarea name="report_content" placeholder="내용을 입력해주세요"></textarea>
+신고내용 <textarea name="report_content" placeholder="신고사유를 입력해주세요"></textarea>
 <br><br>
 신고아이디 <input type="text" name="report_crimi" placeholder="신고할 아이디">
 <br><br>
