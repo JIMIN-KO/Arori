@@ -32,5 +32,6 @@ ${memberDto.member_login}
 <input type ="hidden" name="member_id" value="${memberDto.member_id}">
 
 <input type="submit" value="수정완료">
-
+<br>
+<a href="../delete"><input type="button" value="탈퇴시키기"></a>
 </form>

@@ -35,7 +35,7 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -102,7 +102,8 @@ public class AdminController {
 
 		return "admin/memberProfile";
 	}
-
+	//회원 프로필 보기
+	
 	@PostMapping("/memberProfile/{member_no}")
 	public String memberProfile(@PathVariable(required = false) int member_no, @ModelAttribute MemberDto memberDto,
 			@ModelAttribute AroriMemberDto aroriMemberDto) {
@@ -113,21 +114,14 @@ public class AdminController {
 
 		return "/memberProfile/{member_no}";
 	}
+
+	//회원탈퇴 시키기
 	
-	
-	
-//	@GetMapping
-//	public String 
-//	
-//	@RequestMapping("/search")
-//	public String search(@RequestParam(required = false) String type, @RequestParam(required=false) String keyword, Model model) {
-//		Map<String, Object>map = new HashMap<>();
-//		map.put("type", type);
-//		map.put("keyword", keyword);
-//		List<MemberDto>list = sqlSession.selectList("member.search",map);
-//		model.addAttribute("list", list);
-//		
-//		return "admin/
-//		
-//	}
+	@GetMapping("/delete")
+	public String memberDelete(@ModelAttribute MemberDto memberDto) {
+
+		adminService.delete(memberDto);
+
+		return "admin/delete";
+	}
 }
