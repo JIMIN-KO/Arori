@@ -2,7 +2,7 @@ package com.kh.arori.repository.report;
 
 import java.util.List;
 
-import com.kh.arori.entity.ReportDto;
+import com.kh.arori.entity.member.ReportDto;
 
 public interface ReportDao {
 	

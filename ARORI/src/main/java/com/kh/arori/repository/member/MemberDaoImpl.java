@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
-import com.kh.arori.entity.PasswordQDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.PasswordQDto;
+
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -237,3 +238,4 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 }
+

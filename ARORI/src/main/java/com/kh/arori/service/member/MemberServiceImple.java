@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.email.EmailService;
 
@@ -87,13 +87,13 @@ public class MemberServiceImple implements MemberService {
 	public MemberDto aroriLogin(String member_id, String member_pw) {
 
 		AroriMemberDto aroriMember = memberDao.getArori(member_id);
-		
+
 		boolean pass = false;
-		
-		if(aroriMember != null) {			
+
+		if (aroriMember != null) {
 			pass = encoder.matches(member_pw, aroriMember.getMember_pw());
 		}
-		
+
 		MemberDto member;
 
 		if (pass) {
@@ -132,9 +132,9 @@ public class MemberServiceImple implements MemberService {
 
 		// 2. 회원 존재 여부 확인
 		String email = memberDao.findPw(findPw);
-		
-		// 3. 찾을 수 없는 회원이면 null 반환 
-		if(email == null) {
+
+		// 3. 찾을 수 없는 회원이면 null 반환
+		if (email == null) {
 			return null;
 		}
 
@@ -163,30 +163,31 @@ public class MemberServiceImple implements MemberService {
 		return temporaryPw;
 	}
 
-
-	//소셜회원) 소셜회원 수정
+	// 소셜회원) 소셜회원 수정
 	@Override
 	public void updateSocial(MemberDto memberDto) {
 		memberDao.updateSocial(memberDto);
-		
+
 	}
-	//아로리) 아로리회원 수정
+
+	// 아로리) 아로리회원 수정
 	@Override
 	public void updateArori(AroriMemberDto aroriMemberDto) {
 		memberDao.updateArori(aroriMemberDto);
-		
+
 	}
 
-	//아로리) 회원정보수정위한 패스워드 존재여부
+	// 아로리) 회원정보수정위한 패스워드 존재여부
 	@Override
 	public boolean checkPw(String member_pw) {
-	return memberDao.checkPw(member_pw);
-}
-	//회원탈퇴 
+		return memberDao.checkPw(member_pw);
+	}
+
+	// 회원탈퇴
 	@Override
 	public void deleteMember(MemberDto memberDto) {
-		 memberDao.deleteMember(memberDto);
+		memberDao.deleteMember(memberDto);
 	}
 
 }
-	
+

@@ -2,8 +2,10 @@ package com.kh.arori.service.admin;
 
 import java.util.List;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
+
+
 
 public interface AdminService {
 

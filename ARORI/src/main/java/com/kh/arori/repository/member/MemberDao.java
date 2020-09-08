@@ -3,9 +3,10 @@ package com.kh.arori.repository.member;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
-import com.kh.arori.entity.PasswordQDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.PasswordQDto;
+
 
 public interface MemberDao {
 
@@ -96,7 +97,6 @@ public interface MemberDao {
 	//소셜+아로리)아우터조인 단일조회2
 	public AroriMemberDto memberProfile2(int member_no);
 
-
-	
-	
 }
+
+

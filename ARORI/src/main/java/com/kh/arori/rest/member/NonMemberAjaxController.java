@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.arori.entity.AroriMemberDto;
-import com.kh.arori.entity.MemberDto;
+import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.member.MemberService;
 
@@ -27,36 +27,38 @@ public class NonMemberAjaxController {
 	private MemberService memberService;
 
 	// 아로리 회원 로그인
-	@PostMapping("/loginSuccess")
-	public MemberDto loginSuccess(@RequestParam String member_id, @RequestParam String member_pw,
-			HttpSession session,@ModelAttribute MemberDto memberDto) {
+	   @PostMapping("/loginSuccess")
+	   public MemberDto loginSuccess(@RequestParam String member_id, @RequestParam String member_pw,
+	         @RequestParam HttpSession session) {
 
-		MemberDto member = memberService.aroriLogin(member_id, member_pw);
+	      MemberDto member = memberService.aroriLogin(member_id, member_pw);
 
+	      if (member.getReport_state().equals("정상")) {
 //	         System.out.println("member : " + member.getReport_state());
-		if (member != null && member.getReport_state().equals("정상")) {
-			session.setAttribute("userinfo", member);
-			return member;
-		} else {
-			return null;
+	         if (member != null) {
+	            session.setAttribute("userinfo", member);
+	            return member;
+	         } else {
+	            return null;
 
-		}
+	         }
+	      }
+	      return null;
+	   }
 
-	}
+	   // 소셜 이메일 회원 조회
+	   @RequestMapping("/checkEmail")
+	   public boolean checkEmail(@RequestParam String member_id) {
+	      System.out.println(member_id);
+	      // 1. 파라미터로 소셜 로그인 요청 회원의 이메일 데이터 조회
+	      MemberDto member = memberDao.get(member_id);
 
-	// 소셜 이메일 회원 조회
-	@RequestMapping("/checkEmail")
-	public boolean checkEmail(@RequestParam String member_id) {
+	      // 2. 해당 member
+	      if (member != null)
+	         return true;
 
-		// 1. 파라미터로 소셜 로그인 요청 회원의 이메일 데이터 조회
-		MemberDto member = memberDao.get(member_id);
-
-		// 2. 해당 member
-		if (member != null)
-			return true;
-
-		return false;
-	}
+	      return false;
+	   }
 
 	// 아이디 찾기
 	@RequestMapping(value = "/findId", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
@@ -90,7 +92,9 @@ public class NonMemberAjaxController {
 
 	// 회원가입시 아이디 중복검사용
 	// 인터페이스랑 구현체랑 메소드 이름 맞추세요
+
 	// 아까 오류는 메이븐 업데이트 하니까 해결 됐습니다 감사하니다.
+
 	@GetMapping("/checkOverlap")
 	public MemberDto checkOverlap(@RequestParam String member_id) {
 		MemberDto memberDto = memberDao.checkOverlap(member_id);

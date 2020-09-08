@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kh.arori.entity.ReportDto;
+import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.service.report.ReportService;
 
 @Controller

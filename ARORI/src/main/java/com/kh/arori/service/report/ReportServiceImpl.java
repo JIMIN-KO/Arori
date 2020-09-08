@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.arori.entity.ReportDto;
+import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.repository.report.ReportDao;
 
 @Service

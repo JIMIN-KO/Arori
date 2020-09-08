@@ -1,8 +1,9 @@
 package com.kh.arori.repository.admin;
 
-import java.util.List;
 
-import com.kh.arori.entity.MemberDto;
+import com.kh.arori.entity.member.MemberDto;
+
+
 
 public interface AdminDao {
 
