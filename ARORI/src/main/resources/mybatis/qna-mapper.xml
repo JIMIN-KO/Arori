@@ -17,16 +17,66 @@
 	</insert>
 	
 	<!-- QNA 게시글 작성 덧글-->
-<!-- 	<insert id="create2" parameterType="QnaDto"> -->
-<!-- 		INSERT INTO qna VALUES ( -->
-<!-- 		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, #{super_no}, #{group_no}, #{depth}) -->
-<!-- 	</insert> -->
+	<insert id="create2" parameterType="QnaDto">
+		INSERT INTO qna VALUES (
+		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, #{super_no}, #{group_no}, #{depth}, 1
+		)
+	</insert>
 
-	<!--  QNA 게시글 페이지 네이션 -->
-	<select id="getP" resultType="qnaDto" parameterType="map">
-		SELECTcol.qna_no, col.c_no, col.qna_title, col.qna_content, col.qna_when FROM (
-		SELECT ROWNUM rn, qna.* FROM QNA qna WHERE qna.QNA_NO = ${c_no} ORDER BY QNA_WHEN DESC) col WHERE rn BETWEEN ${start} AND ${finish}
+	<!-- 게시글 단일 조회 (qna_no) -->
+	<select id="get" resultType="qnaDto" parameterType="qnaDto">
+		SELECT * FROM QNA WHERE QNA_NO = #{qna_no}
 	</select>
+	
+	<!-- 게시글 단일 조회 (c_no) -->
+	<select id="getC" resultType="qnaDto" parameterType="qnaDto">
+		SELECT * FROM QNA WHERE C_NO = #{c_no}
+	</select>
+	
+	<!-- 게시글 c_no + qna_no 단일 조회 -->
+	<select id="getCQ" resultType="qnaDto" parameterType="qnaDto">
+		SELECT * FROM QNA WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
+	</select>
+	
+	<!-- 게시글 새 글 작성 중 임시 저장 전체 조회 -->
+	<select id="getCT" resultType="qnaDto" parameterType="qnaDto">
+		SELECT * FROM QNA WHERE C_NO = #{c_no} AND QNA_STATE = 0
+	</select>
+	
+	<!-- 게시글 수정  -->
+	<update id="edit" parameterType="qnaDto">
+		UPDATE QNA SET QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}, QNA_STATE = #{qna_state} WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</update>
+	
+	<!-- 게시글 페이지 네이션 -->
+	<select id="getP" resultType="qnaDto" parameterType="map">
+		SELECT col.qna_no, col.qna_no, col.qna_title, col.qna_content, col.qna_when FROM (SELECT ROWNUM rn, qna.* FROM QNA qna WHERE qna.C_NO = ${c_no} AND QNA_STATE = 1 ORDER BY QNA_NO DESC) col WHERE rn BETWEEN ${start} AND ${finish}
+	</select>
+	
+	<!-- 해당 클래스의 게시글 개수 -->
+	<select id="count" resultType="int" parameterType="qnaDto">
+		SELECT COUNT(*) FROM QNA WHERE C_NO = #{c_no}
+	</select>
+	
+	<!-- 해당 클래스의 특정 게시글 삭제 -->
+	<delete id="delete" parameterType="qnaDto">
+		DELETE QNA WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</delete>
+	
+	<!-- 임시 저장소 데이터 저장 -->
+	<insert id="createTemp" parameterType="qnaDto">
+		INSERT INTO QNA_TEMP VALUES(#{qna_no},#{c_no}, #{qna_title}, #{qna_content}, SYSDATE)
+	</insert>
+	
+	<!-- 임시 저장소 데이터 조회 -->
+	<select id="getTemp" resultType="qnaDto" parameterType="qnaDto">
+		SELECT * FROM QNA_TEMP WHERE QNA_NO = #{qna_no} AND C_NO = #{c_no}
+	</select>
+
+	<!-- 임시 저장소 데이터 삭제 -->
+	<delete id="deleteTemp" parameterType="qnaDto">
+		DELETE QNA_TEMP WHERE QNA_NO = #{qna_no} AND C_NO = #{c_no}
+	</delete>
 	
 
 </mapper>
