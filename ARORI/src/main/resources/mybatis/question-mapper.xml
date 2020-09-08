@@ -11,17 +11,27 @@
 	
 	<!-- 퀘스천 생성 -->
 	<insert id="create" parameterType="allQuestionDto">
-		INSERT INTO ALL_QUESTION VALUES(#{question_no}, #{q_no}, #{qt_no}, #{aq_content}, ${aq_score}, SYSDATE)
+		INSERT INTO ALL_QUESTION VALUES(#{question_no}, #{q_no}, #{qt_no}, #{aq_content}, SYSDATE)
 	</insert>
 	
 	<!-- 퀘스쳔 수정 / 갱신 -->
 	<update id="update" parameterType="allQuestionDto">
-		UPDATE ALL_QUESTION SET AQ_CONTENT = #{aq_content}, AQ_SCORE = ${aq_score} WHERE QUESTION_NO = #{question_no} AND Q_NO = #{q_no}
+		UPDATE ALL_QUESTION SET AQ_CONTENT = #{aq_content} WHERE QUESTION_NO = #{question_no} AND Q_NO = #{q_no}
 	</update>
 	
 	<!-- 퀘스쳔 단일 조회 -->
 	<select id="get" resultType="allQuestionDto" parameterType="allQuestionDto">
 		SELECT * FROM ALL_QUESTION WHERE Q_NO = #{q_no} AND QUESTION_NO = #{question_no}
+	</select>
+	
+	<!-- 해당 퀴즈의 퀘스쳔 불러오기 -->
+	<select id="getQuestion" resultType="allQuestionDto" parameterType="allQuestionDto">
+		SELECT * FROM ALL_QUESTION WHERE Q_NO = #{q_no} ORDER BY QUESTION_NO ASC
+	</select>
+	
+	<!-- 해당 퀴즈의 모든 퀘스쳔 불러오기 -->
+	<select id="getTQ" resultType="thisQuizDto" parameterType="int">
+		SELECT * FROM THIS_QUIZ WHERE Q_NO = ${q_no} ORDER BY QUESTION_NO ASC
 	</select>
 	
 	<!-- 퀘스쳔 오작교 시퀀스 번호 발급 -->
@@ -34,6 +44,8 @@
 		INSERT INTO ${table_name}_Q VALUES(#{no}, #{question_no}, #{this_no})
 	</insert>
 	
+	
+	<!-- 정답 영역 -->
 	<!-- ox답안 시퀀스 -->
 	<select id="getSeqOx" resultType="int">
 		SELECT ox_seq.NEXTVAL FROM DUAL

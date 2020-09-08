@@ -35,36 +35,17 @@
 								<div class="form-group col-6">
 									<div class="input-group input-group-lg">
 										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Total Score</span>
-										</div>
-										<input type="text" class="form-control" value="${quizDto.q_score } 점" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
-									</div>
-								</div>
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
 										</div>
 										<input type="text" class="form-control" value="${quizDto.q_score_open }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
 									</div>
 								</div>
-							</div>
-							<!-- Runtime / Scoring -->
-							<div class="form-row">
 								<div class="form-group col-6">
 									<div class="input-group input-group-lg">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
 										</div>
 										<input type="text" class="form-control" value="${quizDto.q_runtime } 분" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
-									</div>
-								</div>
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Scoring</span>
-										</div>
-										<input type="text" class="form-control" value="${quizDto.q_scoring }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
 									</div>
 								</div>
 							</div>
@@ -88,7 +69,7 @@
 								</div>
 							</div>
 						<div class="row mt-5 d-flex justify-content-center">
-							<button class="btn btn-lg btn-warning font-weight-bold mt-5">퀴즈 풀기</button>
+							<a href="${pageContext.request.contextPath }/questionAjax/getTQ/${quizDto.q_no}"><button class="btn btn-lg btn-warning font-weight-bold mt-5">퀴즈 풀기</button></a>
 							<button class="btn btn-lg btn-primary font-weight-bold mt-5" onclick="javascript=history.back()">돌아가기</button>
 						</div>
 					</div>

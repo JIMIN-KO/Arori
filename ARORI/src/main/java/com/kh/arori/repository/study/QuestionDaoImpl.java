@@ -1,5 +1,7 @@
 package com.kh.arori.repository.study;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -8,6 +10,7 @@ import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.ExplainDto;
 import com.kh.arori.entity.study.MultipleDto;
 import com.kh.arori.entity.study.OxDto;
+import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.entity.study.This_qDto;
 
 @Repository
@@ -93,5 +96,19 @@ public class QuestionDaoImpl implements QuestionDao {
 	public AllQuestionDto get(AllQuestionDto allQuestionDto) {
 
 		return sqlSession.selectOne("question.get", allQuestionDto);
+	}
+
+	// 해당 퀴즈의 퀘스쳔 정보 가지고 오기
+	@Override
+	public List<AllQuestionDto> getQuestion(int q_no) {
+
+		return sqlSession.selectList("question.getQuestion", q_no);
+	}
+
+	// 해당 퀴즈의 퀘스쳔 정보 + 정답 가지고 오기
+	@Override
+	public List<ThisQuizDto> getTG(int q_no) {
+
+		return sqlSession.selectList("question.getTQ", q_no);
 	}
 }

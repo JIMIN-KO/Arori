@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,14 +16,19 @@ import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.ExplainDto;
 import com.kh.arori.entity.study.MultipleDto;
 import com.kh.arori.entity.study.OxDto;
+import com.kh.arori.entity.study.ThisQuizDto;
+import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.service.study.QuestionService;
-import com.kh.arori.vo.OxVo;
 
 @RestController
 @RequestMapping("/questionAjax")
 public class QuestionAjaxController {
+
 	@Autowired
 	private QuestionService questionService;
+	
+	@Autowired
+	private QuestionDao questionDao;
 
 	// OX 퀘스쳔 생성
 	@PostMapping("/create/ox")
@@ -54,12 +61,11 @@ public class QuestionAjaxController {
 		int next_aqdto_no = questionService.createQuestion(content, allQuestionDto, explainDto);
 		return next_aqdto_no;
 	}
-	
-	// OX 퀘스쳔 조회
-	@PostMapping("/get/ox")
-	public OxVo getOX(@RequestParam int question_no, @RequestParam int q_no){
-		
-		return null;
+
+	@GetMapping("/getTQ/{q_no}")
+	public List<ThisQuizDto> play(@PathVariable int q_no) {
+		List<ThisQuizDto> list = questionDao.getTG(q_no);
+		return list;
 	}
 
 }

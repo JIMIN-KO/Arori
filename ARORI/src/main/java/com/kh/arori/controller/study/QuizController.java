@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QuizDto;
+import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;

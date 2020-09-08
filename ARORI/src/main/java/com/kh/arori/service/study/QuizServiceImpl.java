@@ -15,7 +15,7 @@ public class QuizServiceImpl implements QuizService {
 
 	@Autowired
 	private ToastService toastService;
-	
+
 	@Autowired
 	private QuizDao quizDao;
 
@@ -23,8 +23,7 @@ public class QuizServiceImpl implements QuizService {
 	@Override
 	@Transactional
 	public int createQuiz(int c_no) {
-		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_title("이름없는 퀴즈").q_score(0).q_runtime(100).q_scoring(0)
-				.build();
+		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_title("이름없는 퀴즈").q_runtime(100).build();
 
 		// 퀴즈 시퀀스 번호 발급
 		int q_no = quizDao.getSeq();
@@ -40,7 +39,7 @@ public class QuizServiceImpl implements QuizService {
 	@Transactional
 	public String update(List<String> content, QuizDto quizDto) {
 		String q_content = toastService.content(content);
-		
+
 		quizDto.setQ_content(q_content);
 		quizDto.setQ_open(quizDto.getQ_open().replace("T", " ") + ":00"); // 퀴즈 오픈 시간 포맷 수정
 		quizDto.setQ_close(quizDto.getQ_close().replace("T", " ") + ":00"); // 퀴즈 클로스 시간 포맷 수정

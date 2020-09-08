@@ -21,10 +21,21 @@
 		
 		<!-- Question Table -->
 		<typeAlias type="com.kh.arori.entity.study.AllQuestionDto" alias="allQuestionDto"/>
+		
+		<!-- questionType -->
 		<typeAlias type="com.kh.arori.entity.study.QuestionTypeDto" alias="questionTypeDto"/>
+	
+		<!-- OX -->
 		<typeAlias type="com.kh.arori.entity.study.OxDto" alias="oxDto"/>
+		
+		<!-- Multiple -->
 		<typeAlias type="com.kh.arori.entity.study.MultipleDto" alias="multipleDto"/>
+	
+		<!-- Explain -->
 		<typeAlias type="com.kh.arori.entity.study.ExplainDto" alias="explainDto"/>
+		
+		<!-- This_Quiz (VIEW) -->
+		<typeAlias type="com.kh.arori.entity.study.ThisQuizDto" alias="thisQuizDto"/>
 		
 		<!-- 퀘스쳔 오작교 -->
 		<typeAlias type="com.kh.arori.entity.study.This_qDto" alias="this_qDto"/>

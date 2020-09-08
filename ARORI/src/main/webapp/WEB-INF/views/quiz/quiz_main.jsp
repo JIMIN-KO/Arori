@@ -27,7 +27,6 @@
                                     <tr>
                                         <th scope="col" class="font-weight-bold">No</th>
                                         <th scope="col" class="font-weight-bold">Quiz Title</th>
-                                        	<th scope="col" class="font-weight-bold">Score</th>
                                         <th scope="col" class="font-weight-bold">Open</th>
                                         <th scope="col" class="font-weight-bold">Close</th>
                                         	<c:if test="${classesDto.member_no == userinfo.member_no }">
@@ -44,9 +43,6 @@
                                                 ${quizDto.q_title }
                                             	</a>
                                        	</td>
-                                        	<td>
-                                        		${quizDto.q_score} 점
-                                        	</td>
                                         	<td>
                                         		<fmt:parseDate value="${quizDto.q_open}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
 											<fmt:formatDate value="${time}" pattern="yy-MM-dd HH:mm"/> 부터	

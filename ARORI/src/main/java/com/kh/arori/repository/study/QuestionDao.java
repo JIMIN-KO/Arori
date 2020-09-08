@@ -1,9 +1,12 @@
 package com.kh.arori.repository.study;
 
+import java.util.List;
+
 import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.ExplainDto;
 import com.kh.arori.entity.study.MultipleDto;
 import com.kh.arori.entity.study.OxDto;
+import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.entity.study.This_qDto;
 
 public interface QuestionDao {
@@ -43,5 +46,11 @@ public interface QuestionDao {
 	
 	// 퀘스쳔 단일 조회 
 	public AllQuestionDto get(AllQuestionDto allQuestionDto);
+	
+	// 해당 퀴즈의 퀘스쳔 정보 불러오기 
+	public List<AllQuestionDto> getQuestion(int q_no);
+	
+	// 해당 퀴즈의 퀘스천 정보 + 정답 불러오기 (THIS_QUIZ)
+	public List<ThisQuizDto> getTG(int q_no);
 
 }
