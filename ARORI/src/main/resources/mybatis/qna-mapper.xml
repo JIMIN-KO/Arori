@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+
+	<!-- QNA  게시글 고유 번호 발급-->
+	<select id="getSeq" resultType="int">
+		SELECT qna_seq.nextval FROM DUAL
+	</select>
+	
+	<!-- QNA 게시글 작성 새글-->
+	<insert id="create" parameterType="QnaDto">
+		INSERT INTO qna VALUES (
+		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, 0, #{group_no}, 0, 1
+		)
+	</insert>
+	
+	<!-- QNA 게시글 작성 덧글-->
+<!-- 	<insert id="create2" parameterType="QnaDto"> -->
+<!-- 		INSERT INTO qna VALUES ( -->
+<!-- 		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, #{super_no}, #{group_no}, #{depth}) -->
+<!-- 	</insert> -->
+
+	<!--  QNA 게시글 페이지 네이션 -->
+	<select id="getP" resultType="qnaDto" parameterType="map">
+		SELECTcol.qna_no, col.c_no, col.qna_title, col.qna_content, col.qna_when FROM (
+		SELECT ROWNUM rn, qna.* FROM QNA qna WHERE qna.QNA_NO = ${c_no} ORDER BY QNA_WHEN DESC) col WHERE rn BETWEEN ${start} AND ${finish}
+	</select>
+	
+
+</mapper>
