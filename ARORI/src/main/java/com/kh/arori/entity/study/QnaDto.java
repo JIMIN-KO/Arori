@@ -20,4 +20,5 @@ public class QnaDto {
 	private int super_no;
 	private int group_no;
 	private int depth;
+	private int qna_state;
 }

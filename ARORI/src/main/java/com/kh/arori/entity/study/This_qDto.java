@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoticeDto {
+public class This_qDto {
 
-	private int n_no;
-	private int c_no;
-	private String n_title;
-	private String n_content;
-	private String n_when;
-	private int n_state;
+	private int no;
+	private int question_no;
+	private int this_no;
+	private String table_name;
 }

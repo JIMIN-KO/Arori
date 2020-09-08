@@ -1,15 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
-
-<script type="text/javascript">
-
-
-</script>
 
 
 <body>
@@ -34,7 +27,7 @@
 			<tr>
 				<td>${classesDto.c_no}</td>
 				<td>
-					<a href="${pageContext.request.contextPath}/classes/detail/${classesDto.c_no}">
+					<a href="${pageContext.request.contextPath}/classes/readme/${classesDto.c_no}">
 						${classesDto.c_title}					
 					</a>
 				</td>
@@ -60,6 +53,5 @@
 	</tbody>
 </table>
 </body>
-<jsp:include
-	page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
 

@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class AllQuestionDto {
 	private int question_no;
-	private int aq_no;
+	private int q_no;
+	private int qt_no;
 	private String aq_content;
-	private int aq_number;
+	private int aq_score;
 	private String aq_when;
 	
 }

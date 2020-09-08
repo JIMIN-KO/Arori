@@ -25,6 +25,9 @@
 		<typeAlias type="com.kh.arori.entity.study.OxDto" alias="oxDto"/>
 		<typeAlias type="com.kh.arori.entity.study.MultipleDto" alias="multipleDto"/>
 		<typeAlias type="com.kh.arori.entity.study.ExplainDto" alias="explainDto"/>
+		
+		<!-- 퀘스쳔 오작교 -->
+		<typeAlias type="com.kh.arori.entity.study.This_qDto" alias="this_qDto"/>
 
 		<!-- MC Table -->
 		<typeAlias type="com.kh.arori.entity.study.McDto" alias="mcDto"/>

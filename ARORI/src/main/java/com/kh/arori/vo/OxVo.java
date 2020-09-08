@@ -1,4 +1,4 @@
-package com.kh.arori.entity.img;
+package com.kh.arori.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class This_imgDto {
+public class OxVo {
 	
-	private int no;
-	private int ai_no;
-	private int this_no;
-	private String table_name;
+	private int q_no;
+	private int question_no;
+	private String o_content;
+	private String x_content;
+	private String ox_answer;
 
 }

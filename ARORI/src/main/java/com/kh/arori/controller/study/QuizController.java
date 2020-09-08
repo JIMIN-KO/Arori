@@ -1,74 +1,88 @@
 package com.kh.arori.controller.study;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QuizDto;
+import com.kh.arori.repository.study.ClassesDao;
+import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.study.QuizService;
 
 @Controller
 public class QuizController {
 
-		@Autowired
-		private QuizService quizService;
+	@Autowired
+	private QuizService quizService;
+
+	@Autowired
+	private ClassesDao classesDao;
+
+	@Autowired
+	private QuizDao quizDao;
+	
+	@Autowired
+	private QuestionDao questionDao;
+
+	// 퀴즈 메인
+	@GetMapping("/classes/quiz/{c_no}")
+	public String quizmain(@PathVariable int c_no, Model model) {
+		// 해당 클래스 조회
+		ClassesDto classesDto = classesDao.get(c_no);
+		model.addAttribute("classesDto", classesDto);
+
+		// 퀴즈목록
+		List<QuizDto> list = quizDao.getList(c_no);
+		model.addAttribute("quizDto", list);
+		return "quiz/quiz_main";
+	}
+
+	// 퀴즈 생성 페이지
+	@GetMapping("/classes/quiz/create/{c_no}")
+	public String create(@PathVariable int c_no, Model model) {
+		int q_no = quizService.createQuiz(c_no); // 퀴즈 생성 (임시 저장 여지를 두는 것)
 		
-		@Autowired
-		private QuizDao quizDao;
+		// 퀴즈 번호 + 클래스 번호 객체화
+		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_no(q_no).build();
+		// 퀴즈 번호 및 클래스 번호 전달
+		model.addAttribute("quizDto", quizDto);
 		
-		//퀴즈 메인
-		@GetMapping("/classes/{c_no}/quiz")
-		public String quizmain(@PathVariable int c_no, Model model) {
-			//퀴즈목록
-			List<QuizDto> list = quizDao.getList(c_no);
-			System.out.println("list : " + list);
-			model.addAttribute("list",list);
-			return "quiz/quizmain";
-		}
-			
-		// 날짜 변수 타입 매핑
-//		@InitBinder 
-//		protected void initBinder(WebDataBinder binder){
-//			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//			binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-//		}
+		// 첫 퀘스쳔 번호 생성 후 전달
+		int question_no = questionDao.getSeq();
+		model.addAttribute("question_no", question_no);
 		
+		return "quiz/quiz_create";
+	}
+
+	// 퀴즈 생성
+	@PostMapping("/classes/quiz/create")
+	public String create(@RequestParam List<String> content ,@ModelAttribute QuizDto quizDto) {
+		String result = quizService.update(content, quizDto);
 		
-		@GetMapping("/classes/{c_no}/quiz/create")
-		public String create(@PathVariable int c_no) {
-			return "quiz/create";
-		}
+		return result;
+	}
+
+	// 퀴즈 디테일
+	@GetMapping("/classes/quiz/detail/{c_no}/{q_no}")
+	public String detail(@PathVariable int c_no, @PathVariable int q_no, Model model) {
+		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_no(q_no).build();
+		// 클래스 조회
+		ClassesDto classesDto = classesDao.get(c_no);
+		model.addAttribute("classesDto", classesDto);
 		
-		//퀴즈 생성
-		@PostMapping("/classes/{c_no}/quiz/create")
-		public String create(@PathVariable int c_no, @ModelAttribute QuizDto quizDto) {		
-			int q_no = quizService.createQuiz(quizDto);
-			return "redirect:/classes/{c_no}/quiz/detail/" +q_no;
-		}
-		
-		//퀴즈 디테일
-		@GetMapping("/classes/{c_no}/quiz/detail/{q_no}")
-		public String detail(@PathVariable int c_no,@PathVariable int q_no, Model model) {
-			model.addAttribute("q_no",q_no);
-			return "quiz/detail";
-		}
-		
-		
-		
-		
+		// 퀴즈 조회
+		quizDto = quizDao.get(quizDto);
+		model.addAttribute("quizDto", quizDto);
+		return "quiz/quiz_detail";
+	}
+
 }
