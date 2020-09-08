@@ -14,4 +14,7 @@ public interface ReportDao {
 
 	//신고글 보기
 	public ReportDto content(int report_no);
+	
+	//신고글 삭제
+	public void delete(int report_no);
 }

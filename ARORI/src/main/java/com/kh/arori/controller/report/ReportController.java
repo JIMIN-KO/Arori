@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.ReportDto;
@@ -55,5 +56,13 @@ public class ReportController {
 
 		return "report/content";
 
+	}
+	
+	//신고글 삭제
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public String delete(ReportDto reportDto) {
+		reportService.delete(reportDto.getReport_no());
+		
+		return "redirect:/report/list";
 	}
 }

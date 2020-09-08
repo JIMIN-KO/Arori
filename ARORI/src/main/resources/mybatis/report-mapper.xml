@@ -16,6 +16,10 @@ SELECT * FROM REPORT ORDER by report_no asc
 SELECT* FROM report WHERE report_no=#{report_no}
 </select>
 
+<delete id="delete" parameterType="reportDto">
+		DELETE FROM REPORT WHERE
+		report_no=#{report_no}
+	</delete>
 </mapper>
 
 

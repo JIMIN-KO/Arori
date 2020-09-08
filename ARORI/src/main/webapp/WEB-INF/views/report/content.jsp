@@ -35,6 +35,9 @@
 </textarea>
 <button><a href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}">상태변경하기</a></button>
 <button><a href="${pageContext.request.contextPath}/report/list">목록으로 돌아가기</a></button>
+<form action="delete" method="post">
+<input type="submit" value="삭제하기">
+</form>
 <br>
 
 

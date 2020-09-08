@@ -2,6 +2,9 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
+
 <form action="adminUpdate" method="post">
 닉네임
 <input type="text" name="member_nick" value="${memberDto.member_nick}">
@@ -18,7 +21,7 @@ ${memberDto.member_login}
 현재상태
 
 <select name="report_state">
-	<option selected="selected">${memberDto.report_state}</option>
+	<option selected="selected" disabled="disabled">${memberDto.report_state}</option>
 	<option value="정상">정상</option>
 	<option value="일시 정지">일시 정지</option>
 	<option value="영구 정지">영구 정지</option>
@@ -34,3 +37,5 @@ ${memberDto.member_login}
 <br>
 <a href="../delete"><input type="button" value="탈퇴시키기"></a>
 </form>
+</body>
+</html>

@@ -9,7 +9,7 @@ import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.repository.report.ReportDao;
 
 @Service
-public class ReportServiceImpl implements ReportService {
+public abstract class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	ReportDao reportDao;
@@ -28,6 +28,12 @@ public class ReportServiceImpl implements ReportService {
 	public ReportDto content(int report_no) {
 
 		return reportDao.content(report_no);
+	}
+
+	@Override
+	public void delete(int report_no) {
+		reportDao.delete(report_no);
+		
 	}
 
 }

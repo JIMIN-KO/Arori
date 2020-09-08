@@ -33,4 +33,10 @@ public class ReportDaoImpl implements ReportDao {
 		return sqlSession.selectOne("report.content",report_no);
 	}
 
+	@Override
+	public void delete(int report_no) {
+		sqlSession.delete("report.delete",report_no);
+		
+	}
+
 }
