@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="img">
+	<!-- 이미지 데이터 고유 번호 발급 -->
+	<select id="getSeq" resultType="int">
+		SELECT ALL_IMG_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- 이미지 통합 테이블 데이터 추가 -->
+	<insert id="insert" parameterType="all_imgDto">
+		INSERT INTO ALL_IMG VALUES(#{img_no},#{img_name},#{img_type},#{img_size})
+	</insert>
+	
+	<!-- 이미지 오작교 데이터 추가 -->
+	<insert id="insert2" parameterType="this_imgDto">
+		INSERT INTO ${table_name}_IMG VALUES(#{no},#{ai_no},#{this_no})
+	</insert>
+
+	<!-- 오작교 테이블 통합 고유 번호 발급 -->
+	<select id="getSeq_all" resultType="int" parameterType="String">
+		SELECT ${table_name}_IMG_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 이미지 통합 테이블 데이터 단일 조회 -->
+	<select id="get" resultType="all_imgDto" parameterType="this_imgDto">
+		SELECT * FROM ALL_IMG WHERE IMG_NO = (SELECT AI_NO FROM ${table_name}_IMG WHERE AI_NO = #{ai_no})
+	</select>
+	
+	<!-- 오작교 테이블 THIS_NO 조회 -->
+	<select id="get2" resultType="this_imgDto" parameterType="this_imgDto">
+		SELECT * FROM ${table_name}_IMG WHERE THIS_NO = #{this_no}
+	</select>
+	
+	<!-- 이미지 통합 테이블 데이터 삭제 -->
+	<delete id="delete" parameterType="all_imgDto">
+		DELETE ALL_IMG WHERE IMG_NO = #{img_no}
+	</delete>
+	
+	<!-- 오작교 테이블 데이터 삭제 -->
+	<delete id="delete2" parameterType="this_imgDto">
+		DELETE ${table_name}_IMG WHERE THIS_NO = #{this_no}
+	</delete>
+</mapper>

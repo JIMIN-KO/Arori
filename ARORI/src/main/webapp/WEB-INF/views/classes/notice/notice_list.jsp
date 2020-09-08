@@ -8,6 +8,14 @@
                     	<br>
                         <div class="d-flex">
 	                        <h1 class="font-weight-bold mt-4" style="flex:18;">Notice</h1>
+	                        <c:if test="${not empty temp }">
+		                        <select class="form-control custom-select-lg mt-4" id="tempSelect" style="flex:10;">
+		                        	<option selected="selected" disabled="disabled">임시 저장 리스트</option>
+		                        	<c:forEach var="temp" items="${temp }">
+		                        		<option value="${pageContext.request.contextPath }/classes/notice/edit/${temp.c_no}/${temp.n_no}">${temp.n_title }</option>
+		                        	</c:forEach>
+		                        </select>
+                        	</c:if>
 	                        <c:if test="${classes.member_no == userinfo.member_no }">
 								<a href="${pageContext.request.contextPath }/classes/notice/create/${c_no}">
 						            <button class="btn btn-link mt-4" style="flex:0.3; color: gray;">
@@ -96,6 +104,12 @@
 
 	// Toast Plugin 불러오기 
 	const Viewer = toastui.Editor;
+	const chartOptions = {
+	        minWidth: 100,
+	        maxWidth: 600,
+	        minHeight: 100,
+	        maxHeight: 300
+	      };
     const { chart, codeSyntaxHighlight, colorSyntax, tableMergedCell, uml } = Viewer.plugin;
 	// viewer 갯수만큼 반복하기 (최대 10개)
 	for(var i = 0; i < viewers.length; i++) {
@@ -107,11 +121,18 @@
 	        height: '1000px',
 	        initialValue: n_content[i].value,
 	        initialEditType: 'markdown',
-	        plugins: [chart, codeSyntaxHighlight, tableMergedCell, uml]
+	        plugins: [[chart, chartOptions], codeSyntaxHighlight, tableMergedCell, uml]
 	    });
 	}
 
 	$(function(){
+		// 임시 저장 데이터 작성하기 
+		$("#tempSelect").on("change",function(){
+			console.log($("#tempSelect").val())
+			if($("#tempSelect").val() != "") {
+				location.href = $("#tempSelect").val()
+			}
+		})
 		
 	    // 라디오 숨김
 	    $("input[type=radio]").css("display","none")

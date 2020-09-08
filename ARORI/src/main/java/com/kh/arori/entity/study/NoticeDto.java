@@ -16,4 +16,5 @@ public class NoticeDto {
 	private String n_title;
 	private String n_content;
 	private String n_when;
+	private int n_state;
 }
