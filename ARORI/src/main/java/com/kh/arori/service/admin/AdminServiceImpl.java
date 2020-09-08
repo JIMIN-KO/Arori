@@ -1,10 +1,13 @@
 package com.kh.arori.service.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
+import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 
 @Service
@@ -12,6 +15,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	MemberDao memberDao;
+	
+	@Autowired 
+	AdminDao adminDao;
 
 	@Override
 	public void adminUpdate(MemberDto memberDto) {
@@ -37,4 +43,7 @@ public class AdminServiceImpl implements AdminService {
 		memberDao.deleteMember(memberDto);
 
 	}
+
+
+	
 }

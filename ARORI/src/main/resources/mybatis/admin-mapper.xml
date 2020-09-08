@@ -6,8 +6,40 @@
 
 	<!-- 관리자가 회원아이디를 통해 회원을 삭제시킨다. -->
 
+<resultMap type="memberDto" id="aroriMemberDto">
+		<result column="member_no" property="member_no" />
+		<result column="member_pw" property="member_pw" />
+		<result column="member_email" property="member_email" />
+		<result column="member_phone" property="member_phone" />
+	</resultMap>
+
+	<resultMap type="memberDto" id="memberDto">
+		<result column="member_no" property="member_no" />
+		<result column="member_id" property="member_id" />
+		<result column="member_nick" property="member_nick" />
+		<result column="member_state" property="member_state" />
+		<result column="member_join" property="member_join" />
+		<result column="member_login" property="member_login" />
+		<result column="report_state" property="member_state" />
+		<result column="suspension" property="member_suspension" />
+	</resultMap>
+
 	<delete id="delete" parameterType="memberDto">
-		DELETE FROM MEMBER WHERE member_id=#{member_id}
+		DELETE FROM MEMBER WHERE
+		member_id=#{member_id}
 	</delete>
+
+	<!-- 페이징 -->
+	<select id="page" resultType="memberDto">
+<![CDATA[
+select
+    member_id, member_nick, member_email, member_phone, member_state,member_login,report_state
+FROM MEMBER m INNER JOIN arori_member a
+		ON m.member_no=a.member_no
+where m.member_no > 0
+order by m.member_no desc, report_state DESC
+limit #{pageStart}, #{perPageNum}
+]]>
+</select>
 
 </mapper>

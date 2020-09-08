@@ -31,6 +31,7 @@ public class ReportController {
 		return "redirect:/";
 	}
 
+	//신고글 리스트
 	@GetMapping("/list")
 	public String list(Model model) {
 

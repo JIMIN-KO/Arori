@@ -1,5 +1,7 @@
 package com.kh.arori.service.admin;
 
+import java.util.List;
+
 import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
 
@@ -16,4 +18,6 @@ public interface AdminService {
 	
 	//회원삭제
 	public void delete(MemberDto memberDto);
+	
+
 }

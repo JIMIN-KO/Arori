@@ -236,19 +236,6 @@
 		=#{member_phone}
 	</select>
 
-	<resultMap type="arorimemberDto" id="aroriMemberDto2">
-		<result column="member_no" property="member_no" />
-		<result column="member_pw" property="member_pw" />
-		<result column="member_email" property="member_email" />
-		<result column="member_phone" property="member_phone" />
-		<result column="member_q" property="member_a" />
-	</resultMap>
-
-	<resultMap type="arorimemberDto" id="pwDto">
-		<result column="password_q" property="password_q" />
-		<result column="password_a" property="password_a" />
-
-	</resultMap>
 
 	<!-- 회원 단일 조회 (번호) -->
 	<!-- 회원 단일 조회 > MEMBER TABLE -->

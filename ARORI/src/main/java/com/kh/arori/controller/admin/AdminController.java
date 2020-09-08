@@ -3,9 +3,8 @@ package com.kh.arori.controller.admin;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.AroriMemberDto;
 import com.kh.arori.entity.MemberDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -66,6 +65,7 @@ public class AdminController {
 
 	}
 
+
 	// 소셜+아로리) 아이디 단일조회 (관리자만 가능)
 
 	// 소셜 + 아로리) 상세정보변경
@@ -102,8 +102,8 @@ public class AdminController {
 
 		return "admin/memberProfile";
 	}
-	//회원 프로필 보기
-	
+	// 회원 프로필 보기
+
 	@PostMapping("/memberProfile/{member_no}")
 	public String memberProfile(@PathVariable(required = false) int member_no, @ModelAttribute MemberDto memberDto,
 			@ModelAttribute AroriMemberDto aroriMemberDto) {
@@ -115,8 +115,8 @@ public class AdminController {
 		return "/memberProfile/{member_no}";
 	}
 
-	//회원탈퇴 시키기
-	
+	// 회원탈퇴 시키기
+
 	@GetMapping("/delete")
 	public String memberDelete(@ModelAttribute MemberDto memberDto) {
 
@@ -124,4 +124,6 @@ public class AdminController {
 
 		return "admin/delete";
 	}
+
+
 }
