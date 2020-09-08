@@ -29,7 +29,7 @@ public class NonMemberAjaxController {
 	// 아로리 회원 로그인
 	   @PostMapping("/loginSuccess")
 	   public MemberDto loginSuccess(@RequestParam String member_id, @RequestParam String member_pw,
-	         @RequestParam HttpSession session) {
+	        HttpSession session) {
 
 	      MemberDto member = memberService.aroriLogin(member_id, member_pw);
 
@@ -39,7 +39,8 @@ public class NonMemberAjaxController {
 	            session.setAttribute("userinfo", member);
 	            return member;
 	         } else {
-	            return null;
+	           
+	        	 return null;
 
 	         }
 	      }

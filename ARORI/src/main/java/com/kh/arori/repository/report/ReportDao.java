@@ -11,4 +11,7 @@ public interface ReportDao {
 
 	//신고글 목록
 	public List<ReportDto>list();
+
+	//신고글 보기
+	public ReportDto content(int report_no);
 }

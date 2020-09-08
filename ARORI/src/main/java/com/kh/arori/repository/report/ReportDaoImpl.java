@@ -27,4 +27,10 @@ public class ReportDaoImpl implements ReportDao {
 		return sqlSession.selectList("report.list");
 	}
 
+	@Override
+	public ReportDto content(int report_no) {
+		
+		return sqlSession.selectOne("report.content",report_no);
+	}
+
 }

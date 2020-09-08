@@ -12,4 +12,6 @@ public interface ReportService {
 	//신고글 리스트
 	public List<ReportDto>list();
 	
+	//신고글 조회
+	public ReportDto content(int report_no);
 }

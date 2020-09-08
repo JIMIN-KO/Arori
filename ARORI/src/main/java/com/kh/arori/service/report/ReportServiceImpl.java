@@ -24,4 +24,10 @@ public class ReportServiceImpl implements ReportService {
 		return reportDao.list();
 	}
 
+	@Override
+	public ReportDto content(int report_no) {
+
+		return reportDao.content(report_no);
+	}
+
 }

@@ -12,6 +12,9 @@ INSERT INTO report values(report_seq.nextval,#{report_member},#{report_type},#{r
 SELECT * FROM REPORT ORDER by report_no asc
 </select>
 
+<select id="content" resultType="reportDto" parameterType="int">
+SELECT* FROM report WHERE report_no=#{report_no}
+</select>
 
 </mapper>
 

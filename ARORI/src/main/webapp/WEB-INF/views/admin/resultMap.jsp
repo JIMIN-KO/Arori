@@ -6,9 +6,22 @@
 
 <h1>회원 목록(관리자 페이지) - 수정하려면 회원아이디를 클릭</h1>
 
+<tr>
+<td>번호</td>
+<td>아이디</td>
+<td>닉네임</td>
+<td>이메일</td>
+<td>H.P</td>
+<td>회원구분</td>
+<td>가입일시</td>
+<td>로그인일시</td>
+<td>회원상태</td>
+</tr>
+<br>
 
 <c:forEach var="memberDto" items="${result}" varStatus="status">
 <br>
+
 	<tr>
 	<td>${memberDto.member_no}</td>
 <a href="${pageContext.request.contextPath}/admin/adminUpdate/${memberDto.member_id}"><td>${memberDto.member_id} </td></a>
@@ -16,6 +29,7 @@
 	<td>${result2[status.index].member_email}</td>
 	<td>${result2[status.index].member_phone}</td>
 	<td>${memberDto.member_state}</td>
+	<td>${memberDto.member_join}</td>
 	<td>${memberDto.member_login}</td>
 	<td>${memberDto.report_state}</td>
 	</tr>
