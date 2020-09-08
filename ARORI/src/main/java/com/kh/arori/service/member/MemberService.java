@@ -41,4 +41,9 @@ public interface MemberService {
 	// 아로리 회원정보수정
 	public void updateinfo(MemberDto memberDto, AroriMemberDto aroriMemberDto);
 
+	//아로리 회원 비번변경
+	public void changeAroriPW(AroriMemberDto aroriMemberDto);
+
+	
+
 }

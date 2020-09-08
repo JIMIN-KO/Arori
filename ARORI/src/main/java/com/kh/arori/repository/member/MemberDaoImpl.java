@@ -199,4 +199,28 @@ public class MemberDaoImpl implements MemberDao {
 		return result2;
 	}
 
+	//아로리 회원 비밀번호 변경 
+	@Override
+	public void changeAroriPW(AroriMemberDto aroriMemberDto) {
+		
+		aroriMemberDto.setMember_pw(encoder.encode(aroriMemberDto.getMember_pw()));
+		sqlSession.update("changeAroriPW", aroriMemberDto);
+
+	}
+	//아로리 비번 변경전에 체크하기 
+	@Override
+	public boolean checkChangePw(String member_id, String member_pw) {
+		AroriMemberDto aroriMember = this.getArori(member_id);
+		boolean vaild = encoder.matches(member_pw, aroriMember.getMember_pw());
+		if(vaild) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+		
+	
+	
+
 }

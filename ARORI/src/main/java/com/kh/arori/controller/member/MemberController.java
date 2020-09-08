@@ -122,18 +122,24 @@ public class MemberController {
 
 	// 소셜회원 정보 수정-이동 (윤아)
 	@GetMapping("/updateSocial")
-	public String updateSocial() {
-
+	public String updateSocial(Model model, HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo"); 
+		MemberDto member = memberDao.get(userinfo.getMember_id());
+		model.addAttribute("memberDto", member);
+		
 		return "member/updateSocial";
 	}
 
+	//소셜회원 정보 수정 - 수정 
 	@PostMapping("/updateSocial")
-	public String updateSocial(@ModelAttribute MemberDto memberDto, HttpSession session) {
+	public String updateSocial(@ModelAttribute MemberDto memberDto,HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		memberDto.setMember_no(userinfo.getMember_no());
 		memberService.updateSocial(memberDto);
-		return "member/socialMyPage";
+		return "redirect:myPage";
 	}
 
-	// 회원탈퇴
+	// 회원탈퇴-이동
 	@GetMapping("/delete")
 	public String delete(HttpSession session, Model model) {
 		MemberDto member = (MemberDto) session.getAttribute("userinfo"); // 로그인한 정보 userinfo를 MemberDto에 담는다.
@@ -141,6 +147,17 @@ public class MemberController {
 		return "member/delete";
 	}
 
+	
+
+	// 회원탈퇴 -탈퇴
+	@PostMapping("/delete")
+	public String delete(HttpSession session, @ModelAttribute MemberDto memberDto) {
+		memberService.deleteMember(memberDto);
+		session.removeAttribute("userinfo");
+		return "redirect:/";
+	}
+	
+	
 	@RequestMapping("/main")
 	public String mainPage() {
 		return "member/main_member";
@@ -160,12 +177,26 @@ public class MemberController {
 		return "member/resultMap";
 
 	}
-
-	// 회원탈퇴 하기
-	@PostMapping("/delete")
-	public String delete(HttpSession session, @ModelAttribute MemberDto memberDto) {
-		memberService.deleteMember(memberDto);
-		session.removeAttribute("userinfo");
-		return "redirect:/";
+	
+	//비밀번호 변경페이지 
+	@GetMapping("/changePW")
+	public String pwChange(HttpSession session, Model model) {
+		MemberDto member = (MemberDto) session.getAttribute("userinfo"); // 로그인한 정보 userinfo를 MemberDto에 담는다.
+		model.addAttribute("memberDto", member);
+		return "member/changePW";
+		
+	} 
+	//비밀번호변경 
+	@PostMapping("/changePW")
+	public String pwChange(@ModelAttribute AroriMemberDto aroriMemberDto,HttpSession session) {
+	
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");		
+		aroriMemberDto.setMember_no(userinfo.getMember_no());
+		memberService.changeAroriPW(aroriMemberDto);
+		return "redirect:myPage";
+		
 	}
+	
+	
+
 }

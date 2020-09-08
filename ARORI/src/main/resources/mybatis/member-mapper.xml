@@ -201,8 +201,12 @@ report_state=#{report_state}, suspension=#{suspension}
 		SELECT * FROM ARORI_MEMBER WHERE  MEMBER_PHONE =#{member_phone}	
 		</select>
 
+		<!--arori-member의 패스워드를 변경-->
+		  <update id="changeAroriPW" parameterType="aroriMemberDto">
+		  
+          UPDATE ARORI_MEMBER SET MEMBER_PW= #{member_pw} WHERE member_no=#{member_no}
 
-
+   </update>
 
 		
 </mapper>

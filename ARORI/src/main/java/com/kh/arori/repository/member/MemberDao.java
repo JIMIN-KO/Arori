@@ -80,4 +80,9 @@ public interface MemberDao {
 
 	// 회원탈퇴
 	public void deleteMember(MemberDto memberDto);
+	//아오리 회원 비번변경
+	public void changeAroriPW(AroriMemberDto aroriMemberDto);
+	
+	//비번 변경전에 확인사항 
+	public boolean checkChangePw(String member_id, String member_pw);
 }

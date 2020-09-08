@@ -1,13 +1,41 @@
-
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 
 
 <script>
+/* 
 
+	$(document).ready(function(){
+	
+
+	$("#update").click(function(){
+
+	if(confirm("수정하시겠습니까?")){
+    document.form.action="${path}/member/socialMyPage";
+    document.form.submit();
+
+			 }
+
+		});
+	
+	}); */  
+    //모달 가리기
+	   $(function(){
+		  $("#memberUpdateFail").modal("hide")
+	  })
+	  //submit전에 회원가입 형식을 검사하는 함수  조건에 걸리면 모달을 보여줘라
+	  function finalcheck(){
+			if(checkEmail()== false || checkNick()== false || checkPhone() == false) {
+				$("#memberUpdateFail").modal("show") //회원가입양식 확인 하라는 모달 
+				return false
+			}  
+		}
+	
+	
+	
 //확인질문 불러오기 위해서 필요한 코드 
 
 $(function(){
@@ -32,6 +60,8 @@ $(function(){
 			}else{
 	    	 if(input.value.indexOf(prohibition)!=-1){ //금지단어를가지고 있다면 
 			  span.textContent="해당 닉네임은 관리자 전용입니다.";
+		 		 return false;
+
 		  	 }else{//금지하는 단어가 없을경우 정규표현식검사
 		  		  if(isValid){//정상적인 이름인 경우  아이디 중복체크 
 				
@@ -155,6 +185,8 @@ function checkPhone(){
                     </c:forEach>
                            </select>
                             </div>
-     <div>확인질문답변 <input type="text" name="member_a"  value="${aroriMemberDto.member_a}" ><span></span></div>                       
-	  <button type="submit" >회원정보수정</button>
+     <div>확인질문답변 <input type="text" name="member_a" id="memberUpdateFail"  value="${aroriMemberDto.member_a}" ><span></span></div>                       
+	  <button type="submit"  data-target="#memberUpdateFail">회원정보수정</button>
 </form>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+

@@ -5,9 +5,14 @@
 <h1>socialMyPage</h1>
  <div>아이디 ${memberDto.member_id}</div><!-- MEMBER테이블 -->
  <div>닉네임  ${memberDto.member_nick }</div> <!-- MEMBER테이블 -->
- <div>마지막로그인 ${memberDto.member_nick }  </div><!--MEMBER테이블--> 
+ <div>마지막로그인 ${memberDto.member_login }  </div><!--MEMBER테이블--> 
  <div>회원상태  ${memberDto.member_state } </div><!--MEMBER테이블 -->
  <div>회원가입일시  ${memberDto.member_join }</div> <!--MEMBER테이블--> 	
+
+  <button onClick=location.href='${pageContext.request.contextPath}/member/updateSocial' >정보수정 </button>
+  <button onClick=location.href='${pageContext.request.contextPath}/member/delete' >탈퇴하기 </button>
+
+
 
 
 
@@ -27,4 +32,4 @@
 <a href=""><input type="button"></a> 
 
  --%>
- --%><jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+ <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

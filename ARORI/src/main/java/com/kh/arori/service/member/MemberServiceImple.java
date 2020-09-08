@@ -27,6 +27,8 @@ public class MemberServiceImple implements MemberService {
 	@Autowired
 	private EmailService emailService;
 	
+	
+	
 	// 시퀀스 발급
 	@Override
 	public int getSeq() {
@@ -199,4 +201,14 @@ public class MemberServiceImple implements MemberService {
 		memberDao.updateArori(aroriMemberDto);
 
 	}
+	
+	//아로리 멤버의 비밀번호수정 
+	@Override
+	public void changeAroriPW(AroriMemberDto aroriMemberDto) {
+		
+		memberDao.changeAroriPW(aroriMemberDto);
+		
+	}
+	
+	
 }

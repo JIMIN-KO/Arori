@@ -14,26 +14,8 @@
  <div>회원상태  ${memberDto.member_state } </div><!--MEMBER테이블 -->
  
   <button onClick=location.href='${pageContext.request.contextPath}/member/updateArori' >정보수정 </button>
-  <button>비밀번호수정</button>
+  
+  <button onClick=location.href='${pageContext.request.contextPath}/member/changePW' >비밀번호변경 </button>
  <button onClick=location.href='${pageContext.request.contextPath}/member/delete' >탈퇴하기 </button>
 
-
-<%-- <form action="myPage" method="post">
-
-
-	<input type="text" value="${aroriMemberDto.member_no}"
-		readonly="readonly"> <br> 
-		
-		이메일 <input type="text"
-		value="${aroriMemberDto.member_email}" readonly="readonly"> <br>
-		
-	핸드폰 번호 <input type="text" value="${aroriMemberDto.member_phone}"
-		readonly="readonly"> <br> 
-		
-		회원가입일시 <input type="text"
-		value="${memberDto.member_join}" readonly="readonly"> <br>
-
-		<input type="submit" value="수정하기">
-
-</form>
- --%><jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
