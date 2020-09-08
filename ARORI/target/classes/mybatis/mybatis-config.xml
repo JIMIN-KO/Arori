@@ -19,13 +19,16 @@
 		<!-- Subscribe Table -->
 		<typeAlias type="com.kh.arori.entity.study.SubscribeDto" alias="subDto"/>
 	
+		<!-- My_Quiz -->
+		<typeAlias type="com.kh.arori.entity.study.MyQuizDto" alias="myQuizDto"/>
+	
 		<!-- Quiz Table -->
 		<typeAlias type="com.kh.arori.entity.study.QuizDto" alias="quizDto"/>
 		
 		<!-- Question Table -->
 		<typeAlias type="com.kh.arori.entity.study.AllQuestionDto" alias="allQuestionDto"/>
 		
-		<!-- questionType -->
+		<!-- QuestionType -->
 		<typeAlias type="com.kh.arori.entity.study.QuestionTypeDto" alias="questionTypeDto"/>
 	
 		<!-- OX -->
