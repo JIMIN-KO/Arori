@@ -46,6 +46,12 @@
 	var r_content = document.querySelector("#r_content").value
 	// Toast Plugin 불러오기 
 	const Viewer = toastui.Editor;
+	const chartOptions = {
+	        minWidth: 100,
+	        maxWidth: 600,
+	        minHeight: 100,
+	        maxHeight: 300
+	      };
     const { chart, codeSyntaxHighlight, colorSyntax, tableMergedCell, uml } = Viewer.plugin;
     
 	const viewer = toastui.Editor.factory({
@@ -54,7 +60,7 @@
 		height: '1000px',
 		initialValue: r_content,
 		initialEditType: 'markdown',
-		plugins: [chart, codeSyntaxHighlight, tableMergedCell, uml]
+		plugins: [[chart, chartOptions], codeSyntaxHighlight, tableMergedCell, uml]
 	}); 
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
