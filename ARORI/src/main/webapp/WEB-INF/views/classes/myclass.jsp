@@ -3,7 +3,28 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
+<style>
 
+	/* 전체 카드 */
+	.card-deck {
+    margin: 20px;
+}
+	/* 이미지 사이즈 */
+	.card-img-top {
+	height:200px;
+	width:300px;
+	}
+	
+	/* 클래스 제목 링크 색상 제거 */
+	a {
+	text-decoration: none;
+	color:#000000;
+	}
+</style>
+
+<script>
+
+</script>
 
 <body>
 <h1>마이클래스</h1>
@@ -11,7 +32,7 @@
 		만들기</button></a>
 
 
-<h2>클래스 목록</h2>
+<%-- <h2>클래스 목록</h2>
 <table border="1">
 	<thead>
 		<tr>
@@ -57,7 +78,41 @@
 			</tr>
 		</c:forEach>
 	</tbody>
-</table>
+</table> --%>
+
+	<c:forEach var="classesDto" items="${list}">
+<div class="card-deck">
+<a href="${pageContext.request.contextPath}/classes/readme/${classesDto.c_no}">
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/proxy/krOnAmoaj9mpoKRwej4_B9pmiFxVtFiJrrxWgvFNL_7nwDmztB9McDMvQubDGin05J4Mf282hR-67Fe5Ur2b2VNomNKQzu51LMJYucMxQ15WcB7HJflVwKrfS6s" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">${classesDto.c_title}</h5>
+      <p class="card-text">${classesDto.c_info}</p>
+      <p class="card-text"><small class="text-muted"><fmt:parseDate value="${classesDto.c_when}" 
+							var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>	</small></p>
+    </div>
+    </a>
+  </div>
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+</div>
+	</c:forEach>
+
 </body>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
 

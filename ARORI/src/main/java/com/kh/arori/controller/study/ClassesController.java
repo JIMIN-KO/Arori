@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 
-import com.kh.arori.entity.study.SubscribeDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
