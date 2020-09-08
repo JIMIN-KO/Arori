@@ -17,6 +17,9 @@ public interface MemberDao {
 
 	// 회원 단일 조회
 	public MemberDto get(String member_id);
+	
+	// member_no 단일 조회(지민)
+	public MemberDto getNo(int member_no);
 
 	// 전체 회원 조회
 	public List<MemberDto> getList();
