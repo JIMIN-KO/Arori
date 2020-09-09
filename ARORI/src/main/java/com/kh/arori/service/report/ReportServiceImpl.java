@@ -9,7 +9,7 @@ import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.repository.report.ReportDao;
 
 @Service
-public abstract class ReportServiceImpl implements ReportService {
+public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	ReportDao reportDao;

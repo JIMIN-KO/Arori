@@ -29,17 +29,17 @@
 		member_id=#{member_id}
 	</delete>
 
-	<!-- 페이징 -->
-	<select id="page" resultType="memberDto">
-<![CDATA[
-select
-    member_id, member_nick, member_email, member_phone, member_state,member_login,report_state
-FROM MEMBER m INNER JOIN arori_member a
-		ON m.member_no=a.member_no
-where m.member_no > 0
-order by m.member_no desc, report_state DESC
-limit #{pageStart}, #{perPageNum}
-]]>
+<!--멤버+클래스 member_no 단일조회-->
+<select id="getclass" resultType="classesDto" parameterType="int">
+SELECT*FROM MEMBER INNER JOIN CLASSES ON MEMBER.MEMBER_NO = CLASSES.MEMBER_NO WHERE MEMBER.member_no=#{member_no}
 </select>
+
+<!--회원 1명이 가지고 있는 클래스의 개수-->
+<select id="countclass" resultType="int" parameterType="int">
+SELECT COUNT(classes.c_no )FROM CLASSES INNER JOIN MEMBER ON classes.MEMBER_NO = MEMBER.MEMBER_NO 
+WHERE MEMBER.MEMBER_NO =#{member_no}
+</select>
+
+
 
 </mapper>

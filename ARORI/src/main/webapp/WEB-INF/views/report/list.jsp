@@ -2,25 +2,8 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script>
-const title = document.querySelector("#click");
 
-const CLICKED_CLASS = "clicked";
- 
-function handClick(){
- 
-    title.classList.toggle(CLICKED_CLASS);
-}
- 
-function init(){
-    title.addEventListener("click", handClick)
-}
- 
-init();
 
-</script>
-</head>
-<body>
 <h1>신고 접수 리스트</h1>
 
 <c:forEach items="${list}" var="list">
@@ -34,6 +17,13 @@ init();
 	<br>
 	<br>
 </c:forEach>
-</body>
-</html>
 
+<form action="search" method="post">
+<select name="type">
+<option value="report_member">신고자</option>
+<option value="report_type">신고유형</option>
+<option value="report_crimi">신고회원</option>
+</select>
+<input type="text" name="keyword" placeholder="검색어">
+<input type="submit" value="검색">
+</form>

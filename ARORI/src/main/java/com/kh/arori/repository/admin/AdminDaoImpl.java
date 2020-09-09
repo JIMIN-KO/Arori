@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.ClassesDto;
 
 
 
@@ -22,6 +23,15 @@ public class AdminDaoImpl implements AdminDao {
 		sqlSession.delete("admin.delete", memberDto);
 
 	}
+
+	@Override
+	public int classCount(int member_no) {
+		int count = 0;
+		count = sqlSession.selectOne("admin.countclass",member_no);
+		return count;
+	}
+
+
 
 
 

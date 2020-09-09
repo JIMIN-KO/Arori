@@ -23,6 +23,9 @@
 <input type="text" value="${memberDto.member_login}" readonly="readonly"><br>
 회원상태
 <input type="text" value="${memberDto.report_state}" readonly="readonly"><br>
+클래스 개수
+<input type="text" value="${count}">
+
 <a href="${pageContext.request.contextPath}/admin/adminUpdate/${memberDto.member_id}">수정하기</a>
 <a href="${pageContext.request.contextPath}/admin/resultMap">회원 목록으로 돌아가기</a>
 

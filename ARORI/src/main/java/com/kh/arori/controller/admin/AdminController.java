@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
 
@@ -37,6 +39,9 @@ public class AdminController {
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private AdminDao adminDao;
 
 	@GetMapping("/main")
 	public String adminPage() {
@@ -90,10 +95,15 @@ public class AdminController {
 		return "redirect:/";
 	}
 
-	// 소셜+아로리) 아우터조인 단일조회
+	
+	// 소셜+아로리) 아우터조인 단일조회 + 클래스 개수 전달
 	@GetMapping("/memberProfile/{member_no}")
 	public String memberProfile(@PathVariable(required = false) int member_no, Model model, Model model2) {
-
+		
+		//클래스 개수 전달
+		int count = adminDao.classCount(member_no);
+		model.addAttribute("count",count);
+		
 		MemberDto memberDto = memberDao.memberProfile(member_no);
 		model.addAttribute("memberDto", memberDto); // 소셜회원 정보전달
 
@@ -124,6 +134,9 @@ public class AdminController {
 
 		return "admin/delete";
 	}
+	
+
+	
 
 
 }
