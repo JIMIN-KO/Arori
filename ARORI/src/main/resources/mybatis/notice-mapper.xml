@@ -11,7 +11,7 @@
 	
 	<!-- 공지 게시글 작성 -->
 	<insert id="create" parameterType="noticeDto">
-		INSERT INTO NOTICE VALUES(#{n_no}, #{c_no}, #{n_title}, #{n_content}, SYSDATE)
+		INSERT INTO NOTICE VALUES(#{n_no}, #{c_no}, #{n_title}, #{n_content}, SYSDATE, 0)
 	</insert>
 	
 	<!-- 공지 게시글 단일 조회 (n_no) -->
@@ -29,14 +29,19 @@
 		SELECT * FROM NOTICE WHERE C_NO = #{c_no} AND N_NO =#{n_no}
 	</select>
 	
+	<!-- 공지 게시글 새 글 작성 중 임시 저장 전체 조회 -->
+	<select id="getCT" resultType="noticeDto" parameterType="noticeDto">
+		SELECT * FROM NOTICE WHERE C_NO = #{c_no} AND N_STATE = 0
+	</select>
+	
 	<!-- 공지 게시글 수정  -->
 	<update id="edit" parameterType="noticeDto">
-		UPDATE NOTICE SET N_TITLE = #{n_title}, N_CONTENT = #{n_content} WHERE C_NO = #{c_no} AND N_NO = #{n_no}
+		UPDATE NOTICE SET N_TITLE = #{n_title}, N_CONTENT = #{n_content}, N_STATE = #{n_state} WHERE C_NO = #{c_no} AND N_NO = #{n_no}
 	</update>
 	
 	<!-- 공지 게시글 페이지 네이션 -->
 	<select id="getP" resultType="noticeDto" parameterType="map">
-		SELECT col.n_no, col.c_no, col.n_title, col.n_content, col.n_when FROM (SELECT ROWNUM rn, notice.* FROM NOTICE notice WHERE notice.C_NO = ${c_no} ORDER BY N_WHEN DESC) col WHERE rn BETWEEN ${start} AND ${finish}
+		SELECT col.n_no, col.c_no, col.n_title, col.n_content, col.n_when FROM (SELECT ROWNUM rn, notice.* FROM NOTICE notice WHERE notice.C_NO = ${c_no} AND N_STATE = 1 ORDER BY N_NO DESC) col WHERE rn BETWEEN ${start} AND ${finish}
 	</select>
 	
 	<!-- 해당 클래스의 공지 게시글 개수 -->
@@ -47,5 +52,20 @@
 	<!-- 해당 클래스의 특정 공지 게시글 삭제 -->
 	<delete id="delete" parameterType="noticeDto">
 		DELETE NOTICE WHERE C_NO = #{c_no} AND N_NO = #{n_no}
+	</delete>
+	
+	<!-- 임시 저장소 데이터 저장 -->
+	<insert id="createTemp" parameterType="noticeDto">
+		INSERT INTO NOTICE_TEMP VALUES(#{n_no},#{c_no}, #{n_title}, #{n_content}, SYSDATE)
+	</insert>
+	
+	<!-- 임시 저장소 데이터 조회 -->
+	<select id="getTemp" resultType="noticeDto" parameterType="noticeDto">
+		SELECT * FROM NOTICE_TEMP WHERE N_NO = #{n_no} AND C_NO = #{c_no}
+	</select>
+
+	<!-- 임시 저장소 데이터 삭제 -->
+	<delete id="deleteTemp" parameterType="noticeDto">
+		DELETE NOTICE_TEMP WHERE N_NO = #{n_no} AND C_NO = #{c_no}
 	</delete>
 </mapper>

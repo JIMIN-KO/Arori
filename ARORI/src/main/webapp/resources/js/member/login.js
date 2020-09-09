@@ -32,7 +32,9 @@
 					}).then(function (resp) {
 
 						if(resp.data === false) {
+
 							// 회원가입 페이지로 이동
+
 							window.location.href = "joinSocial?emailPath=" + emailPath + "&member_id=" + loginEmail + "&member_nick=" + memberNick;
 							// 소셜 로그인 > 로그아웃 
 							firebase.auth().signOut().then(function() {});

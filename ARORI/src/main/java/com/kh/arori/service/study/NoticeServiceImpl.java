@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.NoticeDao;
+import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.toast.ToastService;
 
 @Service
@@ -23,6 +25,9 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Autowired
 	private NoticeDao noticeDao;
+	
+	@Autowired
+	private ImgService imgService;
 
 	@Autowired
 	private ToastService toastService;
@@ -30,14 +35,14 @@ public class NoticeServiceImpl implements NoticeService {
 	// 공지 게시글 작성
 	@Override
 	@Transactional
-	public int create(List<String> n_content, String c_no, String n_title) {
-		// 게시글 배열 합치기
-		String content = toastService.content(n_content);
+	public int create(String c_no) {
 
 		// 공지 게시글 고유 번호 발급
 		int n_no = noticeDao.getSeq();
-		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(n_no).n_title(n_title)
-				.n_content(content).build();
+		
+		// 더미 데이터 삽입 
+		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(n_no).n_title(c_no + "-"  + n_no + " 공지 게시글 작성 중" )
+				.n_content(c_no + "-"  + n_no + " 공지 게시글 작성 중").build();
 		// 공지 게시글 작성
 		noticeDto.setN_no(n_no);
 		noticeDao.create(noticeDto);
@@ -116,9 +121,26 @@ public class NoticeServiceImpl implements NoticeService {
 		ClassesDto checkM = classesDao.checkM(classesDto);
 		
 		if(checkM != null) {
-			noticeDao.delete(noticeDto);
+			imgService.delete(noticeDto.getN_no(), NameConst.NOTICE);
+			noticeDao.delete(noticeDto); // 게시글 삭제 
 			return "redirect:/classes/notice/" + noticeDto.getC_no() + "/1";
 		}
 		return "redirect:/classes/notice/" + noticeDto.getC_no() + "/1?fail";
+	}
+
+	// 공지 게시글 임시 데이터 저장 
+	@Override
+	@Transactional
+	public String createTemp(List<String> n_content, NoticeDto noticeDto) {
+		//n_content 이어붙이기 
+		String content = toastService.content(n_content);
+		
+		// dto 에 content 삽입 
+		noticeDto.setN_content(content);
+		
+		// 공지 게시글 임시 저장소에 데이터 저장 
+		noticeDao.createTemp(noticeDto);
+		
+		return "redirect:" + noticeDto.getC_no() + "/1";
 	}
 }
