@@ -41,9 +41,23 @@ public class ClassesDaoImpl implements ClassesDao {
 	// 클래스 목록 조회
 	@Override
 	public List<ClassesDto> getList() {
-		List<ClassesDto> list = sqlSession.selectList("classes, getList");
+		List<ClassesDto> list = sqlSession.selectList("classes, list");
+		
 		return list;
 		}
+	
+	// 다양한 기준의 정렬
+	@Override
+	public List<ClassesDto> getLlist2(Map<String, String> map) {
+			
+		return sqlSession.selectList("classes.getList2", map);
+	}
+	// 나의 클래스 목록 조회
+	@Override
+	public List<ClassesDto> myList(int member_no) {
+		List<ClassesDto> list = sqlSession.selectList("classes.myList", member_no);
+		return list;
+	}
 	
 	// 수정
 	@Override
@@ -51,12 +65,6 @@ public class ClassesDaoImpl implements ClassesDao {
 		sqlSession.update("classes.edit", classesDto);		
 	}
 
-	// 나의 클래스 목록 조회
-	@Override
-	public List<ClassesDto> myList(int member_no) {
-		List<ClassesDto> list = sqlSession.selectList("classes.myList", member_no);
-		return list;
-	}
 
 	// 삭제
 	@Override
@@ -123,6 +131,7 @@ public class ClassesDaoImpl implements ClassesDao {
 		List<ClassesDto> list = sqlSession.selectList("classes.mySub", member_no);
 		return list;
 	}
+
 
 }
 

@@ -17,7 +17,7 @@
 	.card-img {
 	height:200px;
 	width:320px;
-	border-radius: 10px 60px;
+	border-radius: 10px 10px;
 	margin-left:13px;
 	margin-top: 15px;
 	}
@@ -71,7 +71,7 @@
 	  transition: all 0.3s ease 0s;
 	  cursor: pointer;
 	  outline: none;
-	  margin-left:100px;
+
 	  }
 	
 	.top-btn:hover {
@@ -79,6 +79,19 @@
 	  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
 	  color: #fff;
 	  transform: translateY(-7px);
+	}
+	
+	/* 정렬 드롭다운 */
+	.dropdown {
+	margin-top:10px;
+	width: 100px; height: 35px; 
+	font-size: 15px; 
+	color:#999; 
+	border:2px solid #ddd; 
+	background: url(bg_select.png) no-repeat right 13px center;
+	appearance:none; 
+	-webkit-appearance:none;
+	text-align-last: center;
 	}
 	
 	/* 클래스 수정 모달 */
@@ -120,17 +133,7 @@ display:none;
 
 </style>
 
-<script>
 
-$("#modal_opne_btn").click(function(){
-    $("#modal").attr("style", "display:block").fadeIn(300);
-});
-
- $("#modal_close_btn").click(function(){
-    $("#modal").attr("style", "display:none").fadeOut(300);
-});    
- 
-</script>
 
 <body>
 
@@ -182,16 +185,24 @@ $("#modal_opne_btn").click(function(){
 	</tbody>
 </table> --%>
 
+<!-- 클래스 목록 -->
 <div class="container-fluid">
 	<div class="row justify-content-center" style="margin-top:80px;">
-		<div class="offset-3 col-6" >
+		<div class="offset-4 col-4" >
 		<a href="${pageContext.request.contextPath}/classes/create"><button class="top-btn">클래스 만들기</button></a>
+		</div>
+		<div class="col-1">
+		<select name="col" class="dropdown" onchange="if(this.value) location.href=(this.value);">
+			<option value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">최신순</option>
+			<option value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">등록순</option>
+			<option value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_subscribe&order=DESC">인기순</option>			
+		</select>
 		</div>
 	</div>
 	
 	<div class="row">
-	<c:forEach var="classesDto" items="${list}">
-		<div class="col-3">
+	<c:forEach var="classesDto" items="${classesDto}">
+		<div class="col-sm-12 col-md-6 col-lg-3">
 			<div class="card-deck">
 			<a href="${pageContext.request.contextPath}/classes/readme/${classesDto.c_no}">
   				<div class="card">
@@ -203,12 +214,12 @@ $("#modal_opne_btn").click(function(){
       							<fmt:parseDate value="${classesDto.c_when}" 
 									var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
 								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>	</small></p>
-								<span class="badge badge-pill badge-success">${classesDto.c_public}</span>
+								<span class="badge badge-pill badge-success">${classesDto.c_subscribe}</span>
 							<P style="margin-left:80px; padding-top:20px;" class="card-btn">
 							<button type="button" class="btn btn-primary btn-sm" id="modal_opne_btn">EDIT</button>
 							<button type="button" class="btn btn-warning btn-sm"><a href="${pageContext.request.contextPath}/classes/delete/${classesDto.c_no}">DELETE</a></button>
 							</P>
-  						</div>
+  						</div>	
   				</div>
    			</a>
  			</div>

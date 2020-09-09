@@ -1,6 +1,8 @@
 package com.kh.arori.controller.study;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
@@ -86,18 +89,52 @@ public class ClassesController {
 		return "redirect:detail/" + classesDto.getC_no();
 	}
 	
-	// 클래스 목록
+//	// 클래스 목록
+//	@RequestMapping("/classes/myclass/{member_no}")
+//	public String list(@PathVariable int member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
+//		// member_no 받아내기
+//		// MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
+//		//int member_no = memberDto.getMember_no();
+//
+//		// 나의 클래스 불러오는 메소드 실행
+//		List<ClassesDto> list = classesDao.myList(member_no);		
+//		model.addAttribute("list",list);
+//		return "classes/myclass";
+//	}
+	
 	@RequestMapping("/classes/myclass/{member_no}")
-	public String list(@PathVariable int member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
+	public String list(@PathVariable String member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto,
+			@RequestParam(required = false, defaultValue = "c_when") String col,
+			@RequestParam(required = false, defaultValue = "DESC") String order
+			) {
 		// member_no 받아내기
 		// MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 		//int member_no = memberDto.getMember_no();
+		// /arori/classes/myclass/1?col=c_no&order=asc
 
-		// 나의 클래스 불러오는 메소드 실행
-		List<ClassesDto> list = classesDao.myList(member_no);		
-		model.addAttribute("list",list);
+		Map<String, String> map = new HashMap<>();
+		map.put("key", "member_no");
+		map.put("value",member_no);
+		map.put("col", col);
+		map.put("order", order);
+		
+		boolean isNew = col.equals("c_when_new");
+		if(isNew) {
+			col="c_when";
+			order="DESC";
+		} else {
+			col="c_when";
+			order="ASC";
+		}
+		
+		List<ClassesDto> list = classesDao.getLlist2(map);
+		
+		model.addAttribute("classesDto", list);
+		
 		return "classes/myclass";
 	}
+	
+	// 다양한 기준의 정렬 목록
 
 	// 클래스 삭제
 	@GetMapping("/classes/delete/{c_no}")

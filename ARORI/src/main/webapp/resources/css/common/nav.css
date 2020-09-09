@@ -35,7 +35,9 @@
 }
 
 * {
-	font-size: 15px;
+	font-size: 15px !important;
+	font-family: 'Noto Sans KR', sans-serif !important;
+	font-weigth: bold !important;
 }
 
 .logo {

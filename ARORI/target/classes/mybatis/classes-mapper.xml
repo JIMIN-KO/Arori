@@ -16,14 +16,28 @@
 	<select id="get" parameterType="int" resultType="classesDto">
 		SELECT * FROM classes WHERE c_no=#{c_no}
 	</select>
+	
+	<!-- 목록 -->
 	<!-- 내 클래스 조회 -->
-	<select id="myList" parameterType="int" resultType="classesDto">
+<!-- 	<select id="myList" parameterType="int" resultType="classesDto">
 		SELECT * FROM Classes WHERE member_no=#{member_no}
-	</select>	
+	</select>	 -->
 	<!-- 목록 조회 -->
-	<select id="getList" resultType="classesDto">
+<!-- 	<select id="getList" resultType="classesDto">
 		SELECT * FROM classes ORDER BY c_no DESC
+	</select> -->
+	<!-- 다양한 정렬의 목록 조회 -->
+<!-- 	<select id="getList2" resultType="classesDto" parameterType="map">
+		SELECT * FROM classes ORDER BY ${col} ${order}
+	</select> -->
+	
+	<!-- 정렬 목록 테스트 -->
+	<select id="getList2" resultType="classesDto" parameterType="map">
+		SELECT * FROM classes
+					WHERE ${key} = #{value}
+		ORDER BY ${col} ${order}
 	</select>
+	
 	<!-- 정보 수정 -->
 	<update id="edit" parameterType="classesDto">
 		UPDATE classes SET c_title=#{c_title}, c_info=#{c_info}, c_public=#{c_public} WHERE c_no=#{c_no}
