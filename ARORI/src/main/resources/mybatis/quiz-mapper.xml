@@ -24,7 +24,7 @@
 
 	<!-- 퀴즈 단일 조회 -->
 	<select id="get" resultType="quizDto" parameterType="quizDto">
-		SELECT * FROM QUIZ WHERE C_NO = #{c_no} AND Q_NO = #{q_no} 
+		SELECT * FROM QUIZ WHERE Q_NO = #{q_no} 
 	</select>
 
 	<!-- 퀴즈 수정 / 갱신 -->

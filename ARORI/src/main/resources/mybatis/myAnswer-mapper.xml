@@ -16,7 +16,7 @@
 	
 	<!-- 나의 정답 데이터 갱신 / 수정 -->
 	<update id="update" parameterType="myAnswerDto">
-		UPDATE SET MY_ANSWER = #{my_answer}, RESULT = #{result} WHERE MEMBER_NO = #{member_no} AND QUESTION_NO = #{question_no}
+		UPDATE MY_ANSWER SET MY_ANSWER = '${my_answer}', RESULT = #{result} WHERE MEMBER_NO = #{member_no} AND QUESTION_NO = #{question_no}
 	</update>
 	
 	<!-- 나의 정답 조회 > 퀴즈 번호  -->

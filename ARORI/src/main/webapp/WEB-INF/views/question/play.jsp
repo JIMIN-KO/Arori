@@ -106,34 +106,52 @@
 <script>
 /* 문제 푼 후 업데이트 영역 */
 $(function(){
-	var question = document.querySelectorAll(".question")
 
-	$(".question").on("mouseenter",function(){
+	$(".question").on("click",function(){
 
 				// 경로 변수
-				var inputPath = "input[name=" + $(this).children("input[type=hidden]").val() + "]"
-				var textPath = "textarea[name=" + $(this).children("input[type=hidden]").val() + "]"
+				var questionNo = $(this).children("input[type=hidden]").val() //  해당 퀘스쳔 번호
+				var inputPath = "input[name=" + questionNo + "]" // input 태그 경로
+				var textPath = "textarea[name=" + questionNo + "]" // textarea 태그 경로
 
+				// 비동기로 전달할 객체			
+				var answerValue
+				
 				if($(this).hasClass("qt_1")) {
 					// OX 
 					// 체크된 라디오 value 값 가지고 오기
 					 $(inputPath).on("change",function(){
-						console.log($(inputPath + ":checked").val())
-
+						 answerValue = $(inputPath + ":checked").val()
 					 })
-				} else if($(this).hasClass("qt_2")) {
-					// 선다형
-					// 체크된 라이도 value 값 가지고 오기
-					$(inputPath).on("change",function(){
-						console.log($(inputPath + ":checked").val())
-
+					 
+				}  else if($(this).hasClass("qt_2")) {
+					// 체크된 라디오 value 값 가지고 오기
+					 $(inputPath).on("change",function(){
+						answerValue = $(inputPath + ":checked").val()
 					 })
-
-				} else if($(this).hasClass("qt_3")) {
+				}else if($(this).hasClass("qt_3")) {
 					// 단답형
 					$(textPath).on("blur",function(){
-						console.log($(textPath).val())	
+						answerValue = $(textPath).val()
 					})
+				}
+				var myAnswerDto = {
+						member_no:${userinfo.member_no},
+						q_no:${quizDto.q_no},
+						question_no:questionNo, 
+						answer:$(inputPath + ":checked").val()
+				}
+				if(myAnswerDto[Object.keys(myAnswerDto)[3]]) {
+					console.log(myAnswerDto)
+						axios({
+							url:"/arori/answerAjax/update",
+							method:"post",
+							dataType: "json", 
+					        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+							data:JSON.stringify(myAnswerDto)
+						}).then(function(resp){
+							console.log(resp.data)
+						})
 				}
 		})
 })

@@ -15,7 +15,7 @@ public class MyAnswerDto {
 	private int member_no;
 	private int q_no;
 	private int question_no;
-	private int my_answer;
+	private String my_answer;
 	private String question_answer;
 	private int result;
 	
