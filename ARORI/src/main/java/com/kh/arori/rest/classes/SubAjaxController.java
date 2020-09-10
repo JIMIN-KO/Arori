@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.SubscribeDto;
-import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
 
@@ -26,8 +25,7 @@ public class SubAjaxController {
 
 	@RequestMapping("/subscribe")
 	public int sub(Model model, HttpSession session, @ModelAttribute SubscribeDto subDto) {
-	
-		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+
 
 		// 클래스 넘버를 이용한 단일조회
 		ClassesDto classesDto = classesDao.get(subDto.getC_no());
@@ -35,8 +33,10 @@ public class SubAjaxController {
 		classesService.already(subDto);
 		
 		model.addAttribute("classesDto", classesDto);
+		
 		// c_subscribe에 구독자수 저장
 		int c_subscribe = classesDao.countSub(subDto);
+		
 		// 해당 변수를 다시 찐 c_subscribe에 저장
 		classesDto.setC_subscribe(c_subscribe);
 		

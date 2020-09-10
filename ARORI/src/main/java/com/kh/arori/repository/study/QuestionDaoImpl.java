@@ -107,7 +107,7 @@ public class QuestionDaoImpl implements QuestionDao {
 
 	// 해당 퀴즈의 퀘스쳔 정보 + 정답 가지고 오기
 	@Override
-	public List<ThisQuizDto> getTG(int q_no) {
+	public List<ThisQuizDto> getTQ(int q_no) {
 
 		return sqlSession.selectList("question.getTQ", q_no);
 	}

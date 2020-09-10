@@ -11,32 +11,33 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
-                    	<div class="ml-3 mr-3">
-                            
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                  <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[0] - 1}" aria-label="Previous">
-                                      <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                  </li>
-									<c:forEach var="block" items="${block }">
-                                  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block}">${block }</a></li>
-									</c:forEach>
-                                  <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[9]+1}" aria-label="Next">
-                                      <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </nav>
-                        </div>
+                    	<c:forEach var="thisQuizDto" items="${thisQuizDto }"></c:forEach>
+                    	<div class="card border-primary mb-3" style="max-width: 18rem;">
+						  <div class="card-header bg-info">${thisQuizDto.question_no }</div>
+						  <div class="card-body">
+						    <div class="viewer"></div>
+						    <input type="hidden" value="${thisQuizDto.aq_content }" class="aq_content">
+						    <p class="card-text">
+						    		<c:choose>
+						    			<c:when test="${thisQuizDto.qt_no == 1 }">
+						    				오엑스 답안 : ${thisQuizDto.ox_answer }
+						    			</c:when>
+						    			<c:when test="${thisQuizDto.qt_no == 2 }">
+						    				선다형 답안 : ${thisQuizDto.multiple_answer }
+						    			</c:when>
+						    			<c:when test="${thisQuizDto.qt_no == 3 }">
+						    				단답형 답안 : ${thisQuizDto.explain_answer }
+						    			</c:when>
+						    		</c:choose>
+						    </p>
+						  </div>
+						</div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
 
 	var viewers = document.querySelectorAll(".viewer") /* viewer 클래스 생성 */
-	var n_content = document.querySelectorAll(".n_content") /* String 으로 뭉쳐진 마크다운 코드 받아오기 */
+	var aq_content = document.querySelectorAll(".aq_content") /* String 으로 뭉쳐진 마크다운 코드 받아오기 */
 
 	// Toast Plugin 불러오기 
 	const Viewer = toastui.Editor;
@@ -54,8 +55,8 @@
 	    const viewer = toastui.Editor.factory({
 	        el: viewers[i],
 	        viewer: true,
-	        height: '1000px',
-	        initialValue: n_content[i].value,
+	        height: '350px',
+	        initialValue: aq_content[i].value,
 	        initialEditType: 'markdown',
 	        plugins: [[chart, chartOptions], codeSyntaxHighlight, tableMergedCell, uml]
 	    });

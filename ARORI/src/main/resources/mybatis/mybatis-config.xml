@@ -12,15 +12,18 @@
 		
 		<!-- PASSWORD_Q Table -->
 		<typeAlias type="com.kh.arori.entity.member.PasswordQDto" alias="passwordQDto"/>
-		
+
+		<!-- My_Quiz -->
+		<typeAlias type="com.kh.arori.entity.study.MyQuizDto" alias="myQuizDto"/>
+	
+		<!-- My Answer -->
+		<typeAlias type="com.kh.arori.entity.study.MyAnswerDto" alias="myAnswerDto"/>	
+	
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
 		
 		<!-- Subscribe Table -->
 		<typeAlias type="com.kh.arori.entity.study.SubscribeDto" alias="subDto"/>
-	
-		<!-- My_Quiz -->
-		<typeAlias type="com.kh.arori.entity.study.MyQuizDto" alias="myQuizDto"/>
 	
 		<!-- Quiz Table -->
 		<typeAlias type="com.kh.arori.entity.study.QuizDto" alias="quizDto"/>
@@ -28,7 +31,7 @@
 		<!-- Question Table -->
 		<typeAlias type="com.kh.arori.entity.study.AllQuestionDto" alias="allQuestionDto"/>
 		
-		<!-- QuestionType -->
+		<!-- Question Type -->
 		<typeAlias type="com.kh.arori.entity.study.QuestionTypeDto" alias="questionTypeDto"/>
 	
 		<!-- OX -->

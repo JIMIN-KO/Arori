@@ -62,10 +62,4 @@ public class QuestionAjaxController {
 		return next_aqdto_no;
 	}
 
-	@GetMapping("/getTQ/{q_no}")
-	public List<ThisQuizDto> play(@PathVariable int q_no) {
-		List<ThisQuizDto> list = questionDao.getTG(q_no);
-		return list;
-	}
-
 }

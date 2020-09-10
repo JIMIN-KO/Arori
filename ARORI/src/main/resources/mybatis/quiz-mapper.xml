@@ -54,9 +54,11 @@
 		SELECT MY_QUIZ_SEQ.NEXTVAL FROM DUAL
 	</select>
 
+
+	<!-- 회원 영역 -->
 	<!-- 내가 풀 / 푼 퀴즈로 등록하기 -->
 	<insert id="insertMQ" parameterType="myQuizDto">
-		INSERT INTO MY_QUIZ VALUES(#{no},#{member_no},#{q_no}SYSDATE)
+		INSERT INTO MY_QUIZ VALUES(#{no},#{member_no},#{q_no},SYSDATE)
 	</insert>
 	
 	<!-- 내가 푼 퀴즈 리스트 조회 -->

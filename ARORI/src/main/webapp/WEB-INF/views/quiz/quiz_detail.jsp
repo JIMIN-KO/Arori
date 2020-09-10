@@ -69,7 +69,7 @@
 								</div>
 							</div>
 						<div class="row mt-5 d-flex justify-content-center">
-							<a href="${pageContext.request.contextPath }/questionAjax/getTQ/${quizDto.q_no}"><button class="btn btn-lg btn-warning font-weight-bold mt-5">퀴즈 풀기</button></a>
+							<a href="${pageContext.request.contextPath }/classes/quiz/play/${quizDto.q_no}"><button class="btn btn-lg btn-warning font-weight-bold mt-5">퀴즈 풀기</button></a>
 							<button class="btn btn-lg btn-primary font-weight-bold mt-5" onclick="javascript=history.back()">돌아가기</button>
 						</div>
 					</div>

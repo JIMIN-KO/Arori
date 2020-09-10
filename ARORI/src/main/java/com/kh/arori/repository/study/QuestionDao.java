@@ -51,6 +51,5 @@ public interface QuestionDao {
 	public List<AllQuestionDto> getQuestion(int q_no);
 	
 	// 해당 퀴즈의 퀘스천 정보 + 정답 불러오기 (THIS_QUIZ)
-	public List<ThisQuizDto> getTG(int q_no);
-
+	public List<ThisQuizDto> getTQ(int q_no);
 }
