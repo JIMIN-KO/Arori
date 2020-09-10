@@ -1,3 +1,4 @@
+
 package com.kh.arori.controller.admin;
 
 import java.sql.Date;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.repository.admin.AdminDao;
@@ -60,6 +60,7 @@ public class AdminController {
 	@GetMapping("/resultMap")
 	public String resultMap(Model model, Model model2) {
 
+		
 		List<MemberDto> result = memberDao.resultMap();
 		model.addAttribute("result", result);
 
@@ -77,9 +78,13 @@ public class AdminController {
 	@GetMapping("/adminUpdate/{member_id}")
 	public String adminUpdate(@PathVariable(required = false) String member_id, Model model) {
 		// 변수가 없어도 적용가능
+	
 
+		
 		MemberDto memberDto = memberDao.get(member_id);// 회원 아이디 단일조회해서
 		model.addAttribute("memberDto", memberDto); // 페이지로 데이터 전달한다.
+		
+		
 
 		return "admin/adminUpdate";
 	}

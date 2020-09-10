@@ -42,6 +42,11 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
+	@Override
+	public int totalCnt() {
+		return adminDao.totalCnt();
+	}
+
 
 	
 }

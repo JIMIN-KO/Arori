@@ -34,8 +34,8 @@ public class ReportDaoImpl implements ReportDao {
 	}
 
 	@Override
-	public void delete(int report_no) {
-		sqlSession.delete("report.delete",report_no);
+	public void delete(ReportDto reportDto) {
+		sqlSession.delete("report.delete",reportDto);
 		
 	}
 

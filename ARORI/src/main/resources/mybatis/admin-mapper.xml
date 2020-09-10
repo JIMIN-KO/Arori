@@ -40,6 +40,4 @@ SELECT COUNT(classes.c_no )FROM CLASSES INNER JOIN MEMBER ON classes.MEMBER_NO =
 WHERE MEMBER.MEMBER_NO =#{member_no}
 </select>
 
-
-
 </mapper>

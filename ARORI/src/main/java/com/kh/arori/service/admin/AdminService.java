@@ -21,5 +21,6 @@ public interface AdminService {
 	//회원삭제
 	public void delete(MemberDto memberDto);
 	
-
+	//페이지네이션 카운트
+	public int totalCnt();
 }

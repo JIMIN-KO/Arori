@@ -16,5 +16,5 @@ public interface ReportService {
 	public ReportDto content(int report_no);
 	
 	//신고글 삭제
-	public void delete(int report_no);
+	public void delete(ReportDto reportDto);
 }

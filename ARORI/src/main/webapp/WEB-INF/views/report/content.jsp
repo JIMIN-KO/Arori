@@ -1,45 +1,59 @@
-<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
-<%@page contentType="text/html; charset=UTF-8" %>
+<jsp:include
+	page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>
+<jsp:include
+	page="/WEB-INF/views/template/member/member_classes_nav_header.jsp"></jsp:include>
+<%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script>
+<h1 class="font-weight-bold mt-4">신고접수 상세 내용</h1>
 
-//수정중
+<table class="table table-hover">
 
-</script>
+	<tbody>
+		<tr>
+			<th scope="col">NO</th>
+			<td><input type="text" class="form-control"
+				value="${reportDto.report_no}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th scope="col">DATE</th>
+			<td><input type="text" name="report_date" class="form-control"
+				value="${reportDto.report_date}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th scope="col">REPRT MEMBER</th>
+			<td><input type="text" name="report_member" class="form-control"
+				value="${reportDto.report_member}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th scope="col">CRIMI MEMBER</th>
+			<td><input type="text" name="report_crimi" class="form-control"
+				value="${reportDto.report_crimi}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<th scope="col">REPORT TYPE</th>
+			<td><input type="text" name="report_type"
+				value="${reportDto.report_type}" class="form-control"
+				readonly="readonly"></td>
+		</tr>
+		<tr>
 
-</head>
-<body>
-    
-<h1>신고접수된 내용 확인하기</h1>
+			<th scope="col">REPORT CONTENT</th>
+			<td><textarea name="report_content" class="form-control"
+					readonly="readonly">${reportDto.report_content}
+</textarea></td>
+		</tr>
 
-신고번호
-<input name="report_member" value="${reportDto.report_no}" readonly="readonly">
-<br>
+		<tr>
+			<td><input type="button"
+				class="btn btn-primary btn-lg font-weight-bold" value="상태변경하기"><a
+				href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}"></a>
+				<input type="button" class="btn btn-primary btn-lg font-weight-bold"
+				value="목록으로"><a
+				href="${pageContext.request.contextPath}/report/list"></a></td>
+		</tr>
+	</tbody>
+</table>
 
-신고한 날짜
-<br>
-<input name="report_member" value="${reportDto.report_date}" readonly="readonly">
-<br>
-신고한 회원
-<input name="report_member" value="${reportDto.report_member}" readonly="readonly">
-<br>
-신고당한 회원
-<input name="report_member" value="${reportDto.report_crimi}" readonly="readonly">
-<br>
-신고유형
-<input name="report_member" value="${reportDto.report_type}" readonly="readonly">
-<br>
-신고내용
-<textarea name= "report_member"  readonly="readonly">${reportDto.report_content}
-</textarea>
-<button><a href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}">상태변경하기</a></button>
-<button><a href="${pageContext.request.contextPath}/report/list">목록으로 돌아가기</a></button>
-<form action="delete" method="post">
-<button type="submit" value="삭제하기">
-</form>
-<br>
-
-
-</body>
-</html>
+<jsp:include
+	page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>

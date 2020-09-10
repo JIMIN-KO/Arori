@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.arori.entity.member.MemberDto;
-import com.kh.arori.entity.study.ClassesDto;
-
 
 
 @Repository
@@ -31,7 +29,10 @@ public class AdminDaoImpl implements AdminDao {
 		return count;
 	}
 
-
+	@Override
+	public int totalCnt() {
+		return sqlSession.selectOne("admin.count");
+	}
 
 
 

@@ -31,9 +31,9 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public void delete(int report_no) {
-		reportDao.delete(report_no);
-		
+	public void delete(ReportDto reportDto) {
+		reportDao.delete(reportDto);
+
 	}
 
 }

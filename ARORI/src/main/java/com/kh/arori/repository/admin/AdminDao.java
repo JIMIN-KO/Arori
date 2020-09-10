@@ -16,5 +16,6 @@ public interface AdminDao {
 	
 	public int classCount(int member_no);
 	
-
+	//페이지네이션 회원 카운트
+	public int totalCnt();
 }

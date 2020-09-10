@@ -62,10 +62,9 @@ public class ReportController {
 		Map<String, String> param = new HashMap<>();
 		param.put("type", type);
 		param.put("keyword", keyword);
-		List<ReportDto>list = sqlSession.selectList("report.search", param);
+		List<ReportDto> list = sqlSession.selectList("report.search", param);
 		model.addAttribute("list", list);
 
-	
 		return "report/list";
 
 	}
@@ -82,11 +81,16 @@ public class ReportController {
 	}
 
 	// 신고글 삭제
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@ModelAttribute ReportDto reportDto) {
-		reportService.delete(reportDto.getReport_no());
+	@GetMapping("/delete")
+	public String delete() {
+		return "report/delete";
+	}
 
-		return "redirect:/report/list";
+	@PostMapping("/delete")
+	public String delete(@ModelAttribute ReportDto reportDto) {
+		reportService.delete(reportDto);
+
+		return "report/delete";
 	}
 
 }
