@@ -1,6 +1,8 @@
 package com.kh.arori.rest.search;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +20,18 @@ public class SearchAjaxController {
 	private ClassesService classesService;
 	
 	@RequestMapping("/search")
-	public List<McDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption){
+	public List<McDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption,
+			@RequestParam(required = false, defaultValue = "c_when") String col,
+			@RequestParam(required = false, defaultValue = "DESC") String order	
+			){
 		
-		List<McDto> list = classesService.searchList(searchOption, keyword);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("col", col);
+		map.put("order", order);
+		
+		List<McDto> list = classesService.searchList(map);
 		
 		return list;
 	}

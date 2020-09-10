@@ -41,6 +41,10 @@
 </c:choose>
 </div>
 <div>등록 시간 : ${classesDto.c_when }</div>
+<div> 클래스 대표 이미지
+<img src="/arori/imgAjax/readme/download/" alt="class_img">
+</div>
+
 <a href="${pageContext.request.contextPath}/classes/edit/${c_no}">
 <button id='btn' name="edit">수정</button>
 </a>

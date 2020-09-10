@@ -1,6 +1,7 @@
 package com.kh.arori.service.study;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,14 @@ public class ClassesSerivceImpl implements ClassesService {
 		return c_no;
 	}
 
-	// 클래스 검색 조회
+	// 클래스 검색 정렬 조회
 	@Override
-	public List<McDto> searchList(String searchOption, String keyword) {
-		return classesDao.searchList(searchOption, keyword);
+	public List<McDto> searchList(Map<String, String> map) {
+		return classesDao.searchList(map);
 	}
 	
+	
+	// 구독 
 	public void already(SubscribeDto subDto) {
 		// 클래스 넘버를 이용한 단일조회
 		ClassesDto classesDto = classesDao.get(subDto.getC_no());

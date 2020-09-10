@@ -52,6 +52,7 @@ public class ClassesDaoImpl implements ClassesDao {
 			
 		return sqlSession.selectList("classes.getList2", map);
 	}
+	
 	// 나의 클래스 목록 조회
 	@Override
 	public List<ClassesDto> myList(int member_no) {
@@ -74,10 +75,8 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	// 검색
 	@Override
-	public List<McDto> searchList(String searchOption, String keyword) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchOption", searchOption);
-		map.put("keyword", keyword);
+	public List<McDto> searchList(Map<String, String> map) {
+
 		return sqlSession.selectList("classes.search", map);
 	}
 

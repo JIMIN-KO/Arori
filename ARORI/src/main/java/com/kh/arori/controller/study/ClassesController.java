@@ -38,23 +38,28 @@ public class ClassesController {
 
 	// 클래스 생성 페이지 
 	@GetMapping("/classes/create")
-	public String create() {
+	public String create(Model model) {
+		
+		// 시퀀스 번호 발급 받기
+		int c_no = classesDao.getSeq();
+		model.addAttribute("c_no", c_no);
 		return "classes/create";
 	}
 
 	// 클래스 생성 기능 
 	@PostMapping("/classes/create")
-	public String create(@ModelAttribute ClassesDto classesDto, HttpSession session) {
+	public String create(@ModelAttribute ClassesDto classesDto, @RequestParam int img_no, HttpSession session) {
+	
 		// 세션(userinfo) 를 MemberDto 로 받아온다.
 		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 		classesDto.setMember_no(memberDto.getMember_no());
 		int c_no = classesService.createClasses(classesDto);
-		return "redirect:detail/" + c_no;
+		return "redirect:detail/" + c_no + "/" + img_no;
 	}
 
 	// 클래스 디테일 페이지
-	@GetMapping("/classes/detail/{c_no}")
-	public String detail(@PathVariable int c_no, Model model, HttpSession session) {
+	@GetMapping("/classes/detail/{c_no}/{img_no}")
+	public String detail(@PathVariable int c_no, @PathVariable int img_no, Model model, HttpSession session) {
 
 		model.addAttribute("c_no", c_no);
 		// 클래스 넘버를 이용한 단일조회
@@ -65,6 +70,9 @@ public class ClassesController {
 		int member_no = classesDto.getMember_no();
 		MemberDto memberDto = memberDao.getNo(member_no);
 		model.addAttribute("memberDto", memberDto);
+		
+		// 이미지 번호 던지기 
+		model.addAttribute("img_no", img_no);
 		
 		return "classes/detail";
 	}
@@ -162,7 +170,7 @@ public class ClassesController {
 		classesDto.setMember_no(user_no);
 		// 구독한 목록 호출
 		List<ClassesDto> list = classesDao.mySub(member_no);
-		model.addAttribute("list", list);
+		model.addAttribute("classesDto", list);
 		
 		return "classes/mySub";
 	}

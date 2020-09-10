@@ -1,6 +1,7 @@
 package com.kh.arori.service.study;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.McDto;
@@ -17,7 +18,10 @@ public interface ClassesService {
 //	public String get_autotime();
 	
 	// 검색 목록 조회
-	public List<McDto> searchList(String searchOption, String keyword);
+	public List<McDto> searchList(Map<String, String> map);
 
+	// 구독
 	public void already(SubscribeDto subDto);
+	
+	
 }

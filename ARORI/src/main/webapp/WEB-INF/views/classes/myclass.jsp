@@ -191,6 +191,7 @@ display:none;
 		<div class="offset-4 col-4" >
 		<a href="${pageContext.request.contextPath}/classes/create"><button class="top-btn">클래스 만들기</button></a>
 		</div>
+	
 		<div class="col-1">
 		<select name="col" class="dropdown" onchange="if(this.value) location.href=(this.value);">
 			<option value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">최신순</option>
@@ -206,7 +207,7 @@ display:none;
 			<div class="card-deck">
 			<a href="${pageContext.request.contextPath}/classes/readme/${classesDto.c_no}">
   				<div class="card">
-    				<img src="https://lh3.googleusercontent.com/proxy/krOnAmoaj9mpoKRwej4_B9pmiFxVtFiJrrxWgvFNL_7nwDmztB9McDMvQubDGin05J4Mf282hR-67Fe5Ur2b2VNomNKQzu51LMJYucMxQ15WcB7HJflVwKrfS6s" class="card-img" alt="...">
+    				<img src="" class="card-img" alt="...">
    						 <div class="card-body">
       						<h5 class="card-title">${classesDto.c_title}</h5>
       						<p class="card-info">${classesDto.c_info}</p>

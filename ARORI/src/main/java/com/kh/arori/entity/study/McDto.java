@@ -12,4 +12,5 @@ private String c_title;
 private String c_when;
 private String c_info;
 private int c_no;
+private int c_subscribe;
 }

@@ -34,7 +34,7 @@ public interface ClassesDao {
 	public void delete(int c_no);
 
 	// 검색 기능
-	public List<McDto> searchList(String searchOption, String keyword);
+	public List<McDto> searchList(Map<String, String> map);
 
 	// (성헌) 클래스 주인인지 조회
 	public ClassesDto checkM(ClassesDto classesDto);
