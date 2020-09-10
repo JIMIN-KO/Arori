@@ -12,7 +12,8 @@
                     	<hr><br>
                     	<!-- 본문 내용 -->
                     	<c:forEach var="thisQuizDto" items="${thisQuizDto }">
-                    	<div class="card m-5">
+                    	<div class="card m-5 question qt_${thisQuizDto.qt_no }">
+                    	<input type="hidden" value="${thisQuizDto.question_no }">
 						  <div class="card-header h3 bg-warning text-white">${thisQuizDto.question_no }</div>
 						  <div class="card-body">
 						    <div class="viewer"></div>
@@ -25,7 +26,7 @@
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="0"  name="ox_${thisQuizDto.question_no }" id="o_${thisQuizDto.question_no }">
+										      <input type="radio" value="0"  name="${thisQuizDto.question_no }" id="o_${thisQuizDto.question_no }">
 										    </div>
 										  </div>
 										  <label for="o_${thisQuizDto.question_no }" class="form-control h-auto">
@@ -35,7 +36,7 @@
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="1" name="ox_${thisQuizDto.question_no }" id="x_${thisQuizDto.question_no }">
+										      <input type="radio" value="1" name="${thisQuizDto.question_no }" id="x_${thisQuizDto.question_no }">
 										    </div>
 										  </div>
 										  <label for="x_${thisQuizDto.question_no }" class="form-control h-auto">
@@ -48,7 +49,7 @@
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="1"  name="one_${thisQuizDto.question_no }" id="one_${thisQuizDto.question_no }">
+										      <input type="radio" value="1"  name="${thisQuizDto.question_no }" id="one_${thisQuizDto.question_no }">
 										    </div>
 										  </div>
 										  <label for="one_${thisQuizDto.question_no }" class="form-control h-auto">
@@ -58,7 +59,7 @@
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="2" name="two_${thisQuizDto.question_no }" id="two_${thisQuizDto.question_no }">
+										      <input type="radio" value="2" name="${thisQuizDto.question_no }" id="two_${thisQuizDto.question_no }">
 										    </div>
 										  </div>
 										  <label for="two_${thisQuizDto.question_no }" class="form-control h-auto">
@@ -68,7 +69,7 @@
 										<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="3"  name="three_${thisQuizDto.question_no }" id="three_${thisQuizDto.question_no }">
+										      <input type="radio" value="3"  name="${thisQuizDto.question_no }" id="three_${thisQuizDto.question_no }">
 										    </div>
 										  </div>
 										  <label for="three_${thisQuizDto.question_no }" class="form-control h-auto">
@@ -78,7 +79,7 @@
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="4" name="four_${thisQuizDto.question_no }" id="four_${thisQuizDto.question_no }">
+										      <input type="radio" value="4" name="${thisQuizDto.question_no }" id="four_${thisQuizDto.question_no }">
 										    </div>
 										  </div>
 										  <label for="four_${thisQuizDto.question_no }" class="form-control h-auto">
@@ -92,7 +93,7 @@
 										  <div class="input-group-prepend">
 										    <span class="input-group-text">정답을 입력해주세요!</span>
 										  </div>
-										  <textarea class="form-control"></textarea>
+										  <textarea class="form-control" name="${thisQuizDto.question_no }"></textarea>
 										</div>
 						    			</c:when>
 						    		</c:choose>
@@ -103,7 +104,42 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
+/* 문제 푼 후 업데이트 영역 */
+$(function(){
+	var question = document.querySelectorAll(".question")
 
+	$(".question").on("mouseenter",function(){
+
+				// 경로 변수
+				var inputPath = "input[name=" + $(this).children("input[type=hidden]").val() + "]"
+				var textPath = "textarea[name=" + $(this).children("input[type=hidden]").val() + "]"
+
+				if($(this).hasClass("qt_1")) {
+					// OX 
+					// 체크된 라디오 value 값 가지고 오기
+					 $(inputPath).on("change",function(){
+						console.log($(inputPath + ":checked").val())
+
+					 })
+				} else if($(this).hasClass("qt_2")) {
+					// 선다형
+					// 체크된 라이도 value 값 가지고 오기
+					$(inputPath).on("change",function(){
+						console.log($(inputPath + ":checked").val())
+
+					 })
+
+				} else if($(this).hasClass("qt_3")) {
+					// 단답형
+					$(textPath).on("blur",function(){
+						console.log($(textPath).val())	
+					})
+				}
+		})
+})
+
+
+/* 토스트 뷰어 영역 */
 	var viewers = document.querySelectorAll(".viewer") /* viewer 클래스 생성 */
 	var aq_content = document.querySelectorAll(".aq_content") /* String 으로 뭉쳐진 마크다운 코드 받아오기 */
 
