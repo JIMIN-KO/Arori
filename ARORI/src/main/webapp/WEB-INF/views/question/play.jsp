@@ -11,27 +11,95 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
-                    	<c:forEach var="thisQuizDto" items="${thisQuizDto }"></c:forEach>
-                    	<div class="card border-primary mb-3" style="max-width: 18rem;">
-						  <div class="card-header bg-info">${thisQuizDto.question_no }</div>
+                    	<c:forEach var="thisQuizDto" items="${thisQuizDto }">
+                    	<div class="card m-5">
+						  <div class="card-header h3 bg-warning text-white">${thisQuizDto.question_no }</div>
 						  <div class="card-body">
 						    <div class="viewer"></div>
 						    <input type="hidden" value="${thisQuizDto.aq_content }" class="aq_content">
+						    <hr class="mt-5 mb-5">
 						    <p class="card-text">
 						    		<c:choose>
 						    			<c:when test="${thisQuizDto.qt_no == 1 }">
-						    				오엑스 답안 : ${thisQuizDto.ox_answer }
+						    			<!-- OX 문제 영역 -->
+						    				<div class="input-group mt-3 mb-3">
+										  <div class="input-group-prepend">
+										    <div class="input-group-text">
+										      <input type="radio" value="0"  name="ox_${thisQuizDto.question_no }" id="o_${thisQuizDto.question_no }">
+										    </div>
+										  </div>
+										  <label for="o_${thisQuizDto.question_no }" class="form-control h-auto">
+										  	<span class="h5">${thisQuizDto.o_content }</span>
+										  </label>
+										</div>
+						    				<div class="input-group mt-3 mb-3">
+										  <div class="input-group-prepend">
+										    <div class="input-group-text">
+										      <input type="radio" value="1" name="ox_${thisQuizDto.question_no }" id="x_${thisQuizDto.question_no }">
+										    </div>
+										  </div>
+										  <label for="x_${thisQuizDto.question_no }" class="form-control h-auto">
+										 	<span class="h5">${thisQuizDto.x_content }</span>
+										  </label>
+										</div>
 						    			</c:when>
 						    			<c:when test="${thisQuizDto.qt_no == 2 }">
-						    				선다형 답안 : ${thisQuizDto.multiple_answer }
+						    				<!-- 선다형 문제 영역 -->
+						    				<div class="input-group mt-3 mb-3">
+										  <div class="input-group-prepend">
+										    <div class="input-group-text">
+										      <input type="radio" value="1"  name="one_${thisQuizDto.question_no }" id="one_${thisQuizDto.question_no }">
+										    </div>
+										  </div>
+										  <label for="one_${thisQuizDto.question_no }" class="form-control h-auto">
+										  	<span class="h5">${thisQuizDto.multiple_one }</span>
+										  </label>
+										</div>
+						    				<div class="input-group mt-3 mb-3">
+										  <div class="input-group-prepend">
+										    <div class="input-group-text">
+										      <input type="radio" value="2" name="two_${thisQuizDto.question_no }" id="two_${thisQuizDto.question_no }">
+										    </div>
+										  </div>
+										  <label for="two_${thisQuizDto.question_no }" class="form-control h-auto">
+										 	<span class="h5">${thisQuizDto.multiple_two }</span>
+										  </label>
+										</div>
+										<div class="input-group mt-3 mb-3">
+										  <div class="input-group-prepend">
+										    <div class="input-group-text">
+										      <input type="radio" value="3"  name="three_${thisQuizDto.question_no }" id="three_${thisQuizDto.question_no }">
+										    </div>
+										  </div>
+										  <label for="three_${thisQuizDto.question_no }" class="form-control h-auto">
+										  	<span class="h5">${thisQuizDto.multiple_three }</span>
+										  </label>
+										</div>
+						    				<div class="input-group mt-3 mb-3">
+										  <div class="input-group-prepend">
+										    <div class="input-group-text">
+										      <input type="radio" value="4" name="four_${thisQuizDto.question_no }" id="four_${thisQuizDto.question_no }">
+										    </div>
+										  </div>
+										  <label for="four_${thisQuizDto.question_no }" class="form-control h-auto">
+										 	<span class="h5">${thisQuizDto.multiple_four }</span>
+										  </label>
+										</div>
 						    			</c:when>
 						    			<c:when test="${thisQuizDto.qt_no == 3 }">
-						    				단답형 답안 : ${thisQuizDto.explain_answer }
+						    				<!-- 단답형 문제 영역 -->
+						    				<div class="input-group mt-3 mb-3">
+										  <div class="input-group-prepend">
+										    <span class="input-group-text">정답을 입력해주세요!</span>
+										  </div>
+										  <textarea class="form-control"></textarea>
+										</div>
 						    			</c:when>
 						    		</c:choose>
 						    </p>
 						  </div>
 						</div>
+						</c:forEach>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>

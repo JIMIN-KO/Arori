@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="myAnswer">
+<mapper namespace="answer">
 	
 	<!-- 나의 정답 고유 번호 발급 -->
 	<select id="getSeq" resultType="int">

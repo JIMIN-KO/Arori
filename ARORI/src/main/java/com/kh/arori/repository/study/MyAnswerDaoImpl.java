@@ -18,13 +18,13 @@ public class MyAnswerDaoImpl implements MyAnswerDao {
 	@Override
 	public int getSeq() {
 
-		return sqlSession.selectOne("myAnswer.getSeq");
+		return sqlSession.selectOne("answer.getSeq");
 	}
 
 	// 나의 정답 더미 데이터 삽입
 	@Override
 	public void insert(MyAnswerDto myAnswerDto) {
-		sqlSession.insert("myAnswer.insert", myAnswerDto);
+		sqlSession.insert("answer.insert", myAnswerDto);
 		
 	}
 
@@ -32,28 +32,28 @@ public class MyAnswerDaoImpl implements MyAnswerDao {
 	@Override
 	public int update(MyAnswerDto myAnswerDto) {
 
-		return sqlSession.update("myAnswer.update", myAnswerDto);
+		return sqlSession.update("answer.update", myAnswerDto);
 	}
 
 	// 나의 정답 조회 > 퀴즈 번호 
 	@Override
 	public List<MyAnswerDto> get(MyAnswerDto myAnswerDto) {
 
-		return sqlSession.selectList("myAnswer.get", myAnswerDto);
+		return sqlSession.selectList("answer.get", myAnswerDto);
 	}
 
 	// 나의 정답만 조회 > 퀴즈 번호
 	@Override
 	public List<MyAnswerDto> getCur(MyAnswerDto myAnswerDto) {
 
-		return sqlSession.selectList("myAnswer.getCur", myAnswerDto);
+		return sqlSession.selectList("answer.getCur", myAnswerDto);
 	}
 
 	// 나의 오답만 조회 > 퀴즈 번호
 	@Override
 	public List<MyAnswerDto> getIncur(MyAnswerDto myAnswerDto) {
 
-		return sqlSession.selectList("myAnswer.getInCur", myAnswerDto);
+		return sqlSession.selectList("answer.getInCur", myAnswerDto);
 	}
 
 }
