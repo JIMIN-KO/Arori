@@ -20,12 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
-
 
 @Controller
 @RequestMapping("/admin")
@@ -39,7 +40,7 @@ public class AdminController {
 
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Autowired
 	private AdminDao adminDao;
 
@@ -56,11 +57,13 @@ public class AdminController {
 		// 관리자가 정지일자 입력할때 년,월,일만 작성해도 가능하도록 설정
 	}
 
+	// 아로리 회원 이미지 불러오기
+
+
 	// 소셜 + 아로리) 목록조회
 	@GetMapping("/resultMap")
 	public String resultMap(Model model, Model model2) {
 
-		
 		List<MemberDto> result = memberDao.resultMap();
 		model.addAttribute("result", result);
 
@@ -71,20 +74,15 @@ public class AdminController {
 
 	}
 
-
 	// 소셜+아로리) 아이디 단일조회 (관리자만 가능)
 
 	// 소셜 + 아로리) 상세정보변경
 	@GetMapping("/adminUpdate/{member_id}")
 	public String adminUpdate(@PathVariable(required = false) String member_id, Model model) {
 		// 변수가 없어도 적용가능
-	
 
-		
 		MemberDto memberDto = memberDao.get(member_id);// 회원 아이디 단일조회해서
 		model.addAttribute("memberDto", memberDto); // 페이지로 데이터 전달한다.
-		
-		
 
 		return "admin/adminUpdate";
 	}
@@ -100,17 +98,19 @@ public class AdminController {
 		return "redirect:/";
 	}
 
-	
 	// 소셜+아로리) 아우터조인 단일조회 + 클래스 개수 전달
 	@GetMapping("/memberProfile/{member_no}")
 	public String memberProfile(@PathVariable(required = false) int member_no, Model model, Model model2) {
-		
-		//클래스 개수 전달
+
+		// 클래스 개수 전달
 		int count = adminDao.classCount(member_no);
-		model.addAttribute("count",count);
-		
+		model.addAttribute("count", count);
+
+		This_imgDto this_imgDto = adminDao.getImage(member_no);
+		model.addAttribute("this_imgDto", this_imgDto);
+
 		MemberDto memberDto = memberDao.memberProfile(member_no);
-		model.addAttribute("memberDto", memberDto); // 소셜회원 정보전달
+		model.addAttribute("memberDto", memberDto); // 소셜회원 정보전달큐알체크못했는데 어떡
 
 		AroriMemberDto memberDto2 = memberDao.memberProfile2(member_no);
 		model.addAttribute("memberDto2", memberDto2); // 아로리회원 정보전달
@@ -121,7 +121,9 @@ public class AdminController {
 
 	@PostMapping("/memberProfile/{member_no}")
 	public String memberProfile(@PathVariable(required = false) int member_no, @ModelAttribute MemberDto memberDto,
-			@ModelAttribute AroriMemberDto aroriMemberDto) {
+			@ModelAttribute AroriMemberDto aroriMemberDto, @ModelAttribute This_imgDto this_imgDto) {
+
+		adminService.getImage(member_no); // 멤버 이미지 불러오기
 
 		adminService.memberProfile(member_no); // 소셜회원정보 get
 
@@ -139,9 +141,5 @@ public class AdminController {
 
 		return "admin/delete";
 	}
-	
-
-	
-
 
 }

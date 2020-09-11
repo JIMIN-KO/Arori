@@ -1,8 +1,10 @@
 package com.kh.arori.repository.report;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.member.ReportDto;
+import com.kh.arori.entity.study.NoticeDto;
 
 public interface ReportDao {
 	
@@ -17,4 +19,10 @@ public interface ReportDao {
 	
 	//신고글 삭제
 	public void delete(ReportDto reportDto);
+	
+	// 페이지 네이션 
+	public List<ReportDto> page(Map<String, String> page);
+
+	// 페이지네이션 게시글 개수 조회
+	public int count(int report_no);
 }

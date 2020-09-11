@@ -49,6 +49,10 @@
 		
 		<!-- This_IMG Table (각 테이블 별 오작교) -->
 		<typeAlias type="com.kh.arori.entity.img.This_imgDto" alias="this_imgDto"/>
+		
+		<typeAlias type="com.kh.arori.entity.study.OxDto" alias="oxDto"/>
+		
+		
 
 
 	</typeAliases>

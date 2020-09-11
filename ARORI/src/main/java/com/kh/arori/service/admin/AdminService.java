@@ -2,8 +2,10 @@ package com.kh.arori.service.admin;
 
 import java.util.List;
 
+import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.ClassesDto;
 
 
 
@@ -21,6 +23,10 @@ public interface AdminService {
 	//회원삭제
 	public void delete(MemberDto memberDto);
 	
-	//페이지네이션 카운트
-	public int totalCnt();
+
+	public List<ClassesDto>getIncome();
+	
+	//회원 + 회원이미지
+	
+	public This_imgDto getImage(int member_no);
 }

@@ -6,7 +6,7 @@
 
 	<!-- 관리자가 회원아이디를 통해 회원을 삭제시킨다. -->
 
-<resultMap type="memberDto" id="aroriMemberDto">
+	<resultMap type="memberDto" id="aroriMemberDto">
 		<result column="member_no" property="member_no" />
 		<result column="member_pw" property="member_pw" />
 		<result column="member_email" property="member_email" />
@@ -29,15 +29,35 @@
 		member_id=#{member_id}
 	</delete>
 
-<!--멤버+클래스 member_no 단일조회-->
-<select id="getclass" resultType="classesDto" parameterType="int">
-SELECT*FROM MEMBER INNER JOIN CLASSES ON MEMBER.MEMBER_NO = CLASSES.MEMBER_NO WHERE MEMBER.member_no=#{member_no}
-</select>
+	<!--멤버+클래스 member_no 단일조회 -->
+	<select id="getclass" resultType="classesDto"
+		parameterType="int">
+		SELECT*FROM MEMBER INNER JOIN CLASSES ON
+		MEMBER.MEMBER_NO = CLASSES.MEMBER_NO
+		WHERE
+		MEMBER.member_no=#{member_no}
+	</select>
 
-<!--회원 1명이 가지고 있는 클래스의 개수-->
-<select id="countclass" resultType="int" parameterType="int">
-SELECT COUNT(classes.c_no )FROM CLASSES INNER JOIN MEMBER ON classes.MEMBER_NO = MEMBER.MEMBER_NO 
-WHERE MEMBER.MEMBER_NO =#{member_no}
-</select>
+	<!--회원 1명이 가지고 있는 클래스의 개수 -->
+	<select id="countclass" resultType="int" parameterType="int">
+		SELECT
+		COUNT(classes.c_no )FROM CLASSES INNER JOIN MEMBER ON
+		classes.MEMBER_NO = MEMBER.MEMBER_NO
+		WHERE MEMBER.MEMBER_NO
+		=#{member_no}
+	</select>
+
+	<!-- 클래스 목록(차트) -->
+	<select id="classList" resultType="classesDto">
+		SELECT * FROM classes
+	</select>
+
+	<!-- member+member_img 단일조회 -->
+	<select id="memberImage" resultType="this_imgDto" parameterType="int">
+	SELECT *FROM member_img INNER JOIN member ON member_img.THIS_NO=MEMBER.member_no 
+	WHERE member.member_no=#{member_no}
+	</select>
+
+
 
 </mapper>
