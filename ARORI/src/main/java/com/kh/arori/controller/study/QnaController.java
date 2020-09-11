@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,10 +46,24 @@ public class QnaController {
 		return "redirect:" + c_no + "/1";
 	}
 	
-	
-	// QNA 작성 페이지 덧글
-	//@GetMapping(/classes/qna/create/{c_no}/{qna_no})
-	
+	// QNA 작성 페이지 답글
+	@GetMapping("/classes/qna/create_reply/{c_no}/{qna_no}")
+	public String qnaCreateReply(@PathVariable int c_no, @PathVariable int qna_no, Model model) {
+		model.addAttribute("c_no",c_no);
+		model.addAttribute("qna_no", qna_no);
+		// c_no + qna_no 를 단일 조회 
+		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
+		qnaDto = qnaDao.getCQ(qnaDto);
+		// 단일 조회 한 디티오를 모델 어트리부트로 넘겨서 제이에스피에서 연산 후 ㄷ컨트롤러로 던져주기?
+		model.addAttribute("qnaDto", qnaDto);
+		return "classes/qna/qna_create_reply";
+	}
+	// QNA 작성 답글
+		@PostMapping("/classes/qna/create_reply")
+		public String qnaCreateReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
+			qnaService.createReply(content, qnaDto);
+			return "redirect:" +qnaDto.getC_no()+ "/1";
+		}
 	
 	
 	// QNA 게시글 리스트

@@ -62,7 +62,11 @@
                                     <tr>
                                         <td colspan="5">
                                             <input type="hidden" class="qna_content" value="${list.qna_content }">
-                                            <div class="viewer"></div>
+                                            <input type="text" class="qna_content" value="${list.qna_no}">
+                                            <div class="viewer">
+                                            
+                                            </div>
+                                            <a href="${pageContext.request.contextPath }/classes/qna/create_reply/${c_no}/${list.qna_no}">답글달기</a>
                                         </td>
                                     </tr>
                                     </c:forEach>    

@@ -12,15 +12,15 @@
 	<!-- QNA 게시글 작성 새글-->
 	<insert id="create" parameterType="QnaDto">
 		INSERT INTO qna VALUES (
-		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, 0, #{group_no}, 0, 1
-		)
+		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, 0, 1, 0, #{group_no}
+		)  
 	</insert>
 	
 	<!-- QNA 게시글 작성 덧글-->
-	<insert id="create2" parameterType="QnaDto">
+	<insert id="createReply" parameterType="QnaDto">
 		INSERT INTO qna VALUES (
-		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, #{super_no}, #{group_no}, #{depth}, 1
-		)
+		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, #{depth}, 1, #{super_no}, #{group_no}
+		)  
 	</insert>
 
 	<!-- 게시글 단일 조회 (qna_no) -->

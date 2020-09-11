@@ -27,7 +27,11 @@ public class QnaDaoImpl implements QnaDao{
 		return sqlSession.insert("qna.create", qnaDto);
 	}
 	
-	// QNA 덧글 작성
+	// QNA 답글 작성
+	@Override
+	public int createReply(QnaDto qnaDto) {
+		return sqlSession.insert("qna.createReply", qnaDto);
+	}
 	
 	// QNA 게시글 고유 번호로 단일 조회
 		@Override

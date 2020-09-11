@@ -13,6 +13,9 @@ public interface QnaDao {
 	// QNA 작성
 	public int create(QnaDto qnaDto);
 	
+	// QNA 답글 작성
+	public int createReply(QnaDto qnaDto);
+	
 	// QNA  게시글 단일 조회 (qna_no)
 	public QnaDto get(int qna_no);
 
