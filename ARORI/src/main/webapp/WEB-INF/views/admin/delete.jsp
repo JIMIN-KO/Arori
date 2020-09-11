@@ -5,7 +5,8 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	function button_event() {
+
+	function button() {
 		if (confirm("정말 탈퇴시키겠습니까?") == true) { //탈퇴
 			document.form.submit();
 		} else { //취소
@@ -23,7 +24,7 @@
 	<td><input type="text" name="member_id" placeholder="ID"></td>
 		</tr>
 		<tr>
-		<td><input onclick="Javascript:button_event();"
+		<td><input onclick="Javascript:button();"
 				class="btn btn-danger btn-sm font-weight-bold" type="submit"
 				value="탈퇴시키기"></td>
 				</tr>

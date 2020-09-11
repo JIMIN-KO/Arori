@@ -2,7 +2,11 @@
 	page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script>
 
+
+
+</script>
 
 <table class="table table-hover">
 	<h1>신고 접수 리스트</h1>
@@ -55,6 +59,9 @@
 			<td><input type="submit" class="form-control" value="찾기"></td>
 		</tr>
 	</form>
+	
+	
+	
 
 
 </table>
