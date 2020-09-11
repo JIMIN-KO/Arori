@@ -106,48 +106,72 @@
 <script>
 /* 문제 푼 후 업데이트 영역 */
 $(function(){
+	
+$(".question").on("change",function(){
 
-	$(".question").on("change",function(){
+		// 경로 변수
+		var questionNo = $(this).children("input[type=hidden]").val() //  해당 퀘스쳔 번호
+		var inputPath = "input[name=" + questionNo + "]" // input 태그 경로
+		var textPath = "textarea[name=" + questionNo + "]" // textarea 태그 경로
 
-				// 경로 변수
-				var questionNo = $(this).children("input[type=hidden]").val() //  해당 퀘스쳔 번호
-				var inputPath = "input[name=" + questionNo + "]" // input 태그 경로
-				var textPath = "textarea[name=" + questionNo + "]" // textarea 태그 경로
+		// 비동기로 전달할 객체			
+		var answerValue
+		var inputVal = $(inputPath + ":checked").val()
+		var textVal = $(textPath).val()
+		
+		if(inputVal) {
+			answerValue = inputVal
+			textVal = ""
+		} else if(textVal) {
+			answerValue = textVal
+			inputVal = ""
+		}
+		
+		var myAnswerDto = {
+				member_no:${userinfo.member_no},
+				q_no:${quizDto.q_no},
+				question_no:questionNo, 
+				my_answer:answerValue
+		}
+		
+		if(myAnswerDto[Object.keys(myAnswerDto)[3]]) {
+			 axios.post("/arori/answerAjax/update", JSON.stringify(myAnswerDto), {
+				 	headers:{
+						'content-type':'application/json',
+				 	}
+			 })
+			 .then(resp=>{
+			 })
+		}
+})
 
-				// 비동기로 전달할 객체			
-				var answerValue
-				var inputVal = $(inputPath + ":checked").val()
-				var textVal = $(textPath).val()
-				
-				if(inputVal) {
-					answerValue = inputVal
-					textVal = ""
-				} else if(textVal) {
-					answerValue = textVal
-					inputVal = ""
-				}
-				
-				console.log($(inputPath + ":checked").val())
-				console.log($(textPath).val())
-				
-				var myAnswerDto = {
-						member_no:${userinfo.member_no},
-						q_no:${quizDto.q_no},
-						question_no:questionNo, 
-						my_answer:answerValue
-				}
-				if(myAnswerDto[Object.keys(myAnswerDto)[3]]) {
-					console.log(myAnswerDto)
-					 axios.post("/arori/answerAjax/update", JSON.stringify(myAnswerDto), {
-						 	headers:{
-								'content-type':'application/json',
-						 	}
-					 })
-					 .then(resp=>{
-						 console.log(resp.data);
-					 })
-				}
-		})
+	var min = 1;
+	
+	setInterval(function(){
+        console.log(min + "초");
+        	min += 1;
+    }, 1000)
+    
+var quizTime = ${quizDto.q_runtime} * 60000 // 퀴즈 제한 시간
+
+var fiveMin = quizTime - 300000 // 5분 전
+var oneMin = quizTime - 60000 // 1분 전
+console.log(fiveMin)
+console.log(oneMin)
+
+setTimeout(function(){
+	alert("퀴즈 종료 5분 전입니다. 마무리 해주시기 바랍니다.")
+}, fiveMin)
+
+setTimeout(function(){
+	alert("퀴즈 종료 1분 전입니다. 마무리 해주시기 바랍니다.")
+}, oneMin)
+
+setTimeout(function(){
+	alert("퀴즈가 종료되었습니다. 현재 답안을 제출합니다!")
+	location.href = "/arori/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}"
+}, quizTime)
+	
 })
 
 

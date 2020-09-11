@@ -2,7 +2,6 @@ package com.kh.arori.rest.answer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +21,13 @@ public class MyAnswerAjaxController {
 	@Transactional
 	public void updateAnswer(@RequestBody MyAnswerDto myAnswerDto) {
 		// 받아온 데이터 갱신하기
-		// 1. 회원의 입력값이 정답인지 아닌지 비교
+		// 회원의 입력값이 정답인지 아닌지 비교
+		MyAnswerDto check = myAnswerDao.check(myAnswerDto);
+		
+		if(check.getQuestion_answer().equals(myAnswerDto.getMy_answer())) {
+			myAnswerDto.setResult(1);
+		}
 
-		myAnswerDto.setResult(0);
 		myAnswerDao.update(myAnswerDto);
 
 	}

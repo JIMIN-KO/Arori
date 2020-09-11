@@ -37,6 +37,7 @@ public class QuestionController {
 		List<ThisQuizDto> question = myAnswerService.play(userinfo.getMember_no(), q_no);
 		
 		model.addAttribute("thisQuizDto", question);
+		model.addAttribute("c_no", quizDto.getC_no());
 		
 		return "question/play";
 	}

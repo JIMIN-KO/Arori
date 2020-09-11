@@ -56,4 +56,11 @@ public class MyAnswerDaoImpl implements MyAnswerDao {
 		return sqlSession.selectList("answer.getInCur", myAnswerDto);
 	}
 
+	// 채점을 위한 해당 퀘스쳔 정보 조회 
+	@Override
+	public MyAnswerDto check(MyAnswerDto myAnswerDto) {
+
+		return sqlSession.selectOne("answer.check", myAnswerDto);
+	}
+
 }

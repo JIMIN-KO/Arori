@@ -34,7 +34,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
 									</div>
-									<input type="text" class="form-control" name="q_title" id="q_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+									<input type="text" class="form-control" name="q_title" id="q_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 								</div>
 								<!-- 퀴즈 설명 (Toast UI Editor) 영역 -->
 								<div id="editor" class="mt-5"></div>
@@ -46,7 +46,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
 											</div>
-											<input type="datetime-local" class="form-control" name="q_score_open" id="q_score_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+											<input type="datetime-local" class="form-control" name="q_score_open" id="q_score_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 										</div>
 									</div>
 									<div class="form-group col-6">
@@ -54,7 +54,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
 											</div>
-											<input type="number" class="form-control" name="q_runtime" id="q_runtime" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+											<input type="number" class="form-control" name="q_runtime" id="q_runtime" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" min="10" required="required">
 										</div>
 									</div>
 								</div>
@@ -65,7 +65,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Opening</span>
 											</div>
-											<input type="datetime-local" class="form-control" name="q_open" id="q_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+											<input type="datetime-local" class="form-control" name="q_open" id="q_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 										</div>
 									</div>
 									<div class="form-group col-6">
@@ -73,7 +73,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Closing</span>
 											</div>
-											<input type="datetime-local" class="form-control" name="q_close" id="q_close" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+											<input type="datetime-local" class="form-control" name="q_close" id="q_close" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 										</div>
 									</div>
 								</div>

@@ -24,4 +24,6 @@ public interface MyAnswerDao {
 	// 오답만 불러오기
 	public List<MyAnswerDto> getIncur(MyAnswerDto myAnswerDto);
 	
+	// 채점을 위한 해당 퀘스쳔 정보 조회 
+	public MyAnswerDto check(MyAnswerDto myAnswerDto);
 }
