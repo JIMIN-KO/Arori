@@ -107,7 +107,7 @@
 /* 문제 푼 후 업데이트 영역 */
 $(function(){
 
-	$(".question").on("click",function(){
+	$(".question").on("change",function(){
 
 				// 경로 변수
 				var questionNo = $(this).children("input[type=hidden]").val() //  해당 퀘스쳔 번호
