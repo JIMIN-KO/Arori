@@ -1,5 +1,6 @@
 package com.kh.arori.controller.study;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
-
+import com.kh.arori.repository.img.ImgDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
@@ -35,26 +37,27 @@ public class ClassesController {
 	
 	@Autowired
 	private MemberDao memberDao;
-
+	
+	@Autowired
+	private ImgDao imgDao;
+	
 	// 클래스 생성 페이지 
 	@GetMapping("/classes/create")
-	public String create(Model model) {
+	public String create() {		
 		
-		// 시퀀스 번호 발급 받기
-		int c_no = classesDao.getSeq();
-		model.addAttribute("c_no", c_no);
 		return "classes/create";
 	}
 
 	// 클래스 생성 기능 
 	@PostMapping("/classes/create")
-	public String create(@ModelAttribute ClassesDto classesDto, @RequestParam int img_no, HttpSession session) {
+	public String create(@ModelAttribute ClassesDto classesDto,HttpSession session) {
 	
 		// 세션(userinfo) 를 MemberDto 로 받아온다.
 		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 		classesDto.setMember_no(memberDto.getMember_no());
 		int c_no = classesService.createClasses(classesDto);
-		return "redirect:detail/" + c_no + "/" + img_no;
+		System.out.println("c_no = "+c_no);
+		return "redirect:readme/" + c_no;
 	}
 
 	// 클래스 디테일 페이지
@@ -90,11 +93,13 @@ public class ClassesController {
 
 	// 클래스 수정 기능 
 	@PostMapping("/classes/edit")
-	public String edit(@ModelAttribute ClassesDto classesDto) {
+	public String edit(@ModelAttribute ClassesDto classesDto, int member_no) {
 	
 		classesDao.edit(classesDto);
 		
-		return "redirect:detail/" + classesDto.getC_no();
+		//return "redirect:detail/" + classesDto.getC_no();
+		
+		return "redirect:myclass/"+member_no;
 	}
 	
 //	// 클래스 목록
@@ -110,6 +115,7 @@ public class ClassesController {
 //		return "classes/myclass";
 //	}
 	
+	// 마이클래스 페이지 
 	@RequestMapping("/classes/myclass/{member_no}")
 	public String list(@PathVariable String member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto,
 			@RequestParam(required = false, defaultValue = "c_when") String col,
@@ -133,11 +139,23 @@ public class ClassesController {
 		} else {
 			col="c_when";
 			order="ASC";
-		}
+		}	
 		
 		List<ClassesDto> list = classesDao.getLlist2(map);
+		List<ClassesDto> list2 = new ArrayList<ClassesDto>();
+		for(int i = 0; i < list.size(); i++) {
+			This_imgDto this_imgDto = This_imgDto.builder().this_no(list.get(i).getC_no()).table_name("classes").build();
+			List<This_imgDto> img_list = imgDao.get2(this_imgDto);
+			
+			ClassesDto classes = list.get(i);
+			if(!img_list.isEmpty()) {
+				 classes.setImg_no(img_list.get(i).getAi_no());
+			}
+
+			list2.add(classes);
+		}
 		
-		model.addAttribute("classesDto", list);
+		model.addAttribute("classesDto", list2);
 		
 		return "classes/myclass";
 	}
@@ -173,6 +191,11 @@ public class ClassesController {
 		model.addAttribute("classesDto", list);
 		
 		return "classes/mySub";
+	}
+	
+	@RequestMapping("/classes/img/setting")
+	public String imgCreate() {
+		return "classes/img_create";
 	}
 	
 }

@@ -1,45 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-   <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<jsp:include
+	page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <style>
 
-	/* 전체 카드 */
-	.card-deck {
-    height:460px;
-    width:380px;
-    padding-bottom: 30px;
-    margin-top: 30px;
-    margin-left: 17px;
+/* 전체 카드 */
+.card-deck {
+	height: 460px;
+	width: 380px;
+	padding-bottom: 30px;
+	margin-top: 30px;
+	margin-left: 17px;
 }
-	/* 이미지 사이즈 */
-	.card-img {
-	height:200px;
-	width:320px;
+/* 이미지 사이즈 */
+.card-img {
+	height: 200px;
+	width: 320px;
 	border-radius: 10px 10px;
-	margin-left:13px;
+	margin-left: 13px;
 	margin-top: 15px;
-	}
-	
-	/* 클래스 제목 링크 색상 제거 */
-	a {
+}
+
+/* 클래스 제목 링크 색상 제거 */
+a {
 	text-decoration: none;
-	}
-	.btn a {
+}
+
+.btn a {
 	text-decoration: none;
-	color:#ffffff;
-	}
-	
-	/* 클래스 타이틀 */
-	.card-title {
+	color: #ffffff;
+}
+
+/* 클래스 타이틀 */
+.card-title {
 	text-decoration: none;
-	color:black;
-	}
-	
-	/* 클래스 정보 */
-	.card-info {
-	max-height:4.5em;
+	color: black;
+}
+
+/* 클래스 정보 */
+.card-info {
+	max-height: 4.5em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -47,205 +51,240 @@
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	text-decoration: none;
-	color:#3e3e3e;
-	}
-	
-	/* 버튼 */
-	.card-btn {
+	color: #3e3e3e;
+}
+
+/* 버튼 */
+.card-btn {
 	display: inline-block;
-	}
-	
-	/* 클래스 만들기 버튼 */	
-	.top-btn {
-	  width: 140px;
-	  height: 45px;
-	  font-size: 11px;
-	  text-transform: uppercase;
-	  letter-spacing: 2.5px;
-	  font-weight: 500;
-	  color: #000;
-	  background-color: #fff;
-	  border: none;
-	  border-radius: 45px;
-	  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	  transition: all 0.3s ease 0s;
-	  cursor: pointer;
-	  outline: none;
+}
 
-	  }
-	
-	.top-btn:hover {
-	  background-color: #2EE59D;
-	  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-	  color: #fff;
-	  transform: translateY(-7px);
-	}
-	
-	/* 정렬 드롭다운 */
-	.dropdown {
-	margin-top:10px;
-	width: 100px; height: 35px; 
-	font-size: 15px; 
-	color:#999; 
-	border:2px solid #ddd; 
-	background: url(bg_select.png) no-repeat right 13px center;
-	appearance:none; 
-	-webkit-appearance:none;
+/* 클래스 만들기 버튼 */
+.top-btn {
+	width: 140px;
+	height: 45px;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: #000;
+	background-color: #fff;
+	border: none;
+	border-radius: 45px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+}
+
+.top-btn:hover {
+	background-color: #2EE59D;
+	box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+/* 정렬 드롭다운 */
+.dropdown {
+	margin-top: 10px;
+	width: 100px;
+	height: 35px;
+	font-size: 15px;
+	color: #999;
+	border: 2px solid #ddd;
+	/*background: url(bg_select.png) no-repeat right 13px center;*/
+	appearance: none;
+	-webkit-appearance: none;
 	text-align-last: center;
-	}
-	
-	/* 클래스 수정 모달 */
-#modal {
-display:none;
-  position:relative;
-  width:100%;
-  height:100%;
-  z-index:1;
 }
 
-#modal h2 {
-  margin:0;   
+/* 클래스 수정 모달 */
+/* 수정 내용 디자인 */
+form {
+margin-top:15px;
+padding-left:20px;
 }
 
-#modal button {
-  display:inline-block;
-  width:100px;
-  margin-left:calc(100% - 100px - 10px);
+form div + div {
+    margin-top: 1em;
 }
 
-#modal .modal_content {
-  width:300px;
-  margin:100px auto;
-  padding:20px 10px;
-  background:#fff;
-  border:2px solid #666;
+label {
+    display: inline-block;
+    text-align: right;
 }
 
-#modal .modal_layer {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0, 0, 0, 0.5);
-  z-index:-1;
-}   
+input, textarea {
+    width: 300px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #999;
+};
+
+/* 모달 디자인 */
+
+.modal {
+position:relative;
+z-index:999;
+}
 
 </style>
 
-
-
-<body>
-
-<%-- <h2>클래스 목록</h2>
-<table border="1">
-	<thead>
-		<tr>
-			<th>클래스 번호</th>
-			<th>이름</th>
-			<th>정보</th>
-			<th>공개여부</th>
-			<th>등록일</th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach var="classesDto" items="${list}">
-			<tr>
-				<td>${classesDto.c_no}</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/classes/readme/${classesDto.c_no}">
-						${classesDto.c_title}					
-					</a>
-				</td>
-				<td>${classesDto.c_info}</td>
-
-				<td>
-					<c:choose>
-						<c:when test="${classesDto.c_public == 1}">
-							공개
-						</c:when>
-						<c:otherwise>
-							비공개
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-				<fmt:parseDate value="${classesDto.c_when}" 
-							var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-				<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>				
-				</td>
-				<c:if test="${userinfo.member_no==classesDto.member_no}">
-				<td>
-					<a href="edit/${classesDto.c_no}">수정</a> 
-					<a href="delete/${classesDto.c_no}">삭제</a>
-				</td>
-				</c:if>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table> --%>
-
 <!-- 클래스 목록 -->
-<div class="container-fluid">
-	<div class="row justify-content-center" style="margin-top:80px;">
-		<div class="offset-4 col-4" >
-		<a href="${pageContext.request.contextPath}/classes/create"><button class="top-btn">클래스 만들기</button></a>
-		</div>
-	
-		<div class="col-1">
-		<select name="col" class="dropdown" onchange="if(this.value) location.href=(this.value);">
-			<option value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">최신순</option>
-			<option value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">등록순</option>
-			<option value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_subscribe&order=DESC">인기순</option>			
-		</select>
-		</div>
+<div class="row justify-content-center" style="margin-top: 80px;">
+	<div class="offset-4 col-4">
+		<a href="${pageContext.request.contextPath}/classes/create"><button
+				class="top-btn">클래스 만들기</button></a>
 	</div>
-	
-	<div class="row">
+
+	<div class="col-1">
+		<select name="col" class="dropdown"
+			onchange="if(this.value) location.href=(this.value);">
+			<option
+				value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">최신순</option>
+			<option
+				value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">등록순</option>
+			<option
+				value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_subscribe&order=DESC">인기순</option>
+		</select>
+	</div>
+</div>
+
+<div class="row">
 	<c:forEach var="classesDto" items="${classesDto}">
 		<div class="col-sm-12 col-md-6 col-lg-3">
 			<div class="card-deck">
-			<a href="${pageContext.request.contextPath}/classes/readme/${classesDto.c_no}">
-  				<div class="card">
-    				<img src="" class="card-img" alt="...">
-   						 <div class="card-body">
-      						<h5 class="card-title">${classesDto.c_title}</h5>
-      						<p class="card-info">${classesDto.c_info}</p>
-      						<p class="card-when"><small class="text-muted">
-      							<fmt:parseDate value="${classesDto.c_when}" 
-									var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>	</small></p>
-								<span class="badge badge-pill badge-success">${classesDto.c_subscribe}</span>
-							<P style="margin-left:80px; padding-top:20px;" class="card-btn">
-							<button type="button" class="btn btn-primary btn-sm" id="modal_opne_btn">EDIT</button>
-							<button type="button" class="btn btn-warning btn-sm"><a href="${pageContext.request.contextPath}/classes/delete/${classesDto.c_no}">DELETE</a></button>
-							</P>
-  						</div>	
-  				</div>
-   			</a>
- 			</div>
+				<div class="card">
+					<div>
+						<c:choose>
+							<c:when test="${classesDto.img_no > 0}">
+								<img
+									src="${pageContext.request.contextPath }/imgAjax/classes/download/${classesDto.img_no }"
+									class="card-img" alt="...">
+							</c:when>
+							<c:otherwise>
+								<img src="http://lorempixel.com/400/200/" alt="love"
+									class="card-img">
+							</c:otherwise>
+						</c:choose>
+						<div class="row">
+							<div
+								class="col-12 d-flex justify-content-end position-absolute p-0 ml-2"
+								style="top: 45%;">
+								<a
+									href="${pageContext.request.contextPath }/classes/img/setting"
+									onclick="window.open(this.href, '_blank', 'width=305px,height=400px,toolbars=no,scrollbars=no'); return false;">
+									<svg width="1em" height="1em" viewBox="0 0 16 16"
+										class="bi bi-gear" fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg"
+										style="width: 30px; height: 30px;">
+									  <path fill-rule="evenodd"
+											d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
+									  <path fill-rule="evenodd"
+											d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
+									</svg>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-body pb-0">
+						<input type="hidden" class="card-no" value="${classesDto.c_no }">
+						<input type="hidden" class="card-public"
+							value="${classesDto.c_public }">
+						<h5 class="card-title">${classesDto.c_title}</h5>
+						<p class="card-info">${classesDto.c_info}</p>
+						<p class="card-when">
+							<small class="text-muted"> <fmt:parseDate
+									value="${classesDto.c_when}" var="time"
+									pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
+									value="${time}" pattern="yyyy-MM-dd" />
+							</small>
+						</p>
+						<span class="badge badge-pill badge-success">${classesDto.c_subscribe}</span>
+						<P style="margin-left: 80px; padding-top: 20px;" class="card-btn">
+							<button type="button" class="btn btn-primary btn-sm editClass"
+								data-target="#classEdit">EDIT</button>
+							<a
+								href="${pageContext.request.contextPath}/classes/delete/${classesDto.c_no}"
+								class="btn btn-warning btn-sm">DELETE</a>
+						</P>
+					</div>
+				</div>
+			</div>
 		</div>
 	</c:forEach>
-	</div>
 </div>
-
 <!-- 클래스 수정 모달 -->
+	<div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
+						<input type="hidden" name="c_no"> <input type="hidden" name="member_no" value="${userinfo.member_no }"> 
+						<div>
+							<label for="c_title">Class Title :</label>
+							<input type="text" name="c_title">
+						</div>
+						<div>
+							<label for="c_info">Class Info :</label>
+							<input type="text" name="c_info">
+						</div>
+						<div>
+							<label for="c_public">Public Check :</label>
+							<select	name="c_public" class="select">
+								<option value=1>공개</option>
+								<option value=0>비공개</option>
+							</select>
+						</div>
+					
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">창 닫기</button>
+					<button type="button" class="btn btn-primary" id="goEdit">수정하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<div id="modal">
-   
-    <div class="modal_content">
-        <h2>모달 창</h2>
-       
-        <p>모달 창 입니다.</p>
-       
-        <button type="button" id="modal_close_btn">모달 창 닫기</button>
-       
-    </div>
-   
-    <div class="modal_layer"></div>
-</div>
+<script>
+	$(function() {
+		$("#classEdit").modal("hide") // 클래스 수정 모달 숨김
 
+		$(".editClass").click(
+				function() {
+					$("#classEdit").modal("show"); // 클래스 수정 모달 띄우기
+					console.log($(this).parents(".card-body").children(".card-title").text()) // 해당 클래스의 타이틀
+					console.log($(this).parents(".card-body").children(".card-info").text()) // 해당 클래스의 정보
+					console.log($(this).parents(".card-body").children(".card-public").val()) // 해당 클래스의 공개여부
 
-</body>
-<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+					var c_no = $(this).parents(".card-body").children(".card-no").val()
+					var c_title = $(this).parents(".card-body").children(".card-title").text()
+					var c_info = $(this).parents(".card-body").children(".card-info").text()
+					var c_public = $(this).parents(".card-body").children(".card-public").text()
+
+					$("input[name=c_no]").val(c_no)
+					$("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
+					$("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기
+
+				})
+		// 수정하기 버튼을 누르면 수정이 되도록 한다!
+		$("#goEdit").click(function() {
+			var form = document.querySelector("#editForm")
+			form.submit()
+
+		})
+
+	})
+</script>
+<jsp:include
+	page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
 
