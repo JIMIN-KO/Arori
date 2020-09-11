@@ -3,11 +3,6 @@
     <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style>
 	/* 전체 카드 */
 	.card-deck {
@@ -59,92 +54,63 @@
 	display: inline-block;
 	}
 </style>
-
-</head>
-<body>
-
 <div class="row content-top mt-5 h-100">
 	<div class="col-12 overflow-auto mt-5">
-<div class="container-fluid">
-	<div class="row">
-	<c:forEach var="classesDto" items="${classesDto}">
-		<div class="col-sm-12 col-md-6 col-lg-3">
-			<div class="card-deck">
-  				<div class="card">
-			<a href="${pageContext.request.contextPath}/classes/readme/${classesDto.c_no}">
-    				<img src="https://lh3.googleusercontent.com/proxy/krOnAmoaj9mpoKRwej4_B9pmiFxVtFiJrrxWgvFNL_7nwDmztB9McDMvQubDGin05J4Mf282hR-67Fe5Ur2b2VNomNKQzu51LMJYucMxQ15WcB7HJflVwKrfS6s" class="card-img" alt="...">
-   			</a>
-   						 <div class="card-body">
-      						<h5 class="card-title">${classesDto.c_title}</h5>
-      						<p class="card-info">${classesDto.c_info}</p>
-      						<p class="card-when"><small class="text-muted">
-      							<fmt:parseDate value="${classesDto.c_when}" 
-									var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>	</small></p>
-								<span class="badge badge-pill badge-success">${classesDto.c_subscribe}</span>
-						
-  						</div>	
-  				</div>
- 			</div>
+		<div class="container-fluid">
+			<div class="row">
+				<c:forEach var="classesDto" items="${classesDto}">
+					<div class="col-sm-12 col-md-6 col-lg-3">
+						<div class="card-deck">
+  							<div class="card">
+  								<c:choose>
+									<c:when test="${classesDto.img_no > 0}">
+										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${classesDto.img_no }" class="card-img" alt="...">
+									</c:when>
+									<c:otherwise>
+										<img src="http://lorempixel.com/400/200/" alt="love" class="card-img">
+									</c:otherwise>
+								</c:choose>
+   								<div class="card-body">
+      								<h5 class="card-title">${classesDto.c_title}</h5>
+      								<p class="card-info">${classesDto.c_info}</p>
+      								<p class="card-when"><small class="text-muted">
+      								<fmt:parseDate value="${classesDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/></small></p>
+									<span class="badge badge-pill badge-success subCount">${classesDto.c_subscribe}</span>
+									<div>
+										<input type="hidden" name="c_no" value="${classesDto.c_no }">
+										<input type="button" class="subBtn" value="구독">	
+									</div>
+  								</div>	
+  							</div>
+ 						</div>
+					</div>
+				</c:forEach>
+			</div>
 		</div>
-	</c:forEach>
 	</div>
 </div>
-	
-	
-	</div>
-</div>
+<script>
+$(function(){
+	$(".subBtn").click(function(){
 
-
-<%-- <h2>내가 구독한 클래스 목록</h2>
-<table border="1">
-	<thead>
-		<tr>
-			<th>클래스 번호</th>
-			<th>출제자</th>
-			<th>정보</th>
-			<th>공개여부</th>
-			<th>등록일</th>
-			<th>구독자 수</th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach var="classesDto" items="${list}">
-			<tr>
-				<td>${classesDto.c_no}</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/classes/detail/${classesDto.c_no}">
-						${classesDto.c_title}					
-					</a>
-				</td>
-				<td>${classesDto.c_info}</td>
-
-				<td>
-					<c:choose>
-						<c:when test="${classesDto.c_public == 1}">
-							공개
-						</c:when>
-						<c:otherwise>
-							비공개
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-				<fmt:parseDate value="${classesDto.c_when}" 
-							var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-				<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>				
-				</td>
-				<td>${classesDto.c_subscribe}</td>
-				<c:if test="${userinfo.member_no==subDto.member_no}">
-				<td>
-					<a href="delete/${subDto.c_no}">삭제</a>
-				</td>
-				</c:if>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table> --%>
-
-</body>
-</html>
+		var subDto = {
+				member_no:${userinfo.member_no},
+				c_no:$(this).parent().children("input[name=c_no]").val()
+		}
+		
+		console.log(subDto)
+		
+		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+		 	headers:{
+				'content-type':'application/json',
+		 	}
+		 }).then(resp=>{
+			console.log(resp)
+			$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)
+			 
+	 	})
+	})
+})
+</script>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

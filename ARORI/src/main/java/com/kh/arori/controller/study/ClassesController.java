@@ -143,13 +143,14 @@ public class ClassesController {
 		
 		List<ClassesDto> list = classesDao.getLlist2(map);
 		List<ClassesDto> list2 = new ArrayList<ClassesDto>();
+		
 		for(int i = 0; i < list.size(); i++) {
 			This_imgDto this_imgDto = This_imgDto.builder().this_no(list.get(i).getC_no()).table_name("classes").build();
 			List<This_imgDto> img_list = imgDao.get2(this_imgDto);
 			
 			ClassesDto classes = list.get(i);
 			if(!img_list.isEmpty()) {
-				 classes.setImg_no(img_list.get(i).getAi_no());
+				 classes.setImg_no(img_list.get(0).getAi_no());
 			}
 
 			list2.add(classes);
@@ -178,23 +179,37 @@ public class ClassesController {
 	}
 	
 	// 구독 목록
-	@RequestMapping("/classes/mySub/{member_no}")
-	public String mySub(@PathVariable int member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
+	@RequestMapping("/classes/mySub")
+	public String mySub(Model model, HttpSession session) {
 
 		// userinfo에서 현재 로그인한 계정의 no를 csDto에 저장
 		MemberDto memberDto = (MemberDto)session.getAttribute("userinfo");
-		int user_no = memberDto.getMember_no();	
-		System.out.println("member_no = "+user_no);
-		classesDto.setMember_no(user_no);
+
 		// 구독한 목록 호출
-		List<ClassesDto> list = classesDao.mySub(member_no);
-		model.addAttribute("classesDto", list);
+		List<ClassesDto> list = classesDao.mySub(memberDto.getMember_no());
+		List<ClassesDto> list2 = new ArrayList<ClassesDto>();
 		
+		for(int i = 0; i < list.size(); i++) {
+			This_imgDto this_imgDto = This_imgDto.builder().this_no(list.get(i).getC_no()).table_name("classes").build();
+			List<This_imgDto> img_list = imgDao.get2(this_imgDto);
+			
+			ClassesDto classes = list.get(i);
+			if(!img_list.isEmpty()) {
+				 classes.setImg_no(img_list.get(0).getAi_no());
+			}
+
+			list2.add(classes);
+		}
+		model.addAttribute("classesDto", list2);
+
 		return "classes/mySub";
 	}
 	
-	@RequestMapping("/classes/img/setting")
-	public String imgCreate() {
+	@RequestMapping("/classes/img/setting/{c_no}")
+	public String imgCreate(@PathVariable int c_no, Model model) {
+		
+		model.addAttribute("c_no", c_no);
+		
 		return "classes/img_create";
 	}
 	

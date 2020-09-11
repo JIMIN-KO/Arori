@@ -4,130 +4,123 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-<jsp:include
-	page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <style>
 
-/* 전체 카드 */
-.card-deck {
-	height: 460px;
-	width: 380px;
-	padding-bottom: 30px;
-	margin-top: 30px;
-	margin-left: 17px;
-}
-/* 이미지 사이즈 */
-.card-img {
-	height: 200px;
-	width: 320px;
-	border-radius: 10px 10px;
-	margin-left: 13px;
-	margin-top: 15px;
-}
+	/* 전체 카드 */
+	.card-deck {
+		height: 460px;
+		width: 380px;
+		padding-bottom: 30px;
+		margin-top: 30px;
+		margin-left: 17px;
+	}
+	/* 이미지 사이즈 */
+	.card-img {
+		height: 200px;
+		width: 320px;
+		border-radius: 10px 10px;
+		margin-left: 13px;
+		margin-top: 15px;
+	}
+	
+	/* 클래스 제목 링크 색상 제거 */
+	a {
+		text-decoration: none;
+	}
+	
+	.btn a {
+		text-decoration: none;
+		color: #ffffff;
+	}
+	
+	/* 클래스 타이틀 */
+	.card-title {
+		text-decoration: none;
+		color: black;
+	}
+	
+	/* 클래스 정보 */
+	.card-info {
+		max-height: 4.5em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		text-decoration: none;
+		color: #3e3e3e;
+	}
+	
+	/* 버튼 */
+	.card-btn {
+		display: inline-block;
+	}
+	
+	/* 클래스 만들기 버튼 */
+	.top-btn {
+		width: 140px;
+		height: 45px;
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 2.5px;
+		font-weight: 500;
+		color: #000;
+		background-color: #fff;
+		border: none;
+		border-radius: 45px;
+		box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease 0s;
+		cursor: pointer;
+		outline: none;
+	}
+	
+	.top-btn:hover {
+		background-color: #2EE59D;
+		box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+		color: #fff;
+		transform: translateY(-7px);
+	}
 
-/* 클래스 제목 링크 색상 제거 */
-a {
-	text-decoration: none;
-}
+	/* 정렬 드롭다운 */
+	.select-down {
+		margin-top: 10px;
+		width: 100px;
+		height: 35px;
+		font-size: 15px;
+		color: #999;
+		border: 2px solid #ddd;
+		/*background: url(bg_select.png) no-repeat right 13px center;*/
+		appearance: none;
+		-webkit-appearance: none;
+		text-align-last: center;
+	}
+	
+	/* 클래스 수정 모달 */
+	/* 수정 내용 디자인 */
+	form {
+	margin-top:15px;
 
-.btn a {
-	text-decoration: none;
-	color: #ffffff;
-}
-
-/* 클래스 타이틀 */
-.card-title {
-	text-decoration: none;
-	color: black;
-}
-
-/* 클래스 정보 */
-.card-info {
-	max-height: 4.5em;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-	text-decoration: none;
-	color: #3e3e3e;
-}
-
-/* 버튼 */
-.card-btn {
-	display: inline-block;
-}
-
-/* 클래스 만들기 버튼 */
-.top-btn {
-	width: 140px;
-	height: 45px;
-	font-size: 11px;
-	text-transform: uppercase;
-	letter-spacing: 2.5px;
-	font-weight: 500;
-	color: #000;
-	background-color: #fff;
-	border: none;
-	border-radius: 45px;
-	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	transition: all 0.3s ease 0s;
-	cursor: pointer;
-	outline: none;
-}
-
-.top-btn:hover {
-	background-color: #2EE59D;
-	box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-	color: #fff;
-	transform: translateY(-7px);
-}
-
-/* 정렬 드롭다운 */
-.dropdown {
-	margin-top: 10px;
-	width: 100px;
-	height: 35px;
-	font-size: 15px;
-	color: #999;
-	border: 2px solid #ddd;
-	/*background: url(bg_select.png) no-repeat right 13px center;*/
-	appearance: none;
-	-webkit-appearance: none;
-	text-align-last: center;
-}
-
-/* 클래스 수정 모달 */
-/* 수정 내용 디자인 */
-form {
-margin-top:15px;
-padding-left:20px;
-}
-
-form div + div {
-    margin-top: 1em;
-}
-
-label {
-    display: inline-block;
-    text-align: right;
-}
-
-input, textarea {
-    width: 300px;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 1px solid #999;
-};
-
-/* 모달 디자인 */
-
-.modal {
-position:relative;
-z-index:999;
-}
-
+	}
+	
+	form div + div {
+	    margin-top: 1em;
+	}
+	
+	label {
+	    display: inline-block;
+	    text-align: right;
+	}
+	
+	.modal-content {
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	    border: 1px solid #999;
+	}
+	.modal-backdrop.show {
+	display:none;
+	}
 </style>
 
 <!-- 클래스 목록 -->
@@ -138,7 +131,7 @@ z-index:999;
 	</div>
 
 	<div class="col-1">
-		<select name="col" class="dropdown"
+		<select name="col" class="select-down"
 			onchange="if(this.value) location.href=(this.value);">
 			<option
 				value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">최신순</option>
@@ -155,33 +148,22 @@ z-index:999;
 		<div class="col-sm-12 col-md-6 col-lg-3">
 			<div class="card-deck">
 				<div class="card">
+					<c:choose>
+									<c:when test="${classesDto.img_no > 0}">
+										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${classesDto.img_no }" class="card-img" alt="...">
+									</c:when>
+									<c:otherwise>
+										<img src="http://lorempixel.com/400/200/" alt="love" class="card-img">
+									</c:otherwise>
+								</c:choose>
 					<div>
-						<c:choose>
-							<c:when test="${classesDto.img_no > 0}">
-								<img
-									src="${pageContext.request.contextPath }/imgAjax/classes/download/${classesDto.img_no }"
-									class="card-img" alt="...">
-							</c:when>
-							<c:otherwise>
-								<img src="http://lorempixel.com/400/200/" alt="love"
-									class="card-img">
-							</c:otherwise>
-						</c:choose>
 						<div class="row">
-							<div
-								class="col-12 d-flex justify-content-end position-absolute p-0 ml-2"
-								style="top: 45%;">
-								<a
-									href="${pageContext.request.contextPath }/classes/img/setting"
-									onclick="window.open(this.href, '_blank', 'width=305px,height=400px,toolbars=no,scrollbars=no'); return false;">
-									<svg width="1em" height="1em" viewBox="0 0 16 16"
-										class="bi bi-gear" fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
+							<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 45%;">
+								<a href="${pageContext.request.contextPath }/classes/img/setting/${classesDto.c_no}" onclick="window.open(this.href, '_blank', 'width=305px,height=400px,toolbars=no,scrollbars=no'); return false;">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
 										style="width: 30px; height: 30px;">
-									  <path fill-rule="evenodd"
-											d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
-									  <path fill-rule="evenodd"
-											d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
+									  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
+									  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
 									</svg>
 								</a>
 							</div>
@@ -189,25 +171,34 @@ z-index:999;
 					</div>
 					<div class="card-body pb-0">
 						<input type="hidden" class="card-no" value="${classesDto.c_no }">
-						<input type="hidden" class="card-public"
-							value="${classesDto.c_public }">
+						<input type="hidden" class="card-public" value="${classesDto.c_public }">
 						<h5 class="card-title">${classesDto.c_title}</h5>
 						<p class="card-info">${classesDto.c_info}</p>
-						<p class="card-when">
-							<small class="text-muted"> <fmt:parseDate
-									value="${classesDto.c_when}" var="time"
-									pattern="yyyy-MM-dd HH:mm:ss" /> <fmt:formatDate
-									value="${time}" pattern="yyyy-MM-dd" />
+						<p class="card-when"> 
+							<small class="text-muted"> 
+								<fmt:parseDate value="${classesDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 
+								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
 							</small>
 						</p>
-						<span class="badge badge-pill badge-success">${classesDto.c_subscribe}</span>
-						<P style="margin-left: 80px; padding-top: 20px;" class="card-btn">
-							<button type="button" class="btn btn-primary btn-sm editClass"
-								data-target="#classEdit">EDIT</button>
-							<a
-								href="${pageContext.request.contextPath}/classes/delete/${classesDto.c_no}"
-								class="btn btn-warning btn-sm">DELETE</a>
-						</P>
+							<span class="badge badge-pill badge-success">${classesDto.c_subscribe}</span>
+							
+							<!-- 내 클래스일 때는 수정, 삭제 버튼 / 남의 클래스 일 때는 구독버튼이 보이게 -->
+						<c:choose>
+							<c:when test="${classesDto.member_no != userinfo.member_no}">
+								<P style="margin-left: 80px; padding-top: 20px;" class="card-btn">
+									<form action="${pageContext.request.contextPath}/classes/subscribe" method="post">
+										<input type="hidden" name="c_no" value="${classesDto.c_no }">
+										<input type="button" class="btn btn-primary btn-sm subBtn" value="구독">	
+									</form>
+								</P>
+							</c:when>
+							<c:otherwise>
+								<P style="margin-left: 80px; padding-top: 20px;" class="card-btn">
+									<button type="button" class="btn btn-primary btn-sm editClass" data-target="#classEdit">EDIT</button>
+									<a href="${pageContext.request.contextPath}/classes/delete/${classesDto.c_no}" class="btn btn-warning btn-sm">DELETE</a>
+								</P>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -230,11 +221,11 @@ z-index:999;
 						<input type="hidden" name="c_no"> <input type="hidden" name="member_no" value="${userinfo.member_no }"> 
 						<div>
 							<label for="c_title">Class Title :</label>
-							<input type="text" name="c_title">
+							<input type="text" name="c_title" class="modal-content">
 						</div>
 						<div>
 							<label for="c_info">Class Info :</label>
-							<input type="text" name="c_info">
+							<input type="text" name="c_info" class="modal-content">
 						</div>
 						<div>
 							<label for="c_public">Public Check :</label>
@@ -282,8 +273,30 @@ z-index:999;
 			form.submit()
 
 		})
+		// 구독
+		$(".subBtn").click(function(){
+
+		var subDto = {
+				member_no:${userinfo.member_no},
+				c_no:$(this).parent().children("input[name=c_no]").val()
+		}
+		
+		console.log(subDto)
+		
+		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+		 	headers:{
+				'content-type':'application/json',
+		 	}
+		 }).then(resp=>{
+			console.log(resp)
+			$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)
+			 
+	 	})
+	})
 
 	})
+
+
 </script>
 <jsp:include
 	page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

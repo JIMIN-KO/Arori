@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +26,8 @@ public class SubAjaxController {
 	private ClassesService classesService;
 
 	@RequestMapping("/subscribe")
-	public int sub(Model model, HttpSession session, @ModelAttribute SubscribeDto subDto) {
+	public int sub(Model model, HttpSession session, @RequestBody SubscribeDto subDto) {
 	
-		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
 
 		// 클래스 넘버를 이용한 단일조회
 		ClassesDto classesDto = classesDao.get(subDto.getC_no());

@@ -99,7 +99,7 @@
                                     	</form>                            
                                     </li>
                                        <li class="nav-item">
-                                    	<form action="${pageContext.request.contextPath}/classes/mySub/${userinfo.member_no}" method="post">
+                                    	<form action="${pageContext.request.contextPath}/classes/mySub" method="post">
                                     		<input type="hidden" value="${userinfo.member_no}">
                                     		<input type="submit" class="text-white font-weight-bold" value="Subscribe">
                                     	</form>                            
