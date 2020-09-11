@@ -56,6 +56,23 @@
 		INSERT INTO OX VALUES(#{no},#{o_content},#{x_content},#{ox_answer})
 	</insert>
 	
+	<!-- OX 정답 수정 -->
+	<update id="updateOx" parameterType="oxDto">
+		UPDATE 
+			OX 
+		SET 
+			O_CONTENT = #{o_content}, 
+			X_CONTENT = #{x_content}, 
+			OX_ANSWER = #{ox_answer}
+		 WHERE 
+		 	NO = #{no}
+	</update>
+	
+	<!-- OX 정답 삭제 -->
+	<delete id="deleteOx" parameterType="oxDto">
+		DELETE OX WHERE NO = #{no}
+	</delete>
+	
 	<!-- 선다형 답안 시퀀스 -->
 	<select id="getSeqMul" resultType="int">
 		SELECT multiple_seq.NEXTVAL FROM DUAL
@@ -66,14 +83,47 @@
 		INSERT INTO MULTIPLE VALUES(#{no},#{multiple_one},#{multiple_two},#{multiple_three},#{multiple_four},#{multiple_answer})
 	</insert>
 	
-	<!-- 서술형 답안 시퀀스 -->
+	<!-- 선다형 정답 수정 -->
+	<update id="updateMul" parameterType="multipleDto">
+		UPDATE 
+			MULTIPLE 
+		SET 
+			MULTIPLE_ONE = #{multiple_one}, 
+			MULTIPLE_TWO = #{multiple_two},
+			MULTIPLE_THREE = #{multiple_three}, 
+			MULTIPLE_FOUR = #{multiple_four},
+			 MULTIPLE_ANSWER = #{multiple_answer} 
+		WHERE 
+			NO = #{no}
+	</update>
+	
+	<!--선다형 정답 삭제 -->
+	<delete id="deleteMul" parameterType="multipleDto">
+		DELETE MULTIPLE WHERE NO = #{no}
+	</delete>
+	
+	<!-- 단답형 답안 시퀀스 -->
 	<select id="getSeqEx" resultType="int">
 		SELECT explain_seq.NEXTVAL FROM DUAL
 	</select>
 	
-	<!-- 서술형 정답 생성 -->
+	<!-- 단답형 정답 생성 -->
 	<insert id="createEx">
 		INSERT INTO EXPLAIN VALUES(#{no},#{explain_answer})
 	</insert>
-
+	
+	<!-- 단답형 정답 수정 -->
+	<update id="updateEx" parameterType="explainDto">
+		UPDATE 
+			EXPLAIN
+		SET
+			EXPLAIN_ANSWER = #{explain_answer}
+		WHERE
+			NO = #{no}
+	</update>
+	
+	<!-- 단답형 정답 삭제 -->
+	<delete id="deleteEx" parameterType="explainDto">
+		DELETE EXPLAIN WHERE NO = #{no}
+	</delete>
 </mapper>

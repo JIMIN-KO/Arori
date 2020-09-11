@@ -101,6 +101,12 @@
 						  </div>
 						</div>
 						</c:forEach>
+						<div class="row mt-5 mr-4">
+							<div class="col-12 d-flex justify-content-end">
+								<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no }/${quizDto.q_no}" class="btn btn-lg btn-warning font-weight-bold">제출</a>
+								<a href="" class="btn btn-lg btn-primary font-weight-bold">취소</a>
+							</div>
+						</div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
