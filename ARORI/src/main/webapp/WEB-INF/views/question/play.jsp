@@ -116,42 +116,36 @@ $(function(){
 
 				// 비동기로 전달할 객체			
 				var answerValue
+				var inputVal = $(inputPath + ":checked").val()
+				var textVal = $(textPath).val()
 				
-				if($(this).hasClass("qt_1")) {
-					// OX 
-					// 체크된 라디오 value 값 가지고 오기
-					 $(inputPath).on("change",function(){
-						 answerValue = $(inputPath + ":checked").val()
-					 })
-					 
-				}  else if($(this).hasClass("qt_2")) {
-					// 체크된 라디오 value 값 가지고 오기
-					 $(inputPath).on("change",function(){
-						answerValue = $(inputPath + ":checked").val()
-					 })
-				}else if($(this).hasClass("qt_3")) {
-					// 단답형
-					$(textPath).on("blur",function(){
-						answerValue = $(textPath).val()
-					})
+				if(inputVal) {
+					answerValue = inputVal
+					textVal = ""
+				} else if(textVal) {
+					answerValue = textVal
+					inputVal = ""
 				}
+				
+				console.log($(inputPath + ":checked").val())
+				console.log($(textPath).val())
+				
 				var myAnswerDto = {
 						member_no:${userinfo.member_no},
 						q_no:${quizDto.q_no},
 						question_no:questionNo, 
-						answer:$(inputPath + ":checked").val()
+						my_answer:answerValue
 				}
 				if(myAnswerDto[Object.keys(myAnswerDto)[3]]) {
 					console.log(myAnswerDto)
-						axios({
-							url:"/arori/answerAjax/update",
-							method:"post",
-							dataType: "json", 
-					        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-							data:JSON.stringify(myAnswerDto)
-						}).then(function(resp){
-							console.log(resp.data)
-						})
+					 axios.post("/arori/answerAjax/update", JSON.stringify(myAnswerDto), {
+						 	headers:{
+								'content-type':'application/json',
+						 	}
+					 })
+					 .then(resp=>{
+						 console.log(resp.data);
+					 })
 				}
 		})
 })

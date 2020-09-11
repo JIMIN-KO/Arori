@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class MyAnswerAjaxController {
 	
 	@PostMapping("/update")
 	@Transactional
-	public String updateAnswer(@ModelAttribute MyAnswerDto myAnswerDto) {
+	public String updateAnswer(@RequestBody MyAnswerDto myAnswerDto) {
 		// 받아온 데이터 갱신하기 
 		// 1. 회원의 입력값이 정답인지 아닌지 비교
 		
