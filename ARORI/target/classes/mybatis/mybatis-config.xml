@@ -33,7 +33,7 @@
 		<typeAlias type="com.kh.arori.entity.study.This_qDto" alias="this_qDto"/>
 
 		<!-- MC Table -->
-		<typeAlias type="com.kh.arori.entity.study.McDto" alias="mcDto"/>
+		<typeAlias type="com.kh.arori.entity.study.MCIDto" alias="mciDto"/>
 
 		<!-- Readme Table -->
 		<typeAlias type="com.kh.arori.entity.study.ReadmeDto" alias="readmeDto"/>

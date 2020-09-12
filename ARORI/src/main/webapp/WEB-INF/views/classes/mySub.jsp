@@ -58,27 +58,27 @@
 	<div class="col-12 overflow-auto mt-5">
 		<div class="container-fluid">
 			<div class="row">
-				<c:forEach var="classesDto" items="${classesDto}">
+				<c:forEach var="MCIDto" items="${MCIDto}">
 					<div class="col-sm-12 col-md-6 col-lg-3">
 						<div class="card-deck">
   							<div class="card">
   								<c:choose>
-									<c:when test="${classesDto.img_no > 0}">
-										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${classesDto.img_no }" class="card-img" alt="...">
+									<c:when test="${MCIDto.ai_no > 0}">
+										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
 									</c:when>
 									<c:otherwise>
 										<img src="http://lorempixel.com/400/200/" alt="love" class="card-img">
 									</c:otherwise>
 								</c:choose>
    								<div class="card-body">
-      								<h5 class="card-title">${classesDto.c_title}</h5>
-      								<p class="card-info">${classesDto.c_info}</p>
+      								<h5 class="card-title">${MCIDto.c_title}</h5>
+      								<p class="card-info">${MCIDto.c_info}</p>
       								<p class="card-when"><small class="text-muted">
-      								<fmt:parseDate value="${classesDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
+      								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
 									<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/></small></p>
-									<span class="badge badge-pill badge-success subCount">${classesDto.c_subscribe}</span>
+									<span class="badge badge-pill badge-success subCount">${MCIDto.c_subscribe}</span>
 									<div>
-										<input type="hidden" name="c_no" value="${classesDto.c_no }">
+										<input type="hidden" name="c_no" value="${MCIDto.c_no }">
 										<input type="button" class="subBtn" value="구독">	
 									</div>
   								</div>	

@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.arori.entity.study.McDto;
+import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.service.study.ClassesService;
 
 @RestController
@@ -20,7 +21,7 @@ public class SearchAjaxController {
 	private ClassesService classesService;
 	
 	@RequestMapping("/search")
-	public List<McDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption,
+	public List<ClassesDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption,
 			@RequestParam(required = false, defaultValue = "c_when") String col,
 			@RequestParam(required = false, defaultValue = "DESC") String order	
 			){
@@ -31,8 +32,8 @@ public class SearchAjaxController {
 		map.put("col", col);
 		map.put("order", order);
 		
-		List<McDto> list = classesService.searchList(map);
+		// List<ClassesDto> list = classesService.searchList(map);
 		
-		return list;
+		return null;
 	}
 }

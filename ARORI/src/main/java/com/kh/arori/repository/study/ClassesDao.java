@@ -1,7 +1,7 @@
 package com.kh.arori.repository.study;
 
 import com.kh.arori.entity.study.ClassesDto;
-import com.kh.arori.entity.study.McDto;
+import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.entity.study.SubscribeDto;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public interface ClassesDao {
 	List<ClassesDto> getList();
 
 	// 다양한 정렬의 목록
-	List<ClassesDto> getLlist2(Map<String, String> map);
+	List<MCIDto> getMCI(Map<String, String> map);
 
 	// 나의 클래스 조회
 	List<ClassesDto> myList(int member_no);
@@ -34,7 +34,7 @@ public interface ClassesDao {
 	public void delete(int c_no);
 
 	// 검색 기능
-	public List<McDto> searchList(Map<String, String> map);
+	public List<MCIDto> searchList(Map<String, String> map);
 
 	// (성헌) 클래스 주인인지 조회
 	public ClassesDto checkM(ClassesDto classesDto);
@@ -58,5 +58,5 @@ public interface ClassesDao {
 	public void subUpdate(ClassesDto classesDto);
 
 	// 구독 목록 조회
-	List<ClassesDto> mySub(int member_no);
+	List<MCIDto> mySub(int member_no);
 }

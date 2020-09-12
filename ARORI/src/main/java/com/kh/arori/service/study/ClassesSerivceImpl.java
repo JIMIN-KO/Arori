@@ -1,5 +1,6 @@
 package com.kh.arori.service.study;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.arori.entity.study.ClassesDto;
-import com.kh.arori.entity.study.McDto;
+import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.entity.study.SubscribeDto;
 import com.kh.arori.repository.study.ClassesDao;
 
@@ -28,10 +29,16 @@ public class ClassesSerivceImpl implements ClassesService {
 
 	// 클래스 검색 정렬 조회
 	@Override
-	public List<McDto> searchList(Map<String, String> map) {
+	public List<MCIDto> searchList(String keyword, String searchOption, String col, String order) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("col", col);
+		map.put("order", order);
+		
 		return classesDao.searchList(map);
 	}
-	
 	
 	// 구독 
 	public void already(SubscribeDto subDto) {
