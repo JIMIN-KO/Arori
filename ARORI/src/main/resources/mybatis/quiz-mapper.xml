@@ -49,13 +49,14 @@
 		DELETE QUIZ WHERE C_NO = #{c_no} AND Q_NO = #{q_no}
  	</delete>
 
+
+
+	<!-- 회원 영역 -->
 	<!-- 마이 퀴즈 고유 번호 발급 -->
 	<select id="getSeqMQ" resultType="int">
 		SELECT MY_QUIZ_SEQ.NEXTVAL FROM DUAL
 	</select>
 
-
-	<!-- 회원 영역 -->
 	<!-- 내가 풀 / 푼 퀴즈로 등록하기 -->
 	<insert id="insertMQ" parameterType="myQuizDto">
 		INSERT INTO MY_QUIZ VALUES(#{no},#{member_no},#{q_no},SYSDATE)

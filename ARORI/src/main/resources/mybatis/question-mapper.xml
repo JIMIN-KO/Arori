@@ -19,6 +19,11 @@
 		UPDATE ALL_QUESTION SET AQ_CONTENT = #{aq_content} WHERE QUESTION_NO = #{question_no} AND Q_NO = #{q_no}
 	</update>
 	
+	<!-- 퀘스쳔 삭제 -->
+	<delete id="delete" parameterType="allQuestionDto">
+	 	DELETE All_QUESTION WHERE QUESTION_NO = #{question_no}
+	</delete>
+	
 	<!-- 퀘스쳔 단일 조회 -->
 	<select id="get" resultType="allQuestionDto" parameterType="allQuestionDto">
 		SELECT * FROM ALL_QUESTION WHERE Q_NO = #{q_no} AND QUESTION_NO = #{question_no}
