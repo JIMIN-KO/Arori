@@ -166,4 +166,11 @@ public class QuestionDaoImpl implements QuestionDao {
 
 		return sqlSession.delete("question.deleteEx", explainDto);
 	}
+
+	// 정답 통합 삭제
+	@Override
+	public int deleteAnswer(This_qDto this_qDto) {
+
+		return sqlSession.delete("question.deleteAnswer", this_qDto);
+	}
 }

@@ -84,5 +84,13 @@ public class QuizController {
 		model.addAttribute("quizDto", quizDto);
 		return "quiz/quiz_detail";
 	}
+	
+	// 퀴즈 삭제
+	@GetMapping("/classes/quiz/delete/{c_no}/{q_no}")
+	public String delete(@PathVariable int c_no, @PathVariable int q_no) {
+		String path = quizService.delete(c_no, q_no);
+		
+		return path;
+	}
 
 }

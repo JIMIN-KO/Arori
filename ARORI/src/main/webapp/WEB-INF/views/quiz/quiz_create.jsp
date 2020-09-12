@@ -213,7 +213,7 @@
 						</div>
 						<div class="form-row float-right mt-5">
 							<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 등록</button>
-							<button type="button" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</button>
+							<a href="${pageContext.request.contextPath }/classes/quiz/delete/${quizDto.c_no}/${quizDto.q_no}" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>

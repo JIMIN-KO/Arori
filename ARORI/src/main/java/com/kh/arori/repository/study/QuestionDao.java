@@ -39,6 +39,9 @@ public interface QuestionDao {
 	// 퀘스쳔 오작교 데이터 삽입
 	public void insertThis(This_qDto this_qDto);
 
+	// 통합) 정답 삭제
+	public int deleteAnswer(This_qDto this_qDto);
+	
 	// OX
 	// OX 답안 시퀀스
 	public int getSeqOx();

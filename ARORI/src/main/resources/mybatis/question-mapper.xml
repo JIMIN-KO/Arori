@@ -50,6 +50,12 @@
 	</insert>
 	
 	
+	<!-- 정답 통합 영역 -->
+	<!-- 정답 통합 삭제 -->
+	<delete id="deleteAnswer" parameterType="this_qDto">
+		DELETE ${table_name} WHERE NO = #{no}
+	</delete>
+	
 	<!-- 정답 영역 -->
 	<!-- ox답안 시퀀스 -->
 	<select id="getSeqOx" resultType="int">
