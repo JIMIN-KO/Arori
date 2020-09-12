@@ -176,6 +176,7 @@
 						<input type="hidden" class="card-public" value="${MCIDto.c_public }">
 						<h5 class="card-title">${MCIDto.c_title}</h5>
 						<p class="card-info">${MCIDto.c_info}</p>
+						<p class="card-info">${MCIDto.member_nick}</p>
 						<p class="card-when"> 
 							<small class="text-muted"> 
 								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 
