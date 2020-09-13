@@ -378,11 +378,11 @@ const editor2 = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/question/upload/${question_no }" ,
+				url:"/arori/imgAjax/quiz/upload/${quizDto.q_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/question/download/" + resp.data);
+				callback("/arori/imgAjax/quiz/download/" + resp.data);
 			})
 		}
 	}
