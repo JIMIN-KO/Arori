@@ -40,8 +40,8 @@
 $(function(){
 	// 게시글 제목 설정하기 
 	$("#qna_title").on("input",function(){
-		var n_title = $("#qna_title").val()
-		$("input[name=qna_title]").val(n_title)
+		var qna_title = $("#qna_title").val()
+		$("input[name=qna_title]").val(qna_title)
 	})
 	
 	// 게시글 작성하기

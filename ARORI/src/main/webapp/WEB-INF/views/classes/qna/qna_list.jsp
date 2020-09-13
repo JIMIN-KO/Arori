@@ -47,7 +47,9 @@
                                                 	<c:forEach begin="1" end="${list.depth}">
                                                 		&nbsp;&nbsp;
                                                 	</c:forEach>
-                                                RE: 
+		                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+														  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+														</svg>
                                                 </c:if>
                                                 ${list.qna_title }                                              
                                             </label>
@@ -78,8 +80,15 @@
                                         <td colspan="5">
                                             <input type="hidden" class="qna_content" value="${list.qna_content }">
                                             <div class="viewer">
+                                            </div>    
+                                            <div style="float:right; margin-right:40px;">
+	                                            <a href="${pageContext.request.contextPath }/classes/qna/create_reply/${list.c_no}/${list.qna_no}">   
+		                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-reply-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+													  <path d="M9.079 11.9l4.568-3.281a.719.719 0 0 0 0-1.238L9.079 4.1A.716.716 0 0 0 8 4.719V6c-1.5 0-6 0-7 8 2.5-4.5 7-4 7-4v1.281c0 .56.606.898 1.079.62z"/>
+													</svg>
+													답글달기
+	                                            </a>
                                             </div>
-                                            <a href="${pageContext.request.contextPath }/classes/qna/create_reply/${c_no}/${qna_no}">답글달기</a>
                                         </td>
                                     </tr>
                                     </c:forEach>    
@@ -133,6 +142,13 @@
 	}
 
 	$(function(){
+		// 임시 저장 데이터 작성하기 
+		$("#tempSelect").on("change",function(){
+			console.log($("#tempSelect").val())
+			if($("#tempSelect").val() != "") {
+				location.href = $("#tempSelect").val()
+			}
+		})
 		
 	    // 라디오 숨김
 	    $("input[type=radio]").css("display","none")

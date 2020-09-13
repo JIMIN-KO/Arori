@@ -34,14 +34,15 @@ public class QnaServiceImpl implements QnaService{
 	
 	// QNA 새 글 작성
 	@Override
+	@Transactional
 	public int create(List<String> qna_content, String c_no, String qna_title, String member_no) {
-		//
+		// QNA 게시글 고유번호 발급
+		int qna_no = qnaDao.getSeg();
+		
 		String content = toastService.content(qna_content);
 	
-		// QNA 게시글 고유번호
-		int qna_no = qnaDao.getSeg();
-		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(Integer.parseInt(member_no))
-				.qna_no(qna_no).qna_title(qna_title).qna_content(content).group_no(qna_no).build();
+		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(Integer.parseInt(member_no)).qna_no(qna_no)
+				.qna_title(qna_title).qna_content(content).group_no(qna_no).build();
 		
 		// QNA 게시글 작성
 		qnaDto.setQna_no(qna_no);
@@ -55,9 +56,8 @@ public class QnaServiceImpl implements QnaService{
 	public int createReply(List<String> content, QnaDto qnaDto) {
 		String qna_content = toastService.content(content);
 		// QNA 게시글 고유번호
-		//원본글이랑 비교했을 때 depth는 +1 하고싶고 앞에 공백&nbsp; "RE: "를 넣고싶음
-		//super_no는 원본글의 qna_no를 가져오고 싶고 group_no는 원본글의 group_no를 가져오고 싶다 
 		int qna_no = qnaDao.getSeg();
+		
 		qnaDto.setQna_content(qna_content);
 		qnaDto.setQna_title(qnaDto.getQna_title());
 		qnaDto.setSuper_no(qnaDto.getQna_no()); // jsp에서 받아온 부모 글번호를 super_no로 지정 
@@ -70,9 +70,9 @@ public class QnaServiceImpl implements QnaService{
 		System.out.println("depth : " + qnaDto.getDepth());
 		System.out.println("super_no : " + qnaDto.getSuper_no());
 		System.out.println("group_no : " + qnaDto.getGroup_no());
-		
-		
-		return qnaDto.getQna_no();
+	
+		return qna_no;
+//		return qnaDto.getQna_no();
 	}
 	
 	// QNA 게시글 페이지 네이션 기능

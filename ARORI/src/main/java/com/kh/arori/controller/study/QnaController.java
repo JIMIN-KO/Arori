@@ -54,9 +54,9 @@ public class QnaController {
 		// c_no + qna_no 를 단일 조회 
 		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
 		qnaDto = qnaDao.getCQ(qnaDto);
-		// 단일 조회 한 디티오를 모델 어트리부트로 넘겨서 제이에스피에서 연산 후 컨트롤러로 던져주기?
+		// 단일 조회 한 dto를 모델 어트리부트로 넘겨서 제이에스피에서 연산 후 컨트롤러로 던져주기?
 		model.addAttribute("qnaDto", qnaDto);
-		return "/classes/qna/create_reply";
+		return "classes/qna/qna_create_reply";
 	}
 	// QNA 작성 답글
 		@PostMapping("/classes/qna/create_reply")
