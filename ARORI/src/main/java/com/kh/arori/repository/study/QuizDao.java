@@ -34,6 +34,9 @@ public interface QuizDao {
 	// My Quiz > 등록
 	public void insertMQ(MyQuizDto myQuizDto);
 	
+	// My Quiz > 삭제
+	public int deleteMQ(MyQuizDto myQuizDto);
+	
 	// My Quiz > 내가 푼 퀴즈 리스트 조회
 	public List<MyQuizDto> getAMQ(MyQuizDto myQuizDto);
 	

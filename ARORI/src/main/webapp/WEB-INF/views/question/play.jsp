@@ -104,7 +104,7 @@
 						<div class="row mt-5 mr-4">
 							<div class="col-12 d-flex justify-content-end">
 								<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no }/${quizDto.q_no}" class="btn btn-lg btn-warning font-weight-bold">제출</a>
-								<a href="" class="btn btn-lg btn-primary font-weight-bold">취소</a>
+								<button class="btn btn-lg btn-primary font-weight-bold deleteMyAnswer"  data-target="#deleteMyAnswer">취소</button>
 							</div>
 						</div>
                     </div>
@@ -112,7 +112,12 @@
 <script>
 /* 문제 푼 후 업데이트 영역 */
 $(function(){
-	
+
+$('#deleteMyAnswer').modal('hide') // 모달 숨기기 
+
+$(".deleteMyAnswer").click(function(){
+	$('#deleteMyAnswer').modal('show') // 모달 띄우기
+})
 $(".question").on("change",function(){
 
 		// 경로 변수
@@ -208,4 +213,23 @@ setTimeout(function(){
 	    });
 	}
 </script>
+						<div class="modal fade" id="deleteMyAnswer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">퀴즈 나가기</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						       	지금 풀고 계신 페이지를 벗어나시면 퀴즈가 저장되지 않습니다. 나가시겠습니까?
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">창 닫기</button>
+						        <a href="${pageContext.request.contextPath }/classes/myanswer/delete/${quizDto.c_no}/${quizDto.q_no}" type="button" class="btn btn-primary">퀴즈 나가기</a>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

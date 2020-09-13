@@ -10,11 +10,11 @@ import com.kh.arori.entity.study.MyAnswerDto;
 
 @Repository
 public class MyAnswerDaoImpl implements MyAnswerDao {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
-	// 나의 정답 고유 번호 발급 
+	// 나의 정답 고유 번호 발급
 	@Override
 	public int getSeq() {
 
@@ -25,7 +25,7 @@ public class MyAnswerDaoImpl implements MyAnswerDao {
 	@Override
 	public void insert(MyAnswerDto myAnswerDto) {
 		sqlSession.insert("answer.insert", myAnswerDto);
-		
+
 	}
 
 	// 나의 정답 갱신 / 수정
@@ -35,7 +35,14 @@ public class MyAnswerDaoImpl implements MyAnswerDao {
 		return sqlSession.update("answer.update", myAnswerDto);
 	}
 
-	// 나의 정답 조회 > 퀴즈 번호 
+	// 나의 정답 데이터 삭제
+	@Override
+	public int deleete(MyAnswerDto myAnswerDto) {
+
+		return sqlSession.delete("answer.delete", myAnswerDto);
+	}
+
+	// 나의 정답 조회 > 퀴즈 번호
 	@Override
 	public List<MyAnswerDto> get(MyAnswerDto myAnswerDto) {
 
@@ -56,7 +63,7 @@ public class MyAnswerDaoImpl implements MyAnswerDao {
 		return sqlSession.selectList("answer.getInCur", myAnswerDto);
 	}
 
-	// 채점을 위한 해당 퀘스쳔 정보 조회 
+	// 채점을 위한 해당 퀘스쳔 정보 조회
 	@Override
 	public MyAnswerDto check(MyAnswerDto myAnswerDto) {
 

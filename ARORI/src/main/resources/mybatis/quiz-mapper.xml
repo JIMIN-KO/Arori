@@ -84,4 +84,9 @@
 	<select id="getMQ" resultType="myQuizDto" parameterType="myQuizDto">
 		SELECT * FROM MY_QUIZ WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
 	</select>
+	
+	<!-- 내가 푼 퀴즈 데이터 삭제 -->
+	<delete id="deleteMQ" parameterType="myQuizDto">
+		DELETE MY_QUIZ WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
+	</delete>
 </mapper>

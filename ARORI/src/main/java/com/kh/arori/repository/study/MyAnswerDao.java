@@ -15,6 +15,9 @@ public interface MyAnswerDao {
 	// 나의 정답 갱신 / 수정
 	public int update(MyAnswerDto myAnswerDto);
 
+	// 나의 정답 데이터 삭제
+	public int deleete(MyAnswerDto myAnswerDto);
+
 	// 나의 정답 불러오기
 	public List<MyAnswerDto> get(MyAnswerDto myAnswerDto);
 
@@ -23,7 +26,8 @@ public interface MyAnswerDao {
 
 	// 오답만 불러오기
 	public List<MyAnswerDto> getIncur(MyAnswerDto myAnswerDto);
-	
-	// 채점을 위한 해당 퀘스쳔 정보 조회 
+
+	// 채점을 위한 해당 퀘스쳔 정보 조회
 	public MyAnswerDto check(MyAnswerDto myAnswerDto);
+
 }

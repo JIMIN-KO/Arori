@@ -19,6 +19,11 @@
 		UPDATE MY_ANSWER SET MY_ANSWER = '${my_answer}', RESULT = #{result} WHERE MEMBER_NO = #{member_no} AND QUESTION_NO = #{question_no}
 	</update>
 	
+	<!-- 나의 정답 데이터 삭제 -->
+	<delete id="delete" parameterType="myAnswerDto">
+		DELETE MY_ANSWER WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
+	</delete>
+	
 	<!-- 자동 채점을 위한 해당 퀘스쳔 정답 조회 -->
 	<select id="check" resultType="myAnswerDto" parameterType="myAnswerDto">
 		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no} AND QUESTION_NO = #{question_no}
@@ -38,4 +43,5 @@
 	<select id="getIncur" resultType="myAnswerDto" parameterType="myAnswerDto">
 		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no} AND RESULT = 0
 	</select>
+
 </mapper>

@@ -77,6 +77,13 @@ public class QuizDaoImpl implements QuizDao{
 		sqlSession.insert("quiz.insertMQ", myQuizDto);
 	}
 
+	// My Quiz > 내가 푼 퀴즈 삭제
+	@Override
+	public int deleteMQ(MyQuizDto myQuizDto) {
+		
+		return sqlSession.delete("quiz.deleteMQ", myQuizDto);
+	}
+	
 	// My Quiz > 내가 푼 퀴즈 리스트 조회
 	@Override
 	public List<MyQuizDto> getAMQ(MyQuizDto myQuizDto) {
@@ -90,5 +97,6 @@ public class QuizDaoImpl implements QuizDao{
 
 		return sqlSession.selectOne("quiz.getMQ", myQuizDto);
 	}
+
 
 }
