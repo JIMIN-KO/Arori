@@ -2,6 +2,8 @@ package com.kh.arori.controller.study;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +13,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QuizDto;
+import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
+import com.kh.arori.service.study.MyAnswerService;
 import com.kh.arori.service.study.QuizService;
 
 @Controller
 public class QuizController {
 
+	@Autowired
+	private MyAnswerService myAnswerService;
+	
 	@Autowired
 	private QuizService quizService;
 
@@ -91,6 +99,23 @@ public class QuizController {
 		String path = quizService.delete(c_no, q_no);
 		
 		return path;
+	}
+	
+	// 퀴즈 수정
+	@GetMapping("classes/quiz/edit/{c_no}/{q_no}")
+	public String edit(@PathVariable int c_no, @PathVariable int q_no, Model model, HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		
+		// QuizDto 불러오기
+		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_no(q_no).build();
+		quizDto = quizDao.get(quizDto);
+		
+		model.addAttribute("quizDto", quizDto);
+		// All_QUESTION 불러오기
+		List<ThisQuizDto> question = myAnswerService.play(userinfo.getMember_no(), q_no);
+		model.addAttribute("thisQuizDto", question);
+		
+		return "quiz/quiz_edit";
 	}
 
 }
