@@ -6,9 +6,10 @@ import com.kh.arori.entity.study.QnaDto;
 
 public interface QnaService {
 
-	// QNA 작성
+	// QNA 새글 작성
 	public int create(List<String> qna_content, String c_no, String qna_title, String member_no);
 	
+	// QNA 답글작성
 	public int createReply(List<String> content, QnaDto qnaDto);
 	
 	// QNA 게시글 페이지 네이션 기능

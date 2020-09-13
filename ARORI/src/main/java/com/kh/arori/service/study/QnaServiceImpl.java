@@ -46,7 +46,7 @@ public class QnaServiceImpl implements QnaService{
 		// QNA 게시글 작성
 		qnaDto.setQna_no(qna_no);
 		qnaDao.create(qnaDto);	
-		return qna_no;
+		return qna_no;	
 	}
 	
 	// 답글 작성
@@ -63,6 +63,7 @@ public class QnaServiceImpl implements QnaService{
 		qnaDto.setSuper_no(qnaDto.getQna_no()); // jsp에서 받아온 부모 글번호를 super_no로 지정 
 		qnaDto.setDepth(qnaDto.getDepth() + 1); // 부모차수에서 +1 
 		qnaDto.setQna_no(qna_no); // 새로 발급받은 고유 번호 
+		
 		// QNA 게시글 작성
 		qnaDao.createReply(qnaDto);
 		

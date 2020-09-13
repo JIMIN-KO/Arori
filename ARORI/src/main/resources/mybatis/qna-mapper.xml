@@ -37,6 +37,7 @@
 	<select id="getCQ" resultType="qnaDto" parameterType="qnaDto">
 		SELECT * FROM QNA WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
 	</select>
+
 	
 	<!-- 게시글 새 글 작성 중 임시 저장 전체 조회 -->
 	<select id="getCT" resultType="qnaDto" parameterType="qnaDto">
@@ -49,8 +50,22 @@
 	</update>
 	
 	<!-- 게시글 페이지 네이션 -->
+<!-- 	<select id="getP" resultType="qnaDto" parameterType="map"> -->
+<!-- 		SELECT col.qna_no, col.qna_no, col.qna_title, col.qna_content, col.qna_when  -->
+<!-- 		FROM (SELECT ROWNUM rn, qna.*  -->
+<!-- 		FROM QNA qna  -->
+<!-- 		WHERE qna.C_NO = ${c_no}  -->
+<!-- 		AND QNA_STATE = 1 -->
+<!-- 		ORDER BY QNA_NO DESC) col  -->
+<!-- 		WHERE rn BETWEEN ${start} AND ${finish} -->
+<!-- 	</select> -->
 	<select id="getP" resultType="qnaDto" parameterType="map">
-		SELECT col.qna_no, col.qna_no, col.qna_title, col.qna_content, col.qna_when FROM (SELECT ROWNUM rn, qna.* FROM QNA qna WHERE qna.C_NO = ${c_no} AND QNA_STATE = 1 ORDER BY QNA_NO DESC) col WHERE rn BETWEEN ${start} AND ${finish}
+		SELECT 
+		a.qna_no, a.c_no, a.member_no, a.qna_title,
+		a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
+		FROM (SELECT ROWNUM rn, q.* FROM qna q CONNECT BY PRIOR qna_no=super_no
+		START WITH super_no=0
+		ORDER SIBLINGS BY group_no DESC, qna_no ASC) a WHERE a.c_no = 8 AND rn BETWEEN 1 AND 10
 	</select>
 	
 	<!-- 해당 클래스의 게시글 개수 -->

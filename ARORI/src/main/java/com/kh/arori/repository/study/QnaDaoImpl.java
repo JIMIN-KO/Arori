@@ -46,7 +46,7 @@ public class QnaDaoImpl implements QnaDao{
 
 			return sqlSession.selectList("qna.getC", c_no);
 		}
-
+		
 		// QNA 게시글 페이지 네이션 기능
 		@Override
 		public List<QnaDto> getP(Map<String, String> pagination) {
