@@ -27,6 +27,9 @@ public interface AdminService {
 	public List<ClassesDto>getIncome();
 	
 	//회원 + 회원이미지
-	
 	public This_imgDto getImage(int member_no);
+	
+	//비밀번호 확인
+	//비밀번호 확인
+	public int checkPw(AroriMemberDto aroriMemberDto);
 }

@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AroriMemberDto;
@@ -64,7 +66,8 @@ public class AdminController {
 
 	// 소셜 + 아로리) 목록조회
 	@GetMapping("/resultMap")
-	public String resultMap(Model model, Model model2,@ModelAttribute MemberDto memberDto, @ModelAttribute ClassesDto classesDto) {
+	public String resultMap(Model model, Model model2, @ModelAttribute MemberDto memberDto,
+			@ModelAttribute ClassesDto classesDto) {
 
 		List<MemberDto> result = memberDao.resultMap();
 		model.addAttribute("result", result);
@@ -73,11 +76,11 @@ public class AdminController {
 		model.addAttribute("result2", result2);
 
 		int memberCount = adminDao.memberCount(memberDto);
-		model.addAttribute("memberCount",memberCount);
-		
+		model.addAttribute("memberCount", memberCount);
+
 		int classCount = adminDao.classCount(classesDto);
-		model.addAttribute("classCount",classCount);
-		
+		model.addAttribute("classCount", classCount);
+
 		return "admin/resultMap";
 
 	}
@@ -88,9 +91,8 @@ public class AdminController {
 		Map<String, String> param = new HashMap<>();
 		param.put("type", type);
 		param.put("keyword", keyword);
-		List<MemberDto>list = sqlSession.selectList("admin.search", param);
+		List<MemberDto> list = sqlSession.selectList("admin.search", param);
 		model.addAttribute("list1", list);
-
 
 		return "admin/resultMap";
 
@@ -139,7 +141,6 @@ public class AdminController {
 		return "admin/memberProfile";
 	}
 	// 회원 프로필 보기
-
 	@PostMapping("/memberProfile/{member_no}")
 	public String memberProfile(@PathVariable(required = false) int member_no, @ModelAttribute MemberDto memberDto,
 			@ModelAttribute AroriMemberDto aroriMemberDto, @ModelAttribute This_imgDto this_imgDto) {
@@ -153,8 +154,16 @@ public class AdminController {
 		return "/memberProfile/{member_no}";
 	}
 
-	// 회원탈퇴 시키기
+	// 비밀번호 확인
+	@ResponseBody
+	@RequestMapping(value = "/checkPw", method = RequestMethod.POST)
+	public int checkPw(AroriMemberDto aroriMemberDto) {
+		int result = adminService.checkPw(aroriMemberDto);
+		return result;
 
+	}
+	
+	// 회원탈퇴 시키기
 	@GetMapping("/delete")
 	public String memberDelete(@ModelAttribute MemberDto memberDto) {
 
@@ -163,5 +172,4 @@ public class AdminController {
 		return "admin/delete";
 	}
 
-	
 }

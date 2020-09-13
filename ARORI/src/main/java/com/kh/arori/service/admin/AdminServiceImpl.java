@@ -40,6 +40,7 @@ public class AdminServiceImpl implements AdminService {
 		return memberProfile2;
 	}
 
+	//회원탈퇴
 	@Override
 	public void delete(MemberDto memberDto) {
 		memberDao.deleteMember(memberDto);
@@ -58,5 +59,12 @@ public class AdminServiceImpl implements AdminService {
 		This_imgDto getImage = adminDao.getImage(member_no);
 		return getImage;
 	}
+	//비밀번호체크
+	@Override
+	public int checkPw(AroriMemberDto aroriMemberDto) {
+		int result = adminDao.checkPw(aroriMemberDto);
+		return result;
+	}
+
 
 }

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.repository.report.ReportDao;
@@ -33,7 +36,7 @@ public class ReportController {
 	@Autowired
 	private SqlSession sqlSession;
 
-	// 신고글 작성하기
+// 신고글 작성하기
 	@GetMapping("/write")
 	public String write() {
 		return "report/write";
@@ -41,24 +44,41 @@ public class ReportController {
 	}
 
 	@PostMapping("/write")
-	public String write(@ModelAttribute ReportDto reportDto) {
+	public String write(@ModelAttribute ReportDto reportDto, HttpSession session) {
+		session.getAttribute("userinfo");
 		reportService.write(reportDto);
 		return "redirect:/";
 	}
 
-	// 신고글 리스트
+// 신고글 리스트
 	@GetMapping("/list")
 	public String list(Model model, @ModelAttribute ReportDto reportDto) {
+		model.addAttribute("list", reportService.list());
+		int reportCount = reportDao.reportCount(reportDto);
+		model.addAttribute("reportCount", reportCount);
+		return "report/list";
+	}
+
+	@GetMapping("/list_data")
+	@ResponseBody
+	public List<ReportDto> listData(Model model) {
+		List<ReportDto> list = sqlSession.selectList("report.list");
+		return list;
+	}
+
+	// 신고글 리스트
+	@GetMapping("/searchList")
+	public String searchList(Model model, @ModelAttribute ReportDto reportDto) {
 
 		model.addAttribute("list", reportService.list());
 
 		int reportCount = reportDao.reportCount(reportDto);
 		model.addAttribute("reportCount", reportCount);
-		return "report/list";
+		return "report/searchList";
 
 	}
 
-	// 신고별 검색
+// 신고별 검색
 	@PostMapping("/search")
 	public String search(@RequestParam String type, @RequestParam String keyword, Model model) {
 
@@ -68,7 +88,7 @@ public class ReportController {
 		List<ReportDto> list = sqlSession.selectList("report.search", param);
 		model.addAttribute("list", list);
 
-		return "report/list";
+		return "report/searchList";
 
 	}
 

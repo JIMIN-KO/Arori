@@ -4,6 +4,7 @@ package com.kh.arori.repository.admin;
 import java.util.List;
 
 import com.kh.arori.entity.img.This_imgDto;
+import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.entity.study.ClassesDto;
@@ -32,4 +33,8 @@ public interface AdminDao {
 	
 	//멤버 총 개수
 	public int memberCount(MemberDto memberDto);
+
+	//비밀번호 확인
+	public int checkPw(AroriMemberDto aroriMemberDto);
+	
 }

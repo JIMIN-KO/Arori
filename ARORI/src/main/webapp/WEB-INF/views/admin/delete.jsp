@@ -15,7 +15,7 @@
 	}
 </script>
 
-<form action="delete" method="get">
+<form action="delete" method="get" name="">
 <h1 class="font-weight-bold mt-4">회원 탈퇴</h1>
 	<table class="table table-hover">
 	<tr>

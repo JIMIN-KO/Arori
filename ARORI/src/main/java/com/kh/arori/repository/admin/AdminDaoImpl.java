@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.arori.entity.img.This_imgDto;
+import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 
@@ -24,7 +25,7 @@ public class AdminDaoImpl implements AdminDao {
 
 	}
 
-	//관리자가 보는 나의 클래수 개수
+	// 관리자가 보는 나의 클래수 개수
 	@Override
 	public int classCount(int member_no) {
 		int count = 0;
@@ -32,25 +33,25 @@ public class AdminDaoImpl implements AdminDao {
 		return count;
 	}
 
-	//페이지네이션
+	// 페이지네이션
 	@Override
 	public int totalCnt() {
 		return sqlSession.selectOne("admin.count");
 	}
-	
-	//관리자가 보는 클래스리스트
+
+	// 관리자가 보는 클래스리스트
 	@Override
 	public List<ClassesDto> getIncome() {
 		return sqlSession.selectList("admin.classList");
 	}
 
-	//관리자가 보는 멤버회원이미지
+	// 관리자가 보는 멤버회원이미지
 	@Override
 	public This_imgDto getImage(int member_no) {
 		return sqlSession.selectOne("admin.memberImage", member_no);
 	}
 
-	////관리자가 보는 클래스카운트
+	//// 관리자가 보는 클래스카운트
 	@Override
 	public int classCount(ClassesDto classesDto) {
 		int classCount = 0;
@@ -59,13 +60,20 @@ public class AdminDaoImpl implements AdminDao {
 		return classCount;
 	}
 
-	//관리자가 보는 멤버카운트
+	// 관리자가 보는 멤버카운트
 	@Override
 	public int memberCount(MemberDto memberDto) {
 		int memberCount = 0;
 
 		memberCount = sqlSession.selectOne("admin.memberCount", memberDto);
 		return memberCount;
+	}
+
+	@Override
+	public int checkPw(AroriMemberDto aroriMemberDto) {
+		int result=0;
+		result = sqlSession.selectOne("admin.checkPw",aroriMemberDto);
+		return result;
 	}
 
 }

@@ -79,19 +79,24 @@
 		WHERE instr(${type},#{keyword})>0 ORDER BY m.member_no ASC
 	</select>
 
-	<!--  총 클래스 카운트 -->
+	<!-- 총 클래스 카운트 -->
 	<select id="classCount" resultType="int"
 		parameterType="classesDto">
 		SELECT count(*)FROM CLASSES
 
 	</select>
-	
+
 	<!-- 총 멤버 카운트 -->
 	<select id="memberCount" resultType="int"
 		parameterType="memberDto">
 		SELECT count(*)FROM MEMBER
 	</select>
 
+	<!-- 암호화 설정한 비밀번호 확인 -->
+	<select id="checkPw" resultType="int">
+		SELECT count(*) FROM arori_MEMBER WHERE MEMBER_NO =#{member_no} AND
+		member_pw=fn_encrypt(#{member_pw})
+	</select>
 
 
 </mapper>
