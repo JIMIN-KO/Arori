@@ -40,6 +40,7 @@ public class QuestionController {
 		quizDto = quizDao.get(quizDto);
 		
 		model.addAttribute("quizDto",quizDto);
+		model.addAttribute("c_no", quizDto.getC_no());
 		
 		List<ThisQuizDto> question = myAnswerService.play(userinfo.getMember_no(), q_no);
 		

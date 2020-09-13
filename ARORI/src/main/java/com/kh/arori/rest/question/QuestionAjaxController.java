@@ -16,10 +16,7 @@ import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.ExplainDto;
 import com.kh.arori.entity.study.MultipleDto;
 import com.kh.arori.entity.study.OxDto;
-import com.kh.arori.entity.study.ThisQuizDto;
-import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.service.study.QuestionService;
-import com.kh.arori.service.toast.ToastService;
 import com.kh.arori.vo.ThisQuizVo;
 
 @RestController
@@ -28,12 +25,6 @@ public class QuestionAjaxController {
 
 	@Autowired
 	private QuestionService questionService;
-
-	@Autowired
-	private ToastService toastService;
-
-	@Autowired
-	private QuestionDao questionDao;
 
 	// OX 퀘스쳔 생성
 	@PostMapping("/create/ox")

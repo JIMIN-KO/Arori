@@ -15,4 +15,7 @@ public interface QuizService {
 	// 퀴즈 및 해당 퀘스쳔 정보 삭제
 	public String delete(int c_no, int q_no);
 	
+	// 퀴즈 날짜 형식 변환
+	public QuizDto dateFormat(QuizDto quizDto) throws Exception;
+	
 }

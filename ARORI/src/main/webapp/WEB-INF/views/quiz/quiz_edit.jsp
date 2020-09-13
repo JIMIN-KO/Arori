@@ -24,11 +24,11 @@
 						<div class="tab-content" id="myTabContent">
 						  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 							  <!-- 퀴즈 생성 영역 -->
-							<form action="${pageContext.request.contextPath }/classes/quiz/edit" method="post" id="quizDetail">
+							<form action="${pageContext.request.contextPath }/classes/quiz/create" method="post" id="quizDetail">
 								<!-- 퀴즈 숨김 데이터 영역 -->
 								<input type="hidden" name="c_no" value="${quizDto.c_no }">
 								<input type="hidden" name="q_no" value="${quizDto.q_no }">
-								<input type="hidden" name="content">
+								<input type="hidden" name="content" id="quizDetailContent">
 								<!-- 퀴즈 제목 영역 -->
 								<div class="input-group input-group-lg mt-3">
 									<div class="input-group-prepend">
@@ -81,7 +81,7 @@
 							</form>
 						  </div>
 						  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-						  		<div class="accordion mt-5 mb-5" id="accordionExample">
+						  		<div class="accordion mt-5 mb-5 ml-3 mr-3" id="accordionExample">
 						  			<c:set var="index" value="0"></c:set>
 						  			<c:set var="q_index" value="1"></c:set>
 									<c:forEach var="thisQuizDto" items="${thisQuizDto }">
@@ -115,19 +115,19 @@
 															  <div class="input-group-prepend">
 															    <span class="input-group-text">O</span>
 															  </div>
-															  <input type="text" name="o_content" class="form-control" value="${thisQuizDto.o_content }" placeholder="O > 지문을 입력해주세요.">
+															  <input type="text" class="form-control" value="${thisQuizDto.o_content }" placeholder="O > 지문을 입력해주세요.">
 															</div>
 															<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
 															    <span class="input-group-text">X</span>
 															  </div>
-															  <input type="text" name="x_content" class="form-control"  value="${thisQuizDto.x_content }" placeholder="X > 지문을 입력해주세요.">
+															  <input type="text" class="form-control"  value="${thisQuizDto.x_content }" placeholder="X > 지문을 입력해주세요.">
 															</div>
 															<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
 															    <label class="input-group-text" id="inputGroup-sizing-lg">정답을 지정해주세요.</label>
 															  </div>
-															  <select class="custom-select" name="ox_answer">
+															  <select class="custom-select">
 															    <option disabled="disabled">정답 선택</option>
 															    <option value="0" <c:if test="${thisQuizDto.ox_answer == 0 }">selected</c:if>>O</option>
 															    <option value="1" <c:if test="${thisQuizDto.ox_answer == 1 }">selected</c:if>>X</option>
@@ -147,31 +147,31 @@
 															  <div class="input-group-prepend">
 															    <span class="input-group-text">1.</span>
 															  </div>
-															  <textarea class="form-control" name="multiple_one">${thisQuizDto.multiple_one }</textarea>
+															  <textarea class="form-control">${thisQuizDto.multiple_one }</textarea>
 															</div>
 															<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
 															    <span class="input-group-text">2.</span>
 															  </div>
-															  <textarea class="form-control" name="multiple_two">${thisQuizDto.multiple_two }</textarea>
+															  <textarea class="form-control">${thisQuizDto.multiple_two }</textarea>
 															</div>
 															<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
 															    <span class="input-group-text" >3.</span>
 															  </div>
-															  <textarea class="form-control" name="multiple_three">${thisQuizDto.multiple_three }</textarea>
+															  <textarea class="form-control">${thisQuizDto.multiple_three }</textarea>
 															</div>
 															<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
 															    <span class="input-group-text">4.</span>
 															  </div>
-															  <textarea class="form-control" name="multiple_four">${thisQuizDto.multiple_four }</textarea>
+															  <textarea class="form-control">${thisQuizDto.multiple_four }</textarea>
 															</div>
 															<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
 															    <label class="input-group-text" id="inputGroup-sizing-lg">정답을 지정해주세요.</label>
 															  </div>
-															  <select class="custom-select" name="multiple_answer">
+															  <select class="custom-select">
 															    <option disabled="disabled" selected>정답 선택</option>
 															    <option value="1" <c:if test="${thisQuizDto.multiple_answer == 1 }">selected</c:if>>1번</option>
 															    <option value="2" <c:if test="${thisQuizDto.multiple_answer == 2 }">selected</c:if>>2번</option>
@@ -194,7 +194,7 @@
 																  <div class="input-group-prepend">
 																    <span class="input-group-text">단답형 정답</span>
 																  </div>
-																  <textarea class="form-control" name="explain_answer">${thisQuizDto.explain_answer }</textarea>
+																  <textarea class="form-control">${thisQuizDto.explain_answer }</textarea>
 																</div>
 												  		</form>
 										 			</c:otherwise>
@@ -369,10 +369,6 @@ $(function(){
 			
 			if(qt_no == 1) {
 				// OX 
-				console.log($(editForm[2]).children("input").val())
-				console.log($(editForm[3]).children("input").val())
-				console.log($(editForm[4]).children("select").val())
-				
 				frm = {
 					question_no:question_no,
 					q_no:q_no,
@@ -385,12 +381,6 @@ $(function(){
 				path = "ox"
 			} else if(qt_no == 2) {
 				// 선다형
-				console.log($(editForm[2]).children("textarea").val())
-				console.log($(editForm[3]).children("textarea").val())
-				console.log($(editForm[4]).children("textarea").val())
-				console.log($(editForm[5]).children("textarea").val())
-				console.log($(editForm[6]).children("select").val())
-
 				frm = {
 					question_no:question_no,
 					q_no:q_no,
@@ -405,8 +395,6 @@ $(function(){
 				path = "multiple"
 			} else {
 				// 단답형
-				console.log($(editForm[2]).children("textarea").val())
-
 				frm = {
 					question_no:question_no,
 					q_no:q_no,
@@ -473,7 +461,7 @@ $(function(){
  // 최종 퀴즈 저장
  $(function(){
 		$("#save").click(function(){
-			$("input[name=content]").val(editor.getMarkdown())
+			$("#quizDetailContent").val(editor.getMarkdown())
 			document.querySelector("#quizDetail").submit()
 		})
 	})
