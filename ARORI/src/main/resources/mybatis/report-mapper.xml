@@ -31,13 +31,16 @@
 	<select id="search" resultType="reportDto" parameterType="map">
 		SELECT
 		* FROM report WHERE instr(${type},#{keyword})>0 ORDER BY report_no
-		DESC
+		asc
 	</select>
 
 	<!-- 공지 게시글 페이지 네이션 -->
 	<select id="page" resultType="reportDto" parameterType="map">
-		SELECT col.report_no, col.report_member, col.report_type, col.report_content, col.report_crimi ,col.report_date FROM (SELECT ROWNUM rn, report.* FROM report report WHERE report_no>0 
-ORDER BY report_no DESC) col WHERE rn BETWEEN ${start} AND ${finish}
+		SELECT
+		col.report_no, col.report_member, col.report_type, col.report_content,
+		col.report_crimi ,col.report_date FROM (SELECT ROWNUM rn, report.*
+		FROM report report WHERE report_no>0
+		ORDER BY report_no DESC) col WHERE rn BETWEEN ${start} AND ${finish}
 	</select>
 
 
@@ -47,6 +50,17 @@ ORDER BY report_no DESC) col WHERE rn BETWEEN ${start} AND ${finish}
 		COUNT(*) FROM report WHERE report_no = #{report_no}
 	</select>
 
+	<!--내가 신고한 접수내역 개수 -->
+	<!-- SELECT count(*) FROM report INNER JOIN MEMBER ON REPORT.REPORT_MEMBER 
+		= MEMBER.MEMBER_ID WHERE report_member='tester' -->
+
+	<!--내가 신고한 접수내역 SELECT *FROM report INNER JOIN MEMBER ON REPORT.REPORT_MEMBER 
+		= MEMBER.MEMBER_ID WHERE report_member='tester' -->
+
+	<!-- 총 신고접수된 신고갯수 -->
+	<select id="reportCount" resultType="int" parameterType="reportDto">
+		SELECT count(*) FROM report
+	</select>
 </mapper>
 
 

@@ -10,6 +10,7 @@
 
 <table class="table table-hover">
 	<h1>신고 접수 리스트</h1>
+	<th>총 신고된 접수 내역은 ${reportCount} 건 입니다.<th>
 	<tr>
 		<th scope="col">번호</th>
 		<th scope="col">신고 접수자</th>
@@ -60,10 +61,6 @@
 		</tr>
 	</form>
 	
-	
-	
-
-
 </table>
 <jsp:include
 	page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>

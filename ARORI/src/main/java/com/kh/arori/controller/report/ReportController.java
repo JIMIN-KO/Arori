@@ -47,13 +47,16 @@ public class ReportController {
 	}
 
 	// 신고글 리스트
-		@GetMapping("/list")
-		public String list(Model model) {
+	@GetMapping("/list")
+	public String list(Model model, @ModelAttribute ReportDto reportDto) {
 
-			model.addAttribute("list", reportService.list());
-			return "report/list";
+		model.addAttribute("list", reportService.list());
 
-		}
+		int reportCount = reportDao.reportCount(reportDto);
+		model.addAttribute("reportCount", reportCount);
+		return "report/list";
+
+	}
 
 	// 신고별 검색
 	@PostMapping("/search")

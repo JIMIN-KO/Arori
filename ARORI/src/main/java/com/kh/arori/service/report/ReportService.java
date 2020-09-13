@@ -1,3 +1,4 @@
+
 package com.kh.arori.service.report;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface ReportService {
 
 	// 페이지네이션 개수
 	public List<Integer> pagination(int report_no, int pageNo);
+	
+
 }
 

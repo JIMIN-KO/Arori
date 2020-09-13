@@ -25,4 +25,7 @@ public interface ReportDao {
 
 	// 페이지네이션 게시글 개수 조회
 	public int count(int report_no);
+
+	//신고글 개수
+	public int reportCount(ReportDto reportDto);
 }

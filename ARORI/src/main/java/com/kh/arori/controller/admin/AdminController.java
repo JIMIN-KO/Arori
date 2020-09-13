@@ -4,8 +4,9 @@ package com.kh.arori.controller.admin;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
@@ -58,11 +60,11 @@ public class AdminController {
 	}
 
 	// 아로리 회원 이미지 불러오기
-
+	// 신고별 검색
 
 	// 소셜 + 아로리) 목록조회
 	@GetMapping("/resultMap")
-	public String resultMap(Model model, Model model2) {
+	public String resultMap(Model model, Model model2,@ModelAttribute MemberDto memberDto, @ModelAttribute ClassesDto classesDto) {
 
 		List<MemberDto> result = memberDao.resultMap();
 		model.addAttribute("result", result);
@@ -70,10 +72,29 @@ public class AdminController {
 		List<MemberDto> result2 = memberDao.resultMap2();
 		model.addAttribute("result2", result2);
 
+		int memberCount = adminDao.memberCount(memberDto);
+		model.addAttribute("memberCount",memberCount);
+		
+		int classCount = adminDao.classCount(classesDto);
+		model.addAttribute("classCount",classCount);
+		
 		return "admin/resultMap";
 
 	}
 
+	@PostMapping("/search")
+	public String search(@RequestParam String type, @RequestParam String keyword, Model model) {
+
+		Map<String, String> param = new HashMap<>();
+		param.put("type", type);
+		param.put("keyword", keyword);
+		List<MemberDto>list = sqlSession.selectList("admin.search", param);
+		model.addAttribute("list1", list);
+
+
+		return "admin/resultMap";
+
+	}
 	// 소셜+아로리) 아이디 단일조회 (관리자만 가능)
 
 	// 소셜 + 아로리) 상세정보변경
@@ -142,4 +163,5 @@ public class AdminController {
 		return "admin/delete";
 	}
 
+	
 }

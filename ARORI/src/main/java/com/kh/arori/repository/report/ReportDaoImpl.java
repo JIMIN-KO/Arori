@@ -50,4 +50,12 @@ public class ReportDaoImpl implements ReportDao {
 		return sqlSession.selectOne("report.count", report_no);
 	}
 
+	@Override
+	public int reportCount(ReportDto reportDto) {
+		int reportCount = 0;
+
+		reportCount = sqlSession.selectOne("report.reportCount", reportDto);
+		return reportCount;
+	}
+
 }

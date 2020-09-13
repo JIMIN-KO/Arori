@@ -19,17 +19,18 @@
 	</h1>
 	<table class="table table-hover">
 		<tbody>
-		<tr>
-<img src="${pageContext.request.contextPath}/imgAjax/notice/download/${this_no }"/>
-이미지가 아직 없어서 안뜨는중
-</tr> 
+			<tr>
+				<img
+					src="${pageContext.request.contextPath}/imgAjax/notice/download/${this_no }" />
+				이미지가 아직 없어서 안뜨는중
+			</tr>
 			<tr>
 				<th scope="col">NO</th>
 				<td><input type="text" class="form-control"
 					value="${memberDto.member_no}" readonly="readonly"></td>
 			</tr>
 
-			
+
 			<tr>
 				<th scope="col">ID</th>
 				<td><input type="text" class="form-control"

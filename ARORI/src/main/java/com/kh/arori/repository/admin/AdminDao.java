@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.entity.study.ClassesDto;
 
 
@@ -25,4 +26,10 @@ public interface AdminDao {
 	
 	//회원+회원이미지 불러오기
 	public This_imgDto getImage(int member_no);
+	
+	//클래스 총 개수
+	public int classCount(ClassesDto classesDto);
+	
+	//멤버 총 개수
+	public int memberCount(MemberDto memberDto);
 }
