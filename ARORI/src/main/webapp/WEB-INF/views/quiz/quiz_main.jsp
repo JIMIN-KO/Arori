@@ -59,7 +59,7 @@
 													  <path fill-rule="evenodd" d="M6.012 3.5a.5.5 0 0 1 .359.165l9.146 8.646A.5.5 0 0 1 15.5 13L14 14.5a.5.5 0 0 1-.756-.056L4.598 5.297a.5.5 0 0 1 .048-.65l1-1a.5.5 0 0 1 .366-.147z"/>
 													</svg>
 	                                        		</a>
-	                                        		<a class="text-danger font-weight-bold ml-3" href="${pageContext.request.contextPath }/classes/quiz/delete/${quizDto.c_no}/${quizDto.q_no}">
+	                                        		<a class="text-danger font-weight-bold ml-3 deletepopup" data-target="#deleteQuiz" data-cno="${quizDto.c_no }" data-qno="${quizDto.q_no }">
 	                                        			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 													  <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
 													</svg>
@@ -92,6 +92,36 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
+$('#deleteQuiz').modal('hide')
+$(".deletepopup").click(function(){
 	
+	var c_no = $(this).data("cno")
+	var q_no = $(this).data("qno")
+	var path = "${pageContext.request.contextPath}/classes/quiz/delete/" + c_no + "/" + q_no
+	$(".deleteBtn").attr("href",path)
+	
+	$('#deleteQuiz').modal('show')	
+})
 </script>
+<div class="modal fade" id="deleteQuiz" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">퀴즈 삭제</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	삭제하시면 되돌릴 수 없습니다.
+       	<br>
+       	해당 퀴즈를 삭제하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">창 닫기</button>
+        <a type="button" class="btn btn-primary deleteBtn">삭제하기</a>
+      </div>
+    </div>
+  </div>
+</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
