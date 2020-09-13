@@ -58,7 +58,9 @@
 	<!-- 해당 퀴즈에 대한 오작교 정보 가지고 오기 -->
 	<select id="getThis_q" resultMap="this_q" parameterType="quizDto">
 		SELECT 
-			QUESTION_NO, QT_NO, THIS_NO FROM THIS_Q 
+			QUESTION_NO, QT_NO, THIS_NO 
+		FROM 
+			THIS_Q 
 		WHERE 
 			Q_NO =  #{q_no}
 		ORDER BY QUESTION_NO ASC

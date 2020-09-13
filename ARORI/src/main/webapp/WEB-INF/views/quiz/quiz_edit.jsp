@@ -24,7 +24,7 @@
 						<div class="tab-content" id="myTabContent">
 						  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 							  <!-- 퀴즈 생성 영역 -->
-							<form action="${pageContext.request.contextPath }/classes/quiz/create" method="post" id="quizDetail">
+							<form action="${pageContext.request.contextPath }/classes/quiz/edit" method="post" id="quizDetail">
 								<!-- 퀴즈 숨김 데이터 영역 -->
 								<input type="hidden" name="c_no" value="${quizDto.c_no }">
 								<input type="hidden" name="q_no" value="${quizDto.q_no }">
@@ -82,32 +82,34 @@
 						  </div>
 						  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 						  		<div class="accordion mt-5 mb-5" id="accordionExample">
+						  			<c:set var="index" value="0"></c:set>
+						  			<c:set var="q_index" value="1"></c:set>
 									<c:forEach var="thisQuizDto" items="${thisQuizDto }">
 									  <div class="card">
 									    <div class="card-header bg-primary font-weight-bold text-white" id="heading${thisQuizDto.question_no }">
 									      <h2 class="mb-0">
-									        <button class="btn btn-link btn-block text-left text-white h3" type="button" data-toggle="collapse" data-target="#collapse${thisQuizDto.question_no }" aria-expanded="true" aria-controls="collapse${thisQuizDto.question_no }">
-									          ${thisQuizDto.question_no }
+									        <button class="btn btn-link btn-block text-left text-white p-2" type="button" data-toggle="collapse" data-target="#collapse${thisQuizDto.question_no }" aria-expanded="true" aria-controls="collapse${thisQuizDto.question_no }" style="font-size: large;">
+									        		Q${q_index}
 									        </button>
+									        <c:set var="q_index" value="${q_index + 1 }"></c:set>
 									      </h2>
 									    </div>
 									
 									    <div id="collapse${thisQuizDto.question_no }" class="collapse" aria-labelledby="heading${thisQuizDto.question_no }" data-parent="#accordionExample">
 									      <div class="card-body">
-									        <div class="editor3 mb-5"></div>
-										<input type="hidden" value="${thisQuizDto.aq_content }">
+									        <div class="editor3 mb-5" data-index="${index }"></div>
+									        <c:set var="index" value="${index + 1 }"></c:set>
+											<input type="hidden" value="${thisQuizDto.aq_content }">
 										 	<div>
 										 		<c:choose>
 										 			<c:when test="${thisQuizDto.qt_no == 1 }">
 												  		<!-- OX -->
-										 				<form class="ox2" >
+										 				<form class="editForm" >
 												  			<!-- 숨김 영역 -->
 												  			<!-- question_no -->
 												  			<input type="hidden" name="question_no" value="${thisQuizDto.question_no }">
 												  			<!-- q_no -->
 												  			<input type="hidden" name="q_no" value="${thisQuizDto.q_no }">
-												  			<!-- aq_content -->
-												  			<input type="hidden" name="content">
 													        <!--ox답변 영역-->
 													        	<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
@@ -135,13 +137,11 @@
 										 			</c:when>
 										 			<c:when test="${thisQuizDto.qt_no == 2 }">
 										 				<!-- 선다형 -->
-												  		<form class="multiple2">
+												  		<form class="editForm">
 												  			<!-- question_no -->
 												  			<input type="hidden" name="question_no" value="${thisQuizDto.question_no }">
 												  			<!-- q_no -->
 												  			<input type="hidden" name="q_no" value="${thisQuizDto.q_no }">
-												  			<!-- aq_content -->
-												  			<input type="hidden" name="content">
 													        <!--선다형 답변 영역-->
 													       	<div class="input-group mb-3 input-group-lg">
 															  <div class="input-group-prepend">
@@ -183,14 +183,12 @@
 										 			</c:when>
 										 			<c:otherwise>
 										 				<!-- 단답형 -->
-												  		<form class="explain2">
+												  		<form class="editForm">
 												  			<!-- 숨김 영역 -->
 												  			<!-- question_no -->
 												  			<input type="hidden" name="question_no" value="${thisQuizDto.question_no }">
 												  			<!-- q_no -->
 												  			<input type="hidden" name="q_no" value="${thisQuizDto.q_no }">
-												  			<!-- aq_content -->
-												  			<input type="hidden" name="content">
 													        <!--단답형 답변 영역-->
 													            <div class="input-group mb-3 input-group-lg">
 																  <div class="input-group-prepend">
@@ -201,7 +199,7 @@
 												  		</form>
 										 			</c:otherwise>
 										  		</c:choose>
-										  		<button type="button" class="btn btn-lg btn-warning font-weight-bold btn-block mt-5 mb-3">수정하기</button>
+										  		<button type="button" class="btn btn-lg btn-warning font-weight-bold btn-block mt-5 mb-3 editQuestionBtn" data-type="${thisQuizDto.qt_no }">수정하기</button>
 										  	</div>	
 									      </div>
 									    </div>
@@ -346,6 +344,92 @@
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
+$(function(){
+	// 기존의 퀘스쳔 수정 시
+	$(".editQuestionBtn").click(function(){
+			
+			// question_no / q_no / aq_content 데이터 (정답 유형 공통 데이터)
+			var editForm = $(this).parents(".card-body").children("input[type=hidden]").next().children(".editForm").children() // 해당 카드의 form 영역
+
+			var question_no = $(editForm[0]).val()
+			var q_no = $(editForm[1]).val()
+			
+			// Editor value
+			var index = $(this).parents(".card-body").children(".editor3").data("index") // 해당 카드의 editor3 의 인덱스 번호
+			var markdown = editor3[index].getMarkdown() // 해당 카드의 editor3 의 markdown 데이터
+
+			console.log(question_no)
+			console.log(q_no)
+			console.log(markdown)
+
+			// 유형 조회
+			var qt_no = $(this).data("type")
+			var frm // 정답 유형 별 Dto
+			var path // 유형 별 이름
+			
+			if(qt_no == 1) {
+				// OX 
+				console.log($(editForm[2]).children("input").val())
+				console.log($(editForm[3]).children("input").val())
+				console.log($(editForm[4]).children("select").val())
+				
+				frm = {
+					question_no:question_no,
+					q_no:q_no,
+					content:[editor3[index].getMarkdown()],
+					o_content:$(editForm[2]).children("input").val(),
+					x_content:$(editForm[3]).children("input").val(),
+					ox_answer:$(editForm[4]).children("select").val()
+				}
+
+				path = "ox"
+			} else if(qt_no == 2) {
+				// 선다형
+				console.log($(editForm[2]).children("textarea").val())
+				console.log($(editForm[3]).children("textarea").val())
+				console.log($(editForm[4]).children("textarea").val())
+				console.log($(editForm[5]).children("textarea").val())
+				console.log($(editForm[6]).children("select").val())
+
+				frm = {
+					question_no:question_no,
+					q_no:q_no,
+					content:[editor3[index].getMarkdown()],
+					multiple_one:$(editForm[2]).children("textarea").val(),
+					multiple_two:$(editForm[3]).children("textarea").val(),
+					multiple_three:$(editForm[4]).children("textarea").val(),
+					multiple_four:$(editForm[5]).children("textarea").val(),
+					multiple_answer:$(editForm[6]).children("select").val()
+				}
+
+				path = "multiple"
+			} else {
+				// 단답형
+				console.log($(editForm[2]).children("textarea").val())
+
+				frm = {
+					question_no:question_no,
+					q_no:q_no,
+					content:[editor3[index].getMarkdown()],
+					explain_answer:$(editForm[2]).children("textarea").val()
+				}
+
+				path = "explain"
+			}
+
+			console.log(frm)
+
+			axios.post("/arori/questionAjax/update/"+path, frm, {
+				 	headers:{
+						/* 'content-type':'application/json', */
+				 	}
+			 }) .then(resp=>{
+
+			})
+			
+		})
+})
+
  $(function(){
 			// 퀴즈 컨텐트(q_content) -> 에디터에 삽입
 			editor.setMarkdown($("#q_content").val())
@@ -357,7 +441,8 @@
 
             //시작하자마자 .question-add 를 하나 추가용으로 백업
             var backup = $(".question-add").first().clone();
-            
+
+            // 새로운 퀘스쳔 추가 시 유형 별 생성 화면 출력
             $(".type_select").change(function(){
           
                 var state = $(this).val();
@@ -382,18 +467,9 @@
                 }
               	console.log($(".add").val())
             });
-
-            //form버튼 
-            function qsubmit() {
-                return true;
-            }
-            function qsubmit2() {
-                frm.action="create";
-                frm.submit();
-                return true;
-            }
                 
         });
+ 
  // 최종 퀴즈 저장
  $(function(){
 		$("#save").click(function(){
@@ -402,7 +478,7 @@
 		})
 	})
 
-// 퀘스쳔 저장
+// 새로 추가한 퀘스쳔 저장
 $(function(){
 	var backup = $(".question-list").first().clone()
 		
@@ -432,8 +508,6 @@ $(function(){
 								var ox_answer = $("select[name=ox_answer]").val()
 								string = "O : " + o_content + "<br>X : " + x_content + "<br><br>정답 : " + ox_answer
 
-								/* $(".question-list").first().children().children(".col-11").text("OX 문제") */
-								/* $(".question-list").first().children().children(".question-content").html(string) */
 								questionType[questionType.length - 1].innerHTML = "OX 문제"
 							
 							} else if(add == "multiple") {
@@ -444,14 +518,11 @@ $(function(){
 								var answer = $("select[name=multiple_answer]").val()
 								string = "1번 : " + one + "<br>2번 : " + two + "<br>3번 : " + three + "<br>4번 : " + four + "<br><br>정답 : " + answer + "번"
 
-								/* $(".question-list").first().children().children(".col-11").text("선다형 문제") */
-								/* $(".question-list").first().children().children(".question-content").text(string) */
 								questionType[questionType.length - 1].innerHTML = "선다형 문제"
 							} else {
 								var explain_answer = $("textarea[name=explain_answer]").val()
 								string = "정답 : " + explain_answer
-								/* $(".question-list").first().children().children(".col-11").text("단답형 문제") */
-								/* $(".question-list").first().children().children(".question-content").text(string) */
+
 								questionType[questionType.length - 1].innerHTML = "단답형 문제"
 							}	
 							questionContent[questionContent.length - 1].innerHTML = string
@@ -460,7 +531,7 @@ $(function(){
 		})
 })
  
-//Toast Ui Editor
+// 퀴즈 디테일 에디터
 const Editor = toastui.Editor;
 const { colorSyntax } = Editor.plugin;
 const { codeSyntaxHighlight } = Editor.plugin;
@@ -520,11 +591,12 @@ const editor2 = new Editor({
 });
 
 // 만든 퀘스쳔 수정 카드
+const editor3 = []
 for(var i = 0; i < $(".editor3").length; i++) {
 	var editor3Group = document.querySelectorAll(".editor3")
 	var aq_content = $(editor3Group[i]).next().val()
 	
-	const editor3 = new Editor({
+	editor3[i] = new Editor({
 		  el: editor3Group[i],
 		  height: '250px',
 		  initialEditType: 'markdown',
@@ -549,7 +621,7 @@ for(var i = 0; i < $(".editor3").length; i++) {
 			}
 		}
 	});
-	editor3.setMarkdown(aq_content)
+	editor3[i].setMarkdown(aq_content)
 }
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

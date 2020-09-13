@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +16,11 @@ import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.ExplainDto;
 import com.kh.arori.entity.study.MultipleDto;
 import com.kh.arori.entity.study.OxDto;
+import com.kh.arori.entity.study.ThisQuizDto;
+import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.service.study.QuestionService;
+import com.kh.arori.service.toast.ToastService;
+import com.kh.arori.vo.ThisQuizVo;
 
 @RestController
 @RequestMapping("/questionAjax")
@@ -22,6 +28,12 @@ public class QuestionAjaxController {
 
 	@Autowired
 	private QuestionService questionService;
+
+	@Autowired
+	private ToastService toastService;
+
+	@Autowired
+	private QuestionDao questionDao;
 
 	// OX 퀘스쳔 생성
 	@PostMapping("/create/ox")
@@ -53,6 +65,13 @@ public class QuestionAjaxController {
 			@RequestParam List<String> content) {
 		int next_aqdto_no = questionService.createQuestion(content, allQuestionDto, explainDto);
 		return next_aqdto_no;
+	}
+
+	// 퀘스쳔 수정 / 갱신
+	@PostMapping("/update/{path}")
+	@Transactional
+	public void updateQuestion(@PathVariable String path, @RequestBody ThisQuizVo thisQuizVo) {
+		questionService.update(path, thisQuizVo);
 	}
 
 }

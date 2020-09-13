@@ -82,6 +82,13 @@ public class QuestionDaoImpl implements QuestionDao {
 	public void insertThis(This_qDto this_qDto) {
 		sqlSession.insert("question.insertThis", this_qDto);
 	}
+	
+	// 퀴즈 수정을 위한 THIS_Q 테이블 조회
+	@Override
+	public int getAnswerNo(int question_no) {
+
+		return sqlSession.selectOne("question.getAnswerNo", question_no);
+	}
 
 	// OX
 	// OX 정답 고유 번호 발급

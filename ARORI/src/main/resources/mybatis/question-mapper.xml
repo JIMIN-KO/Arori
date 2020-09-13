@@ -49,6 +49,16 @@
 		INSERT INTO ${table_name}_Q VALUES(#{no}, #{question_no}, #{this_no})
 	</insert>
 	
+		<!-- 수정을 위한 각 정답 유형별 고유 번호 조회 -->
+	<select id="getAnswerNo" resultType="int" parameterType="thisQuizDto">
+		SELECT
+			THIS_NO
+		FROM
+			THIS_Q
+		WHERE
+			QUESTION_NO = #{question_no}
+	</select>
+	
 	
 	<!-- 정답 통합 영역 -->
 	<!-- 정답 통합 삭제 -->

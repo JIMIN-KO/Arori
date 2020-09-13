@@ -42,6 +42,9 @@ public interface QuestionDao {
 	// 통합) 정답 삭제
 	public int deleteAnswer(This_qDto this_qDto);
 	
+	// 퀴즈 수정을 위한 THIS_Q 테이블 조회
+	public int getAnswerNo(int question_no);
+	
 	// OX
 	// OX 답안 시퀀스
 	public int getSeqOx();

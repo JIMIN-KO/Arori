@@ -13,6 +13,7 @@ import com.kh.arori.entity.study.OxDto;
 import com.kh.arori.entity.study.This_qDto;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.service.toast.ToastService;
+import com.kh.arori.vo.ThisQuizVo;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
@@ -131,7 +132,7 @@ public class QuestionServiceImpl implements QuestionService {
 		// 2. 단답형 정답 테이블 데이터 삽입
 		// 2-1. 정답 테이블 시퀀스 번호 발급
 		int ex_no = questionDao.getSeqEx();
-		explainDto.setNo(ex_no);	
+		explainDto.setNo(ex_no);
 
 		// 2-2. 단답형 정답 Dto 데이터 베이스에 삽입
 		questionDao.createEx(explainDto);
@@ -150,6 +151,46 @@ public class QuestionServiceImpl implements QuestionService {
 		// 4-1. 다음 퀘수쳔 고유 번호 발급
 		int next_aqdto_no = questionDao.getSeq();
 		return next_aqdto_no;
+	}
+
+	// 기존 퀘스쳔 및 정답 수정
+	@Override
+	public void update(String path, ThisQuizVo thisQuizVo) {
+		// ThisQuizVo -> ThisQuizDto
+		// 1) 리스트로 받아온 데이터 > String 으로 변환
+		thisQuizVo.setAq_content(toastService.content(thisQuizVo.getContent()));
+
+		// question_no 를 이용, 정답 테이블 데이터 조회
+		int this_no = questionDao.getAnswerNo(thisQuizVo.getQuestion_no());
+
+		// ALL_QUESTION 객체화
+		AllQuestionDto allQuestionDto = AllQuestionDto.builder().question_no(thisQuizVo.getQuestion_no())
+				.q_no(thisQuizVo.getQ_no()).aq_content(thisQuizVo.getAq_content()).build();
+
+		// ALL_QUESTION 수정
+		questionDao.updateAQuestion(allQuestionDto);
+
+		// 각 유형별로 정답 데이터 수정
+		if (path.equals("ox")) {
+			// OX 수정
+			OxDto oxDto = OxDto.builder().no(this_no).o_content(thisQuizVo.getO_content())
+					.x_content(thisQuizVo.getX_content()).ox_answer(Integer.parseInt(thisQuizVo.getOx_answer()))
+					.build();
+			questionDao.updateOx(oxDto);
+		} else if (path.equals("multiple")) {
+			// 선다형 수정
+			MultipleDto multipleDto = MultipleDto.builder().no(this_no).multiple_one(thisQuizVo.getMultiple_one())
+					.multiple_two(thisQuizVo.getMultiple_two()).multiple_three(thisQuizVo.getMultiple_three())
+					.multiple_four(thisQuizVo.getMultiple_four())
+					.multiple_answer(Integer.parseInt(thisQuizVo.getMultiple_answer())).build();
+			questionDao.updateMul(multipleDto);
+		} else {
+			// 단답형 수정
+			ExplainDto explainDto = ExplainDto.builder().no(this_no).explain_answer(thisQuizVo.getExplain_answer())
+					.build();
+			questionDao.updateEx(explainDto);
+		}
+
 	}
 
 }

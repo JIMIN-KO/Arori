@@ -12,23 +12,23 @@ import lombok.NoArgsConstructor;
 public class ThisQuizDto {
 
 // ALL_QUESTION 영역 
-	private int question_no;
-	private int q_no;
-	private String aq_content;
-	private int qt_no;
+	public int question_no;
+	public int q_no;
+	public String aq_content;
+	public int qt_no;
 	
 //	OX 영역 
-	private String o_content;
-	private String x_content;
-	private String ox_answer;
+	public String o_content;
+	public String x_content;
+	public String ox_answer;
 
 //	선다형 영역
-	private String multiple_one;
-	private String multiple_two;
-	private String multiple_three;
-	private String multiple_four;
-	private String multiple_answer;
+	public String multiple_one;
+	public String multiple_two;
+	public String multiple_three;
+	public String multiple_four;
+	public String multiple_answer;
 	
 //	단답형 영역 
-	private String explain_answer;
+	public String explain_answer;
 }

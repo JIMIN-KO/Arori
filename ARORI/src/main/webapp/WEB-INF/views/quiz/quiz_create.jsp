@@ -251,17 +251,7 @@
                 }
               	console.log($(".add").val())
             });
-
-            //form버튼 
-            function qsubmit() {
-                return true;
-            }
-            function qsubmit2() {
-                frm.action="create";
-                frm.submit();
-                return true;
-            }
-                
+             
         });
  // 최종 퀴즈 저장
  $(function(){
