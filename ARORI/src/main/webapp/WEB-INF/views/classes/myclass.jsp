@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+	
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <style>
 
@@ -18,10 +19,8 @@
 	/* 이미지 사이즈 */
 	.card-img {
 		height: 200px;
-		width: 320px;
-		border-radius: 10px 10px;
-		margin-left: 13px;
-		margin-top: 15px;
+		width: 100%;
+
 	}
 	
 	/* 클래스 제목 링크 색상 제거 */
@@ -99,7 +98,7 @@
 	
 	/* 클래스 수정 모달 */
 	/* 수정 내용 디자인 */
-	form {
+	/*form {
 	margin-top:15px;
 
 	}
@@ -117,12 +116,9 @@
 	    -moz-box-sizing: border-box;
 	    box-sizing: border-box;
 	    border: 1px solid #999;
-	}
-	.modal-backdrop.show {
-	display:none;
-	}
+	}*/
+	
 </style>
-
 <!-- 클래스 목록 -->
 <div class="row justify-content-center" style="margin-top: 80px;">
 	<div class="offset-4 col-4">
@@ -131,15 +127,13 @@
 	</div>
 
 	<div class="col-1">
-		<select name="col" class="select-down"
-			onchange="if(this.value) location.href=(this.value);">
-			<option
-				value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">최신순</option>
-			<option
-				value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_when&order=DESC">등록순</option>
-			<option
-				value="${pageContext.request.contextPath}/classes/myclass/${member_no}?col=c_subscribe&order=DESC">인기순</option>
-		</select>
+		<form action="${pageContext.request.contextPath }/classes/myclass/${MCIDto.get(0).member_no}" method="get" id="myClassOrder">
+			<select name="col" id="colSelector" class="select-down" >
+				<option value="c_when">최신순</option>
+				<option value="c_when_old">등록순</option>
+				<option value="c_subscribe">인기순</option>
+			</select>
+		</form>	
 	</div>
 </div>
 
@@ -174,37 +168,41 @@
 					<div class="card-body pb-0">
 						<input type="hidden" class="card-no" value="${MCIDto.c_no }">
 						<input type="hidden" class="card-public" value="${MCIDto.c_public }">
-						<h5 class="card-title">${MCIDto.c_title}</h5>
+						
+						<span class="card-title">${MCIDto.c_title}
+						</span>
+						<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
 						<p class="card-info">${MCIDto.c_info}</p>
-						<p class="card-info">${MCIDto.member_nick}</p>
+						<p class="card-nick">${MCIDto.member_nick}</p>
 						<p class="card-when"> 
 							<small class="text-muted"> 
 								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 
 								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
 							</small>
-						</p>
-						<p>
-							<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>						
-						</p>	
+						</p>					
 							<!-- 내 클래스일 때는 수정, 삭제 버튼 / 남의 클래스 일 때는 구독버튼이 보이게 -->
-						<p>
 						<c:choose>
 							<c:when test="${MCIDto.member_no != userinfo.member_no}">
 									<form method="post">
-										<span style="margin-left: 80px; padding-top: 20px;" class="card-btn">
+										<span class="card-btn">
 											<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">
 											<input type="button" class="btn btn-primary btn-sm subBtn" value="구독">	
 										</span>
 									</form>
 							</c:when>
 							<c:otherwise>
-								<span style="margin-left: 80px; padding-top: 20px;" class="card-btn">
-									<button type="button" class="btn btn-primary btn-sm editClass" data-target="#classEdit">EDIT</button>
-									<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm">DELETE</a>
-								</span>
+								<div class="card-btn w-100">
+									<div class="row mt-3">
+										<div class="col-6">
+											<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit">EDIT</button>
+										</div>
+										<div class="col-6">
+											<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block">DELETE</a>
+										</div>
+									</div>
+								</div>
 							</c:otherwise>
 						</c:choose>
-						</p>
 					</div>
 				</div>
 			</div>
@@ -212,7 +210,65 @@
 	</c:forEach>
 </div>
 <!-- 클래스 수정 모달 -->
-	<div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
+
+<script>
+	$(function() {
+		$("#classEdit").modal("hide") // 클래스 수정 모달 숨김
+
+		$(".editClass").click(
+				function() {
+					$("#classEdit").modal("show"); // 클래스 수정 모달 띄우기
+					console.log($(this).parents(".card-body").children(".card-title").text()) // 해당 클래스의 타이틀
+					console.log($(this).parents(".card-body").children(".card-info").text()) // 해당 클래스의 정보
+					console.log($(this).parents(".card-body").children(".card-public").val()) // 해당 클래스의 공개여부
+
+					var c_no = $(this).parents(".card-body").children(".card-no").val()
+					var c_title = $(this).parents(".card-body").children(".card-title").text()
+					var c_info = $(this).parents(".card-body").children(".card-info").text()
+					var c_public = $(this).parents(".card-body").children(".card-public").text()
+
+					$("input[name=c_no]").val(c_no)
+					$("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
+					$("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기
+
+				})
+		// 수정하기 버튼을 누르면 수정이 되도록 한다!
+		$("#goEdit").click(function() {
+			var form = document.querySelector("#editForm")
+			form.submit()
+
+		})
+		// 구독
+		$(".subBtn").click(function(){
+			console.log($(this).prev())
+			var subDto = {
+					member_no:${userinfo.member_no},
+					c_no:$(this).parent().prev().val()
+			}
+			
+			console.log(subDto)
+			
+			axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+			 	headers:{
+					'content-type':'application/json',
+			 	}
+			 }).then(resp=>{
+				console.log(resp)
+				$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)
+				 
+		 	})
+		})
+		
+		$("#colSelector").on("change", function(){
+			document.querySelector("#myClassOrder").submit()
+		})
+
+	})
+
+
+</script>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+<div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -251,59 +307,4 @@
 			</div>
 		</div>
 	</div>
-
-<script>
-	$(function() {
-		$("#classEdit").modal("hide") // 클래스 수정 모달 숨김
-
-		$(".editClass").click(
-				function() {
-					$("#classEdit").modal("show"); // 클래스 수정 모달 띄우기
-					console.log($(this).parents(".card-body").children(".card-title").text()) // 해당 클래스의 타이틀
-					console.log($(this).parents(".card-body").children(".card-info").text()) // 해당 클래스의 정보
-					console.log($(this).parents(".card-body").children(".card-public").val()) // 해당 클래스의 공개여부
-
-					var c_no = $(this).parents(".card-body").children(".card-no").val()
-					var c_title = $(this).parents(".card-body").children(".card-title").text()
-					var c_info = $(this).parents(".card-body").children(".card-info").text()
-					var c_public = $(this).parents(".card-body").children(".card-public").text()
-
-					$("input[name=c_no]").val(c_no)
-					$("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
-					$("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기
-
-				})
-		// 수정하기 버튼을 누르면 수정이 되도록 한다!
-		$("#goEdit").click(function() {
-			var form = document.querySelector("#editForm")
-			form.submit()
-
-		})
-		// 구독
-		$(".subBtn").click(function(){
-		console.log($(this).prev())
-		var subDto = {
-				member_no:${userinfo.member_no},
-				c_no:$(this).parent().prev().val()
-		}
-		
-		console.log(subDto)
-		
-		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
-		 	headers:{
-				'content-type':'application/json',
-		 	}
-		 }).then(resp=>{
-			console.log(resp)
-			$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)
-			 
-	 	})
-	})
-
-	})
-
-
-</script>
-<jsp:include
-	page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
 

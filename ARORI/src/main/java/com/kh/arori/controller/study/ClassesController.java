@@ -56,7 +56,7 @@ public class ClassesController {
 		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 		classesDto.setMember_no(memberDto.getMember_no());
 		int c_no = classesService.createClasses(classesDto);
-		System.out.println("c_no = " + c_no);
+		System.out.println("c_title: "+classesDto.getC_title());
 		return "redirect:readme/" + c_no;
 	}
 
@@ -126,11 +126,12 @@ public class ClassesController {
 		// /arori/classes/myclass/1?col=c_no&order=asc
 
 		String order = "DESC";
-		boolean isNew = col.equals("c_when_new");
-		if (!isNew) {
+		boolean isOld = col.equals("c_when_old");
+		if(isOld) {
 			col = "c_when";
 			order = "ASC";
 		}
+		
 
 		Map<String, String> map = new HashMap<>();
 		map.put("key", "member_no");

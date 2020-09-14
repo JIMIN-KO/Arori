@@ -15,10 +15,8 @@
 	/* 이미지 사이즈 */
 	.card-img {
 	height:200px;
-	width:320px;
-	border-radius: 10px 10px;
-	margin-left:13px;
-	margin-top: 15px;
+	width:100%;
+
 	}
 	
 	/* 클래스 제목 링크 색상 제거 */
@@ -71,18 +69,37 @@
 									</c:otherwise>
 								</c:choose>
    								<div class="card-body">
-      								<h5 class="card-title">${MCIDto.c_title}</h5>
+      								<span class="card-title">${MCIDto.c_title}</span>
+									<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
       								<p class="card-info">${MCIDto.c_info}</p>
       								<p class="card-info">${MCIDto.member_nick}</p>
       								<p class="card-when"><small class="text-muted">
-      								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-									<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/></small></p>
-									<span class="badge badge-pill badge-success subCount">${MCIDto.c_subscribe}</span>
-									<div>
-										<input type="hidden" name="c_no" value="${MCIDto.c_no }">
-										<input type="button" class="subBtn" value="구독">	
-									</div>
+	      								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/></small></p>
   								</div>	
+  										<!-- 내 클래스일 때는 수정, 삭제 버튼 / 남의 클래스 일 때는 구독버튼이 보이게 -->
+									<c:choose>
+										<c:when test="${MCIDto.member_no != userinfo.member_no}">
+												<form method="post" class="d-flex justify-content-center mb-3">
+													<span class="card-btn">
+														<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">
+														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독">	
+													</span>
+												</form>
+										</c:when>
+										<c:otherwise>
+											<div class="card-btn w-100">
+												<div class="row">
+													<div class="col-6">
+														<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit">EDIT</button>
+													</div>
+													<div class="col-6">
+														<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block">DELETE</a>
+													</div>
+												</div>
+											</div>
+										</c:otherwise>
+									</c:choose>
   							</div>
  						</div>
 					</div>

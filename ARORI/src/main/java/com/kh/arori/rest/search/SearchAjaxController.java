@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
+import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
 
 @RestController
@@ -18,22 +20,36 @@ import com.kh.arori.service.study.ClassesService;
 public class SearchAjaxController {
 	
 	@Autowired
-	private ClassesService classesService;
+	private ClassesDao classesDao;
 	
 	@RequestMapping("/search")
-	public List<ClassesDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption,
-			@RequestParam(required = false, defaultValue = "c_when") String col,
-			@RequestParam(required = false, defaultValue = "DESC") String order	
+	public List<MCIDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption,
+			@RequestParam(required = false, defaultValue = "c_when") String col, Model model
 			){
+		System.out.println(searchOption);
+		System.out.println(keyword);
+		System.out.println(col);
+
+		String order = "DESC";
+		boolean isOld = col.equals("c_when_old");
+		if(isOld) {
+			col = "c_when";
+			order = "ASC";
+		}
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		map.put("col", col);
 		map.put("order", order);
+	
+		List<MCIDto> list = classesDao.searchList(map);
 		
-		// List<ClassesDto> list = classesService.searchList(map);
-		
-		return null;
+		for(MCIDto dto : list) {
+			System.out.println(dto.getC_title());
+			System.out.println(dto.getMember_nick());
+		}
+		model.addAttribute("MCIDto", list);
+		return list;
 	}
 }

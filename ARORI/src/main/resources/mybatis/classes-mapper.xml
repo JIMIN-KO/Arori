@@ -19,7 +19,11 @@
 	
 	<!-- 정렬 목록 테스트 -->
 	<select id="getMCI" resultType="mciDto" parameterType="map">
-		SELECT * FROM MCI WHERE ${key} = #{value} ORDER BY ${col} ${order}
+		SELECT * FROM MCI 
+		<if test="key != null and value != null">
+			WHERE ${key} = #{value} 
+		</if>
+		ORDER BY ${col} ${order}
 	</select>
 	
 	<!-- 정보 수정 -->
