@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.McDto;
+import com.kh.arori.entity.study.SubscribeDto;
 
 @Repository
 public class ClassesDaoImpl implements ClassesDao {
@@ -31,18 +32,19 @@ public class ClassesDaoImpl implements ClassesDao {
 	}
 
 	// 단일 조회
-		@Override
-		public ClassesDto get(int c_no) {
-			ClassesDto info = sqlSession.selectOne("classes.get", c_no);
-			return info;
+	@Override
+	public ClassesDto get(int c_no) {
+		ClassesDto info = sqlSession.selectOne("classes.get", c_no);
+		return info;
 		}
 		
-		// 클래스 목록 조회
-		@Override
-		public List<ClassesDto> getList() {
-			List<ClassesDto> list = sqlSession.selectList("classes, getList");
-			return list;
+	// 클래스 목록 조회
+	@Override
+	public List<ClassesDto> getList() {
+		List<ClassesDto> list = sqlSession.selectList("classes, getList");
+		return list;
 		}
+	
 	// 수정
 	@Override
 	public void edit(ClassesDto classesDto) {
@@ -69,7 +71,6 @@ public class ClassesDaoImpl implements ClassesDao {
 		map.put("searchOption", searchOption);
 		map.put("keyword", keyword);
 		return sqlSession.selectList("classes.search", map);
-		
 	}
 
 	// (성헌) 클래스 주인인지 조회
@@ -77,6 +78,50 @@ public class ClassesDaoImpl implements ClassesDao {
 	public ClassesDto checkM(ClassesDto classesDto) {
 
 		return sqlSession.selectOne("classes.checkM", classesDto);
+	}
+
+	// 구독 시퀀스 발급
+	@Override
+	public int getsubSeq() {
+		int sub_no = sqlSession.selectOne("classes.getsubSeq");
+		return sub_no;
+	}
+
+	// 구독자 수 카운트
+	@Override
+	public int countSub(SubscribeDto subDto) {
+		return sqlSession.selectOne("classes.countSub", subDto);
+	}
+
+	// 구독
+	@Override
+	public void sub(SubscribeDto subDto) {
+		sqlSession.insert("classes.sub", subDto);		
+	}
+
+	// 구독 취소
+	@Override
+	public void delSub(SubscribeDto subDto) {
+		sqlSession.delete("classes.delSub", subDto);
+	}
+
+	// 구독 테이블 단일조회
+	@Override
+	public SubscribeDto checkSub(SubscribeDto subDto) {
+		SubscribeDto subInfo = sqlSession.selectOne("classes.checkSub", subDto);
+		return subInfo;
+	}
+
+	// 구독 후 데이터 갱신
+	@Override
+	public void subUpdate(ClassesDto classesDto) {
+		sqlSession.update("classes.subUpdate", classesDto);		
+	}
+
+	@Override
+	public List<ClassesDto> mySub(int member_no) {
+		List<ClassesDto> list = sqlSession.selectList("classes.mySub", member_no);
+		return list;
 	}
 
 }

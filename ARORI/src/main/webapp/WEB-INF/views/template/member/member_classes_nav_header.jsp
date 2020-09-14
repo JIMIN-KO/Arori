@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><div class="row">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+				<div class="row">
                     <div class="col-12 readmerow class-menu2 active mt-5 position-fixed" style="border-bottom: 1px solid rgba(190, 190, 190, 0.493); z-index: 100; background-color: white;">
                         <ul class="nav w-100 text-center">
                             <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/classes/readme/${c_no}">Read Me</a></button></li>

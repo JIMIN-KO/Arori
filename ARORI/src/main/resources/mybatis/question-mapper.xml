@@ -11,17 +11,32 @@
 	
 	<!-- 퀘스천 생성 -->
 	<insert id="create" parameterType="allQuestionDto">
-		INSERT INTO ALL_QUESTION VALUES(#{question_no}, #{q_no}, #{qt_no}, #{aq_content}, ${aq_score}, SYSDATE)
+		INSERT INTO ALL_QUESTION VALUES(#{question_no}, #{q_no}, #{qt_no}, #{aq_content}, SYSDATE)
 	</insert>
 	
 	<!-- 퀘스쳔 수정 / 갱신 -->
 	<update id="update" parameterType="allQuestionDto">
-		UPDATE ALL_QUESTION SET AQ_CONTENT = #{aq_content}, AQ_SCORE = ${aq_score} WHERE QUESTION_NO = #{question_no} AND Q_NO = #{q_no}
+		UPDATE ALL_QUESTION SET AQ_CONTENT = #{aq_content} WHERE QUESTION_NO = #{question_no} AND Q_NO = #{q_no}
 	</update>
+	
+	<!-- 퀘스쳔 삭제 -->
+	<delete id="delete" parameterType="allQuestionDto">
+	 	DELETE All_QUESTION WHERE QUESTION_NO = #{question_no}
+	</delete>
 	
 	<!-- 퀘스쳔 단일 조회 -->
 	<select id="get" resultType="allQuestionDto" parameterType="allQuestionDto">
 		SELECT * FROM ALL_QUESTION WHERE Q_NO = #{q_no} AND QUESTION_NO = #{question_no}
+	</select>
+	
+	<!-- 해당 퀴즈의 퀘스쳔 불러오기 -->
+	<select id="getQuestion" resultType="allQuestionDto" parameterType="allQuestionDto">
+		SELECT * FROM ALL_QUESTION WHERE Q_NO = #{q_no} ORDER BY QUESTION_NO ASC
+	</select>
+	
+	<!-- 해당 퀴즈의 모든 퀘스쳔 불러오기 -->
+	<select id="getTQ" resultType="thisQuizDto" parameterType="int">
+		SELECT * FROM THIS_QUIZ WHERE Q_NO = ${q_no} ORDER BY QUESTION_NO ASC
 	</select>
 	
 	<!-- 퀘스쳔 오작교 시퀀스 번호 발급 -->
@@ -34,6 +49,24 @@
 		INSERT INTO ${table_name}_Q VALUES(#{no}, #{question_no}, #{this_no})
 	</insert>
 	
+		<!-- 수정을 위한 각 정답 유형별 고유 번호 조회 -->
+	<select id="getAnswerNo" resultType="int" parameterType="thisQuizDto">
+		SELECT
+			THIS_NO
+		FROM
+			THIS_Q
+		WHERE
+			QUESTION_NO = #{question_no}
+	</select>
+	
+	
+	<!-- 정답 통합 영역 -->
+	<!-- 정답 통합 삭제 -->
+	<delete id="deleteAnswer" parameterType="this_qDto">
+		DELETE ${table_name} WHERE NO = #{no}
+	</delete>
+	
+	<!-- 정답 영역 -->
 	<!-- ox답안 시퀀스 -->
 	<select id="getSeqOx" resultType="int">
 		SELECT ox_seq.NEXTVAL FROM DUAL
@@ -43,6 +76,23 @@
 	<insert id="createOx">
 		INSERT INTO OX VALUES(#{no},#{o_content},#{x_content},#{ox_answer})
 	</insert>
+	
+	<!-- OX 정답 수정 -->
+	<update id="updateOx" parameterType="oxDto">
+		UPDATE 
+			OX 
+		SET 
+			O_CONTENT = #{o_content}, 
+			X_CONTENT = #{x_content}, 
+			OX_ANSWER = #{ox_answer}
+		 WHERE 
+		 	NO = #{no}
+	</update>
+	
+	<!-- OX 정답 삭제 -->
+	<delete id="deleteOx" parameterType="oxDto">
+		DELETE OX WHERE NO = #{no}
+	</delete>
 	
 	<!-- 선다형 답안 시퀀스 -->
 	<select id="getSeqMul" resultType="int">
@@ -54,14 +104,47 @@
 		INSERT INTO MULTIPLE VALUES(#{no},#{multiple_one},#{multiple_two},#{multiple_three},#{multiple_four},#{multiple_answer})
 	</insert>
 	
-	<!-- 서술형 답안 시퀀스 -->
+	<!-- 선다형 정답 수정 -->
+	<update id="updateMul" parameterType="multipleDto">
+		UPDATE 
+			MULTIPLE 
+		SET 
+			MULTIPLE_ONE = #{multiple_one}, 
+			MULTIPLE_TWO = #{multiple_two},
+			MULTIPLE_THREE = #{multiple_three}, 
+			MULTIPLE_FOUR = #{multiple_four},
+			 MULTIPLE_ANSWER = #{multiple_answer} 
+		WHERE 
+			NO = #{no}
+	</update>
+	
+	<!--선다형 정답 삭제 -->
+	<delete id="deleteMul" parameterType="multipleDto">
+		DELETE MULTIPLE WHERE NO = #{no}
+	</delete>
+	
+	<!-- 단답형 답안 시퀀스 -->
 	<select id="getSeqEx" resultType="int">
 		SELECT explain_seq.NEXTVAL FROM DUAL
 	</select>
 	
-	<!-- 서술형 정답 생성 -->
+	<!-- 단답형 정답 생성 -->
 	<insert id="createEx">
 		INSERT INTO EXPLAIN VALUES(#{no},#{explain_answer})
 	</insert>
-
+	
+	<!-- 단답형 정답 수정 -->
+	<update id="updateEx" parameterType="explainDto">
+		UPDATE 
+			EXPLAIN
+		SET
+			EXPLAIN_ANSWER = #{explain_answer}
+		WHERE
+			NO = #{no}
+	</update>
+	
+	<!-- 단답형 정답 삭제 -->
+	<delete id="deleteEx" parameterType="explainDto">
+		DELETE EXPLAIN WHERE NO = #{no}
+	</delete>
 </mapper>

@@ -102,7 +102,6 @@ public class ImgServiceImpl implements ImgService {
 		for (This_imgDto thisImg : img_list) {
 			System.out.println(thisImg.getAi_no());
 			System.out.println(thisImg.getThis_no());
-			System.out.println(thisImg.getTable_name());
 			thisImg.setTable_name(table_name); // 해당 테이블의 이미지를 조회하기 위한 상수 입력
 
 			// 이미지 통합 테이블의 해당 게시글의 이미지 조회
