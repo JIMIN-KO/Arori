@@ -34,7 +34,7 @@ public class QnaController {
 
 	//QNA작성 페이지 새글
 	@GetMapping("/classes/qna/create/{c_no}")
-	public String qnaCreate(@PathVariable String c_no, Model model) {
+	public String qnaCreate(@PathVariable String c_no, Model model) {	
 		model.addAttribute("c_no",c_no);
 		return "classes/qna/qna_create";
 	}	
@@ -51,10 +51,11 @@ public class QnaController {
 	public String qnaCreateReply(@PathVariable int c_no, @PathVariable int qna_no, Model model) {
 		model.addAttribute("c_no",c_no);
 		model.addAttribute("qna_no", qna_no);
+		
 		// c_no + qna_no 를 단일 조회 
 		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
 		qnaDto = qnaDao.getCQ(qnaDto);
-		// 단일 조회 한 dto를 모델 어트리부트로 넘겨서 제이에스피에서 연산 후 컨트롤러로 던져주기?
+		
 		model.addAttribute("qnaDto", qnaDto);
 		return "classes/qna/qna_create_reply";
 	}

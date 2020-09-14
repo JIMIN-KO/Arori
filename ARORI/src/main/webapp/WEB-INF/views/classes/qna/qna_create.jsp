@@ -20,7 +20,6 @@
 						<!-- 게시글 작성 영역 -->
                         <div id="editor"></div>
                         <div class="float-right mt-5">
-                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         	
                         	<!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/qna/create" method="post" style="display: inline-block;">
@@ -30,21 +29,42 @@
                         		<input type="hidden" name="qna_content" id="qna_content">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createQna" value="작성">
                         	</form>
+                        	<!-- 취소 영역 -->
+                            <a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         </div>
                     </div>
                     
  <jsp:include page="/WEB-INF/views/template/member/member_classes_editor_footer.jsp"></jsp:include>                   
 <!-- Toast Editor 비동기 Javascript 영역 -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/toast_ui_editor.js"></script>
 <script>
 $(function(){
-	// 게시글 제목 설정하기 
+	
+	$('#saveModal').modal('hide') // 모달 숨기기 
+	
+	// 취소 버튼 클릭 시 모달 띄우기 
+	$("#cancel").click(function(){
+		$('#saveModal').modal('show') // 모달 띄우기 
+	})
+	
+	// 모달 ) 취소 클릭시 해당 데이터 삭제 및 목록으로 이동 
+	$("#saveCancel").click(function(){
+		location.href = "/arori/classes/qna/delete/${qnaDto.c_no}/${qnaDto.qna_no}"
+	})
+	
+	// 모달 ) 임시 저장 클릭 시 n_state 상태 0  으로 변경 
+	$("#save").click(function(){
+		$("input[name=qna_state]").val(0)
+		$("#qna_content").val(editor.getMarkdown()); // 에디터 데이터를 폼에 삽입 
+		$("#createQna").trigger("click")
+	})
+	
+	// qna 게시글 제목 설정하기 
 	$("#qna_title").on("input",function(){
 		var qna_title = $("#qna_title").val()
 		$("input[name=qna_title]").val(qna_title)
 	})
 	
-	// 게시글 작성하기
+	// qna 게시글 작성하기
 	$("#createQna").click(function(){
 		/* $("#qna_content").val(editor.getTextObject()._mde.toastMark.lineTexts) */
 		$("#qna_content").val(editor.getMarkdown());
@@ -74,7 +94,7 @@ const editor = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/qna/upload/${qnaDto.qna_no }" ,
+				url:"/arori/imgAjax/qna/upload/${qnaDto.qna_no}" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {

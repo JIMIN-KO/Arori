@@ -36,14 +36,14 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	@Transactional
 	public int create(List<String> qna_content, String c_no, String qna_title, String member_no) {
+		
 		// QNA 게시글 고유번호 발급
 		int qna_no = qnaDao.getSeg();
 		
 		String content = toastService.content(qna_content);
-	
 		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(Integer.parseInt(member_no)).qna_no(qna_no)
 				.qna_title(qna_title).qna_content(content).group_no(qna_no).build();
-		
+
 		// QNA 게시글 작성
 		qnaDto.setQna_no(qna_no);
 		qnaDao.create(qnaDto);	
@@ -54,12 +54,14 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	@Transactional
 	public int createReply(List<String> content, QnaDto qnaDto) {
+		
 		String qna_content = toastService.content(content);
+		
 		// QNA 게시글 고유번호
 		int qna_no = qnaDao.getSeg();
 		
 		qnaDto.setQna_content(qna_content);
-		qnaDto.setQna_title(qnaDto.getQna_title());
+//		qnaDto.setQna_title(qnaDto.getQna_title());
 		qnaDto.setSuper_no(qnaDto.getQna_no()); // jsp에서 받아온 부모 글번호를 super_no로 지정 
 		qnaDto.setDepth(qnaDto.getDepth() + 1); // 부모차수에서 +1 
 		qnaDto.setQna_no(qna_no); // 새로 발급받은 고유 번호 
@@ -67,12 +69,12 @@ public class QnaServiceImpl implements QnaService{
 		// QNA 게시글 작성
 		qnaDao.createReply(qnaDto);
 		
+		System.out.println("title : " + qnaDto.getQna_title());
 		System.out.println("depth : " + qnaDto.getDepth());
 		System.out.println("super_no : " + qnaDto.getSuper_no());
 		System.out.println("group_no : " + qnaDto.getGroup_no());
 	
 		return qna_no;
-//		return qnaDto.getQna_no();
 	}
 	
 	// QNA 게시글 페이지 네이션 기능

@@ -14,7 +14,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
 							</div>
-							<input type="text" class="form-control" id="qna_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+							<input type="text" class="form-control" id="qna_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="${qnaDto.qna_title}에 대한 답변">
 						</div>
 						
 						<!-- 게시글 작성 영역 -->
@@ -69,7 +69,7 @@ $(function(){
 	
 	// 게시글 작성하기
 	$("#createQna").click(function(){
-		/* $("#qna_content").val(editor.getTextObject()._mde.toastMark.lineTexts) */
+		$("input[name=qna_title]").val($("#qna_title").val())
 		$("#qna_content").val(editor.getMarkdown());
 	})
 })
