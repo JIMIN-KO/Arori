@@ -11,23 +11,10 @@
 	});
 </script>
 
-
 <h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
-<button class="btn btn-primary btn-lg font-weight-bold"
-	value="BLACK MEMBER">
-	<a href="${pageContext.request.contextPath}/admin/blacklist">BLACK
-		MEMBER </a>
-</button>
-<tr>
-	<button class="btn btn-primary btn-lg font-weight-bold">
-		<a href="${pageContext.request.contextPath}/admin/aroriList">ARORI
-			MEMBER</a>
-	</button>
-</tr>
-</tr>
 <button class="btn btn-primary btn-lg font-weight-bold">
-	<a href="${pageContext.request.contextPath}/admin/socialList">SOCIAL
-		MEMBER</a>
+	<a href="${pageContext.request.contextPath}/admin/resultMap">ALL
+		MEMBER
 </button>
 <table class="table table-hover">
 	<thead>
@@ -47,13 +34,13 @@
 	<tbody>
 		<c:forEach var="memberDto" items="${result}" varStatus="status">
 			<tr>
-				<c:if test="${memberDto.report_state eq '정상'}">
+				<c:if
+					test="${memberDto.member_state eq 'ARORI'||memberDto.member_state eq 'GITHUB'}">
 					<br>
 
 					<tr>
 						<th scope="row">${memberDto.member_no}</th>
 						<td>${memberDto.member_id}</td>
-						</a>
 						<td>${memberDto.member_nick}</td>
 						<td>${result2[status.index].member_email}</td>
 						<td>${result2[status.index].member_phone}</td>
@@ -61,12 +48,13 @@
 						<td>${memberDto.member_join}</td>
 						<td>${memberDto.member_login}</td>
 						<td>${memberDto.report_state}</td>
-			
-				<td><button>
-						<a
-							href="${pageContext.request.contextPath}/admin/memberProfile/${memberDto.member_no}">DETAIL</a>
-					</button></td>	</c:if></c:forEach>
+						<td><button>
+								<a
+									href="${pageContext.request.contextPath}/admin/memberProfile/${memberDto.member_no}">DETAIL</a>
+							</button></td>
+				</c:if>
 			</tr>
+		</c:forEach>
 		<form action="search" method="post">
 			<tr>
 				<td><select name="type" class="custom-select">
@@ -79,7 +67,7 @@
 				<td><input type="submit" class="form-control" value="찾기"></td>
 			</tr>
 		</form>
-		총 회원 수는 ${memberCount} 명 입니다. 생성 된 클래스 의 개수는 ${classCount} 클래스 입니다.
+		총 소셜 회원수는 ${memberCount-aroriCount} 명입니다.
 		<a href="${pageContext.request.contextPath}"><svg width="1.5em"
 				height="1.5em" viewBox="0 0 16 16" class="bi bi-house-fill"
 				fill="currentColor" xmlns="http://www.w3.org/2000/svg">

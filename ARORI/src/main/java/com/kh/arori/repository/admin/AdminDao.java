@@ -31,10 +31,13 @@ public interface AdminDao {
 	//클래스 총 개수
 	public int classCount(ClassesDto classesDto);
 	
-	//멤버 총 개수
+	//멤버 총 인원
 	public int memberCount(MemberDto memberDto);
 
 	//비밀번호 확인
 	public int checkPw(AroriMemberDto aroriMemberDto);
+	
+	//아로리 총 인원
+	public int aroriCount(AroriMemberDto aroriMemberDto);
 	
 }

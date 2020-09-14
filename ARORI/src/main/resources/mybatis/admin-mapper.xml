@@ -98,5 +98,10 @@
 		member_pw=fn_encrypt(#{member_pw})
 	</select>
 
+<!-- 총 아로리멤버 카운트 -->
+	<select id="aroriCount" resultType="int"
+		parameterType="aroriMemberDto">
+		SELECT count(*)FROM ARORI_MEMBER
+	</select>
 
 </mapper>

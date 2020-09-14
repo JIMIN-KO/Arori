@@ -49,7 +49,7 @@ public class AdminController {
 
 	@Autowired
 	private AdminDao adminDao;
-	
+
 	@Autowired
 	private ReportService reportService;
 
@@ -90,32 +90,69 @@ public class AdminController {
 
 	}
 
-	//블랙리스트
+	// 소셜 + 아로리) 소셜조회
+	@GetMapping("/aroriList")
+	public String arorilist(Model model, Model model2, @ModelAttribute MemberDto memberDto,@ModelAttribute AroriMemberDto aroriMemberDto) {
+
+		List<MemberDto> result = memberDao.resultMap();
+		model.addAttribute("result", result);
+
+		List<MemberDto> result2 = memberDao.resultMap2();
+		model.addAttribute("result2", result2);
+
+		int memberCount = adminDao.memberCount(memberDto);
+		model.addAttribute("memberCount", memberCount);
+		
+		int aroriCount = adminDao.aroriCount(aroriMemberDto);
+		model.addAttribute("aroriCount", aroriCount);
+
+		return "admin/aroriList";
+
+	}
+
+	// 소셜 + 아로리) 소셜조회
+	@GetMapping("/socialList")
+	public String socialList(Model model, Model model2, @ModelAttribute MemberDto memberDto,@ModelAttribute AroriMemberDto aroriMemberDto) {
+
+		List<MemberDto> result = memberDao.resultMap();
+		model.addAttribute("result", result);
+
+		List<MemberDto> result2 = memberDao.resultMap2();
+		model.addAttribute("result2", result2);
+
+		int memberCount = adminDao.memberCount(memberDto);
+		model.addAttribute("memberCount", memberCount);
+		
+		int aroriCount = adminDao.aroriCount(aroriMemberDto);
+		model.addAttribute("aroriCount", aroriCount);
+
+		int socialCount = memberCount-aroriCount;
+		model.addAttribute(socialCount);
+		return "admin/socialList";
+
+	}
+
+	// 블랙리스트
 	@GetMapping("/blacklist")
-	public String blacklist(Model model,@ModelAttribute MemberDto memberDto,@ModelAttribute ReportDto reportDto) {
+	public String blacklist(Model model, @ModelAttribute MemberDto memberDto, @ModelAttribute ReportDto reportDto) {
 
+		List<MemberDto> result = memberDao.resultMap();
+		model.addAttribute("result", result);
 
-			List<MemberDto> result = memberDao.resultMap();
-			model.addAttribute("result", result);
+		List<MemberDto> result2 = memberDao.resultMap2();
+		model.addAttribute("result2", result2);
 
-			List<MemberDto> result2 = memberDao.resultMap2();
-			model.addAttribute("result2", result2);
-			
-			List<ReportDto>blacklist= reportService.blacklist();
-			model.addAttribute("blacklist",blacklist);
-			
-			
-	
-		
+		List<ReportDto> blacklist = reportService.blacklist();
+		model.addAttribute("blacklist", blacklist);
+
 		model.addAttribute("list", reportService.blacklist());
-		
+
 		return "admin/blacklist";
 
-		
 	}
-	
-	//검색
-	
+
+	// 검색
+
 	@PostMapping("/search")
 	public String search(@RequestParam String type, @RequestParam String keyword, Model model) {
 
@@ -128,7 +165,6 @@ public class AdminController {
 		return "admin/resultMap";
 
 	}
-	// 소셜+아로리) 아이디 단일조회 (관리자만 가능)
 
 	// 소셜 + 아로리) 상세정보변경
 	@GetMapping("/adminUpdate/{member_id}")
@@ -171,6 +207,7 @@ public class AdminController {
 
 		return "admin/memberProfile";
 	}
+
 	// 회원 프로필 보기
 	@PostMapping("/memberProfile/{member_no}")
 	public String memberProfile(@PathVariable(required = false) int member_no, @ModelAttribute MemberDto memberDto,
@@ -193,7 +230,7 @@ public class AdminController {
 		return result;
 
 	}
-	
+
 	// 회원탈퇴 시키기
 	@GetMapping("/delete")
 	public String memberDelete(@ModelAttribute MemberDto memberDto) {

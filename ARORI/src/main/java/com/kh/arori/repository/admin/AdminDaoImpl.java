@@ -76,4 +76,12 @@ public class AdminDaoImpl implements AdminDao {
 		return result;
 	}
 
+	@Override
+	public int aroriCount(AroriMemberDto aroriMemberDto) {
+		int aroriCount=0;
+		
+		aroriCount=sqlSession.selectOne("admin.aroriCount",aroriMemberDto);
+		return aroriCount;
+	}
+
 }
