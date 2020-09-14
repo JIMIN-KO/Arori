@@ -26,6 +26,11 @@ public class SearchAjaxController {
 	public List<MCIDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption,
 			@RequestParam(required = false, defaultValue = "c_when") String col, Model model
 			){
+
+		if(keyword.isEmpty()) {
+			searchOption = null;
+		}
+
 		String order = "DESC";
 		boolean isOld = col.equals("c_when_old");
 		if(isOld) {

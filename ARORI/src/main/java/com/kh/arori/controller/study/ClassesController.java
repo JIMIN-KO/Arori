@@ -51,6 +51,7 @@ public class ClassesController {
 		classesDto.setMember_no(memberDto.getMember_no());
 		int c_no = classesService.createClasses(classesDto);
 		System.out.println("c_title: "+classesDto.getC_title());
+		System.out.println("c_public: "+classesDto.getC_public());
 		return "redirect:readme/" + c_no;
 	}
 

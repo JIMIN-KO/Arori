@@ -127,7 +127,7 @@
 											<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
 										</c:when>
 										<c:otherwise>
-											<img src="http://lorempixel.com/400/200/" alt="love" class="card-img">
+											<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" class="card-img">
 										</c:otherwise>
 									</c:choose>				
 								</a>
@@ -236,7 +236,7 @@
 		var path = "/arori/imgAjax/classes/download/" + resp.data[i].ai_no
 		
 		if(resp.data[i].ai_no == 0) {
-			path = "/arori/imgAjax/classes/download/39"
+			path = "/arori/imgAjax/classes/download/57"
 		}
 		
 		$(img).attr("src",path)

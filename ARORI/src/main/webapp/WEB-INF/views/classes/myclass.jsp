@@ -301,7 +301,7 @@
 						<div>
 							<label for="c_public">Public Check :</label>
 							<select	name="c_public" class="select">
-								<option value=1>공개</option>
+								<option value=1 >공개</option>
 								<option value=0>비공개</option>
 							</select>
 						</div>
