@@ -26,10 +26,6 @@ public class SearchAjaxController {
 	public List<MCIDto> getMcList(@RequestParam String keyword, @RequestParam String searchOption,
 			@RequestParam(required = false, defaultValue = "c_when") String col, Model model
 			){
-		System.out.println(searchOption);
-		System.out.println(keyword);
-		System.out.println(col);
-
 		String order = "DESC";
 		boolean isOld = col.equals("c_when_old");
 		if(isOld) {

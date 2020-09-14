@@ -36,7 +36,11 @@
 	</delete>
 	<!-- 검색 -->
 	<select id="search" parameterType="map" resultType="mciDto">
-		SELECT * FROM MCI WHERE INSTR(${searchOption}, #{keyword}) > 0 ORDER BY ${col} ${order}
+		SELECT * FROM MCI 
+		<if test="keyword != null and searchOption != null">
+		WHERE INSTR(${searchOption}, #{keyword}) > 0 
+		</if>
+		ORDER BY ${col} ${order}
 	</select>
 	<!-- 클래스 주인인지 증명하기 위해 조회  -->
 	<select id="checkM" resultType="classesDto" parameterType="classesDto">

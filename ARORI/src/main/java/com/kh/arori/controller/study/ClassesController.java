@@ -1,6 +1,5 @@
 package com.kh.arori.controller.study;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
-import com.kh.arori.repository.img.ImgDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
@@ -37,9 +34,6 @@ public class ClassesController {
 
 	@Autowired
 	private MemberDao memberDao;
-
-	@Autowired
-	private ImgDao imgDao;
 
 	// 클래스 생성 페이지
 	@GetMapping("/classes/create")
@@ -131,7 +125,6 @@ public class ClassesController {
 			col = "c_when";
 			order = "ASC";
 		}
-		
 
 		Map<String, String> map = new HashMap<>();
 		map.put("key", "member_no");
@@ -179,27 +172,4 @@ public class ClassesController {
 		return "classes/img_create";
 	}
 
-	// 검색 메소드
-	@GetMapping("/classes/search")
-	public String search() {
-		return "classes/search";
-	}
-
-	@RequestMapping("classes/search")
-	public String search(@RequestParam String keyword, @RequestParam String searchOption,
-			@RequestParam(required = false, defaultValue = "c_when") String col, @ModelAttribute MCIDto mcDto,
-			Model model) {
-
-		String order = "DESC";
-		boolean isNew = col.equals("c_when_new");
-		if (!isNew) {
-			col = "c_when";
-			order = "ASC";
-		}
-		
-		List<MCIDto> list = classesService.searchList(keyword, searchOption, col, order);
-		model.addAttribute("MCIDto", list);
-
-		return "classes/search";
-	}
 }

@@ -173,7 +173,16 @@
 						</span>
 						<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
 						<p class="card-info">${MCIDto.c_info}</p>
-						<p class="card-nick">${MCIDto.member_nick}</p>
+						<p class="card-nick">
+							<c:choose>
+      							<c:when test="${MCIDto.member_nick eq 'null'}">
+      								소셜 회원
+      							</c:when>
+      							<c:otherwise>
+			      					${MCIDto.member_nick}  										
+      							</c:otherwise>
+      						</c:choose>
+						</p>
 						<p class="card-when"> 
 							<small class="text-muted"> 
 								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 

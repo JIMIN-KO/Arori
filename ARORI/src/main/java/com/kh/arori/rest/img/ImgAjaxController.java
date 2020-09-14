@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.kh.arori.constant.NameConst;
 import com.kh.arori.service.img.ImgService;
 
 @RestController
