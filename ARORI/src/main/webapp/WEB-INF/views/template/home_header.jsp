@@ -165,4 +165,4 @@
             </div>
         </div>
         <div class="row mb-5">
-            <div class="offset-1 col-10 offset-lg-3 col-lg-6 mt-4 login-box text-center">
+         

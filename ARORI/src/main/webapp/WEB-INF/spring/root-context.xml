@@ -17,8 +17,7 @@
 	<!-- 
 		Filter
 	 -->
-	<bean id="testFilter" class="com.kh.arori.filter.TestFilter"></bean>
-	
+	<bean id="loginFilter" class="com.kh.arori.filter.LoginFilter"></bean>
 	<!-- 
 		Properties 를 불러오는 설정
 		${이름}

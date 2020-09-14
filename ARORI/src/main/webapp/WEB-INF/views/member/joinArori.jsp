@@ -5,6 +5,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
 <jsp:include page="/WEB-INF/views/template/home_header.jsp"></jsp:include>
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/member/joinArori.js"></script>
+				<div class="offset-1 col-10 offset-lg-3 col-lg-6 mt-4 login-box text-center">
 				<div class="row mt-3">
 					<div class="offset-1 col-10 font-italic font-weight-light text-left">
 						<a class="text-link" style="cursor: pointer; color: gray;" href="${pageContext.request.contextPath }">

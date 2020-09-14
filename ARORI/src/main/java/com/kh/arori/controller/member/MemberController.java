@@ -33,7 +33,6 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("userinfo");
-		System.out.println(session.getAttribute("userinfo"));
 		return "redirect:/";
 	}
 
@@ -71,7 +70,7 @@ public class MemberController {
 
 	@PostMapping("/myPage")
 	public String mypage(@ModelAttribute AroriMemberDto aroriMemberDto, @RequestParam int member_no) {
-		AroriMemberDto myPage = memberDao.myInfo(member_no);
+		memberDao.myInfo(member_no);
 
 		return "member/myPage";
 	}
@@ -99,7 +98,7 @@ public class MemberController {
 	@PostMapping("/socialMyPage")
 	public String socialMyPage(@ModelAttribute MemberDto memberDto, @RequestParam int member_no) {
 
-		MemberDto socialMyPage = memberDao.SocialInfo(member_no);
+		memberDao.SocialInfo(member_no);
 
 		return "member/socialMyPage";
 	}
