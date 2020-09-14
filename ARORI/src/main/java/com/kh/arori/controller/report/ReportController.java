@@ -42,7 +42,6 @@ public class ReportController {
 		return "report/write";
 
 	}
-
 	@PostMapping("/write")
 	public String write(@ModelAttribute ReportDto reportDto, HttpSession session) {
 		session.getAttribute("userinfo");

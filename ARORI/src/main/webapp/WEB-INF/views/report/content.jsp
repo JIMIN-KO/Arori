@@ -45,12 +45,12 @@
 		</tr>
 
 		<tr>
-			<td><input type="button"
-				class="btn btn-primary btn-lg font-weight-bold" value="상태변경하기"><a
-				href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}"></a>
-				<input type="button" class="btn btn-primary btn-lg font-weight-bold"
-				value="목록으로"><a
-				href="${pageContext.request.contextPath}/report/list"></a></td>
+			<td><a
+				href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}"><input type="button"
+				class="btn btn-primary btn-lg font-weight-bold" value="상태변경하기"></a>
+				<a
+				href="${pageContext.request.contextPath}/report/list"><input type="button" class="btn btn-primary btn-lg font-weight-bold"
+				value="목록으로"></a></td>
 		</tr>
 	</tbody>
 </table>
