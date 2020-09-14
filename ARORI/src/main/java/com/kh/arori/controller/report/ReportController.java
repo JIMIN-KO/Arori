@@ -76,18 +76,6 @@ public class ReportController {
 		return "report/searchList";
 
 	}
-	//블랙리스트
-	@GetMapping("/blacklist")
-	public String blacklist(Model model,@ModelAttribute ReportDto reportDto) {
-
-		
-		model.addAttribute("blacklist", reportService.blacklist());
-		
-		return "report/blacklist";
-
-		
-	}
-	
 	
 
 // 신고별 검색

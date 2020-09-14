@@ -31,7 +31,7 @@
 	<tbody>
 		<c:forEach var="memberDto" items="${result}" varStatus="status">
 		<tr><c:if
-					test="${memberDto.report_state eq '정상'}">
+					test="${memberDto.report_state eq '일시 정지'}">
 			<br>
 		
 			<tr>
@@ -45,11 +45,11 @@
 				<td>${memberDto.member_join}</td>
 				<td>${memberDto.member_login}</td>
 				<td>${memberDto.report_state}</td>
-				</c:if>
+			
 				<td><button>
 						<a
 							href="${pageContext.request.contextPath}/admin/memberProfile/${memberDto.member_no}">DETAIL</a>
-					</button></td>
+					</button></td></c:if>
 			</tr>
 		</c:forEach>
 		<form action="search" method="post">

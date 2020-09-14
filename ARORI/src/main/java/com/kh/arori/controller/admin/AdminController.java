@@ -27,10 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
+import com.kh.arori.service.report.ReportService;
 
 @Controller
 @RequestMapping("/admin")
@@ -47,6 +49,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminDao adminDao;
+	
+	@Autowired
+	private ReportService reportService;
 
 	@GetMapping("/main")
 	public String adminPage() {
@@ -85,6 +90,32 @@ public class AdminController {
 
 	}
 
+	//블랙리스트
+	@GetMapping("/blacklist")
+	public String blacklist(Model model,@ModelAttribute MemberDto memberDto,@ModelAttribute ReportDto reportDto) {
+
+
+			List<MemberDto> result = memberDao.resultMap();
+			model.addAttribute("result", result);
+
+			List<MemberDto> result2 = memberDao.resultMap2();
+			model.addAttribute("result2", result2);
+			
+			List<ReportDto>blacklist= reportService.blacklist();
+			model.addAttribute("blacklist",blacklist);
+			
+			
+	
+		
+		model.addAttribute("list", reportService.blacklist());
+		
+		return "admin/blacklist";
+
+		
+	}
+	
+	//검색
+	
 	@PostMapping("/search")
 	public String search(@RequestParam String type, @RequestParam String keyword, Model model) {
 
