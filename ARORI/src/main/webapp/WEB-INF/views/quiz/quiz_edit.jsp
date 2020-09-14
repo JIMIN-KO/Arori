@@ -515,6 +515,17 @@ $(function(){
 							}	
 							questionContent[questionContent.length - 1].innerHTML = string
 							$(".question-list").last().css("display","block")
+
+							editor2.setMarkdown("")
+							$("input[name=o_content]").val("")
+							$("input[name=x_content]").val("")
+							$("select[name=ox_answer]").val("")
+							$("textarea[name=multiple_one]").val("")
+							$("textarea[name=multiple_two]").val("")
+							$("textarea[name=multiple_three]").val("")
+							$("textarea[name=multiple_four]").val("")
+							$("select[name=multiple_answer]").val("")
+							$("textarea[name=explain_answer]").val("")
 				})
 		})
 })
