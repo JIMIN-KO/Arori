@@ -39,7 +39,7 @@ public class QuestionDaoImpl implements QuestionDao {
 
 		return sqlSession.update("question.update", allQuestionDto);
 	}
-	
+
 	// 퀘스쳔 삭제
 	@Override
 	public int deleteQuestion(AllQuestionDto allQuestionDto) {
@@ -61,12 +61,18 @@ public class QuestionDaoImpl implements QuestionDao {
 		return sqlSession.selectList("question.getQuestion", q_no);
 	}
 
-	// ALL_QUESTION + 유형 별 정답 테이블 
+	// ALL_QUESTION + 유형 별 정답 테이블
 	// 해당 퀴즈의 퀘스쳔 정보 + 정답 가지고 오기
 	@Override
 	public List<ThisQuizDto> getTQ(int q_no) {
 
 		return sqlSession.selectList("question.getTQ", q_no);
+	}
+
+	@Override
+	public ThisQuizDto getTQ2(int question_no) {
+
+		return sqlSession.selectOne("question.getTQ2", question_no);
 	}
 
 	// ALL_QUESTION <-> 정답 테이블 오작교
@@ -82,7 +88,7 @@ public class QuestionDaoImpl implements QuestionDao {
 	public void insertThis(This_qDto this_qDto) {
 		sqlSession.insert("question.insertThis", this_qDto);
 	}
-	
+
 	// 퀴즈 수정을 위한 THIS_Q 테이블 조회
 	@Override
 	public int getAnswerNo(int question_no) {
@@ -180,4 +186,5 @@ public class QuestionDaoImpl implements QuestionDao {
 
 		return sqlSession.delete("question.deleteAnswer", this_qDto);
 	}
+
 }

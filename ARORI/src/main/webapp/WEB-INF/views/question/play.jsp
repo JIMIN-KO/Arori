@@ -118,6 +118,7 @@ $('#deleteMyAnswer').modal('hide') // 모달 숨기기
 $(".deleteMyAnswer").click(function(){
 	$('#deleteMyAnswer').modal('show') // 모달 띄우기
 })
+
 $(".question").on("change",function(){
 
 		// 경로 변수

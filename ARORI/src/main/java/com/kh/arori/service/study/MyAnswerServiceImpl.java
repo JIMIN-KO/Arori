@@ -79,4 +79,25 @@ public class MyAnswerServiceImpl implements MyAnswerService {
 		return list;
 	}
 
+	@Override
+	public void newAnswer(MyAnswerDto myAnswerDto) {
+		// 해당 퀴즈의 새로운 퀘스쳔이 추가됐을 경우 || 해당 퀘스쳔이 회원 답안에 더미 데이터로 없는 경우
+		int no = myAnswerDao.getSeq();
+		ThisQuizDto thisQuizDto = questionDao.getTQ2(myAnswerDto.getQuestion_no());
+
+		MyAnswerDto newAnswer = MyAnswerDto.builder().no(no).member_no(myAnswerDto.getMember_no())
+				.q_no(myAnswerDto.getQ_no()).question_no(myAnswerDto.getQuestion_no()).build();
+
+		if (thisQuizDto.getQt_no() == 1) {
+			newAnswer.setQuestion_answer(thisQuizDto.getOx_answer());
+		} else if (thisQuizDto.getQt_no() == 2) {
+			newAnswer.setQuestion_answer(thisQuizDto.getMultiple_answer());
+		} else {
+			newAnswer.setQuestion_answer(thisQuizDto.getExplain_answer());
+		}
+
+		myAnswerDao.insert(newAnswer);
+
+	}
+
 }
