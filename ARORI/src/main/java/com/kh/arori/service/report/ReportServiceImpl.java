@@ -81,4 +81,10 @@ public class ReportServiceImpl implements ReportService {
 
 	}
 
+	@Override
+	public List<ReportDto> blacklist() {
+		// TODO Auto-generated method stub
+		return reportDao.blacklist();
+	}
+
 }

@@ -29,5 +29,8 @@ public interface ReportDao {
 	//신고글 개수
 	public int reportCount(ReportDto reportDto);
 	
+	//블랙리스트
+	public List<ReportDto>blacklist();
+	
 	
 }

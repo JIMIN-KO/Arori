@@ -26,6 +26,8 @@ public interface ReportService {
 	// 페이지네이션 개수
 	public List<Integer> pagination(int report_no, int pageNo);
 	
+	//블랙리스트
+	public List<ReportDto>blacklist();
 
 }
 

@@ -58,4 +58,10 @@ public class ReportDaoImpl implements ReportDao {
 		return reportCount;
 	}
 
+	//블랙리스트
+	@Override
+	public List<ReportDto> blacklist() {
+		return sqlSession.selectList("report.blacklist");
+	}
+
 }
