@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 
+import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.service.study.ClassesService;
+
 
 @Controller
 public class ClassesController {
@@ -28,6 +29,9 @@ public class ClassesController {
 
 	@Autowired
 	private ClassesDao classesDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 
 	// 클래스 생성 페이지 
 	@GetMapping("/classes/create")
@@ -45,7 +49,7 @@ public class ClassesController {
 		return "redirect:detail/" + c_no;
 	}
 
-	// 내가 만든 클래스 디테일 페이지
+	// 클래스 디테일 페이지
 	@GetMapping("/classes/detail/{c_no}")
 	public String detail(@PathVariable int c_no, Model model, HttpSession session) {
 
@@ -54,10 +58,15 @@ public class ClassesController {
 		ClassesDto classesDto = classesDao.get(c_no);
 		model.addAttribute("classesDto", classesDto);
 		
+		// 멤버넘버를 이용한 단일조회로 memberDto 보내기
+		int member_no = classesDto.getMember_no();
+		MemberDto memberDto = memberDao.getNo(member_no);
+		model.addAttribute("memberDto", memberDto);
+		
 		return "classes/detail";
 	}
 
-	// 클래스 수정
+	// 클래스 수정 페이지 
 	@GetMapping("/classes/edit/{c_no}") // get매핑일때는 정보 필요없엉
 	public String edit(@PathVariable String c_no, Model model) {
 
@@ -68,6 +77,7 @@ public class ClassesController {
 		return "classes/edit";
 	}
 
+	// 클래스 수정 기능 
 	@PostMapping("/classes/edit")
 	public String edit(@ModelAttribute ClassesDto classesDto) {
 	
@@ -76,27 +86,48 @@ public class ClassesController {
 		return "redirect:detail/" + classesDto.getC_no();
 	}
 	
-	// 나의 클래스 목록
-	@RequestMapping("/classes/myclass")
-	public String list(Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
-
+	// 클래스 목록
+	@RequestMapping("/classes/myclass/{member_no}")
+	public String list(@PathVariable int member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
 		// member_no 받아내기
-		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-		int member_no = memberDto.getMember_no();
+		// MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
+		//int member_no = memberDto.getMember_no();
 
 		// 나의 클래스 불러오는 메소드 실행
 		List<ClassesDto> list = classesDao.myList(member_no);		
 		model.addAttribute("list",list);
-		
 		return "classes/myclass";
 	}
-	
+
 	// 클래스 삭제
 	@GetMapping("/classes/delete/{c_no}")
-	public String delete(@PathVariable int c_no) {
-
+	public String delete(@PathVariable int c_no, HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
 		classesDao.delete(c_no);
-		return "redirect:/classes/myclass";
+		return "redirect:/classes/myclass/" + userinfo.getMember_no();
+	}
+	
+	// 구독
+	@GetMapping("/classes/subscribe/{c_no}")
+	public String sub(@PathVariable int c_no, @PathVariable int member_no,Model model, HttpSession session) {
+		
+		return "classes/detail";
+	}
+	
+	// 구독 목록
+	@RequestMapping("/classes/mySub/{member_no}")
+	public String mySub(@PathVariable int member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
+
+		// userinfo에서 현재 로그인한 계정의 no를 csDto에 저장
+		MemberDto memberDto = (MemberDto)session.getAttribute("userinfo");
+		int user_no = memberDto.getMember_no();	
+		System.out.println("member_no = "+user_no);
+		classesDto.setMember_no(user_no);
+		// 구독한 목록 호출
+		List<ClassesDto> list = classesDao.mySub(member_no);
+		model.addAttribute("list", list);
+		
+		return "classes/mySub";
 	}
 	
 }

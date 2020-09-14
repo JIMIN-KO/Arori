@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.McDto;
+import com.kh.arori.entity.study.SubscribeDto;
 
 public interface ClassesService {
 	
@@ -15,5 +16,8 @@ public interface ClassesService {
 //	public String get_day();
 //	public String get_autotime();
 	
+	// 검색 목록 조회
 	public List<McDto> searchList(String searchOption, String keyword);
+
+	public void already(SubscribeDto subDto);
 }

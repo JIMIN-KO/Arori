@@ -12,43 +12,83 @@
 	<!-- 퀴즈 생성 -->
 	<insert id="createQuiz" parameterType="quizDto">
 		INSERT INTO QUIZ
-		VALUES(#{q_no},#{c_no},#{q_title},#{q_score},NULL,NULL,#{q_runtime},#{q_scoring},NULL,SYSDATE,NULL,0)
+		VALUES(#{q_no},#{c_no},#{q_title},NULL,NULL,#{q_runtime},NULL,SYSDATE,NULL,0)
 	</insert>
 
 	<!-- 퀴즈 목록 -->
-	<select id="getList" resultType="quizDto"
-		parameterType="quizDto">
+	<select id="getList" resultType="quizDto" parameterType="quizDto">
 		SELECT * FROM QUIZ WHERE C_NO = ${c_no} AND Q_STATE = 1 ORDER BY Q_NO
 		DESC
 	</select>
 
 	<!-- 퀴즈 단일 조회 -->
 	<select id="get" resultType="quizDto" parameterType="quizDto">
-		SELECT * FROM QUIZ WHERE C_NO = #{c_no} AND Q_NO = #{q_no} 
+		SELECT * FROM QUIZ WHERE Q_NO = #{q_no} 
 	</select>
 
 	<!-- 퀴즈 수정 / 갱신 -->
-	<select id="update" parameterType="quizDto">
+	<update id="update" parameterType="quizDto">
 		UPDATE QUIZ SET
 		Q_TITLE = #{q_title},
-		Q_SCORE = #{q_score},
 		Q_OPEN =
 		TO_DATE(#{q_open},'yyyy-mm-dd hh24:mi:ss'),
 		Q_CLOSE =
 		TO_DATE(#{q_close},'yyyy-mm-dd hh24:mi:ss'),
 		Q_RUNTIME = #{q_runtime},
-		Q_SCORING = #{q_scoring},
 		Q_SCORE_OPEN =
 		TO_DATE(#{q_score_open},'yyyy-mm-dd hh24:mi:ss'),
 		Q_CONTENT = #{q_content},
 		Q_STATE = 1
 		WHERE C_NO = #{c_no}
 		AND Q_NO = #{q_no}
-	</select>
+	</update>
 	
 	<!-- 퀴즈 삭제 -->
 	<delete id="delete" parameterType="quizDto">
 		DELETE QUIZ WHERE C_NO = #{c_no} AND Q_NO = #{q_no}
  	</delete>
 
+	<!-- THIS_Q  view  에 대한 resultMap -->
+	<resultMap type="HashMap" id="this_q">
+		<id column="QUESTION_NO" property="question_no" />
+		<id column="QT_NO" property="qt_no" />
+		<id column="THIS_NO" property="this_no" />
+	</resultMap>
+	
+	<!-- 해당 퀴즈에 대한 오작교 정보 가지고 오기 -->
+	<select id="getThis_q" resultMap="this_q" parameterType="quizDto">
+		SELECT 
+			QUESTION_NO, QT_NO, THIS_NO 
+		FROM 
+			THIS_Q 
+		WHERE 
+			Q_NO =  #{q_no}
+		ORDER BY QUESTION_NO ASC
+	</select>
+
+	<!-- 회원 영역 -->
+	<!-- 마이 퀴즈 고유 번호 발급 -->
+	<select id="getSeqMQ" resultType="int">
+		SELECT MY_QUIZ_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- 내가 풀 / 푼 퀴즈로 등록하기 -->
+	<insert id="insertMQ" parameterType="myQuizDto">
+		INSERT INTO MY_QUIZ VALUES(#{no},#{member_no},#{q_no},SYSDATE)
+	</insert>
+	
+	<!-- 내가 푼 퀴즈 리스트 조회 -->
+	<select id="getAMQ" resultType="myQuizDto" parameterType="myQuizDto">
+		SELECT * FROM MY_QUIZ WHERE MEMBER_NO = #{member_no}
+	</select>
+	
+	<!-- 내가 푼 퀴즈인지 등록 여부 확인 -->
+	<select id="getMQ" resultType="myQuizDto" parameterType="myQuizDto">
+		SELECT * FROM MY_QUIZ WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
+	</select>
+	
+	<!-- 내가 푼 퀴즈 데이터 삭제 -->
+	<delete id="deleteMQ" parameterType="myQuizDto">
+		DELETE MY_QUIZ WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
+	</delete>
 </mapper>

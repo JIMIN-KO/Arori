@@ -5,6 +5,8 @@ public interface NameConst {
 	// 이미지 조회를 위한 상수 인터페이스 입니다.
 	String MEMBER = "member";
 	String CLASSES = "classes";
+	String QUIZ = "quiz";
+	String QUESTION = "question";
 	String README = "readme";
 	String NOTICE = "notice";
 	String QNA = "qna";

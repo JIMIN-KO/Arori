@@ -11,7 +11,6 @@ public class AllQuestionDto {
 	private int q_no;
 	private int qt_no;
 	private String aq_content;
-	private int aq_score;
 	private String aq_when;
 	
 }

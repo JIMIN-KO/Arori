@@ -20,6 +20,11 @@
 			SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
 		</select>
 		
+		<!-- (지민)member_no로 단일조회 -->
+		<select id="getNo" resultType="memberDto" parameterType="int">
+			SELECT * FROM member WHERE member_no = #{member_no}		
+		</select>
+		
 		<!-- 회원 가입 -->
 		<insert id="join" parameterType="memberDto">
 			INSERT INTO MEMBER VALUES(#{member_no}, #{member_id}, #{member_nick}, #{member_state}, SYSDATE, NULL, '정상', NULL)
@@ -145,12 +150,3 @@
    
 		
 </mapper>
-
-  
-  
-
-
- 
-
-  
- 

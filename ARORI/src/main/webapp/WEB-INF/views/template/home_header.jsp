@@ -48,7 +48,7 @@
             font-weight: bold;
         }
         .login-box {
-            height: 620px;
+            height: 730px;
             border-radius: 25px;
             background-color: white;
         }

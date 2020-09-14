@@ -1,4 +1,4 @@
-package com.kh.arori.vo;
+package com.kh.arori.entity.study;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExplainVo {
+public class MyQuizDto {
 
+	private int no;
+	private int member_no;
 	private int q_no;
-	private int question_no;
-	private String explain_answer;
+	private String when;
 }
