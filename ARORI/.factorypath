@@ -39,5 +39,38 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/jackson/core/jackson-databind/2.11.2/jackson-databind-2.11.2.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.11.2/jackson-annotations-2.11.2.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/jackson/core/jackson-core/2.11.2/jackson-core-2.11.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\annotations-api.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\catalina-ant.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\catalina-ha.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\catalina-ssi.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\catalina-storeconfig.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\catalina-tribes.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\catalina.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\ecj-4.15.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\el-api.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\jasper-el.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\jasper.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\jaspic-api.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\jsp-api.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\servlet-api.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-api.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-coyote.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-dbcp.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-cs.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-de.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-es.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-fr.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-ja.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-ko.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-pt-BR.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-ru.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-i18n-zh-CN.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-jdbc.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-jni.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-util-scan.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-util.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\tomcat-websocket.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\yoona\OneDrive\바탕 화면\ohyoona\apache-tomcat-9.0.35\lib\websocket-api.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
 </factorypath>
