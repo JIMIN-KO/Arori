@@ -111,20 +111,18 @@ public class NonMemberAjaxController {
 		MemberDto memberDto = memberDao.checkOverlapPhone(member_phone);
 		return memberDto;
 	}
-	
-	//회원 비밀번호 변경시 검사용  
+
+	// 회원 비밀번호 변경시 검사용
 	@GetMapping("/checkChangePw")
 	public boolean checkChangePw(@RequestParam String member_id, @RequestParam String member_pw) {
 		boolean check = memberDao.checkChangePw(member_id, member_pw);
-		
-		if (check==true) {
+
+		if (check == true) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
-	
+
 	}
-	
 
 }

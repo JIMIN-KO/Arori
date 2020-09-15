@@ -79,6 +79,7 @@ public class MyAnswerServiceImpl implements MyAnswerService {
 		return list;
 	}
 
+	// 퀴즈에 새로운 퀘스쳔으로 인해 회원 답안에 해당 퀘스쳔의 답안지가 없을 때
 	@Override
 	public void newAnswer(MyAnswerDto myAnswerDto) {
 		// 해당 퀴즈의 새로운 퀘스쳔이 추가됐을 경우 || 해당 퀘스쳔이 회원 답안에 더미 데이터로 없는 경우
@@ -97,6 +98,30 @@ public class MyAnswerServiceImpl implements MyAnswerService {
 		}
 
 		myAnswerDao.insert(newAnswer);
+
+	}
+
+	// 자동 채점 후 My_Quiz 테이블에 데이터 업데이트 하기
+	@Override
+	public void updateMyQuiz(MyAnswerDto myAnswerDto) {
+		// 나의 정답 테이블에 있는 해당 퀴즈의 퀘스쳔 개수
+		List<ThisQuizDto> get = questionDao.getTQ(myAnswerDto.getQ_no());
+		int quizCount = get.size();
+
+		// 해당 퀴즈의 퀘스쳔 당 점수 (만점 : 100점)
+		double totalScore = (double) 100 / quizCount;
+
+		// 나의 정답 테이블에 있는 해당 퀴즈의 정답 개수
+		List<MyAnswerDto> getCur = myAnswerDao.getCur(myAnswerDto);
+		double thisScore = (double) getCur.size();
+
+		// 지금까지의 나의 점수
+		int myScore = (int) (totalScore * thisScore);
+
+		// 현재 맞은 개수 계산 후 나의 퀴즈 테이블의 점수 테이블 업데이트
+		MyQuizDto myQuizDto = MyQuizDto.builder().score(myScore).member_no(myAnswerDto.getMember_no())
+				.q_no(myAnswerDto.getQ_no()).build();
+		quizDao.updateMQ(myQuizDto);
 
 	}
 

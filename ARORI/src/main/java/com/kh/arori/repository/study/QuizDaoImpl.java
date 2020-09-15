@@ -98,5 +98,12 @@ public class QuizDaoImpl implements QuizDao{
 		return sqlSession.selectOne("quiz.getMQ", myQuizDto);
 	}
 
+	// My Quiz > 내가 푼 퀴즈 점수 업데이트
+	@Override
+	public int updateMQ(MyQuizDto myQuizDto) {
+
+		return sqlSession.update("quiz.updateMQ", myQuizDto);
+	}
+
 
 }

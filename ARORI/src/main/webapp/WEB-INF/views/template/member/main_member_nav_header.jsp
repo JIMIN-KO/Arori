@@ -157,7 +157,7 @@
                             </li>
                             <!-- <hr style="margin-bottom: 0px;"> -->
                             <li class="nav-item pt-4 pb-4" id="click1" onclick="clickTab(this);">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" href="${pageContext.request.contextPath }/member/myPage">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="menu-images" id="iconclick1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
                                         <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -166,7 +166,7 @@
                                 </a>
                             </li>
                             <li class="nav-item pt-4 pb-4" id="click2" onclick="clickTab(this);">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="menu-images" id="iconclick2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 0 0 1 2.82z"/>
                                         <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
@@ -186,8 +186,6 @@
                                     		<input type="submit" class="text-white font-weight-bold" value="Subscribe">
                                     	</form>                            
                                     </li>                                    
-                                    
-                                    <li class="nav-item"><a href="#" class="text-white">Bookmark</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item pt-4 pb-4" id="click3" onclick="clickTab(this);">

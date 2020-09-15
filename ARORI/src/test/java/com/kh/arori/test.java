@@ -9,9 +9,10 @@ public class test {
 
 	@Test
 	public void test() {
-		String a = "\"하이\'";
-		
-		log.info(a);
+		int a = 9;
+		int b = 100;
+		double c = (double) b / a;
+		System.out.println(c);
 	}
 
 }

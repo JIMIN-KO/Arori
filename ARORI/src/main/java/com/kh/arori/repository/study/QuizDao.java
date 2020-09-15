@@ -24,7 +24,7 @@ public interface QuizDao {
 
 	// 퀴즈 삭제
 	public int delete(QuizDto quizDto);
-	
+
 	// 해당 퀴즈에 대한 오작교 데이터 가지고 오기
 	public List<Map<String, Integer>> getThis_q(int q_no);
 
@@ -33,13 +33,16 @@ public interface QuizDao {
 
 	// My Quiz > 등록
 	public void insertMQ(MyQuizDto myQuizDto);
-	
+
 	// My Quiz > 삭제
 	public int deleteMQ(MyQuizDto myQuizDto);
-	
+
 	// My Quiz > 내가 푼 퀴즈 리스트 조회
 	public List<MyQuizDto> getAMQ(MyQuizDto myQuizDto);
-	
+
 	// My Quiz > 내가 푼 퀴즈인지 여부 확인
 	public MyQuizDto getMQ(MyQuizDto myQuizDto);
+	
+	// My Quiz > 내 가 푼 퀴즈 점수 업데이트
+	public int updateMQ(MyQuizDto myQuizDto);
 }

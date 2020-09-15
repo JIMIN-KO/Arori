@@ -43,5 +43,5 @@
 	<select id="getIncur" resultType="myAnswerDto" parameterType="myAnswerDto">
 		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no} AND RESULT = 0
 	</select>
-
+	
 </mapper>

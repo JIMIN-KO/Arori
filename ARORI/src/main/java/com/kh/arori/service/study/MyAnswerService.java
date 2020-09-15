@@ -12,4 +12,7 @@ public interface MyAnswerService {
 	
 	// 퀴즈에 새로운 퀘스쳔으로 인해 회원 답안에 해당 퀘스쳔의 답안지가 없을 때
 	public void newAnswer(MyAnswerDto myAnswerDto);
+	
+	// 자동 채점 후 My_Quiz 테이블에 데이터 업데이트 하기
+	public void updateMyQuiz(MyAnswerDto myAnswerDto);
 }
