@@ -20,7 +20,6 @@
 	.card-img {
 		height: 200px;
 		width: 100%;
-
 	}
 	
 	/* 클래스 제목 링크 색상 제거 */
@@ -90,12 +89,10 @@
 		font-size: 15px;
 		color: #999;
 		border: 2px solid #ddd;
-		/*background: url(bg_select.png) no-repeat right 13px center;*/
 		appearance: none;
 		-webkit-appearance: none;
 		text-align-last: center;
 	}
-	
 
 </style>
 <!-- 클래스 목록 -->
@@ -168,17 +165,7 @@
 								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
 							</small>
 						</p>					
-							<!-- 내 클래스일 때는 수정, 삭제 버튼 / 남의 클래스 일 때는 구독버튼이 보이게 -->
-						<c:choose>
-							<c:when test="${MCIDto.member_no != userinfo.member_no}">
-									<form method="post">
-										<span class="card-btn">
-											<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">
-											<input type="button" class="btn btn-primary btn-sm subBtn" value="구독">	
-										</span>
-									</form>
-							</c:when>
-							<c:otherwise>
+					
 								<div class="card-btn w-100">
 									<div class="row mt-3">
 										<div class="col-6">
@@ -189,8 +176,7 @@
 										</div>
 									</div>
 								</div>
-							</c:otherwise>
-						</c:choose>
+						
 					</div>
 				</div>
 			</div>
@@ -252,20 +238,18 @@
 			 	}
 			 }).then(resp=>{
 				console.log(resp)
-				$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)
-				 
+				$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)			 
 		 	})
 		})
 		
 		$("#colSelector").on("change", function(){
 			document.querySelector("#myClassOrder").submit()
 		})
-
 	})
-
-
 </script>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+
+<!-- 이미지 수정 모달 -->
 <div class="modal" id="imgEdit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -289,7 +273,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+</div>
+	
+<!-- 클래스 수정 모달 -->
 <div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

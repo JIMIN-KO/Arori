@@ -104,28 +104,11 @@ public class ClassesController {
 		return "redirect:myclass/" + member_no;
 	}
 
-//	// 클래스 목록
-//	@RequestMapping("/classes/myclass/{member_no}")
-//	public String list(@PathVariable int member_no, Model model, HttpSession session, @ModelAttribute ClassesDto classesDto) {
-//		// member_no 받아내기
-//		// MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-//		//int member_no = memberDto.getMember_no();
-//
-//		// 나의 클래스 불러오는 메소드 실행
-//		List<ClassesDto> list = classesDao.myList(member_no);		
-//		model.addAttribute("list",list);
-//		return "classes/myclass";
-//	}
-
 	// 마이클래스 페이지
 	@RequestMapping("/classes/myclass/{member_no}")
 	public String list(@PathVariable String member_no, Model model, HttpSession session,
 			@ModelAttribute ClassesDto classesDto,
 			@RequestParam(required = false, defaultValue = "c_when") String col) {
-		// member_no 받아내기
-		// MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-		// int member_no = memberDto.getMember_no();
-		// /arori/classes/myclass/1?col=c_no&order=asc
 
 		String order = "DESC";
 		boolean isOld = col.equals("c_when_old");
@@ -143,7 +126,6 @@ public class ClassesController {
 		List<MCIDto> list = classesDao.getMCI(map);
 
 		model.addAttribute("MCIDto", list);
-
 		return "classes/myclass";
 	}
 

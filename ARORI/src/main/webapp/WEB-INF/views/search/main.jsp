@@ -48,8 +48,8 @@
 	#search {
 		width:70px;
 		height: 35px;
-	   background-color: #4A70F6;
-		border: 2px solid #4A70F6;
+	   background-color: #F5C159;
+		border: 2px solid #F5C159;
 		color: #fff;
 	}
 	
