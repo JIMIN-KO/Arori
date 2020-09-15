@@ -22,29 +22,23 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	AdminDao adminDao;
 
+	// 상세정보변경
 	@Override
-	public void adminUpdate(MemberDto memberDto) {
-		memberDao.adminUpdate(memberDto);
+	public void adminUpdate(AllMemberDto allMemberDto) {
+		memberDao.adminUpdate(allMemberDto);
 	}
 
 	// 관리자 -> 변경후 단일조회를 통한 상세정보 조회1
 	@Override
-	public MemberDto memberProfile(int member_no) {
-		MemberDto memberProfile = memberDao.memberProfile(member_no);
+	public AllMemberDto memberProfile(int member_no) {
+		AllMemberDto memberProfile = memberDao.memberProfile(member_no);
 		return memberProfile;
-	}
-
-	// 관리자 -> 변경후 단일조회를 통한 상세정보 조회2
-	@Override
-	public AroriMemberDto memberProfile2(int member_no) {
-		AroriMemberDto memberProfile2 = memberDao.memberProfile2(member_no);
-		return memberProfile2;
 	}
 
 	// 회원탈퇴
 	@Override
 	public void delete(MemberDto memberDto) {
-		memberDao.deleteMember(memberDto);
+		adminDao.Delete(memberDto);
 
 	}
 
@@ -61,12 +55,6 @@ public class AdminServiceImpl implements AdminService {
 		return getImage;
 	}
 
-	// 비밀번호체크
-	@Override
-	public int checkPw(AroriMemberDto aroriMemberDto) {
-		int result = adminDao.checkPw(aroriMemberDto);
-		return result;
-	}
 
 	// 아로리 총 멤버 리스트
 	@Override

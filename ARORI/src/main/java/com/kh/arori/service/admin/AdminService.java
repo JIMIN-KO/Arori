@@ -13,13 +13,10 @@ import com.kh.arori.entity.study.ClassesDto;
 public interface AdminService {
 
 	//회원상세정보변경
-	public void adminUpdate(MemberDto memberDto);
+	public void adminUpdate(AllMemberDto allMemberDto);
 	
 	//변경후 단일조회를 통한 상세정보 조회1
-	public MemberDto memberProfile(int member_no);
-	
-	//변경후 단일조회를 통한 상세정보 조회2
-	public AroriMemberDto memberProfile2(int member_no);
+	public AllMemberDto memberProfile(int member_no);
 	
 	//회원삭제
 	public void delete(MemberDto memberDto);
@@ -29,9 +26,6 @@ public interface AdminService {
 	
 	//회원 + 회원이미지
 	public This_imgDto getImage(int member_no);
-	
-	//비밀번호 확인
-	public int checkPw(AroriMemberDto aroriMemberDto);
 	
 	//아로리 총 멤버리스트
 	public List<AllMemberDto>allList();

@@ -95,16 +95,16 @@ public class AdminController {
 	 */
 	// 리스트 연습
 	@GetMapping("/allList")
-	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto,@ModelAttribute ClassesDto classesDto, @ModelAttribute MemberDto memberDto) {
+	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto, @ModelAttribute ClassesDto classesDto,
+			@ModelAttribute MemberDto memberDto) {
 		List<AllMemberDto> list = adminService.allList();
 		model.addAttribute("list", list);
-		
+
 		int memberCount = adminDao.memberCount(memberDto);
 		model.addAttribute("memberCount", memberCount);
 
 		int classCount = adminDao.classCount(classesDto);
 		model.addAttribute("classCount", classCount);
-		
 
 		return "admin/allList";
 
@@ -134,6 +134,7 @@ public class AdminController {
 
 		List<AllMemberDto> list = adminService.allList();
 		model.addAttribute("list", list);
+
 		int memberCount = adminDao.memberCount(memberDto);
 		model.addAttribute("memberCount", memberCount);
 
@@ -146,22 +147,28 @@ public class AdminController {
 
 	}
 
-	// 블랙리스트
+	// 블랙멤버 리스트
 	@GetMapping("/blacklist")
 	public String blacklist(Model model, @ModelAttribute MemberDto memberDto, @ModelAttribute ReportDto reportDto) {
 
 		List<AllMemberDto> list = adminService.allList();
 		model.addAttribute("list", list);
-		
-		List<ReportDto> blacklist = reportService.blacklist();
-		model.addAttribute("blacklist", blacklist);
-
-		model.addAttribute("list", reportService.blacklist());
 
 		return "admin/blacklist";
 
 	}
 
+	// 클린멤버 리스트
+	// 블랙리스트
+	@GetMapping("/cleanList")
+	public String cleanList(Model model, @ModelAttribute MemberDto memberDto, @ModelAttribute ReportDto reportDto) {
+
+		List<AllMemberDto> list = adminService.allList();
+		model.addAttribute("list", list);
+
+		return "admin/cleanList";
+
+	}
 	// 검색
 
 	@PostMapping("/search")
@@ -171,7 +178,7 @@ public class AdminController {
 		param.put("type", type);
 		param.put("keyword", keyword);
 		List<MemberDto> list = sqlSession.selectList("admin.search", param);
-		model.addAttribute("list1", list);
+		model.addAttribute("list", list);
 
 		return "admin/allList";
 
@@ -182,17 +189,17 @@ public class AdminController {
 	public String adminUpdate(@PathVariable(required = false) String member_id, Model model) {
 		// 변수가 없어도 적용가능
 
-		MemberDto memberDto = memberDao.get(member_id);// 회원 아이디 단일조회해서
-		model.addAttribute("memberDto", memberDto); // 페이지로 데이터 전달한다.
+		AllMemberDto allMemberDto = memberDao.allGet(member_id);// 회원 아이디 단일조회해서
+		model.addAttribute("allMemberDto", allMemberDto); // 페이지로 데이터 전달한다.
 
 		return "admin/adminUpdate";
 	}
 
 	// 소셜 + 아로리) 상세정보변경
 	@PostMapping("/adminUpdate/{member_id}")
-	public String adminEdit(@ModelAttribute MemberDto memberDto) {
+	public String adminUpdate(@ModelAttribute AllMemberDto allMemberDto) {
 
-		adminService.adminUpdate(memberDto);
+		adminService.adminUpdate(allMemberDto);
 
 		System.out.println("정보수정 성공");
 
@@ -210,11 +217,9 @@ public class AdminController {
 		This_imgDto this_imgDto = adminDao.getImage(member_no);
 		model.addAttribute("this_imgDto", this_imgDto);
 
-		MemberDto memberDto = memberDao.memberProfile(member_no);
-		model.addAttribute("memberDto", memberDto); // 소셜회원 정보전달큐알체크못했는데 어떡
-
-		AroriMemberDto memberDto2 = memberDao.memberProfile2(member_no);
-		model.addAttribute("memberDto2", memberDto2); // 아로리회원 정보전달
+		AllMemberDto allMemberDto = memberDao.memberProfile(member_no);
+		model.addAttribute("allMemberDto", allMemberDto); // 소셜회원 정보전달큐알체크못했는데 어떡
+		// 아로리회원 정보전달
 
 		return "admin/memberProfile";
 	}
@@ -228,18 +233,7 @@ public class AdminController {
 
 		adminService.memberProfile(member_no); // 소셜회원정보 get
 
-		adminService.memberProfile2(member_no); // 아로리회원정보 get
-
 		return "/memberProfile/{member_no}";
-	}
-
-	// 비밀번호 확인
-	@ResponseBody
-	@RequestMapping(value = "/checkPw", method = RequestMethod.POST)
-	public int checkPw(AroriMemberDto aroriMemberDto) {
-		int result = adminService.checkPw(aroriMemberDto);
-		return result;
-
 	}
 
 	// 회원탈퇴 시키기
@@ -250,6 +244,5 @@ public class AdminController {
 
 		return "admin/delete";
 	}
-
 
 }

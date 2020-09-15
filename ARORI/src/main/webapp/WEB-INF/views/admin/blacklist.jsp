@@ -13,10 +13,15 @@
 
 
 <h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
-<button class="btn btn-primary btn-lg font-weight-bold">
-	<a href="${pageContext.request.contextPath}/admin/resultMap">CLEAN
-		MEMBER 
+<button class="btn btn-lg btn-warning font-weight-bold mt-5">
+	<a href="${pageContext.request.contextPath}/admin/cleanList">CLEAN
+		MEMBER </a>
 </button>
+<tr>
+
+
+</tr>
+</div>
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -33,29 +38,30 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="memberDto" items="${result}" varStatus="status">
+		<c:forEach var="allMemberDto" items="${list}" varStatus="status">
 			<tr>
 				<c:if
-					test="${memberDto.report_state eq '일시 정지'||memberDto.report_state eq '영구 정지'||memberDto.report_state eq'탈퇴'}">
+					test="${allMemberDto.report_state eq '일시 정지'||allMemberDto.report_state eq '영구 정지'||allMemberDto.report_state eq'탈퇴'}">
 					<tr>
-						<th scope="row">${memberDto.member_no}</th>
-						<td>${memberDto.member_id}</td>
-						</a>
-						<td>${memberDto.member_nick}</td>
-						<td>${result2[status.index].member_email}</td>
-						<td>${result2[status.index].member_phone}</td>
-						<td>${memberDto.member_state}</td>
-						<td>${memberDto.member_join}</td>
-						<td>${memberDto.member_login}</td>
-						<td>${memberDto.report_state}</td>
+							<th scope="row">${allMemberDto.member_no}</th>
+							<td>${allMemberDto.member_id}</td>
+							<td>${allMemberDto.member_nick}</td>
+							<td>${allMemberDto.member_email}</td>
+							<td>${allMemberDto.member_phone}</td>
+							<td>${allMemberDto.member_state}</td>
+							<td>${allMemberDto.member_join}</td>
+							<td>${allMemberDto.member_login}</td>
+							<td>${allMemberDto.report_state}</td>
+
 
 						<td><button>
-								<a href="${pageContext.request.contextPath}/admin/memberProfile/${memberDto.member_no}">DETAIL</a>
+								<a
+									href="${pageContext.request.contextPath}/admin/memberProfile/${allMemberDto.member_no}">DETAIL</a>
 							</button></td>
 				</c:if>
-				</c:forEach>
-				</tr>
-			
+		</c:forEach>
+		</tr>
+
 		<form action="search" method="post">
 			<tr>
 				<td><select name="type" class="custom-select">

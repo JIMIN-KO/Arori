@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
@@ -147,19 +148,6 @@ public class MemberDaoImpl implements MemberDao {
 		return result;
 	}
 
-	// 소셜+아로리 목록조회
-	@Override
-	public List<MemberDto> resultMap() {
-		List<MemberDto> result = sqlSession.selectList("member.resultMap");
-		return result;
-	}
-
-	// 소셜+아로리 목록조회
-	@Override
-	public List<MemberDto> resultMap2() {
-		List<MemberDto> result2 = sqlSession.selectList("member.resultMap2");
-		return result2;
-	}
 
 	// 회원 가입시 중복닉네임을 검사
 	// 재정의하셨는데 모양이 다르네요
@@ -218,23 +206,24 @@ public class MemberDaoImpl implements MemberDao {
 
 	//회원상세정보 전체업데이트
 	@Override
-	public void adminUpdate(MemberDto memberDto) {
+	public void adminUpdate(AllMemberDto allMemberDto) {
 
-		sqlSession.update("member.adminEdit", memberDto);
+		sqlSession.update("member.adminEdit", allMemberDto);
 
 	}
 
 	//소셜+아로리 아우터조인 단일조회
 	@Override
-	public MemberDto memberProfile(int member_no) {
-		MemberDto memberProfile = sqlSession.selectOne("member.resultMap3", member_no);
+	public AllMemberDto memberProfile(int member_no) {
+		AllMemberDto memberProfile = sqlSession.selectOne("member.allMemberList", member_no);
 		return memberProfile;
 	}
 
+
 	@Override
-	public AroriMemberDto memberProfile2(int member_no) {
-		AroriMemberDto memberProfile2 = sqlSession.selectOne("member.resultMap4", member_no);
-		return memberProfile2;
+	public AllMemberDto allGet(String member_id) {
+		AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
+		return allmember;
 	}
 
 }

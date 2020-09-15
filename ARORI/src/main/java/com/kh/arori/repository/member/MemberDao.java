@@ -3,6 +3,7 @@ package com.kh.arori.repository.member;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
@@ -61,12 +62,7 @@ public interface MemberDao {
 	//소셜회원)마이페이지
 	public MemberDto SocialInfo(int member_no);
 
-	//resultMap1
-	public List<MemberDto> resultMap();
-	
-	//resultMap22
-	public List<MemberDto> resultMap2();
-	
+
 	//중복 아이디 검사 
 	public MemberDto checkOverlap(String member_id);
 	
@@ -89,14 +85,15 @@ public interface MemberDao {
 	public MemberDto getNo(int member_no);
 	
 	//소셜+아로리 업데이트 (관리자가)
-	public void adminUpdate(MemberDto memberDto);
+	public void adminUpdate(AllMemberDto allMemberDto);
 	
-	//소셜+아로리)아우터조인 단일조회1
-	public MemberDto memberProfile(int member_no);
+	//소셜+아로리)아우터조인 단일조회(중요)
+	public AllMemberDto memberProfile(int member_no);
 	
-	//소셜+아로리)아우터조인 단일조회2
-	public AroriMemberDto memberProfile2(int member_no);
+	//전체조회
+	public AllMemberDto allGet(String member_id);
 
 }
+
 
 

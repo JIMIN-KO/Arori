@@ -6,24 +6,6 @@
 
 	<!-- 관리자가 회원아이디를 통해 회원을 삭제시킨다. -->
 
-	<resultMap type="memberDto" id="aroriMemberDto">
-		<result column="member_no" property="member_no" />
-		<result column="member_pw" property="member_pw" />
-		<result column="member_email" property="member_email" />
-		<result column="member_phone" property="member_phone" />
-	</resultMap>
-
-	<resultMap type="memberDto" id="memberDto">
-		<result column="member_no" property="member_no" />
-		<result column="member_id" property="member_id" />
-		<result column="member_nick" property="member_nick" />
-		<result column="member_state" property="member_state" />
-		<result column="member_join" property="member_join" />
-		<result column="member_login" property="member_login" />
-		<result column="report_state" property="report_state" />
-		<result column="suspension" property="suspension" />
-	</resultMap>
-
 	<delete id="delete" parameterType="memberDto">
 		DELETE FROM MEMBER WHERE
 		member_id=#{member_id}
@@ -61,7 +43,7 @@
 	</select>
 
 	<!-- 회원 검색 -->
-	<select id="search" resultType="memberDto" parameterType="map">
+	<select id="search" resultType="allMemberDto" parameterType="map">
 		SELECT
 		m.member_no,m.MEMBER_id,m.member_nick,m.member_state,m.MEMBER_join,m.member_login,m.REPORT_STATE,m.SUSPENSION,am.member_email,am.member_phone
 		FROM MEMBER m FULL JOIN arori_member am ON
@@ -70,14 +52,6 @@
 	</select>
 
 	<!-- 회원 검색 -->
-	<select id="search2" resultType="aroriMemberDto"
-		parameterType="map">
-		SELECT
-		m.member_no,m.MEMBER_id,m.member_nick,m.member_state,m.MEMBER_join,m.member_login,m.REPORT_STATE,m.SUSPENSION,am.member_email,am.member_phone
-		FROM MEMBER m FULL JOIN arori_member am ON
-		M.MEMBER_NO=am.MEMBER_NO
-		WHERE instr(${type},#{keyword})>0 ORDER BY m.member_no ASC
-	</select>
 
 	<!-- 총 클래스 카운트 -->
 	<select id="classCount" resultType="int"
@@ -90,13 +64,6 @@
 	<select id="memberCount" resultType="int"
 		parameterType="memberDto">
 		SELECT count(*)FROM MEMBER
-	</select>
-
-	<!-- 암호화 설정한 비밀번호 확인 -->
-	<select id="checkPw" resultType="int">
-		SELECT count(*) FROM
-		arori_MEMBER WHERE MEMBER_NO =#{member_no} AND
-		member_pw=fn_encrypt(#{member_pw})
 	</select>
 
 	<!-- 총 아로리멤버 카운트 -->

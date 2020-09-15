@@ -133,61 +133,20 @@
 		ORDER BY member_no ASC
 	</select>
 
-	<!-- 관리자가 소셜+회원 정보 목록조회 resultMap -->
 
-	<resultMap type="memberDto" id="aroriMemberDto">
-		<result column="member_no" property="member_no" />
-		<result column="member_pw" property="member_pw" />
-		<result column="member_email" property="member_email" />
-		<result column="member_phone" property="member_phone" />
-	</resultMap>
-
-	<resultMap type="memberDto" id="memberDto">
-		<result column="member_no" property="member_no" />
-		<result column="member_id" property="member_id" />
-		<result column="member_nick" property="member_nick" />
-		<result column="member_state" property="member_state" />
-		<result column="member_join" property="member_join" />
-		<result column="member_login" property="member_login" />
-		<result column="report_state" property="member_state" />
-		<result column="suspension" property="member_suspension" />
-	</resultMap>
-
-	<!-- 관리자가 소셜+회원 정보 목록조회 -->
-	<select id="resultMap" resultType="memberDto">
-		SELECT *FROM MEMBER m left
-		OUTER JOIN arori_member a on
-		m.member_no=a.member_no ORDER BY
-		m.member_no ASC
+	<!-- 이너 조인으로 회원(단일) 두테이블 조회(중요) -->
+	<select id="allMemberList" resultType="allMemberDto">
+		SELECT* FROM MEMBER m LEFT OUTER JOIN ARORI_MEMBER am ON m.MEMBER_NO = am.member_no WHERE m.member_no=#{member_no}
 	</select>
 
-	<!-- 관리자가 소셜+회원 정보 목록조회 -->
-	<select id="resultMap2" resultType="aroriMemberDto">
-		SELECT *FROM MEMBER m left
-		OUTER JOIN arori_member a on
-		m.member_no=a.member_no ORDER BY
-		m.member_no ASC
-	</select>
 
-	<!-- 이너 조인으로 회원(단일) 두테이블 조회 -->
-	<select id="resultMap3" resultType="memberDto">
-		SELECT*FROM MEMBER WHERE member_no=#{member_no}
-	</select>
-
-	<!-- 이너 조인으로 회원(단일) 두테이블 조회 -->
-	<select id="resultMap4" resultType="aroriMemberDto">
-		SELECT*FROM ARORI_MEMBER
-		WHERE member_no=#{member_no}
-		
-
-	</select>
 	<!-- 패스워드 질문, 답변 조회 -->
 	<select id="passQ" resultType="passwordQDto">
 		select * from PASSWORD_Q
 	</select>
 
 	<!-- 관리자가 회원 정보 수정 -->
-	<update id="adminEdit" parameterType="memberDto">
+	<update id="adminEdit" parameterType="allMemberDto">
 		UPDATE MEMBER SET
 		member_nick=#{member_nick} , member_state=#{member_state}
 		,
@@ -237,13 +196,16 @@
 	</select>
 
 
-	<!-- 회원 단일 조회 (번호) -->
 	<!-- 회원 단일 조회 > MEMBER TABLE -->
 	<select id="getNo" resultType="memberDto"
 		parameterType="memberDto">
 		SELECT * FROM MEMBER WHERE MEMBER_NO = #{member_no}
 	</select>
 	
+	<select id="allGet" resultType="allMemberDto"
+		parameterType="allMemberDto">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
 
 
 </mapper>

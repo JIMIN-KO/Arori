@@ -27,54 +27,54 @@
 			<tr>
 				<th scope="col">NO</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto.member_no}" readonly="readonly"></td>
+					value="${allMemberDto.member_no}" readonly="readonly"></td>
 			</tr>
 
 
 			<tr>
 				<th scope="col">ID</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto.member_id}" readonly="readonly"></td>
+					value="${allMemberDto.member_id}" readonly="readonly"></td>
 			</tr>
 
 			<tr>
 				<th scope="col">MEMBER</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto.member_state}" readonly="readonly"></td>
+					value="${allMemberDto.member_state}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<th scope="col">NICK</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto.member_nick}" readonly="readonly"></td>
+					value="${allMemberDto.member_nick}" readonly="readonly"></td>
 			</tr>
 
 			<tr>
 				<th scope="col">E-mail</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto2.member_email}" readonly="readonly"></td>
+					value="${allMemberDto.member_email}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<th scope="col">PHONE</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto2.member_phone}" readonly="readonly"></td>
+					value="${allMemberDto.member_phone}" readonly="readonly"></td>
 			</tr>
 
 			<tr>
 				<th scope="col">JOIN</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto.member_join}" readonly="readonly"></td>
+					value="${allMemberDto.member_join}" readonly="readonly"></td>
 			</tr>
 
 			<tr>
 				<th scope="col">LOGIN</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto.member_login}" readonly="readonly"></td>
+					value="${allMemberDto.member_login}" readonly="readonly"></td>
 			</tr>
 
 			<tr>
 				<th scope="col">STATE</th>
 				<td><input type="text" class="form-control"
-					value="${memberDto.report_state}" readonly="readonly"></td>
+					value="${allMemberDto.report_state}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<th scope="col">CLASS</th>
@@ -87,16 +87,16 @@
 </svg>
 					<button>
 						<a
-							href="${pageContext.request.contextPath}/classes/detail/${memberDto.member_no}">VIEW
+							href="${pageContext.request.contextPath}/classes/detail/${allMemberDto.member_no}">클래스보기
 							CLASS</a>
 					</button></td>
 			</tr>
 
 			<tr>
 				<td><a
-					href="${pageContext.request.contextPath}/admin/adminUpdate/${memberDto.member_id}"
+					href="${pageContext.request.contextPath}/admin/adminUpdate/${allMemberDto.member_id}"
 					class="btn btn-primary btn-lg font-weight-bold">수정하기</a> <a
-					href="${pageContext.request.contextPath}/admin/resultMap"
+					href="${pageContext.request.contextPath}/admin/allList"
 					class="btn btn-primary btn-lg font-weight-bold">목록으로</a></td>
 			</tr>
 		</tbody>

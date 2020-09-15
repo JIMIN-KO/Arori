@@ -12,14 +12,20 @@
 
 
 <h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
-<button class="btn btn-primary btn-lg font-weight-bold"
+<button class="btn btn-lg btn-warning font-weight-bold mt-5"
 	value="BLACK MEMBER">
 	<a href="${pageContext.request.contextPath}/admin/blacklist">BLACK
-		MEMBER </a> <select onchange="visit(this)">
+		MEMBER </a></button>
+		 <div class="col-md-3 mb-3">
+		<tr>
+		 <select onchange="visit(this)" class="custom-select">
 		<option value="http://localhost:8080/arori/admin/allList">전체회원</option>
 		<option value="http://localhost:8080/arori/admin/aroriList">아로리</option>
 		<option value="http://localhost:8080/arori/admin/socialList">소셜</option>
 	</select>
+
+	</tr>
+	</div>
 	<table class="table table-hover">
 		<thead>
 			<tr>
