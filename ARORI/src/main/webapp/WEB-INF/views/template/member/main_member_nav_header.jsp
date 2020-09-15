@@ -9,6 +9,44 @@
 	background: none;
 	outline:0;
 	}
+	
+	
+	
+        body {
+            background-color: rgb(74, 112, 223);
+        }
+        .login-header {
+            color: white;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+        }
+
+        .title {
+            font-size: 4rem; 
+        }
+        .sub-title {
+            font-weight: bold;
+        }
+        .login-box {
+            height: 620px;
+            border-radius: 25px;
+            background-color: white;
+        }
+        .findPw {
+            display: none;
+        }
+        #findId,
+        #findPw {
+            display: none;
+        }
+        #tabfindId,
+        #tabfindPw {
+            cursor: pointer;
+            border-radius: 5px;
+        }
+ 
 </style>
 
     <meta charset="UTF-8">
@@ -63,6 +101,50 @@
     <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" />
 </head>
 <body>
+              <!-- 정보수정 실패 모달  -->
+	<div class="modal" tabindex="-1" id="memberUpdateFail">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">정보수정실패</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>조건이 맞는지 다시한번 확인해주새요 </p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+     <!--비밀번호변경실패모달 -->
+		<div class="modal" tabindex="-1" id="changPwFail">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">비밀번호변경실패</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>조건이 맞는지 다시한번 확인해주새요 </p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+
+
     <div class="backbtn"></div>
     <div class="container-fluid">
         <div class="row">
@@ -144,3 +226,5 @@
                         </svg>
                     </div>
                 </div>
+                
+  

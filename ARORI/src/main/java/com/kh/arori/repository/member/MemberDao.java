@@ -17,9 +17,6 @@ public interface MemberDao {
 
 	// 회원 단일 조회
 	public MemberDto get(String member_id);
-	
-	// member_no 단일 조회(지민)
-	public MemberDto getNo(int member_no);
 
 	// 전체 회원 조회
 	public List<MemberDto> getList();
@@ -63,6 +60,15 @@ public interface MemberDao {
 	// 소셜회원)마이페이지
 	public MemberDto SocialInfo(int member_no);
 
+	// member_no 단일 조회(지민)
+	public MemberDto getNo(int member_no);
+
+	// resultMap 연습
+	public List<MemberDto> resultMap();
+
+	// resultMap2 연습
+	public List<MemberDto> resultMap2();
+
 	// 중복 아이디 검사
 	public MemberDto checkOverlap(String member_id);
 
@@ -78,4 +84,9 @@ public interface MemberDao {
 	// 회원탈퇴
 	public void deleteMember(MemberDto memberDto);
 
+	// 아오리 회원 비번변경
+	public void changeAroriPW(AroriMemberDto aroriMemberDto);
+
+	// 비번 변경전에 확인사항
+	public boolean checkChangePw(String member_id, String member_pw);
 }
