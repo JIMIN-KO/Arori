@@ -56,7 +56,8 @@
 			</select></td>
 			<td><input type="text" class="form-control" name="keyword"
 				placeholder="검색어"></td>
-			<td><input type="submit" class="form-control" value="찾기"></td>
+			<td><input type="submit"
+				class="btn btn-primary btn-lg font-weight-bold" value="찾기"></td>
 		</tr>
 	</form>
 

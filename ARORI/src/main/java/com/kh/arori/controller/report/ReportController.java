@@ -58,6 +58,7 @@ public class ReportController {
 		return "report/list";
 	}
 
+	//페이지네이션
 	@GetMapping("/list_data")
 	@ResponseBody
 	public List<ReportDto> listData(Model model) {

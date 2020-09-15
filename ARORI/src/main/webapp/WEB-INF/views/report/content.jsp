@@ -47,9 +47,9 @@
 		<tr>
 			<td><a
 				href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}"><input type="button"
-				class="btn btn-primary btn-lg font-weight-bold" value="상태변경하기"></a>
+				class="btn btn-lg btn-warning font-weight-bold mt-5" value="상태변경하기"></a>
 				<a
-				href="${pageContext.request.contextPath}/report/list"><input type="button" class="btn btn-primary btn-lg font-weight-bold"
+				href="${pageContext.request.contextPath}/report/list"><input type="button" class="btn btn-primary btn-lg font-weight-bold mt-5"
 				value="목록으로"></a></td>
 		</tr>
 	</tbody>

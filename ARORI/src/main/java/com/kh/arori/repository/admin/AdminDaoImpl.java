@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.arori.entity.img.This_imgDto;
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
@@ -82,6 +83,11 @@ public class AdminDaoImpl implements AdminDao {
 		
 		aroriCount=sqlSession.selectOne("admin.aroriCount",aroriMemberDto);
 		return aroriCount;
+	}
+
+	@Override
+	public List<AllMemberDto> allList() {
+		return sqlSession.selectList("admin.allList");
 	}
 
 }

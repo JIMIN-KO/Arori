@@ -16,7 +16,7 @@
 	value="BLACK MEMBER">
 	<a href="${pageContext.request.contextPath}/admin/blacklist">BLACK
 		MEMBER </a> <select onchange="visit(this)">
-		<option value="http://localhost:8080/arori/admin/resultMap">전체회원</option>
+		<option value="http://localhost:8080/arori/admin/allList">전체회원</option>
 		<option value="http://localhost:8080/arori/admin/aroriList">아로리</option>
 		<option value="http://localhost:8080/arori/admin/socialList">소셜</option>
 	</select>
@@ -36,30 +36,30 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="memberDto" items="${result}" varStatus="status">
+			<c:forEach var="allMemberDto" items="${list}" varStatus="status">
 				<tr>
-					<c:if test="${memberDto.report_state eq '정상'}">
+				
 						<br>
 
 						<tr>
-							<th scope="row">${memberDto.member_no}</th>
-							<td>${memberDto.member_id}</td>
+							<th scope="row">${allMemberDto.member_no}</th>
+							<td>${allMemberDto.member_id}</td>
 							</a>
-							<td>${memberDto.member_nick}</td>
-							<td>${result2[status.index].member_email}</td>
-							<td>${result2[status.index].member_phone}</td>
-							<td>${memberDto.member_state}</td>
-							<td>${memberDto.member_join}</td>
-							<td>${memberDto.member_login}</td>
-							<td>${memberDto.report_state}</td>
+							<td>${allMemberDto.member_nick}</td>
+							<td>${allMemberDto.member_email}</td>
+							<td>${allMemberDto.member_phone}</td>
+							<td>${allMemberDto.member_state}</td>
+							<td>${allMemberDto.member_join}</td>
+							<td>${allMemberDto.member_login}</td>
+							<td>${allMemberDto.report_state}</td>
 
 
 							<td><button>
 									<a
-										href="${pageContext.request.contextPath}/admin/memberProfile/${memberDto.member_no}">DETAIL</a>
+										href="${pageContext.request.contextPath}/admin/memberProfile/${allMemberDto.member_no}">DETAIL</a>
 								</button></td>
 						</tr>
-					</c:if>
+				
 			</c:forEach>
 			</tr>
 			<form action="search" method="post">
@@ -93,6 +93,7 @@
 		</tbody>
 
 	</table>
+	
 
 	<jsp:include
 		page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>

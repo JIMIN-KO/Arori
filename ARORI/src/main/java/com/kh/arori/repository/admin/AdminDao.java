@@ -4,6 +4,7 @@ package com.kh.arori.repository.admin;
 import java.util.List;
 
 import com.kh.arori.entity.img.This_imgDto;
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.ReportDto;
@@ -39,5 +40,8 @@ public interface AdminDao {
 	
 	//아로리 총 인원
 	public int aroriCount(AroriMemberDto aroriMemberDto);
+	
+	//아로리 총 멤버
+	public List<AllMemberDto>allList();
 	
 }

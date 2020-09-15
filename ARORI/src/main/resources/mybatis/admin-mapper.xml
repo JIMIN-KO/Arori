@@ -94,14 +94,23 @@
 
 	<!-- 암호화 설정한 비밀번호 확인 -->
 	<select id="checkPw" resultType="int">
-		SELECT count(*) FROM arori_MEMBER WHERE MEMBER_NO =#{member_no} AND
+		SELECT count(*) FROM
+		arori_MEMBER WHERE MEMBER_NO =#{member_no} AND
 		member_pw=fn_encrypt(#{member_pw})
 	</select>
 
-<!-- 총 아로리멤버 카운트 -->
+	<!-- 총 아로리멤버 카운트 -->
 	<select id="aroriCount" resultType="int"
 		parameterType="aroriMemberDto">
 		SELECT count(*)FROM ARORI_MEMBER
+	</select>
+
+	<!-- 회원 전체 목록 -->
+	<select id="allList" resultType="allMemberDto">
+		SELECT
+		m.member_no,m.member_id,m.member_nick,m.member_state,m.member_join,m.member_login,m.report_state,m.suspension,am.member_email
+		FROM MEMBER m LEFT OUTER JOIN ARORI_MEMBER am ON m.MEMBER_NO =
+		am.member_no ORDER BY member_no ASC
 	</select>
 
 </mapper>

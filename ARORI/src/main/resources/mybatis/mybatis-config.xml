@@ -52,8 +52,8 @@
 		
 		<typeAlias type="com.kh.arori.entity.study.OxDto" alias="oxDto"/>
 		
+		<!-- 전체 멤버  Table -->
+		<typeAlias type="com.kh.arori.entity.member.AllMemberDto" alias="allMemberDto"/>
 		
-
-
 	</typeAliases>
  </configuration>

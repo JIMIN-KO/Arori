@@ -1,4 +1,3 @@
-
 package com.kh.arori.controller.admin;
 
 import java.sql.Date;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.arori.entity.img.This_imgDto;
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.ReportDto;
@@ -69,40 +69,57 @@ public class AdminController {
 	// 아로리 회원 이미지 불러오기
 	// 신고별 검색
 
-	// 소셜 + 아로리) 목록조회
-	@GetMapping("/resultMap")
-	public String resultMap(Model model, Model model2, @ModelAttribute MemberDto memberDto,
-			@ModelAttribute ClassesDto classesDto) {
-
-		List<MemberDto> result = memberDao.resultMap();
-		model.addAttribute("result", result);
-
-		List<MemberDto> result2 = memberDao.resultMap2();
-		model.addAttribute("result2", result2);
-
+	/*
+	 * // 소셜 + 아로리) 목록조회
+	 * 
+	 * @GetMapping("/resultMap") public String resultMap(Model model, Model
+	 * model2, @ModelAttribute MemberDto memberDto,
+	 * 
+	 * @ModelAttribute ClassesDto classesDto) {
+	 * 
+	 * List<MemberDto> result = memberDao.resultMap(); model.addAttribute("result",
+	 * result);
+	 * 
+	 * List<MemberDto> result2 = memberDao.resultMap2();
+	 * model.addAttribute("result2", result2);
+	 * 
+	 * int memberCount = adminDao.memberCount(memberDto);
+	 * model.addAttribute("memberCount", memberCount);
+	 * 
+	 * int classCount = adminDao.classCount(classesDto);
+	 * model.addAttribute("classCount", classCount);
+	 * 
+	 * return "admin/resultMap";
+	 * 
+	 * }
+	 */
+	// 리스트 연습
+	@GetMapping("/allList")
+	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto,@ModelAttribute ClassesDto classesDto, @ModelAttribute MemberDto memberDto) {
+		List<AllMemberDto> list = adminService.allList();
+		model.addAttribute("list", list);
+		
 		int memberCount = adminDao.memberCount(memberDto);
 		model.addAttribute("memberCount", memberCount);
 
 		int classCount = adminDao.classCount(classesDto);
 		model.addAttribute("classCount", classCount);
+		
 
-		return "admin/resultMap";
+		return "admin/allList";
 
 	}
 
 	// 소셜 + 아로리) 소셜조회
 	@GetMapping("/aroriList")
-	public String arorilist(Model model, Model model2, @ModelAttribute MemberDto memberDto,@ModelAttribute AroriMemberDto aroriMemberDto) {
-
-		List<MemberDto> result = memberDao.resultMap();
-		model.addAttribute("result", result);
-
-		List<MemberDto> result2 = memberDao.resultMap2();
-		model.addAttribute("result2", result2);
+	public String arorilist(Model model, Model model2, @ModelAttribute MemberDto memberDto,
+			@ModelAttribute AroriMemberDto aroriMemberDto) {
+		List<AllMemberDto> list = adminService.allList();
+		model.addAttribute("list", list);
 
 		int memberCount = adminDao.memberCount(memberDto);
 		model.addAttribute("memberCount", memberCount);
-		
+
 		int aroriCount = adminDao.aroriCount(aroriMemberDto);
 		model.addAttribute("aroriCount", aroriCount);
 
@@ -112,21 +129,18 @@ public class AdminController {
 
 	// 소셜 + 아로리) 소셜조회
 	@GetMapping("/socialList")
-	public String socialList(Model model, Model model2, @ModelAttribute MemberDto memberDto,@ModelAttribute AroriMemberDto aroriMemberDto) {
+	public String socialList(Model model, Model model2, @ModelAttribute MemberDto memberDto,
+			@ModelAttribute AroriMemberDto aroriMemberDto) {
 
-		List<MemberDto> result = memberDao.resultMap();
-		model.addAttribute("result", result);
-
-		List<MemberDto> result2 = memberDao.resultMap2();
-		model.addAttribute("result2", result2);
-
+		List<AllMemberDto> list = adminService.allList();
+		model.addAttribute("list", list);
 		int memberCount = adminDao.memberCount(memberDto);
 		model.addAttribute("memberCount", memberCount);
-		
+
 		int aroriCount = adminDao.aroriCount(aroriMemberDto);
 		model.addAttribute("aroriCount", aroriCount);
 
-		int socialCount = memberCount-aroriCount;
+		int socialCount = memberCount - aroriCount;
 		model.addAttribute(socialCount);
 		return "admin/socialList";
 
@@ -136,12 +150,9 @@ public class AdminController {
 	@GetMapping("/blacklist")
 	public String blacklist(Model model, @ModelAttribute MemberDto memberDto, @ModelAttribute ReportDto reportDto) {
 
-		List<MemberDto> result = memberDao.resultMap();
-		model.addAttribute("result", result);
-
-		List<MemberDto> result2 = memberDao.resultMap2();
-		model.addAttribute("result2", result2);
-
+		List<AllMemberDto> list = adminService.allList();
+		model.addAttribute("list", list);
+		
 		List<ReportDto> blacklist = reportService.blacklist();
 		model.addAttribute("blacklist", blacklist);
 
@@ -162,7 +173,7 @@ public class AdminController {
 		List<MemberDto> list = sqlSession.selectList("admin.search", param);
 		model.addAttribute("list1", list);
 
-		return "admin/resultMap";
+		return "admin/allList";
 
 	}
 
@@ -239,5 +250,6 @@ public class AdminController {
 
 		return "admin/delete";
 	}
+
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.arori.entity.img.This_imgDto;
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
@@ -40,7 +41,7 @@ public class AdminServiceImpl implements AdminService {
 		return memberProfile2;
 	}
 
-	//회원탈퇴
+	// 회원탈퇴
 	@Override
 	public void delete(MemberDto memberDto) {
 		memberDao.deleteMember(memberDto);
@@ -59,12 +60,18 @@ public class AdminServiceImpl implements AdminService {
 		This_imgDto getImage = adminDao.getImage(member_no);
 		return getImage;
 	}
-	//비밀번호체크
+
+	// 비밀번호체크
 	@Override
 	public int checkPw(AroriMemberDto aroriMemberDto) {
 		int result = adminDao.checkPw(aroriMemberDto);
 		return result;
 	}
 
+	// 아로리 총 멤버 리스트
+	@Override
+	public List<AllMemberDto> allList() {
+		return adminDao.allList();
+	}
 
 }
