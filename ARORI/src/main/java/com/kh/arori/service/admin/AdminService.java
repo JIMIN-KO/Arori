@@ -29,4 +29,10 @@ public interface AdminService {
 	
 	//아로리 총 멤버리스트
 	public List<AllMemberDto>allList();
+	
+	//아로리 총 인원
+	public int aroriCount(AroriMemberDto aroriMemberDto);
+	
+	//멤버 총 인원
+	public int memberCount(MemberDto memberDto);
 }

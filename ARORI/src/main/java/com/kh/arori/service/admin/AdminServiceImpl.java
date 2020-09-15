@@ -62,4 +62,16 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.allList();
 	}
 
+	@Override
+	public int aroriCount(AroriMemberDto aroriMemberDto) {
+	
+		return adminDao.aroriCount(aroriMemberDto);
+	}
+
+	@Override
+	public int memberCount(MemberDto memberDto) {
+		
+		return adminDao.memberCount(memberDto);
+	}
+
 }
