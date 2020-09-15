@@ -175,8 +175,7 @@
 											<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
 										</div>
 									</div>
-								</div>
-						
+								</div>						
 					</div>
 				</div>
 			</div>
