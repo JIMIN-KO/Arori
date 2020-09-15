@@ -73,6 +73,10 @@ public class MemberController {
 		MemberDto member = memberDao.get(userinfo.getMember_id());
 		model.addAttribute("memberDto", member);
 
+		// 점수 계산 
+		List<Integer> memberScore = memberService.quizAvg(member.getMember_no());
+		model.addAttribute("memberScore", memberScore);
+		
 		// 만약에 userinfo 의 member_state 가 ARORI 일 경우 myPage_arori.jsp 띄우기
 		if (userinfo.getMember_state().equals("ARORI")) {
 			// 아로리 회원 정보 단일 조회 후 모델로 jsp 로 보내기

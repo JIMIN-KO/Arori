@@ -1,5 +1,7 @@
 package com.kh.arori.service.member;
 
+import java.util.List;
+
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 
@@ -41,9 +43,9 @@ public interface MemberService {
 	// 아로리 회원정보수정
 	public void updateinfo(MemberDto memberDto, AroriMemberDto aroriMemberDto);
 
-	//아로리 회원 비번변경
+	// 아로리 회원 비번변경
 	public void changeAroriPW(AroriMemberDto aroriMemberDto);
 
-	
-
+	// 마이페이지 > 점수 계산
+	public List<Integer> quizAvg(int member_no);
 }

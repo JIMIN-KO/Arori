@@ -1,6 +1,8 @@
 package com.kh.arori.service.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -11,9 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.MyAnswerDto;
+import com.kh.arori.entity.study.MyQuizDto;
 import com.kh.arori.repository.member.MemberDao;
+import com.kh.arori.repository.study.MyAnswerDao;
+import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.email.EmailService;
-
 
 @Service
 public class MemberServiceImple implements MemberService {
@@ -26,9 +31,13 @@ public class MemberServiceImple implements MemberService {
 
 	@Autowired
 	private EmailService emailService;
-	
-	
-	
+
+	@Autowired
+	private QuizDao quizDao;
+
+	@Autowired
+	private MyAnswerDao myAnswerDao;
+
 	// 시퀀스 발급
 	@Override
 	public int getSeq() {
@@ -201,14 +210,62 @@ public class MemberServiceImple implements MemberService {
 		memberDao.updateArori(aroriMemberDto);
 
 	}
-	
-	//아로리 멤버의 비밀번호수정 
+
+	// 아로리 멤버의 비밀번호수정
 	@Override
 	public void changeAroriPW(AroriMemberDto aroriMemberDto) {
-		
+
 		memberDao.changeAroriPW(aroriMemberDto);
-		
+
 	}
-	
-	
+
+	// 마이페이지 > 회원 점수 계
+	@Override
+	public List<Integer> quizAvg(int member_no) {
+		// 1. 푼 퀴즈 개수
+		MyQuizDto myQuizDto = MyQuizDto.builder().member_no(member_no).build();
+		List<MyQuizDto> list = quizDao.getAMQ(myQuizDto);
+
+		int myQuizSize = list.size(); // @ 최종 내가 푼 퀴즈 개수 @
+
+		// 2. 평균 점수 / 3. 정답률
+		double score = 0.0;
+		int curAvg = 0;
+		
+		// 나의 정답 더미 객체
+		MyAnswerDto myAnswerDto = MyAnswerDto.builder().member_no(member_no).build();
+		
+		// 푼 퀴즈만큼 전체 평균 계산 및 전체 정답률 계산 
+		for (MyQuizDto quiz : list) {
+
+			// 2-1. 평균 점수 계산
+			score += (double) quiz.getScore();
+			System.out.println(score);
+
+			// 3-1. 정답률 계산
+			myAnswerDto.setQ_no(quiz.getQ_no()); // 현재 퀴즈 번호 삽입
+			List<MyAnswerDto> get = myAnswerDao.get(myAnswerDto); // 해당 퀴즈의 퀘스쳔 개수
+			List<MyAnswerDto> getCur = myAnswerDao.getCur(myAnswerDto); // 맞은 퀘스쳔
+
+			int getSize = get.size(); // 퀘스쳔 개수
+			int getCurSize = getCur.size(); // 해당 퀴즈의 맞은 퀘스쳔 개수
+			int getAvg = (int) (((double) getCurSize / getSize) * 100);
+			curAvg += getAvg;
+		}
+		
+		int avgScore = (int) (score / (double) myQuizSize); //@ 최종 평균 점수 @
+		curAvg = curAvg / myQuizSize; // @ 최종 정답률 @
+
+		System.out.println(myQuizSize);
+		System.out.println(avgScore);
+		System.out.println(curAvg);
+		
+		List<Integer> memberScore = new ArrayList<Integer>();
+		memberScore.add(myQuizSize);
+		memberScore.add(avgScore);
+		memberScore.add(curAvg);
+		
+		return memberScore;
+	}
+
 }

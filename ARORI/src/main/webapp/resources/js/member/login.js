@@ -24,6 +24,11 @@
 				var emailPath = result.additionalUserInfo.providerId;
 				var memberNick = result.user.displayName;
 				var loginEmail = result.user.email;
+				
+				if(tag == "github") {
+					var backup = loginEmail.indexOf("@")
+					memberNick = loginEmail.substring(0,backup)
+				}
 				console.log(result); //
 				
 				axios({
