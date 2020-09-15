@@ -51,6 +51,7 @@
 	.card-btn {
 	display: inline-block;
 	}
+	
 </style>
 <div class="row content-top mt-5 h-100">
 	<div class="col-12 overflow-auto mt-5">
@@ -65,14 +66,23 @@
 										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
 									</c:when>
 									<c:otherwise>
-										<img src="http://lorempixel.com/400/200/" alt="love" class="card-img">
+										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" alt="love" class="card-img">
 									</c:otherwise>
 								</c:choose>
    								<div class="card-body">
-      								<span class="card-title">${MCIDto.c_title}</span>
-									<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
+      								<span class="h4 title">${MCIDto.c_title}</span>
+									<span class="badge badge-pill badge-success subCount">${MCIDto.c_subscribe}</span>
       								<p class="card-info">${MCIDto.c_info}</p>
-      								<p class="card-info">${MCIDto.member_nick}</p>
+      								<p class="card-info">
+      									<c:choose>
+      										<c:when test="${MCIDto.member_nick eq 'null'}">
+      											소셜 회원
+      										</c:when>
+      										<c:otherwise>
+			      								${MCIDto.member_nick}  										
+      										</c:otherwise>
+      									</c:choose>
+      								</p>
       								<p class="card-when"><small class="text-muted">
 	      								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/></small></p>
@@ -82,23 +92,11 @@
 										<c:when test="${MCIDto.member_no != userinfo.member_no}">
 												<form method="post" class="d-flex justify-content-center mb-3">
 													<span class="card-btn">
-														<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">
-														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독">	
+														<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">										
+														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독" style="font-size:14px">	
 													</span>
 												</form>
 										</c:when>
-										<c:otherwise>
-											<div class="card-btn w-100">
-												<div class="row">
-													<div class="col-6">
-														<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit">EDIT</button>
-													</div>
-													<div class="col-6">
-														<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block">DELETE</a>
-													</div>
-												</div>
-											</div>
-										</c:otherwise>
 									</c:choose>
   							</div>
  						</div>
@@ -114,7 +112,7 @@ $(function(){
 
 		var subDto = {
 				member_no:${userinfo.member_no},
-				c_no:$(this).parent().children("input[name=c_no]").val()
+				c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
 		}
 		
 		console.log(subDto)
@@ -123,10 +121,10 @@ $(function(){
 		 	headers:{
 				'content-type':'application/json',
 		 	}
-		 }).then(resp=>{
-			console.log(resp)
-			$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)
-			 
+		 }).then(function(resp){
+			 console.log(resp.data)
+			$(this).parents(".card").children(".card-body").children(".subCount").text(resp.data)
+	
 	 	})
 	})
 })

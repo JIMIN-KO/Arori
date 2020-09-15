@@ -123,7 +123,7 @@
 <div class="row justify-content-center" style="margin-top: 80px;">
 	<div class="offset-4 col-4">
 		<a href="${pageContext.request.contextPath}/classes/create"><button
-				class="top-btn">클래스 만들기</button></a>
+				class="top-btn" style="font-size:14px">클래스 만들기</button></a>
 	</div>
 
 	<div class="col-1">
@@ -148,14 +148,14 @@
 								<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
 							</c:when>
 							<c:otherwise>
-								<img src="http://lorempixel.com/400/200/" alt="love" class="card-img">
+								<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" class="card-img">
 							</c:otherwise>
 						</c:choose>				
 					</a>
 				<div>
 					<div class="row">
 						<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 45%;">
-							<a href="${pageContext.request.contextPath }/classes/img/setting/${MCIDto.c_no}" onclick="window.open(this.href, '_blank', 'width=305px,height=400px,toolbars=no,scrollbars=no'); return false;">
+							<a data-target="#imgEdit" class="imgEdit" data-cno="${MCIDto.c_no }">
 								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
 									style="width: 30px; height: 30px;">
 								  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
@@ -169,7 +169,7 @@
 						<input type="hidden" class="card-no" value="${MCIDto.c_no }">
 						<input type="hidden" class="card-public" value="${MCIDto.c_public }">
 						
-						<span class="card-title">${MCIDto.c_title}
+						<span class="h4 title">${MCIDto.c_title}
 						</span>
 						<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
 						<p class="card-info">${MCIDto.c_info}</p>
@@ -203,10 +203,10 @@
 								<div class="card-btn w-100">
 									<div class="row mt-3">
 										<div class="col-6">
-											<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit">EDIT</button>
+											<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
 										</div>
 										<div class="col-6">
-											<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block">DELETE</a>
+											<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
 										</div>
 									</div>
 								</div>
@@ -223,16 +223,13 @@
 <script>
 	$(function() {
 		$("#classEdit").modal("hide") // 클래스 수정 모달 숨김
-
+		$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
+		
 		$(".editClass").click(
 				function() {
 					$("#classEdit").modal("show"); // 클래스 수정 모달 띄우기
-					console.log($(this).parents(".card-body").children(".card-title").text()) // 해당 클래스의 타이틀
-					console.log($(this).parents(".card-body").children(".card-info").text()) // 해당 클래스의 정보
-					console.log($(this).parents(".card-body").children(".card-public").val()) // 해당 클래스의 공개여부
-
 					var c_no = $(this).parents(".card-body").children(".card-no").val()
-					var c_title = $(this).parents(".card-body").children(".card-title").text()
+					var c_title = $(this).parents(".card-body").children(".title").text()
 					var c_info = $(this).parents(".card-body").children(".card-info").text()
 					var c_public = $(this).parents(".card-body").children(".card-public").text()
 
@@ -247,6 +244,19 @@
 			form.submit()
 
 		})
+		
+		// 이미지 수정 모달 띄우기
+		$(".imgEdit").click(function(){
+			$("#imgEdit").modal("show"); // 클래스 수정 모달 띄우기
+			var c_no = $(this).data("cno")
+			$("#imgEditC_no").val(c_no)
+		})
+		// 이미지 수정하기
+		$("#goimgEdit").click(function(){
+			var form = document.querySelector("#addImg")
+			$(form).submit()
+		})
+		
 		// 구독
 		$(".subBtn").click(function(){
 			console.log($(this).prev())
@@ -277,6 +287,30 @@
 
 </script>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+<div class="modal" id="imgEdit" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 이미지 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath }/classes/img/setting" method="post" enctype="multipart/form-data" id="addImg">
+						<input type="hidden" name="c_no" id="imgEditC_no">
+						<input type="file" accept=".jpg, .png, .jpeg" name="req">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">창 닫기</button>
+					<button type="button" class="btn btn-primary" id="goimgEdit">수정하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

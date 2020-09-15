@@ -31,7 +31,7 @@
 	}
 	
 	/* 클래스 타이틀 */
-	.card-title {
+	.title {
 	text-decoration: none;
 	color:black;
 	}
@@ -52,10 +52,14 @@
 	/* 카드 버튼 */
 	.btn {
 	display:inline-block;
+	font-size:15px;
+	margin-bottom:0px;
+	margin-top:0px;
 	}
 	.card-btn {
 	text-align:center;
 	}
+
 	
 </style>
 	
@@ -85,6 +89,8 @@
 					</select>
 				</div>
 			</div>
+			
+			<!--  클론 시작 -->
 				<div class="col-sm-12 col-md-6 col-lg-3 cardList" style="display: none;">
 						<div class="card-deck">
   							<div class="card">
@@ -92,7 +98,7 @@
 									<img class="card-img" alt="...">		
 								</a>
    								<div class="card-body pb-0">
-      								<div class="card-title h5">
+      								<div class="title h5">
       									<span class="this-title" style="font-size: 21px;!important"></span>
       									<span class="badge badge-pill badge-success ml-2 mb-1"></span>
       								</div>
@@ -110,12 +116,14 @@
 								<form method="post" class="d-flex justify-content-center mb-3">
 									<span class="card-btn">
 										<input type="hidden" name="c_no" class="subC_no" >
-										<input type="button" class="btn btn-primary btn-sm subBtn" value="구독">	
+										<input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px"> 	
 									</span>
 								</form>
   							</div>
  						</div>
 					</div>
+					<!--  여기까지 클론 -->
+					
 			<div class="row classCard">
 				<c:forEach var="MCIDto" items="${MCIDto}">
 					<div class="col-sm-12 col-md-6 col-lg-3 cardList">
@@ -132,7 +140,7 @@
 									</c:choose>				
 								</a>
    								<div class="card-body pb-0">
-      								<div class="card-title h5">
+      								<div class="title h4">
       									<span style="font-size: 21px;!important">${MCIDto.c_title}</span>
       									<span class="badge badge-pill badge-success ml-2 mb-1">${MCIDto.c_subscribe }</span>
       								</div>
@@ -160,22 +168,10 @@
 												<form method="post" class="d-flex justify-content-center mb-3">
 													<span class="card-btn">
 														<input type="hidden" name="c_no" class="subC_no" value="${MCIDto.c_no }">
-														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독">	
+														<input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px">	
 													</span>
 												</form>
 										</c:when>
-										<c:otherwise>
-											<div class="card-btn w-100">
-												<div class="row mt-3">
-													<div class="col-6">
-														<button type="button" class="btn btn-primary btn-sm editClass" data-target="#classEdit">EDIT</button>
-													</div>
-													<div class="col-6">
-														<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm">DELETE</a>
-													</div>
-												</div>
-											</div>
-										</c:otherwise>
 									</c:choose>
   							</div>
  						</div>
@@ -242,11 +238,11 @@
 		$(img).attr("src",path)
 		
 		// title
-		var title = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".card-title").children(".this-title")
+		var title = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".title").children(".this-title")
 		$(title).text(resp.data[i].c_title)
 		
 		// subscribe
-		var sub = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".card-title").children(".badge")
+		var sub = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".title").children(".badge")
 		$(sub).text(resp.data[i].c_subscribe)
 		
 		// info
@@ -262,9 +258,38 @@
 		var c_when = resp.data[i].c_when.substring(0,10)
 		$(when).text(c_when)
 		
+		// button
+		var subbuttonVal = $(cardList[i+1]).children(".card-deck").children(".card").children("form").children(".card-btn").children(".subC_no")
+		var subbutton = $(cardList[i+1]).children(".card-deck").children(".card").children("form").children(".card-btn").children("span").children(".subBtn")
+		var member_no = ${userinfo.member_no}
+		$(subbutton).css("display","none")
+		if(member_no != resp.data[i].member_no) {
+			$(subbutton).css("display","block")
+			$(subbuttonVal).val(resp.data[i].c_no)
+      	}
+	
 	}
+		
+	$(".subBtn").click(function(){
+
+		var subDto = {
+				member_no:${userinfo.member_no},
+				c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
+		}
+		
+		console.log(subDto)
+		
+		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+		 	headers:{
+				'content-type':'application/json',
+		 	}
+		 }).then(function(resp){
+			 console.log(resp.data)
+			$(this).parents(".card").children(".card-body").children(".subCount").text(resp.data)
+			 
+	 	})
+	})
+
 </script>
 
-	
-	<jsp:include
-		page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

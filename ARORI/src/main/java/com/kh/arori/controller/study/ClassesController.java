@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.ClassesDao;
+import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.study.ClassesService;
 
 @Controller
@@ -28,6 +32,9 @@ public class ClassesController {
 
 	@Autowired
 	private ClassesService classesService;
+
+	@Autowired
+	private ImgService imgService;
 
 	@Autowired
 	private ClassesDao classesDao;
@@ -50,8 +57,8 @@ public class ClassesController {
 		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 		classesDto.setMember_no(memberDto.getMember_no());
 		int c_no = classesService.createClasses(classesDto);
-		System.out.println("c_title: "+classesDto.getC_title());
-		System.out.println("c_public: "+classesDto.getC_public());
+		System.out.println("c_title: " + classesDto.getC_title());
+		System.out.println("c_public: " + classesDto.getC_public());
 		return "redirect:readme/" + c_no;
 	}
 
@@ -122,7 +129,7 @@ public class ClassesController {
 
 		String order = "DESC";
 		boolean isOld = col.equals("c_when_old");
-		if(isOld) {
+		if (isOld) {
 			col = "c_when";
 			order = "ASC";
 		}
@@ -164,13 +171,17 @@ public class ClassesController {
 		return "classes/mySub";
 	}
 
-	// 이미지 등록
-	@RequestMapping("/classes/img/setting/{c_no}")
-	public String imgCreate(@PathVariable int c_no, Model model) {
+	// 클래스 이미지 등록 기능
+	@PostMapping("/classes/img/setting")
+	public String imgCreate(@RequestParam String c_no, MultipartHttpServletRequest file, HttpSession session,
+			HttpServletResponse resp) throws Exception {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		// 1. 해당 클래스에 이미지가 있는지 조회
+		// 2. 이미지가 있다면 삭제
+		// 3. 새로 들어온 이미지 등록
+		imgService.removeAndInsert(Integer.parseInt(c_no), NameConst.CLASSES, file);
 
-		model.addAttribute("c_no", c_no);
-
-		return "classes/img_create";
+		return "redirect:/classes/myclass/" + userinfo.getMember_no();
 	}
 
 }

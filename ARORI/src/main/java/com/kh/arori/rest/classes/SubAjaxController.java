@@ -25,11 +25,12 @@ public class SubAjaxController {
 
 	@RequestMapping("/subscribe")
 
-	public int sub(Model model, HttpSession session, @ModelAttribute SubscribeDto subDto) {
+	public int sub(Model model, HttpSession session, @RequestBody SubscribeDto subDto) {
 
 
 		// 클래스 넘버를 이용한 단일조회
 		ClassesDto classesDto = classesDao.get(subDto.getC_no());
+		System.out.println("c_no : "+classesDto.getC_no());
 
 		classesService.already(subDto);
 		
@@ -40,7 +41,6 @@ public class SubAjaxController {
 		
 		// 해당 변수를 다시 찐 c_subscribe에 저장
 		classesDto.setC_subscribe(c_subscribe);
-		
 		return c_subscribe;
 	}
 
