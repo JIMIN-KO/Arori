@@ -21,6 +21,50 @@
 
 	}
 	
+	/* 드롭다운 */
+	#searchOption, .select-down{
+		margin-top: 10px;
+		width: 100px;
+		height: 35px;
+		font-size: 15px;
+		color: #999;
+		border: 2px solid #ddd;
+		appearance: none;
+		-webkit-appearance: none;
+		text-align-last: center;
+	}
+	 #keyword {
+		margin-top: 10px;
+		width: 150px;
+		height: 35px;
+		font-size: 15px;
+		color: #999;
+		border: 2px solid #ddd;
+		appearance: none;
+		-webkit-appearance: none;
+		text-align-last: center;
+	 }
+	/* 버튼 */
+	#search {
+		width:70px;
+		height: 35px;
+	   background-color: #4A70F6;
+		border: 2px solid #4A70F6;
+		color: #fff;
+	}
+	
+	/* 검색 아웃라인 지우기 */
+	#searchOption:focus {
+	outline: none;
+	}
+	#keyword:focus {
+	outline:none;
+	}
+	
+	.select-down {
+	outline: none;
+	}
+	
 	/* 클래스 제목 링크 색상 제거 */
 	a {
 	text-decoration: none;
@@ -80,7 +124,8 @@
 					<input type="text" name="keyword" id="keyword">
 	
 					<!--검색 버튼 -->
-					<input type="button" value="검색" id="search">
+					
+					<input type="button" value="Search" id="search" > 
 	
 					<select name="col"  id="colSelector" class="select-down">
 						<option value="c_when">최신순</option>

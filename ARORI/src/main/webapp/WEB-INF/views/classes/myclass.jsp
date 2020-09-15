@@ -96,28 +96,7 @@
 		text-align-last: center;
 	}
 	
-	/* 클래스 수정 모달 */
-	/* 수정 내용 디자인 */
-	/*form {
-	margin-top:15px;
 
-	}
-	
-	form div + div {
-	    margin-top: 1em;
-	}
-	
-	label {
-	    display: inline-block;
-	    text-align: right;
-	}
-	
-	.modal-content {
-	    -moz-box-sizing: border-box;
-	    box-sizing: border-box;
-	    border: 1px solid #999;
-	}*/
-	
 </style>
 <!-- 클래스 목록 -->
 <div class="row justify-content-center" style="margin-top: 80px;">
