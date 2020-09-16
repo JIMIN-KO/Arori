@@ -20,7 +20,7 @@ public interface NoticeDao {
 	public List<NoticeDto> getC(int c_no);
 
 	// 공지 게시글 페이지 네이션 기능
-	public List<NoticeDto> getP(Map<String, String> page);
+	public List<NoticeDto> getP(Map<String, Integer> pagination);
 
 	// 해당 클래스 공지 게시글 개수 조회
 	public int count(int c_no);

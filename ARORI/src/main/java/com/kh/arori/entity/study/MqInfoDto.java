@@ -10,20 +10,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MqInfoDto {
-	private int no;
-	private int member_no;
-	private int q_no;
-	private String when;
-	private int score;
+	public int no;
+	public int member_no;
+	public int q_no;
+	public String when;
+	public int score;
 
-	private int c_no;
-	private String q_title;
-	private String q_open;
-	private String q_close;
-	private int q_runtime;
-	private String q_score_open;
-	private String q_when;
-	private String q_content;
-	private int q_state;
+	public int c_no;
+	public String q_title;
+	public String q_open;
+	public String q_close;
+	public int q_runtime;
+	public String q_score_open;
+	public String q_when;
+	public String q_content;
+	public int q_state;
 
 }

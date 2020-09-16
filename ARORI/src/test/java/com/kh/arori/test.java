@@ -9,10 +9,11 @@ public class test {
 
 	@Test
 	public void test() {
-		int quiz = 89;
-		int cur = 76;
-		int result = (int)(((double) cur/quiz) * 100);
-		
+		int quiz = 9;
+		int cur = 4;
+		int result = (int) (((double) cur / quiz) * 100);
+		double aa = 100 / quiz;
+		System.out.println(aa);
 		System.out.println(result);
 	}
 

@@ -100,36 +100,36 @@
 										        			 	<div class="card shadow-none col-sm-4 col-md-4 col-lg-2 offset-lg-1 bg-transparent">
 															    <div class="card-body text-center">
 															      <h5 class="card-title">점수</h5>
-															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">100</span>
+															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${quizDto.myScore }</span>
 															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">점</span>
 															    </div>
 													  		</div>
 													  		<div class="card shadow-none col-sm-4 col-md-4 col-lg-2 bg-transparent">
 															    <div class="card-body text-center">
 															      <h5 class="card-title">정답</h5>
-															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">6</span>
-															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">/ 10</span>
+															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${quizDto.correct }</span>
+															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">/ ${quizDto.totalQuestion }</span>
 															    </div>
 													  		</div>
 													  		<div class="card shadow-none col-sm-4 col-md-4 col-lg-2 bg-transparent">
 															    <div class="card-body text-center">
 															      <h5 class="card-title">오답</h5>
-															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">4</span>
-															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">/ 10</span>
+															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${quizDto.incorrect }</span>
+															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">/ ${quizDto.totalQuestion }</span>
 															    </div>
 													  		</div>
 										        				<div class="card shadow-none col-sm-6 col-md-6 col-lg-2 bg-transparent">
 															    <div class="card-body text-center">
 															      <h5 class="card-title">정답률</h5>
-															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">89</span>
+															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${quizDto.myPer }</span>
 															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">%</span>
 															    </div>
 													  		</div>
 										        				<div class="card shadow-none col-sm-6 col-md-6 col-lg-2 bg-transparent">
 															    <div class="card-body text-center">
-															      <h5 class="card-title">평균 정답률</h5>
-															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">47</span>
-															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">%</span>
+															      <h5 class="card-title">평균 점수</h5>
+															      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${quizDto.totalScore }</span>
+															      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">점</span>
 															    </div>
 													  		</div>
 													  	</div>	

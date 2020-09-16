@@ -50,6 +50,9 @@ public interface MemberService {
 	// 마이페이지 > 점수 계산
 	public List<Integer> quizAvg(int member_no);
 	
-	// 마이페이지 > 퀴즈 섹션 > 퀴즈 별 정보 및 정답 계산
-	public List<MQIScoreVo> respectQuizAvg(int member_no);
+	// 마이페이지 > 퀴즈 섹션 > 퀴즈 별 정보 및 정답 계산 -> 한 페이지에 나오는 게시물
+	public List<MQIScoreVo> respectQuizAvg(int member_no, int pageNo);
+	
+	// 마이페이지 > 퀴즈 섹션 > 페이지 네이션 블럭
+	public List<Integer> respectQPBlock(int member_no, int pageNo);
 }

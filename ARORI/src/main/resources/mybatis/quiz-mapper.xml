@@ -98,7 +98,26 @@
 	</update>
 	
 	<!-- 마이페이지 > 내가 푼 퀴즈 리스트 + 해당 퀴즈 정보 -->
-	<select id="getMQInfo" resultType="mqInfoDto" parameterType="myQuizDto">
-		SELECT mq.*, q.c_no, q.q_title, q.q_open, q.q_close, q.q_runtime, q.q_score_open, q.q_when, q.q_content, q.q_state FROM MY_QUIZ mq LEFT OUTER JOIN QUIZ q ON mq.Q_NO = q.Q_NO WHERE mq.MEMBER_NO = #{member_no}
+	<select id="getMQInfo" resultType="mqInfoDto" parameterType="map">
+		<!-- SELECT mq.*, q.c_no, q.q_title, q.q_open, q.q_close, q.q_runtime, q.q_score_open, q.q_when, q.q_content, q.q_state FROM MY_QUIZ mq LEFT OUTER JOIN QUIZ q ON mq.Q_NO = q.Q_NO WHERE mq.MEMBER_NO = #{member_no} -->
+		SELECT 
+			b.NO, b.member_no, b.c_no, 
+			b.q_no, b.WHEN, b.score, 
+			b.q_title, b.q_open, b.q_close, 
+			b.q_runtime, b.q_score_open, b.q_when,
+			b.q_content, b.q_state 
+		FROM 
+			(SELECT rownum rn, a.* FROM MQISCORE a) b 
+		WHERE 
+			MEMBER_NO = #{member_no}
+		AND	
+			rn 
+		BETWEEN 
+			#{start} AND #{finish}
+	</select>
+	
+	<!-- 해당 퀴즈를 푼 사람들의 합 -->
+	<select id="getThisQuizSum" resultType="int" parameterType="int">
+		SELECT score / count FROM (SELECT COUNT(*) count ,SUM(SCORE) score FROM my_quiz WHERE q_no = #{q_no})
 	</select>
 </mapper>

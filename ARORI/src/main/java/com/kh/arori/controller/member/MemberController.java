@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
-import com.kh.arori.entity.study.MqInfoDto;
 import com.kh.arori.repository.member.MemberDao;
-import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.member.MemberService;
+import com.kh.arori.vo.MQIScoreVo;
 
 @Controller
 @RequestMapping("/member")
@@ -30,9 +30,6 @@ public class MemberController {
 
 	@Autowired
 	private MemberDao memberDao;
-	
-	@Autowired
-	private QuizDao quizDao;
 
 	// 로그아웃
 	@RequestMapping("/logout")
@@ -203,14 +200,17 @@ public class MemberController {
 		return "redirect:myPage";
 
 	}
-	
+
 	// 성헌) 나의 퀴즈 + 해당 퀴즈 정보 뿌리기
-	@GetMapping("/myQuiz")
-	public String mqInfo(HttpSession session, Model model) {
+	@GetMapping("/myQuiz/{pageNo}")
+	public String mqInfo(@PathVariable int pageNo, HttpSession session, Model model) {
 		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
-		
-		List<MqInfoDto> list = quizDao.getMQInfo(userinfo.getMember_no());
+
+		List<MQIScoreVo> list = memberService.respectQuizAvg(userinfo.getMember_no(), pageNo);
+		List<Integer> block = memberService.respectQPBlock(userinfo.getMember_no(), pageNo);
+
 		model.addAttribute("quizDto", list);
+		model.addAttribute("block", block);
 		
 		return "member/myQuiz";
 	}

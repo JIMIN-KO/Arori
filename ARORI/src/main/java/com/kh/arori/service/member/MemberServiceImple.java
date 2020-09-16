@@ -13,12 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.AllQuestionDto;
+import com.kh.arori.entity.study.MqInfoDto;
 import com.kh.arori.entity.study.MyAnswerDto;
 import com.kh.arori.entity.study.MyQuizDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.MyAnswerDao;
+import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.email.EmailService;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.vo.MQIScoreVo;
 
 @Service
@@ -38,6 +42,12 @@ public class MemberServiceImple implements MemberService {
 
 	@Autowired
 	private MyAnswerDao myAnswerDao;
+
+	@Autowired
+	private PaginationService paginationService;
+
+	@Autowired
+	private QuestionDao questionDao;
 
 	// 시퀀스 발급
 	@Override
@@ -275,13 +285,88 @@ public class MemberServiceImple implements MemberService {
 
 	// 마이페이지 > 퀴즈 섹션 > 퀴즈 별 정보 및 정답 계산
 	@Override
-	public List<MQIScoreVo> respectQuizAvg(int member_no) {
-		// 1. 나의 점수
-		// 2. 맞은 개수
-		// 3. 틀린 개수
-		// 4. 해당 퀴즈에 대한 나의 정답률
-		// 5. 퀴즈의 평균 정답률
-		return null;
+	public List<MQIScoreVo> respectQuizAvg(int member_no, int pageNo) {
+
+		// 페이지 네이션을 위한 1~10번째 게시글 번호 받아오기
+		Map<String, Integer> pagination = paginationService.pagination("member_no", member_no, pageNo);
+
+		// 페이지 네이션 결과값을 통해 데이터 받아오기
+		List<MqInfoDto> list = quizDao.getMQInfo(pagination);
+
+		// 푼 퀴즈가 하나라도 있다면
+		if (!list.isEmpty()) {
+			List<MQIScoreVo> mqisList = new ArrayList<MQIScoreVo>();
+			// 나의 정답 더미 객체
+			for (MqInfoDto info : list) {
+				MyAnswerDto myAnswerDto = MyAnswerDto.builder().member_no(member_no).q_no(info.getQ_no()).build();
+
+				// 각 퀴즈 별 정보 vo 에 담기
+				MQIScoreVo thisVo = new MQIScoreVo(info);
+
+				// 1. 맞은 개수
+				int myCur = myAnswerDao.getCurCount(myAnswerDto);
+
+				// 2. 틀린 개수
+				int myIncur = myAnswerDao.getInCurCount(myAnswerDto);
+
+				// 3. 나의 점수
+				// 해당 퀴즈의 퀘스쳔 개수 가지고 오기
+				List<AllQuestionDto> thisQuizQ = questionDao.getQuestion(info.getQ_no());
+				int thisQuizSize = thisQuizQ.size(); // 현재 퀴즈의 퀘스쳔 개수값
+				double thisQuizScore = 100 / thisQuizSize; // 현재 퀴즈의 한 퀘스쳔 당 점수
+
+				// 3-1. 맞은 개수 * 퀘스쳔 당 점수 = 내 점수
+				int myScore = (int) ((myCur * thisQuizScore));
+				if(myCur == thisQuizSize) {
+					myScore = 100;
+				}
+
+				// 4. 해당 퀴즈에 대한 나의 정답률
+				int myScorePer = (int) (((double) myCur / thisQuizSize) * 100);
+
+				// 5. 퀴즈의 전체 평균 점수
+				int thisQuizAvg = quizDao.getThisQuizSum(info.getQ_no());
+
+				thisVo.setMyScore(myScore); // 내 점수
+				thisVo.setMyPer(myScorePer); // 나의 정답률
+				thisVo.setCorrect(myCur); // 나의 정답 개수
+				thisVo.setIncorrect(myIncur); // 나의 오답 개수
+				thisVo.setTotalScore(thisQuizAvg); // 해당 퀴즈의 평균 점수
+				thisVo.setTotalQuestion(thisQuizSize);
+
+				System.out.println("나의 점수 : " + thisVo.getMyScore());
+				System.out.println("나의 정답률 : " + thisVo.getMyPer());
+				System.out.println("나의 정답 개수 : " + thisVo.getCorrect());
+				System.out.println("나의 오답 개수 : " + thisVo.getIncorrect());
+				System.out.println("해당 퀴즈 평균 점수 : " + thisVo.getTotalScore());
+
+				mqisList.add(thisVo);
+
+			}
+
+			return mqisList;
+
+		} else {
+
+			return null;
+		}
+	}
+
+	// 마이페이지 > 퀴즈 섹션 > 페이지 네이션 블럭
+	@Override
+	public List<Integer> respectQPBlock(int member_no, int pageNo) {
+		MyQuizDto myQuizDto = MyQuizDto.builder().member_no(member_no).build();
+		List<MyQuizDto> myQuizList = quizDao.getAMQ(myQuizDto);
+		int myQuizSize = myQuizList.size();
+		
+		if(myQuizSize > 0) {
+			List<Integer> block = paginationService.paginationBlock(member_no, pageNo, myQuizSize);
+			
+			return block;
+		} else {
+			return null;
+		}
+		
 	}
 
 }

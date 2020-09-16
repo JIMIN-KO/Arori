@@ -48,5 +48,8 @@ public interface QuizDao {
 	public int updateMQ(MyQuizDto myQuizDto);
 	
 	// My Quiz > 나의 퀴즈 + 해당 퀴즈 정보
-	public List<MqInfoDto> getMQInfo(int member_no);
+	public List<MqInfoDto> getMQInfo(Map<String, Integer> map);
+	
+	// My Quiz > 내가 푼 퀴즈에 대한 사람들의 총합 + 푼 사람 갯수 
+	public int getThisQuizSum(int q_no);
 }
