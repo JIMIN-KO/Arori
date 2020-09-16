@@ -96,14 +96,23 @@
 
 </style>
 <!-- 클래스 목록 -->
-<div class="row justify-content-center" style="margin-top: 80px;">
-	<div class="offset-4 col-4">
-		<a href="${pageContext.request.contextPath}/classes/create"><button
-				class="top-btn" style="font-size:14px">클래스 만들기</button></a>
+<c:set var="member_no" value="${userinfo.member_no }"></c:set>
+<c:if test="${MCIDto.size() > 0 }">
+	<c:set var="member_no" value="${MCIDto.get(0).member_no}"></c:set>
+</c:if>
+<div class="row" style="margin-top: 80px;">
+	<div class="col-4 w-100">
+		
 	</div>
-
-	<div class="col-1">
-		<form action="${pageContext.request.contextPath }/classes/myclass/${MCIDto.get(0).member_no}" method="get" id="myClassOrder">
+	<div class="col-4 d-flex justify-content-center">
+		<c:if test="${userinfo.member_no eq member_no }">
+			<a href="${pageContext.request.contextPath}/classes/create" class="mr-lg-5">
+				<button class="top-btn mr-lg-5" style="font-size:14px">클래스 만들기</button>
+			</a>
+		</c:if>
+	</div>
+	<div class="col-4 w-100 d-flex justify-content-end">
+		<form action="${pageContext.request.contextPath }/classes/myclass/${member_no}" method="get" id="myClassOrder">
 			<select name="col" id="colSelector" class="select-down" >
 				<option value="c_when">최신순</option>
 				<option value="c_when_old">등록순</option>
@@ -114,73 +123,80 @@
 </div>
 
 <div class="row w-100">
-	<c:forEach var="MCIDto" items="${MCIDto}">
-		<div class="col-sm-12 col-md-6 col-lg-3 p-0">
-			<div class="card-deck">
-				<div class="card">		
-					<a href="${pageContext.request.contextPath }/classes/readme/${MCIDto.c_no}">
-						<c:choose>
-							<c:when test="${MCIDto.ai_no > 0}">
-								<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
-							</c:when>
-							<c:otherwise>
-								<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" class="card-img">
-							</c:otherwise>
-						</c:choose>				
-					</a>
-				<div>
-					<div class="row">
-						<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 45%;">
-							<a data-target="#imgEdit" class="imgEdit" data-cno="${MCIDto.c_no }">
-								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-									style="width: 30px; height: 30px;">
-								  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
-								  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
-								</svg>
-							</a>
+<c:choose>
+	<c:when test="${MCIDto.size() > 0}">
+		<c:forEach var="MCIDto" items="${MCIDto}">
+			<div class="col-sm-12 col-md-6 col-lg-3 p-0">
+				<div class="card-deck">
+					<div class="card">		
+						<a href="${pageContext.request.contextPath }/classes/readme/${MCIDto.c_no}">
+							<c:choose>
+								<c:when test="${MCIDto.ai_no > 0}">
+									<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
+								</c:when>
+								<c:otherwise>
+									<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" class="card-img">
+								</c:otherwise>
+							</c:choose>				
+						</a>
+					<div>
+						<div class="row">
+							<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 45%;">
+								<a data-target="#imgEdit" class="imgEdit" data-cno="${MCIDto.c_no }">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+										style="width: 30px; height: 30px;">
+									  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
+									  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
+									</svg>
+								</a>
+							</div>
 						</div>
 					</div>
-				</div>
-					<div class="card-body pb-0">
-						<input type="hidden" class="card-no" value="${MCIDto.c_no }">
-						<input type="hidden" class="card-public" value="${MCIDto.c_public }">
+						<div class="card-body pb-0">
+							<input type="hidden" class="card-no" value="${MCIDto.c_no }">
+							<input type="hidden" class="card-public" value="${MCIDto.c_public }">
+							
+							<span class="h4 title">${MCIDto.c_title}
+							</span>
+							<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
+							<p class="card-info">${MCIDto.c_info}</p>
+							<p class="card-nick">
+								<c:choose>
+	      							<c:when test="${MCIDto.member_nick eq 'null'}">
+	      								소셜 회원
+	      							</c:when>
+	      							<c:otherwise>
+				      					${MCIDto.member_nick}  										
+	      							</c:otherwise>
+	      						</c:choose>
+							</p>
+							<p class="card-when"> 
+								<small class="text-muted"> 
+									<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 
+									<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
+								</small>
+							</p>					
 						
-						<span class="h4 title">${MCIDto.c_title}
-						</span>
-						<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
-						<p class="card-info">${MCIDto.c_info}</p>
-						<p class="card-nick">
-							<c:choose>
-      							<c:when test="${MCIDto.member_nick eq 'null'}">
-      								소셜 회원
-      							</c:when>
-      							<c:otherwise>
-			      					${MCIDto.member_nick}  										
-      							</c:otherwise>
-      						</c:choose>
-						</p>
-						<p class="card-when"> 
-							<small class="text-muted"> 
-								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 
-								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
-							</small>
-						</p>					
-					
-								<div class="card-btn w-100">
-									<div class="row mt-3">
-										<div class="col-6">
-											<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
+									<div class="card-btn w-100">
+										<div class="row mt-3">
+											<div class="col-6">
+												<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
+											</div>
+											<div class="col-6">
+												<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
+											</div>
 										</div>
-										<div class="col-6">
-											<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
-										</div>
-									</div>
-								</div>						
+									</div>						
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</c:forEach>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				현재 클래스가 없습니다.
+			</c:otherwise>
+		</c:choose>
 </div>
 <!-- 클래스 수정 모달 -->
 
