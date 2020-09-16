@@ -64,6 +64,11 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        
+        /* 흰박스 안에 내용 */
+        .row {
+        padding-top : 5px
+        }
     </style>
 </head>
 <body>

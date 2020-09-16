@@ -3,63 +3,130 @@
     <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<style>
+	/* 전체 카드 */
+	.card-deck {
+    height:460px;
+    width:380px;
+    padding-bottom: 30px;
+    margin-top: 30px;
+    margin-left: 17px;
+}
+	/* 이미지 사이즈 */
+	.card-img {
+	height:200px;
+	width:100%;
 
-<h2>내가 구독한 클래스 목록</h2>
-<table border="1">
-	<thead>
-		<tr>
-			<th>클래스 번호</th>
-			<th>출제자</th>
-			<th>정보</th>
-			<th>공개여부</th>
-			<th>등록일</th>
-			<th>구독자 수</th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach var="classesDto" items="${list}">
-			<tr>
-				<td>${classesDto.c_no}</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/classes/detail/${classesDto.c_no}">
-						${classesDto.c_title}					
-					</a>
-				</td>
-				<td>${classesDto.c_info}</td>
+	}
+	
+	/* 클래스 제목 링크 색상 제거 */
+	a {
+	text-decoration: none;
+	}
+	.btn a {
+	text-decoration: none;
+	color:#ffffff;
+	}
+	
+	/* 클래스 타이틀 */
+	.card-title {
+	text-decoration: none;
+	color:black;
+	}
+	
+	/* 클래스 정보 */
+	.card-info {
+	max-height:4.5em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	text-decoration: none;
+	color:#3e3e3e;
+	}
+	
+	/* 버튼 */
+	.card-btn {
+	display: inline-block;
+	}
+	
+</style>
+<div class="row content-top mt-5 h-100">
+	<div class="col-12 overflow-auto mt-5">
+		<div class="container-fluid">
+			<div class="row">
+				<c:forEach var="MCIDto" items="${MCIDto}">
+					<div class="col-sm-12 col-md-6 col-lg-3">
+						<div class="card-deck">
+  							<div class="card">
+  								<c:choose>
+									<c:when test="${MCIDto.ai_no > 0}">
+										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" alt="love" class="card-img">
+									</c:otherwise>
+								</c:choose>
+   								<div class="card-body">
+      								<span class="h4 title">${MCIDto.c_title}</span>
+									<span class="badge badge-pill badge-success subCount">${MCIDto.c_subscribe}</span>
+      								<p class="card-info">${MCIDto.c_info}</p>
+      								<p class="card-info">
+      									<c:choose>
+      										<c:when test="${MCIDto.member_nick eq 'null'}">
+      											소셜 회원
+      										</c:when>
+      										<c:otherwise>
+			      								${MCIDto.member_nick}  										
+      										</c:otherwise>
+      									</c:choose>
+      								</p>
+      								<p class="card-when"><small class="text-muted">
+	      								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
+										<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/></small></p>
+  								</div>	
+  										<!-- 내 클래스일 때는 수정, 삭제 버튼 / 남의 클래스 일 때는 구독버튼이 보이게 -->
+									<c:choose>
+										<c:when test="${MCIDto.member_no != userinfo.member_no}">
+												<form method="post" class="d-flex justify-content-center mb-3">
+													<span class="card-btn">
+														<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">										
+														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독" style="font-size:14px">	
+													</span>
+												</form>
+										</c:when>
+									</c:choose>
+  							</div>
+ 						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	$(".subBtn").click(function(){
 
-				<td>
-					<c:choose>
-						<c:when test="${classesDto.c_public == 1}">
-							공개
-						</c:when>
-						<c:otherwise>
-							비공개
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-				<fmt:parseDate value="${classesDto.c_when}" 
-							var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-				<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>				
-				</td>
-				<td>${classesDto.c_subscribe}</td>
-<%-- 				<c:if test="${userinfo.member_no==subDto.member_no}">
-				<td>
-					<a href="delete/${subDto.c_no}">삭제</a>
-				</td>
-				</c:if> --%>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
-
-</body>
-</html>
-<jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
+		var subDto = {
+				member_no:${userinfo.member_no},
+				c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
+		}
+		
+		console.log(subDto)
+		
+		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+		 	headers:{
+				'content-type':'application/json',
+		 	}
+		 }).then(function(resp){
+			 console.log(resp.data)
+			$(this).parents(".card").children(".card-body").children(".subCount").text(resp.data)
+	
+	 	})
+	})
+})
+</script>
+<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
