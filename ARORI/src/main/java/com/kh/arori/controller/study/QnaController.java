@@ -1,5 +1,7 @@
 package com.kh.arori.controller.study;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.entity.study.QnaDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QnaDao;
@@ -31,40 +35,48 @@ public class QnaController {
 	
 	@Autowired
 	private QnaService qnaService;
-
+	
 	//QNA작성 페이지 새글
 	@GetMapping("/classes/qna/create/{c_no}")
-	public String qnaCreate(@PathVariable String c_no, Model model) {	
-		model.addAttribute("c_no",c_no);
+	public String qnaCreate(@PathVariable String c_no, Model model, HttpSession session) {	
+		
+		// 임시 게시글 insert
+		int qna_no = qnaService.create(c_no, c_no);
+	    MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		
+		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(userinfo.getMember_no()).qna_no(qna_no).build();
+		
+		model.addAttribute("qnaDto",qnaDto);
+
 		return "classes/qna/qna_create";
 	}	
-	// QNA 작성 새글
-	@PostMapping("/classes/qna/create")
-	public String qnaCreate(@RequestParam List<String> qna_content, @RequestParam String c_no, 
-			@RequestParam String qna_title, @RequestParam String member_no) {
-		qnaService.create(qna_content, c_no, qna_title, member_no);
-		return "redirect:" + c_no + "/1";
-	}
-	
-	// QNA 작성 페이지 답글
-	@GetMapping("/classes/qna/create_reply/{c_no}/{qna_no}")
-	public String qnaCreateReply(@PathVariable int c_no, @PathVariable int qna_no, Model model) {
-		model.addAttribute("c_no",c_no);
-		model.addAttribute("qna_no", qna_no);
-		
-		// c_no + qna_no 를 단일 조회 
-		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
-		qnaDto = qnaDao.getCQ(qnaDto);
-		
-		model.addAttribute("qnaDto", qnaDto);
-		return "classes/qna/qna_create_reply";
-	}
-	// QNA 작성 답글
-		@PostMapping("/classes/qna/create_reply")
-		public String qnaCreateReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
-			qnaService.createReply(content, qnaDto);
-			return "redirect:" +qnaDto.getC_no()+ "/1";
-		}
+//	// QNA 작성 새글
+//	@PostMapping("/classes/qna/create")
+//	public String qnaCreate(@RequestParam List<String> qna_content, @RequestParam String c_no, 
+//			@RequestParam String qna_title, @RequestParam String member_no) {
+//		qnaService.create(qna_content, c_no, qna_title, member_no);
+//		return "redirect:" + c_no + "/1";
+//	}
+//	
+//	// QNA 작성 페이지 답글
+//	@GetMapping("/classes/qna/create_reply/{c_no}/{qna_no}")
+//	public String qnaCreateReply(@PathVariable int c_no, @PathVariable int qna_no, Model model) {
+//		model.addAttribute("c_no",c_no);
+//		model.addAttribute("qna_no", qna_no);
+//		
+//		// c_no + qna_no 를 단일 조회 
+//		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
+//		qnaDto = qnaDao.getCQ(qnaDto);
+//		
+//		model.addAttribute("qnaDto", qnaDto);
+//		return "classes/qna/qna_create_reply";
+//	}
+//	// QNA 작성 답글
+//		@PostMapping("/classes/qna/create_reply")
+//		public String qnaCreateReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
+//			qnaService.createReply(content, qnaDto);
+//			return "redirect:" +qnaDto.getC_no()+ "/1";
+//		}
 	
 	
 	// QNA 게시글 리스트
@@ -114,19 +126,19 @@ public class QnaController {
 		return "classes/qna/qna_edit";
 	}
 
-	// QNA 게시글 작성 / 수정 기능
-	@PostMapping("/classes/qna/edit")
-	public String qnaEdit(@RequestParam List<String> qna_content, @RequestParam String c_no, @RequestParam String qna_no,
-			@RequestParam String qna_title, @RequestParam String qna_state) {
-		// RequestParam 으로 받아온 데이터 객체화
-		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).qna_no(Integer.parseInt(qna_no))
-				.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).build();
+	// 공지 게시글 작성 / 수정 기능
+		@PostMapping("/classes/qna/edit")
+		public String noticeEdit(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
 
-		// 객체 > Service 에서 수정 후 URL 받아오기
-		String result = qnaService.edit(qna_content, qnaDto);
+//		qnaDto = QnaDto.builder().member_no(Integer.parseInt(member_no))
+//					.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).super_no(Integer.parseInt(super_no))
+//					.group_no(Integer.parseInt(group_no)).build();
 
-		return result;
-	}
+			// 객체 > Service 에서 수정 후 URL 받아오기
+			String result = qnaService.edit(content, qnaDto);
+
+			return result;
+		}
 
 	// QNA 게시글 삭제 기능
 	@GetMapping("/classes/qna/delete/{c_no}/{qna_no}")

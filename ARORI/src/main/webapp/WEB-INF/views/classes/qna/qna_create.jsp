@@ -2,7 +2,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_header.jsp"></jsp:include>
-
                     <div class="offset-1 null-side null-side2"></div>                        
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                         <br>
@@ -22,11 +21,12 @@
                         <div class="float-right mt-5">
                         	
                         	<!-- 전송 영역 -->
-                        	<form action="${pageContext.request.contextPath }/classes/qna/create" method="post" style="display: inline-block;">
-                        		<input type="hidden" name="c_no" value="${c_no}">
+                        	<form action="${pageContext.request.contextPath }/classes/qna/edit" method="post" style="display: inline-block;">
+                        		<input type="hidden" name="c_no" value="${qnaDto.c_no}">
                         		<input type="hidden" name="member_no" value="${userinfo.member_no}">
-                        		<input type="hidden" name="qna_title">
-                        		<input type="hidden" name="qna_content" id="qna_content">
+                        		<input type="hidden" name="qna_no" value="${qnaDto.qna_no }">
+                        		<input type="hidden" name="qna_title"> 
+                        		<input type="hidden" name="content" id="qna_content">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createQna" value="작성">
                         	</form>
                         	<!-- 취소 영역 -->

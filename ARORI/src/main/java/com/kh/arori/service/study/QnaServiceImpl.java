@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.arori.constant.NameConst;
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
+import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.entity.study.QnaDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QnaDao;
@@ -32,17 +36,24 @@ public class QnaServiceImpl implements QnaService{
 	@Autowired
 	private ImgService imgService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	// QNA 새 글 작성
 	@Override
 	@Transactional
-	public int create(List<String> qna_content, String c_no, String qna_title, String member_no) {
+	public int create(String c_no, String member_no) {
 		
-		// QNA 게시글 고유번호 발급
+		// QNA 게시글 고유번호 
 		int qna_no = qnaDao.getSeg();
 		
-		String content = toastService.content(qna_content);
-		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(Integer.parseInt(member_no)).qna_no(qna_no)
-				.qna_title(qna_title).qna_content(content).group_no(qna_no).build();
+		 MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		
+		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(userinfo.getMember_no())
+						.qna_no(qna_no).qna_title(c_no + "-"  + qna_no + " 공지 게시글 작성 중" )
+						.qna_content(c_no + "-"  + qna_no + " 공지 게시글 작성 중")
+						.qna_state(0).group_no(qna_no).build();
+				
 
 		// QNA 게시글 작성
 		qnaDto.setQna_no(qna_no);
@@ -51,31 +62,31 @@ public class QnaServiceImpl implements QnaService{
 	}
 	
 	// 답글 작성
-	@Override
-	@Transactional
-	public int createReply(List<String> content, QnaDto qnaDto) {
-		
-		String qna_content = toastService.content(content);
-		
-		// QNA 게시글 고유번호
-		int qna_no = qnaDao.getSeg();
-		
-		qnaDto.setQna_content(qna_content);
-//		qnaDto.setQna_title(qnaDto.getQna_title());
-		qnaDto.setSuper_no(qnaDto.getQna_no()); // jsp에서 받아온 부모 글번호를 super_no로 지정 
-		qnaDto.setDepth(qnaDto.getDepth() + 1); // 부모차수에서 +1 
-		qnaDto.setQna_no(qna_no); // 새로 발급받은 고유 번호 
-		
-		// QNA 게시글 작성
-		qnaDao.createReply(qnaDto);
-		
-		System.out.println("title : " + qnaDto.getQna_title());
-		System.out.println("depth : " + qnaDto.getDepth());
-		System.out.println("super_no : " + qnaDto.getSuper_no());
-		System.out.println("group_no : " + qnaDto.getGroup_no());
-	
-		return qna_no;
-	}
+//	@Override
+//	@Transactional
+//	public int createReply(List<String> content, QnaDto qnaDto) {
+//		
+//		String qna_content = toastService.content(content);
+//		
+//		// QNA 게시글 고유번호
+//		int qna_no = qnaDao.getSeg();
+//		
+//		qnaDto.setQna_content(qna_content);
+////		qnaDto.setQna_title(qnaDto.getQna_title());
+//		qnaDto.setSuper_no(qnaDto.getQna_no()); // jsp에서 받아온 부모 글번호를 super_no로 지정 
+//		qnaDto.setDepth(qnaDto.getDepth() + 1); // 부모차수에서 +1 
+//		qnaDto.setQna_no(qna_no); // 새로 발급받은 고유 번호 
+//		
+//		// QNA 게시글 작성
+//		qnaDao.createReply(qnaDto);
+//		
+//		System.out.println("title : " + qnaDto.getQna_title());
+//		System.out.println("depth : " + qnaDto.getDepth());
+//		System.out.println("super_no : " + qnaDto.getSuper_no());
+//		System.out.println("group_no : " + qnaDto.getGroup_no());
+//	
+//		return qna_no;
+//	}
 	
 	// QNA 게시글 페이지 네이션 기능
 		@Override
@@ -125,7 +136,6 @@ public class QnaServiceImpl implements QnaService{
 			// VIEW 에서 받아온 qna_content 를 재가공하는 작업 
 			String content = toastService.content(qna_content);
 			
-			// Controller 에서 미리 만든 객체에 qna_content 삽입 
 			qnaDto.setQna_content(content);
 			
 			// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송 

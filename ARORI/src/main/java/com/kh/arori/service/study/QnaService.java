@@ -2,15 +2,18 @@ package com.kh.arori.service.study;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.kh.arori.entity.study.QnaDto;
 
 public interface QnaService {
 
 	// QNA 새글 작성
-	public int create(List<String> qna_content, String c_no, String qna_title, String member_no);
+//	public int create(List<String> qna_content, String c_no, String qna_title, String member_no);
+	public int create(String c_no, String member_no);
 	
 	// QNA 답글작성
-	public int createReply(List<String> content, QnaDto qnaDto);
+//	public int createReply(List<String> content, QnaDto qnaDto);
 	
 	// QNA 게시글 페이지 네이션 기능
 	public List<QnaDto> getP(String c_no, int pageNo);
