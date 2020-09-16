@@ -28,10 +28,11 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
+                    	<c:set var="index" value="${list.size() }"></c:set>
                     	<div class="ml-3 mr-3">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th scope="col" class="font-weight-bold">No</th>
                                         <th scope="col" class="font-weight-bold">Title</th>
                                         <th scope="col" class="font-weight-bold">Date</th>
@@ -42,8 +43,9 @@
                                 </thead>
                                 <tbody>
                                     	<c:forEach var="list" items="${list }">
-                                    <tr>
-                                        <th scope="row">${list.n_no }</th>
+                                    <tr class="text-center">
+                                        <th scope="row">${index }</th>
+                                        <c:set var="index" value="${index - 1 }"></c:set>
                                         <td>
                                             <label for="${list.n_no }">
                                                 ${list.n_title }

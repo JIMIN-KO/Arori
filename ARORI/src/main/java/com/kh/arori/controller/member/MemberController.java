@@ -1,5 +1,6 @@
 package com.kh.arori.controller.member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,9 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
+import com.kh.arori.entity.study.MyAnswerDto;
+import com.kh.arori.entity.study.QuizDto;
+import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.repository.member.MemberDao;
+import com.kh.arori.repository.study.MyAnswerDao;
+import com.kh.arori.repository.study.QuestionDao;
+import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.member.MemberService;
 import com.kh.arori.vo.MQIScoreVo;
+import com.kh.arori.vo.ThisQuizVo;
 
 @Controller
 @RequestMapping("/member")
@@ -30,6 +38,15 @@ public class MemberController {
 
 	@Autowired
 	private MemberDao memberDao;
+
+	@Autowired
+	private QuizDao quizDao;
+
+	@Autowired
+	private QuestionDao questionDao;
+
+	@Autowired
+	private MyAnswerDao myAnswerDao;
 
 	// 로그아웃
 	@RequestMapping("/logout")
@@ -203,7 +220,7 @@ public class MemberController {
 
 	// 성헌) 나의 퀴즈 + 해당 퀴즈 정보 뿌리기
 	@GetMapping("/myQuiz/{pageNo}")
-	public String mqInfo(@PathVariable int pageNo, HttpSession session, Model model) {
+	public String myQuizInfo(@PathVariable int pageNo, HttpSession session, Model model) {
 		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
 
 		List<MQIScoreVo> list = memberService.respectQuizAvg(userinfo.getMember_no(), pageNo);
@@ -211,8 +228,41 @@ public class MemberController {
 
 		model.addAttribute("quizDto", list);
 		model.addAttribute("block", block);
-		
+
 		return "member/myQuiz";
+	}
+
+	// 성헌) 나의 정답 확인하기
+	@GetMapping("/myAnswer/{q_no}")
+	public String myAnswer(@PathVariable int q_no, Model model, HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+
+		// 0. 해당 퀴즈 정보 받아오기
+		QuizDto quizDto = QuizDto.builder().q_no(q_no).build();
+		quizDto = quizDao.get(quizDto);
+		model.addAttribute("quizDto", quizDto);
+
+		// 1. 해당 퀴즈의 퀘스쳔 대한 정보 가지고 오기
+		List<ThisQuizDto> list = questionDao.getTQ(q_no);
+
+		// 2. 나의 정답 가지고 오기
+		MyAnswerDto myAnswerDto = MyAnswerDto.builder().member_no(userinfo.getMember_no()).q_no(q_no).build();
+		List<MyAnswerDto> myAnswer = myAnswerDao.get(myAnswerDto);
+
+		// 3. vo 에 퀴즈 정보와 나의 정답 합치기
+		List<ThisQuizVo> thisQuizVo = new ArrayList<ThisQuizVo>();
+		for (int i = 0; i < list.size(); i++) {
+			ThisQuizVo vo = new ThisQuizVo(list.get(i)); // 해당 퀴즈의 퀘스쳔 별로 vo 에 담기
+
+			if (myAnswer.size() > i) { // 나의 정답의 길이가 퀘스쳔 길이보다 짧을 경우
+				vo.setMyAnswer(myAnswer.get(i).getMy_answer()); // 나의 정답 vo 에 담기
+				vo.setCorrect(myAnswer.get(i).getResult());
+			}
+
+			thisQuizVo.add(vo);
+		}
+		model.addAttribute("thisQuizVo", thisQuizVo);
+		return "member/myAnswer";
 	}
 
 }
