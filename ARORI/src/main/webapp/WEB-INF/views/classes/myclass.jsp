@@ -190,6 +190,17 @@
 <!-- 클래스 수정 모달 -->
 
 <script>
+	<!-- 정렬 값 고정시키기 -->
+	$(function(){
+		var param = location.search
+		if(param) {
+			var last = param.indexOf("=") + 1
+			var keyword = param.substring(last)
+			console.log(keyword)
+			$("#colSelector").val(keyword).prop("selected", true)
+		}
+	})
+	
 	$(function(){
 		var param = location.search
 		if(param) {

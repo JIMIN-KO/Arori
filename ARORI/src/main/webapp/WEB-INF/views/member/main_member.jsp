@@ -20,4 +20,5 @@
                 <h1>로그인 정보</h1>
                 id : ${userinfo.member_id }
                 nick : ${userinfo.member_nick }
+                
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>

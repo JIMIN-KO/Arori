@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
+
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -93,49 +95,6 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.update("member.changeTempPw", aroriMemberDto);
 	}
 
-	// 회원 탈퇴 아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제
-	// 재정의하셨는데 모양이 다르네요
-//	@Override
-	public void deleteMember(MemberDto memberDto) {
-		if (memberDto.getMember_state() == "arori") {
-			sqlSession.delete("deleteMember", memberDto);
-			sqlSession.update("deleteAroriMember", memberDto);
-		} else {
-			sqlSession.update("deleteMember", memberDto);
-
-		}
-	}
-
-	// 회원 가입시 중복닉네임을 검사
-	// 재정의하셨는데 모양이 다르네요
-//	@Override
-	public MemberDto checkOverlap(String member_id) {
-		return sqlSession.selectOne("member.getCheck", member_id);
-
-	}
-
-	// 회원 가입시 중복이메일을 검사
-//	@Override
-	// 재정의하셨는데 모양이 다르네요
-	public MemberDto checkOverlapMail(String member_email) {
-
-		return sqlSession.selectOne("member.getCheckEmail", member_email);
-	}
-
-	// 회원 가입시 중복닉네임을 검사
-//	@Override
-	public MemberDto checkOverlapNick(String member_nick) {
-
-		return sqlSession.selectOne("member.getCheckNick", member_nick);
-	}
-
-	// 회원 가입시 중복핸드폰을 검사
-//	@Override
-	public MemberDto checkOverlapPhone(String member_Phone) {
-
-		return sqlSession.selectOne("member.getCheckPhone", member_Phone);
-	}
-
 	// 아로리 ) 회원정보 수정 (윤아)
 	@Override
 	public void updateArori(AroriMemberDto aroriMemberDto) {
@@ -182,7 +141,6 @@ public class MemberDaoImpl implements MemberDao {
 		boolean result = false;
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("member_pw", member_pw);
-		map.put("member_pw", member_pw);
 
 		int count = sqlSession.selectOne("member.checkPw", map);
 		if (count == 1)
@@ -190,11 +148,83 @@ public class MemberDaoImpl implements MemberDao {
 		return result;
 	}
 
-	// member_no 단일조회(지민)
+
+	// 회원 가입시 중복닉네임을 검사
+	// 재정의하셨는데 모양이 다르네요
+	@Override
+	public MemberDto checkOverlap(String member_id) {
+		return sqlSession.selectOne("member.getCheck", member_id);
+
+	}
+
+	// 회원 가입시 중복이메일을 검사
+	@Override
+	public MemberDto checkOverlapMail(String member_email) {
+
+		return sqlSession.selectOne("member.getCheckEmail", member_email);
+	}
+
+	// 회원 가입시 중복닉네임을 검사
+	@Override
+	public MemberDto checkOverlapNick(String member_nick) {
+
+		return sqlSession.selectOne("member.getCheckNick", member_nick);
+	}
+
+	// 회원 가입시 중복핸드폰을 검사
+	@Override
+	public MemberDto checkOverlapPhone(String member_Phone) {
+
+		return sqlSession.selectOne("member.getCheckPhone", member_Phone);
+	}
+
+	// 회원 탈퇴 아로리멤버의 경우member테이블과 arori_membertable 2군데서 삭제// 소셜멤버는 membertable만 삭제
+	// 재정의하셨는데 모양이 다르네요
+	@Override
+	public void deleteMember(MemberDto memberDto) {
+		if (memberDto.getMember_state() == "arori") {
+			sqlSession.delete("deleteMember", memberDto);
+			sqlSession.update("deleteAroriMember", memberDto);
+		} else {
+			sqlSession.update("deleteMember", memberDto);
+
+		}
+	}
+
+	// 패스워드 조회
+	@Override
+	public List<PasswordQDto> pwList() {
+		List<PasswordQDto> pwList = sqlSession.selectList("member.passQ");
+		return pwList;
+	}
+	//회원전체  단일조회(번호를 통한)
 	@Override
 	public MemberDto getNo(int member_no) {
-		MemberDto memberNo = sqlSession.selectOne("member.getNo", member_no);
-		return memberNo;
+		MemberDto getNo = sqlSession.selectOne("member.getNo", member_no);
+		return getNo;
+	}
+
+	//회원상세정보 전체업데이트
+	@Override
+	public void adminUpdate(AllMemberDto allMemberDto) {
+
+		sqlSession.update("member.adminEdit", allMemberDto);
+
+	}
+
+	//소셜+아로리 아우터조인 단일조회
+	@Override
+	public AllMemberDto memberProfile(int member_no) {
+		AllMemberDto memberProfile = sqlSession.selectOne("member.allMemberList", member_no);
+		return memberProfile;
+	}
+
+
+	@Override
+	public AllMemberDto allGet(String member_id) {
+		AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
+		return allmember;
 	}
 
 }
+

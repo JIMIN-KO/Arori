@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.member.MemberService;
+
 
 @Controller
 @RequestMapping("/member")
@@ -48,14 +51,15 @@ public class MemberController {
 	@PostMapping("/updateArori")
 	public String updatearori(Model model, @ModelAttribute AroriMemberDto aroriMemberDto, HttpSession session) {
 
-		List<PasswordQDto> memberQ = memberDao.getPasswordQ();
-		model.addAttribute("memberQ", memberQ);
-
+		List<PasswordQDto> pwList = memberDao.pwList();
+		model.addAttribute("pwList", pwList);
+		
 		boolean result = memberService.checkPw(aroriMemberDto.getMember_pw());
 
 		if (result) {
 			memberService.updateArori(aroriMemberDto);
-			return "redirect:/";
+
+			return "member/myPage";
 
 		} else {
 			return "member/updateArori";
@@ -113,7 +117,8 @@ public class MemberController {
 
 	@PostMapping("/updateSocial")
 	public String updateSocial(@ModelAttribute MemberDto memberDto, HttpSession session) {
-		memberService.updateSocial(memberDto);
+
+		
 		return "member/socialMyPage";
 	}
 
@@ -128,6 +133,7 @@ public class MemberController {
 	@RequestMapping("/main")
 	public String mainPage() {
 		return "member/main_member";
+
 	}
 
 	// 회원탈퇴 하기
