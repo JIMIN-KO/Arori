@@ -19,6 +19,7 @@ import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.MyAnswerDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.email.EmailService;
+import com.kh.arori.vo.MQIScoreVo;
 
 @Service
 public class MemberServiceImple implements MemberService {
@@ -231,11 +232,11 @@ public class MemberServiceImple implements MemberService {
 		// 2. 평균 점수 / 3. 정답률
 		double score = 0.0;
 		int curAvg = 0;
-		
+
 		// 나의 정답 더미 객체
 		MyAnswerDto myAnswerDto = MyAnswerDto.builder().member_no(member_no).build();
-		
-		// 푼 퀴즈만큼 전체 평균 계산 및 전체 정답률 계산 
+
+		// 푼 퀴즈만큼 전체 평균 계산 및 전체 정답률 계산
 		for (MyQuizDto quiz : list) {
 
 			// 2-1. 평균 점수 계산
@@ -252,20 +253,31 @@ public class MemberServiceImple implements MemberService {
 			int getAvg = (int) (((double) getCurSize / getSize) * 100);
 			curAvg += getAvg;
 		}
-		
-		int avgScore = (int) (score / (double) myQuizSize); //@ 최종 평균 점수 @
+
+		int avgScore = (int) (score / (double) myQuizSize); // @ 최종 평균 점수 @
 		curAvg = curAvg / myQuizSize; // @ 최종 정답률 @
 
 		System.out.println(myQuizSize);
 		System.out.println(avgScore);
 		System.out.println(curAvg);
-		
+
 		List<Integer> memberScore = new ArrayList<Integer>();
 		memberScore.add(myQuizSize);
 		memberScore.add(avgScore);
 		memberScore.add(curAvg);
-		
+
 		return memberScore;
+	}
+
+	// 마이페이지 > 퀴즈 섹션 > 퀴즈 별 정보 및 정답 계산
+	@Override
+	public List<MQIScoreVo> respectQuizAvg(int member_no) {
+		// 1. 나의 점수
+		// 2. 맞은 개수
+		// 3. 틀린 개수
+		// 4. 해당 퀴즈에 대한 나의 정답률
+		// 5. 퀴즈의 평균 정답률
+		return null;
 	}
 
 }

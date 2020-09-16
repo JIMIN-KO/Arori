@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.arori.entity.study.MqInfoDto;
 import com.kh.arori.entity.study.MyQuizDto;
 import com.kh.arori.entity.study.QuizDto;
 
@@ -103,6 +104,13 @@ public class QuizDaoImpl implements QuizDao{
 	public int updateMQ(MyQuizDto myQuizDto) {
 
 		return sqlSession.update("quiz.updateMQ", myQuizDto);
+	}
+
+	// My Quiz > 나의 퀴즈 + 해당 퀴즈 정보
+	@Override
+	public List<MqInfoDto> getMQInfo(int member_no) {
+		
+		return sqlSession.selectList("quiz.getMQInfo", member_no);
 	}
 
 

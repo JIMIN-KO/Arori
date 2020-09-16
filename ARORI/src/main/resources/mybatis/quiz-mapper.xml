@@ -97,4 +97,8 @@
 		UPDATE MY_QUIZ SET SCORE = #{score} WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
 	</update>
 	
+	<!-- 마이페이지 > 내가 푼 퀴즈 리스트 + 해당 퀴즈 정보 -->
+	<select id="getMQInfo" resultType="mqInfoDto" parameterType="myQuizDto">
+		SELECT mq.*, q.c_no, q.q_title, q.q_open, q.q_close, q.q_runtime, q.q_score_open, q.q_when, q.q_content, q.q_state FROM MY_QUIZ mq LEFT OUTER JOIN QUIZ q ON mq.Q_NO = q.Q_NO WHERE mq.MEMBER_NO = #{member_no}
+	</select>
 </mapper>

@@ -3,6 +3,7 @@ package com.kh.arori.repository.study;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.arori.entity.study.MqInfoDto;
 import com.kh.arori.entity.study.MyQuizDto;
 import com.kh.arori.entity.study.QuizDto;
 
@@ -45,4 +46,7 @@ public interface QuizDao {
 	
 	// My Quiz > 내 가 푼 퀴즈 점수 업데이트
 	public int updateMQ(MyQuizDto myQuizDto);
+	
+	// My Quiz > 나의 퀴즈 + 해당 퀴즈 정보
+	public List<MqInfoDto> getMQInfo(int member_no);
 }

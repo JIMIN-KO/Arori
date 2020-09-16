@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
+import com.kh.arori.entity.study.MqInfoDto;
 import com.kh.arori.repository.member.MemberDao;
+import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.member.MemberService;
 
 @Controller
@@ -28,6 +30,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private QuizDao quizDao;
 
 	// 로그아웃
 	@RequestMapping("/logout")
@@ -197,6 +202,17 @@ public class MemberController {
 		memberService.changeAroriPW(aroriMemberDto);
 		return "redirect:myPage";
 
+	}
+	
+	// 성헌) 나의 퀴즈 + 해당 퀴즈 정보 뿌리기
+	@GetMapping("/myQuiz")
+	public String mqInfo(HttpSession session, Model model) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		
+		List<MqInfoDto> list = quizDao.getMQInfo(userinfo.getMember_no());
+		model.addAttribute("quizDto", list);
+		
+		return "member/myQuiz";
 	}
 
 }

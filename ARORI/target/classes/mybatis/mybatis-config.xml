@@ -15,6 +15,9 @@
 
 		<!-- My_Quiz -->
 		<typeAlias type="com.kh.arori.entity.study.MyQuizDto" alias="myQuizDto"/>
+		
+		<!-- My Quiz + Quiz -->
+		<typeAlias type="com.kh.arori.entity.study.MqInfoDto" alias="mqInfoDto"/>
 	
 		<!-- My Answer -->
 		<typeAlias type="com.kh.arori.entity.study.MyAnswerDto" alias="myAnswerDto"/>	

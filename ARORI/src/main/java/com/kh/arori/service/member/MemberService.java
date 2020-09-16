@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.vo.MQIScoreVo;
 
 public interface MemberService {
 
@@ -48,4 +49,7 @@ public interface MemberService {
 
 	// 마이페이지 > 점수 계산
 	public List<Integer> quizAvg(int member_no);
+	
+	// 마이페이지 > 퀴즈 섹션 > 퀴즈 별 정보 및 정답 계산
+	public List<MQIScoreVo> respectQuizAvg(int member_no);
 }

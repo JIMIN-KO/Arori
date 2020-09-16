@@ -55,10 +55,9 @@
 </style>
 <div class="row content-top mt-5 h-100">
 	<div class="col-12 overflow-auto mt-5">
-		<div class="container-fluid">
-			<div class="row">
+			<div class="row w-100">
 				<c:forEach var="MCIDto" items="${MCIDto}">
-					<div class="col-sm-12 col-md-6 col-lg-3">
+					<div class="col-sm-12 col-md-6 col-lg-3 p-0">
 						<div class="card-deck">
   							<div class="card">
   								<c:choose>
@@ -103,7 +102,6 @@
 					</div>
 				</c:forEach>
 			</div>
-		</div>
 	</div>
 </div>
 <script>
