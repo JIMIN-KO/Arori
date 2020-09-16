@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.entity.study.SubscribeDto;
@@ -130,6 +131,12 @@ public class ClassesDaoImpl implements ClassesDao {
 	@Override
 	public List<MCIDto> mySub(int member_no) {
 		List<MCIDto> list = sqlSession.selectList("classes.getSub", member_no);
+		return list;
+	}
+
+	@Override
+	public List<MemberDto> subMe(int c_no) {
+		List<MemberDto> list = sqlSession.selectList("classes.subMe", c_no);
 		return list;
 	}
 

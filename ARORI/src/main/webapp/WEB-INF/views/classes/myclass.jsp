@@ -93,7 +93,12 @@
 		-webkit-appearance: none;
 		text-align-last: center;
 	}
-
+	
+	/* 정보 수정 모달 중 public 수정 */
+	.modal-div-public {
+	margin-top:10px;
+	margin-bottom:-10px;
+	}
 </style>
 <!-- 클래스 목록 -->
 <div class="row justify-content-center" style="margin-top: 80px;">
@@ -143,11 +148,12 @@
 				</div>
 					<div class="card-body pb-0">
 						<input type="hidden" class="card-no" value="${MCIDto.c_no }">
-						<input type="hidden" class="card-public" value="${MCIDto.c_public }">
 						
 						<span class="h4 title">${MCIDto.c_title}
 						</span>
-						<span class="badge badge-pill badge-success">${MCIDto.c_subscribe}</span>
+						<span class="badge badge-pill badge-success" >
+							${MCIDto.c_subscribe}
+						</span>
 						<p class="card-info">${MCIDto.c_info}</p>
 						<p class="card-nick">
 							<c:choose>
@@ -165,17 +171,16 @@
 								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
 							</small>
 						</p>					
-					
-								<div class="card-btn w-100">
-									<div class="row mt-3">
-										<div class="col-6">
-											<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
-										</div>
-										<div class="col-6">
-											<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
-										</div>
-									</div>
-								</div>						
+						<div class="card-btn w-100">
+							<div class="row mt-3">
+								<div class="col-6">
+									<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-public="${MCIDto.c_public }" data-target="#classEdit" style="font-size:14px">EDIT</button>
+								</div>
+								<div class="col-6">
+									<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
+								</div>
+							</div>
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -185,6 +190,15 @@
 <!-- 클래스 수정 모달 -->
 
 <script>
+	$(function(){
+		var param = location.search
+		if(param) {
+			var last = param.indexOf("=") + 1
+			var keyword = param.substring(last)
+			console.log(keyword)
+			$("#colSelector").val(keyword).prop("selected", true)
+		}
+	})
 	$(function() {
 		$("#classEdit").modal("hide") // 클래스 수정 모달 숨김
 		$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
@@ -195,12 +209,12 @@
 					var c_no = $(this).parents(".card-body").children(".card-no").val()
 					var c_title = $(this).parents(".card-body").children(".title").text()
 					var c_info = $(this).parents(".card-body").children(".card-info").text()
-					var c_public = $(this).parents(".card-body").children(".card-public").text()
+					var c_public = $(this).data("public")
 
 					$("input[name=c_no]").val(c_no)
 					$("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
 					$("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기
-
+					$("select[name=c_public]").val(c_public).prop("selected", true)
 				})
 		// 수정하기 버튼을 누르면 수정이 되도록 한다!
 		$("#goEdit").click(function() {
@@ -292,15 +306,16 @@
 							<label for="c_title">Class Title :</label>
 							<input type="text" name="c_title" class="modal-content">
 						</div>
-						<div>
+						<div style="margin-top:10px;">
 							<label for="c_info">Class Info :</label>
 							<input type="text" name="c_info" class="modal-content">
 						</div>
-						<div>
+						<div class="modal-div-public">
 							<label for="c_public">Public Check :</label>
 							<select	name="c_public" class="select">
-								<option value=1 >공개</option>
-								<option value=0>비공개</option>
+								<option value="1" class="1">공개</option>
+								<!-- {MCIDto.c_public=='1'?'selected':'' -->
+								<option value="0" class="0">비공개</option>
 							</select>
 						</div>
 					

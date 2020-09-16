@@ -12,4 +12,12 @@ public class AdminController {
 	public String adminPage() {
 		return "admin/main_admin";
 	}
+	
+	// 클래스 목록 조회
+	
+	// 클래스 수정
+	// 클래스 삭제
+	// 클래스 검색
+
+	
 }

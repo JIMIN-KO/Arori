@@ -60,6 +60,9 @@
 	#keyword:focus {
 	outline:none;
 	}
+	#search:focus {
+	outline:none;
+	}
 	
 	.select-down {
 	outline: none;

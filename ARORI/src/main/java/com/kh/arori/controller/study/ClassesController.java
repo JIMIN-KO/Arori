@@ -165,5 +165,13 @@ public class ClassesController {
 
 		return "redirect:/classes/myclass/" + userinfo.getMember_no();
 	}
+	
+	// 나를 구독한 사람들 목록
+	@GetMapping("classes/subMe")
+	public String subMe(@PathVariable int c_no, Model model) {
+		List<MemberDto> list = classesDao.subMe(c_no);
+		model.addAttribute("MemberDto", list);
+		return "redirect:myclass/" + c_no;
+	}
 
 }
