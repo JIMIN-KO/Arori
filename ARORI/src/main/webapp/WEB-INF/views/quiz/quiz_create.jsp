@@ -34,50 +34,27 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="inputGroup-sizing-lg">Title</span>
 									</div>
-									<input type="text" class="form-control" name="q_title" id="q_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+									<input type="text" class="form-control" name="q_title" id="q_title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 								</div>
 								<!-- 퀴즈 설명 (Toast UI Editor) 영역 -->
 								<div id="editor" class="mt-5"></div>
 								<!-- 퀴즈 설정 영역 -->
-								<!-- Total Score / Score Open -->
+								<!-- Runtime / Score Open -->
 								<div class="form-row mt-5">
-									<div class="form-group col-6">
-										<div class="input-group input-group-lg">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-lg">Total Score</span>
-											</div>
-											<input type="number" class="form-control" name="q_score" id="q_score" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-										</div>
-									</div>
 									<div class="form-group col-6">
 										<div class="input-group input-group-lg">
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
 											</div>
-											<input type="datetime-local" class="form-control" name="q_score_open" id="q_score_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+											<input type="datetime-local" class="form-control" name="q_score_open" id="q_score_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 										</div>
 									</div>
-								</div>
-								<!-- Runtime / Scoring -->
-								<div class="form-row">
 									<div class="form-group col-6">
 										<div class="input-group input-group-lg">
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
 											</div>
-											<input type="number" class="form-control" name="q_runtime" id="q_runtime" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-										</div>
-									</div>
-									<div class="form-group col-6">
-										<div class="input-group input-group-lg">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-lg">Scoring</span>
-											</div>
-											<select class="custom-select" id="q_scoring" name="scoring">
-											    <option selected>Choose...</option>
-											    <option value="0">자동 채점</option>
-											    <option value="1">수동 채점</option>
-											  </select>
+											<input type="number" class="form-control" name="q_runtime" id="q_runtime" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" min="10" required="required">
 										</div>
 									</div>
 								</div>
@@ -88,7 +65,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Opening</span>
 											</div>
-											<input type="datetime-local" class="form-control" name="q_open" id="q_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+											<input type="datetime-local" class="form-control" name="q_open" id="q_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 										</div>
 									</div>
 									<div class="form-group col-6">
@@ -96,7 +73,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Closing</span>
 											</div>
-											<input type="datetime-local" class="form-control" name="q_close" id="q_close" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+											<input type="datetime-local" class="form-control" name="q_close" id="q_close" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 										</div>
 									</div>
 								</div>
@@ -130,19 +107,6 @@
 								<!-- 공통 퀘스쳔 영역 -->
 								<form>
 							        <div id="editor2" class="mb-5"></div>
-									<div class="form-row">
-							        		<div class="col">
-							        			<div class="input-group mb-3 input-group-lg">
-											  <div class="input-group-prepend">
-											    <span class="input-group-text">배점</span>
-											  </div>
-											  <input type="number" class="form-control" id="aq_score">
-											  <div class="input-group-append">
-											    <span class="input-group-text">점</span>
-											  </div>
-											</div>
-							        		</div>
-							        </div>
 								</form>
 						  	<div class="question-add">
 						  		<!-- OX -->
@@ -154,8 +118,6 @@
 						  			<input type="hidden" name="q_no" value="${quizDto.q_no }">
 						  			<!-- aq_content -->
 						  			<input type="hidden" name="content">
-						  			<!-- aq_score -->
-						  			<input type="hidden" name="aq_score">
 							        <!--ox답변 영역-->
 							        	<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
@@ -188,8 +150,6 @@
 						  			<input type="hidden" name="q_no" value="${quizDto.q_no }">
 						  			<!-- aq_content -->
 						  			<input type="hidden" name="content">
-						  			<!-- aq_score -->
-						  			<input type="hidden" name="aq_score">
 							        <!--선다형 답변 영역-->
 							       	<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
@@ -237,8 +197,6 @@
 						  			<input type="hidden" name="q_no" value="${quizDto.q_no }">
 						  			<!-- aq_content -->
 						  			<input type="hidden" name="content">
-						  			<!-- aq_score -->
-						  			<input type="hidden" name="aq_score">
 							        <!--단답형 답변 영역-->
 							            <div class="input-group mb-3 input-group-lg">
 										  <div class="input-group-prepend">
@@ -255,7 +213,7 @@
 						</div>
 						<div class="form-row float-right mt-5">
 							<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 등록</button>
-							<button type="button" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</button>
+							<a href="${pageContext.request.contextPath }/classes/quiz/delete/${quizDto.c_no}/${quizDto.q_no}" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
@@ -293,17 +251,7 @@
                 }
               	console.log($(".add").val())
             });
-
-            //form버튼 
-            function qsubmit() {
-                return true;
-            }
-            function qsubmit2() {
-                frm.action="create";
-                frm.submit();
-                return true;
-            }
-                
+             
         });
  // 최종 퀴즈 저장
  $(function(){
@@ -316,10 +264,6 @@
 // 퀘스쳔 저장
 $(function(){
 	var backup = $(".question-list").first().clone()
-	// 점수 설정
-	$("#aq_score").on("input",function(){
-			$("input[name=aq_score]").val($("#aq_score").val())
-		})
 		
 	// new question 클릭 시 현재 퀘스쳔 저장 밑 새로운 퀘스쳔 생성
 	$(".add").click(function(){
@@ -424,11 +368,11 @@ const editor2 = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/question/upload/${question_no }" ,
+				url:"/arori/imgAjax/quiz/upload/${quizDto.q_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/question/download/" + resp.data);
+				callback("/arori/imgAjax/quiz/download/" + resp.data);
 			})
 		}
 	}

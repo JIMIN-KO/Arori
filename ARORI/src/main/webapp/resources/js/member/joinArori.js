@@ -21,7 +21,7 @@
 	  var prohibition ="admin"; //금지할 단어의 정규식 
 
 	  if(input.value.indexOf(prohibition)!= -1){ //금지단어를가지고 있다면 
-		     span.textContent="해당 아이디는 운영자전용임";
+		     span.textContent="해당 아이디는 사용하실 수 없습니다.";
 	  		return false;
 		
 	  }else{//금지하는 단어가 없을경우 정규표현식검사  
@@ -34,16 +34,16 @@
 			  })
 			  .then(function(resp){
 				  if(!resp.data){ //결과가 없다면 
-					  span.textContent = "사용이가능합니다.";
+					  span.textContent = "사용 가능합니다.";
 				  		return true;
 				  }else{
-					  span.textContent="이미 사용중입니다.";
+					  span.textContent="이미 사용중인 아이디 입니다.";
 				  		return false;
 				  }	  
 			  });
 		  }  
 	      else{//정규표현식 안맞으면
-	    	  span.textContent="4~12글자의 영어(대,소문자) 숫자만으로 구성가능합니다";
+	    	  span.textContent="4~12글자의 영어(대,소문자)와 숫자만으로 구성 가능합니다";
 		  		return false;
 
 	      }
@@ -64,7 +64,7 @@
 			 return true;
 			}	  
 		   else{//정규표현식 안맞으면
-    	  span.textContent="6~15글자의 영어(대,소문자) 숫자만으로 구성가능합니다";
+    	  span.textContent="6~15글자의 영어(대,소문자)와 숫자만으로 구성 가능합니다";
     	  return false;
     	  }
 	   }
@@ -90,11 +90,11 @@
 		  })
 		  .then(function(resp){
 			  if(!resp.data){ //결과가 없다면 
-				  span.textContent = "사용이 가능합니다.";
+				  span.textContent = "사용 가능합니다.";
 			  		return true;
 
 			  }else{
-				  span.textContent="이미 사용중인 이메일입니다.";
+				  span.textContent="이미 사용중인 이메일 입니다.";
 			  		return false;
 
 			  }	  
@@ -118,7 +118,7 @@
 	  var prohibition ="관리자"; //금지할 단어
 
 	  if(input.value.indexOf(prohibition)!=-1){ //금지단어를가지고 있다면 
-		  span.textContent="해당 닉네임은 관리자 전용입니다.";
+		  span.textContent="해당 닉네임은 사용하실 수 없습니다.";
 	  	 }else{//금지하는 단어가 없을경우 정규표현식검사  
 		  if(isValid){//정상적인 이름인 경우  아이디 중복체크 
 			
@@ -132,7 +132,7 @@
 				  		return true;
 
 				  }else{
-					  span.textContent="이미 사용중인 닉네임입니다.";
+					  span.textContent="이미 사용중인 닉네임 입니다.";
 				  		return false;
 
 				  }	  
@@ -165,7 +165,7 @@
 			  })
 			  .then(function(resp){
 				  if(!resp.data){ //결과가 없다면 
-					  span.textContent = "사용이가능합니다.";
+					  span.textContent = "사용 가능합니다.";
 			    	  	return true;
 
 				  }else{

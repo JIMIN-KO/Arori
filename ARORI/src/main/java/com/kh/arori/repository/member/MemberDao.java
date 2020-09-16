@@ -94,6 +94,3 @@ public interface MemberDao {
 	public AllMemberDto allGet(String member_id);
 
 }
-
-
-

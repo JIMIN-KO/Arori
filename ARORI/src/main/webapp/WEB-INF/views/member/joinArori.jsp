@@ -54,7 +54,7 @@
                                 <input type="text" name="member_a" class="form-control form-control-sm" placeholder="ANSWER" required="required">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-warning btn-block btn-lg text-white" data-target="#JoinFail">Sing In</button>
+                                <button type="submit" class="btn btn-warning btn-block btn-lg text-white" data-target="#JoinFail">Sign In</button>
                             </div>
                         </form>
                     </div>

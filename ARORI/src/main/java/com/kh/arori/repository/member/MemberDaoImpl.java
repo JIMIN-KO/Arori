@@ -228,3 +228,12 @@ public class MemberDaoImpl implements MemberDao {
 
 }
 
+	// member_no 단일조회(지민)
+	@Override
+	public MemberDto getNo(int member_no) {
+		MemberDto memberNo = sqlSession.selectOne("member.getNo", member_no);
+		return memberNo;
+	}
+
+}
+
