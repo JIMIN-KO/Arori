@@ -27,21 +27,48 @@
 							        			 <div class="card shadow-none col-sm-12 col-md-12 col-lg-4">
 												    <div class="card-body text-center">
 												      <h5 class="card-title">푼 퀴즈 개수</h5>
-												      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${memberScore.get(0) }</span>
+												      	<span class="card-text font-weight-bolder" style="font-size: 3rem;">
+															<c:choose>
+																<c:when test="${not empty memberScore }">
+																	${memberScore.get(0) }
+																</c:when>
+																<c:otherwise>
+																	0
+																</c:otherwise>
+															</c:choose>
+														</span>
 												      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">개</span>
 												    </div>
 										  		</div>
 							        			<div class="card shadow-none col-sm-12 col-md-12 col-lg-4">
 												    <div class="card-body text-center">
 												      <h5 class="card-title">평균 점수</h5>
-												      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${memberScore.get(1) }</span>
+												      <span class="card-text font-weight-bolder" style="font-size: 3rem;">
+												      	<c:choose>
+																<c:when test="${not empty memberScore }">
+																	${memberScore.get(1) }
+																</c:when>
+																<c:otherwise>
+																	0
+																</c:otherwise>
+															</c:choose>
+												      </span>
 												      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">점</span>
 												    </div>
 										  		</div>
 							        			<div class="card shadow-none col-sm-12 col-md-12 col-lg-4">
 												    <div class="card-body text-center">
 												      <h5 class="card-title">평균 정답률</h5>
-												      <span class="card-text font-weight-bolder" style="font-size: 3rem;">${memberScore.get(2) }</span>
+												      <span class="card-text font-weight-bolder" style="font-size: 3rem;">
+												      	<c:choose>
+																<c:when test="${not empty memberScore }">
+																	${memberScore.get(3) }
+																</c:when>
+																<c:otherwise>
+																	0
+																</c:otherwise>
+															</c:choose>
+												      </span>
 												      <span class="card-text ml-2 font-weight-bolder" style="font-size: 1rem;">%</span>
 												    </div>
 										  		</div>
