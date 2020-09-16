@@ -23,15 +23,15 @@
                         	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         	
                         	<!-- 전송 영역 -->
-                        	<form action="${pageContext.request.contextPath }/classes/qna/create_reply" method="post" style="display: inline-block;">
+                        	<form action="${pageContext.request.contextPath }/classes/qna/edit" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${qnaDto.c_no }">
                         		<input type="hidden" name="member_no" value="${userinfo.member_no}">
                         		<input type="hidden" name="qna_title">
                         		<input type="hidden" name="content" id="qna_content">
                         		<input type="hidden" name="qna_no" value="${qnaDto.qna_no }">
                         		<input type="hidden" name="group_no"  value="${qnaDto.group_no }">
-                        		<input type="hidden" name="super_no"  value="${qnaDto.super_no}">
-                        		<input type="hidden" name="depth"  value="${qnaDto.depth}">
+                        		<input type="hidden" name="super_no"  value="${mother_qna_no}">
+                        		<input type="hidden" name="depth"  value="${qnaDto.depth + 1}">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createQna" value="작성">
                         	</form>
                         </div>

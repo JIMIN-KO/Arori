@@ -50,34 +50,24 @@ public class QnaController {
 
 		return "classes/qna/qna_create";
 	}	
-//	// QNA 작성 새글
-//	@PostMapping("/classes/qna/create")
-//	public String qnaCreate(@RequestParam List<String> qna_content, @RequestParam String c_no, 
-//			@RequestParam String qna_title, @RequestParam String member_no) {
-//		qnaService.create(qna_content, c_no, qna_title, member_no);
-//		return "redirect:" + c_no + "/1";
-//	}
-//	
-//	// QNA 작성 페이지 답글
-//	@GetMapping("/classes/qna/create_reply/{c_no}/{qna_no}")
-//	public String qnaCreateReply(@PathVariable int c_no, @PathVariable int qna_no, Model model) {
-//		model.addAttribute("c_no",c_no);
-//		model.addAttribute("qna_no", qna_no);
-//		
-//		// c_no + qna_no 를 단일 조회 
-//		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
-//		qnaDto = qnaDao.getCQ(qnaDto);
-//		
-//		model.addAttribute("qnaDto", qnaDto);
-//		return "classes/qna/qna_create_reply";
-//	}
-//	// QNA 작성 답글
-//		@PostMapping("/classes/qna/create_reply")
-//		public String qnaCreateReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
-//			qnaService.createReply(content, qnaDto);
-//			return "redirect:" +qnaDto.getC_no()+ "/1";
-//		}
-	
+
+	// QNA 작성 페이지 답글 
+	@GetMapping("/classes/qna/create_reply/{c_no}/{qna_no}")
+	public String qnaCreateReply(@PathVariable int c_no, @PathVariable int qna_no, Model model, HttpSession session) {
+
+		
+		// c_no + qna_no 를 단일 조회 
+		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
+		qnaDto = qnaDao.getCQ(qnaDto);
+		
+		// 임시 게시글 insert
+		int reply_qna_no = qnaService.createReply(qnaDto);
+		qnaDto.setQna_no(reply_qna_no);
+		
+		model.addAttribute("qnaDto", qnaDto);
+		model.addAttribute("mother_qna_no", qna_no);
+		return "classes/qna/qna_create_reply";
+	}
 	
 	// QNA 게시글 리스트
 	@GetMapping("/classes/qna/{c_no}/{pageNo}")
@@ -126,9 +116,9 @@ public class QnaController {
 		return "classes/qna/qna_edit";
 	}
 
-	// 공지 게시글 작성 / 수정 기능
+	// qna 게시글 새글 작성 / 수정 기능
 		@PostMapping("/classes/qna/edit")
-		public String noticeEdit(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
+		public String qnaEdit(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
 
 //		qnaDto = QnaDto.builder().member_no(Integer.parseInt(member_no))
 //					.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).super_no(Integer.parseInt(super_no))
@@ -139,6 +129,21 @@ public class QnaController {
 
 			return result;
 		}
+		
+		// qna 게시글 답글 작성 / 수정 기능
+		@PostMapping("/classes/qna/edit_reply")
+		public String qnaEditReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
+
+//		qnaDto = QnaDto.builder().member_no(Integer.parseInt(member_no))
+//					.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).super_no(Integer.parseInt(super_no))
+//					.group_no(Integer.parseInt(group_no)).build();
+
+			// 객체 > Service 에서 수정 후 URL 받아오기
+			String result = qnaService.editReply(content, qnaDto);
+
+			return result;
+		}
+
 
 	// QNA 게시글 삭제 기능
 	@GetMapping("/classes/qna/delete/{c_no}/{qna_no}")

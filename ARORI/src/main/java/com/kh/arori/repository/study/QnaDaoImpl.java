@@ -74,6 +74,10 @@ public class QnaDaoImpl implements QnaDao{
 
 			return sqlSession.update("qna.edit", qnaDto);
 		}
+		@Override
+		public int editReply(QnaDto qnaDto) {
+			return sqlSession.update("qna.editReply", qnaDto);
+		}
 
 		// QNA 게시글 삭제 
 		@Override

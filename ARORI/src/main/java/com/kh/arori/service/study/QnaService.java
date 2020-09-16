@@ -13,7 +13,7 @@ public interface QnaService {
 	public int create(String c_no, String member_no);
 	
 	// QNA 답글작성
-//	public int createReply(List<String> content, QnaDto qnaDto);
+	public int createReply(QnaDto qnaDto);
 	
 	// QNA 게시글 페이지 네이션 기능
 	public List<QnaDto> getP(String c_no, int pageNo);
@@ -23,6 +23,8 @@ public interface QnaService {
 		
 	// QNA 게시글 수정 기능 
 	public String edit(List<String> qna_content, QnaDto qnaDto);
+	// QNA 게시글 수정 기능 
+	public String editReply(List<String> qna_content, QnaDto qnaDto);
 		
 	//  QNA 게시글 삭제 기능 
 	public String delete(QnaDto qnaDto, int member_no);

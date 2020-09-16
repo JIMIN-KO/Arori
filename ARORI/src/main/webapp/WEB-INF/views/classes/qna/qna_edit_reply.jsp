@@ -30,7 +30,7 @@
                         <input type="hidden" id="edit_qna_content" value="${qnaDto.qna_content }">
                         <div class="float-right mt-5">
                         	<!-- 전송 영역 -->
-                        	<form action="${pageContext.request.contextPath }/classes/qna/edit" method="post" style="display: inline-block;" id="editForm">
+                        	<form action="${pageContext.request.contextPath }/classes/qna/edit_reply" method="post" style="display: inline-block;" id="editForm">
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="qna_no" value="${qnaDto.qna_no }">
                         		<input type="hidden" name="qna_title" value="${qnaDto.qna_title}">

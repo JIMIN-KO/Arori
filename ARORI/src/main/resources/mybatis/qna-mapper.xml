@@ -47,7 +47,15 @@
 	<update id="edit" parameterType="qnaDto">
 		UPDATE QNA SET 
 		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}, QNA_STATE = #{qna_state} ,
-		MEMBER_NO = #{member_no}
+		MEMBER_NO = #{member_no}, GROUP_NO  = #{group_no}
+		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</update>
+	
+		<!-- 게시글 수정  -->
+	<update id="editReply" parameterType="qnaDto">
+		UPDATE QNA SET 
+		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}, QNA_STATE = #{qna_state} ,
+		MEMBER_NO = #{member_no}, GROUP_NO  = #{group_no}, SUPER_NO = #{super_no}, DEPTH = #{depth}
 		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
 	</update>
 	

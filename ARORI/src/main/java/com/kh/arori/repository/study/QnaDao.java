@@ -33,6 +33,8 @@ public interface QnaDao {
 		
 	// QNA  게시글 수정 
 	public int edit(QnaDto qnaDto);
+	// QNA  게시글 수정 
+	public int editReply(QnaDto qnaDto);
 		
 	// QNA  게시글 삭제 
 	public int delete(QnaDto qnaDto);
