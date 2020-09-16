@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kh</groupId>
 	<artifactId>arori</artifactId>
-	<name>arori</name>
+	<name>ARORI</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -235,7 +235,17 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.11.2</version>
 		</dependency>
+		
+		<!-- google chart  -->
+		
+		<dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+         
 	</dependencies>
+
 
 
 	<!-- 실제 명령 수행 시 필요한 설정 -->
@@ -273,14 +283,6 @@
 				<version>1.2.1</version>
 				<configuration>
 					<mainClass>org.test.int1.Main</mainClass>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.1</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml> <!-- web.xml이 없을 때 에러를 낼건지 안낼건지 -->
 				</configuration>
 			</plugin>
 		</plugins>

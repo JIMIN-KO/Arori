@@ -32,11 +32,14 @@ public class NonMemberAjaxController {
 
 		MemberDto member = memberService.aroriLogin(member_id, member_pw);
 
-		if (member != null) {
-			session.setAttribute("userinfo", member);
+		if (member.getReport_state().equals("정상")) {
+//	         System.out.println("member : " + member.getReport_state());
+			if (member != null) {
+				session.setAttribute("userinfo", member);
+				return member;
+			}
 		}
-
-		return member;
+		return null;
 	}
 
 	// 소셜 이메일 회원 조회
@@ -85,6 +88,9 @@ public class NonMemberAjaxController {
 
 	// 회원가입시 아이디 중복검사용
 	// 인터페이스랑 구현체랑 메소드 이름 맞추세요
+
+	// 아까 오류는 메이븐 업데이트 하니까 해결 됐습니다 감사하니다.
+
 	@GetMapping("/checkOverlap")
 	public MemberDto checkOverlap(@RequestParam String member_id) {
 		MemberDto memberDto = memberDao.checkOverlap(member_id);
@@ -110,19 +116,6 @@ public class NonMemberAjaxController {
 	public MemberDto checkOverlapPhone(@RequestParam String member_phone) {
 		MemberDto memberDto = memberDao.checkOverlapPhone(member_phone);
 		return memberDto;
-	}
-
-	// 회원 비밀번호 변경시 검사용
-	@GetMapping("/checkChangePw")
-	public boolean checkChangePw(@RequestParam String member_id, @RequestParam String member_pw) {
-		boolean check = memberDao.checkChangePw(member_id, member_pw);
-
-		if (check == true) {
-			return true;
-		} else {
-			return false;
-		}
-
 	}
 
 }

@@ -108,13 +108,6 @@ public class MemberController {
 		}
 	}
 
-	@PostMapping("/myPage")
-	public String mypage(@ModelAttribute AroriMemberDto aroriMemberDto, @RequestParam int member_no) {
-		memberDao.myInfo(member_no);
-
-		return "member/myPage";
-	}
-
 	// 회원 목록 리스트 (윤아)
 	@GetMapping("/memberList")
 	public String memberList(Model model) {
@@ -126,21 +119,6 @@ public class MemberController {
 
 		return "member/memberList";
 
-	}
-
-	// 소셜 마이페이지
-	@GetMapping("/socialMyPage")
-	public String socialMyPage() {
-
-		return "member/socialMyPage";
-	}
-
-	@PostMapping("/socialMyPage")
-	public String socialMyPage(@ModelAttribute MemberDto memberDto, @RequestParam int member_no) {
-
-		memberDao.SocialInfo(member_no);
-
-		return "member/socialMyPage";
 	}
 
 	// 소셜회원 정보 수정-이동 (윤아)
@@ -176,26 +154,6 @@ public class MemberController {
 		memberService.deleteMember(memberDto);
 		session.removeAttribute("userinfo");
 		return "redirect:/";
-	}
-
-	@RequestMapping("/main")
-	public String mainPage() {
-		return "member/main_member";
-
-	}
-
-	// 소셜 + 아로리) 목록조회
-	@GetMapping("/resultMap")
-	public String resultMap(Model model, Model model2) {
-
-		List<MemberDto> result = memberDao.resultMap();
-		model.addAttribute("result", result);
-
-		List<MemberDto> result2 = memberDao.resultMap2();
-		model.addAttribute("result2", result2);
-
-		return "member/resultMap";
-
 	}
 
 	// 비밀번호 변경페이지

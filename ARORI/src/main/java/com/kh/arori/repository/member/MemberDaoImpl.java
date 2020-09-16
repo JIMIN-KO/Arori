@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
@@ -187,25 +188,6 @@ public class MemberDaoImpl implements MemberDao {
 		return result;
 	}
 
-	// member_no 단일조회(지민)
-	@Override
-	public MemberDto getNo(int member_no) {
-		MemberDto memberNo = sqlSession.selectOne("member.getNo", member_no);
-		return memberNo;
-	}
-
-	@Override
-	public List<MemberDto> resultMap() {
-		List<MemberDto> result = sqlSession.selectList("member.resultMap");
-		return result;
-	}
-
-	@Override
-	public List<MemberDto> resultMap2() {
-		List<MemberDto> result2 = sqlSession.selectList("member.resultMap2");
-		return result2;
-	}
-
 	// 아로리 회원 비밀번호 변경
 	@Override
 	public void changeAroriPW(AroriMemberDto aroriMemberDto) {
@@ -226,6 +208,34 @@ public class MemberDaoImpl implements MemberDao {
 			return false;
 		}
 
+	}
+
+	// 회원전체 단일조회(번호를 통한)
+	@Override
+	public MemberDto getNo(int member_no) {
+		MemberDto getNo = sqlSession.selectOne("member.getNo", member_no);
+		return getNo;
+	}
+
+	// 회원상세정보 전체업데이트
+	@Override
+	public void adminUpdate(AllMemberDto allMemberDto) {
+
+		sqlSession.update("member.adminEdit", allMemberDto);
+
+	}
+
+	// 소셜+아로리 아우터조인 단일조회
+	@Override
+	public AllMemberDto memberProfile(int member_no) {
+		AllMemberDto memberProfile = sqlSession.selectOne("member.allMemberList", member_no);
+		return memberProfile;
+	}
+
+	@Override
+	public AllMemberDto allGet(String member_id) {
+		AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
+		return allmember;
 	}
 
 }

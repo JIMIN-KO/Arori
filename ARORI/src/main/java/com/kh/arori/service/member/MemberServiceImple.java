@@ -41,13 +41,13 @@ public class MemberServiceImple implements MemberService {
 	private QuizDao quizDao;
 
 	@Autowired
-	private MyAnswerDao myAnswerDao;
+	private QuestionDao questionDao;
 
 	@Autowired
 	private PaginationService paginationService;
 
 	@Autowired
-	private QuestionDao questionDao;
+	private MyAnswerDao myAnswerDao;
 
 	// 시퀀스 발급
 	@Override
@@ -212,24 +212,6 @@ public class MemberServiceImple implements MemberService {
 		memberDao.deleteMember(memberDto);
 	}
 
-	// 아로리 회원정보 수정
-	@Override
-	public void updateinfo(MemberDto memberDto, AroriMemberDto aroriMemberDto) {
-		// MEMBER 테이블 수정
-		memberDao.updateSocial(memberDto);
-		// arori 테이블 수정
-		memberDao.updateArori(aroriMemberDto);
-
-	}
-
-	// 아로리 멤버의 비밀번호수정
-	@Override
-	public void changeAroriPW(AroriMemberDto aroriMemberDto) {
-
-		memberDao.changeAroriPW(aroriMemberDto);
-
-	}
-
 	// 마이페이지 > 회원 점수 계
 	@Override
 	public List<Integer> quizAvg(int member_no) {
@@ -317,7 +299,7 @@ public class MemberServiceImple implements MemberService {
 
 				// 3-1. 맞은 개수 * 퀘스쳔 당 점수 = 내 점수
 				int myScore = (int) ((myCur * thisQuizScore));
-				if(myCur == thisQuizSize) {
+				if (myCur == thisQuizSize) {
 					myScore = 100;
 				}
 
@@ -358,15 +340,33 @@ public class MemberServiceImple implements MemberService {
 		MyQuizDto myQuizDto = MyQuizDto.builder().member_no(member_no).build();
 		List<MyQuizDto> myQuizList = quizDao.getAMQ(myQuizDto);
 		int myQuizSize = myQuizList.size();
-		
-		if(myQuizSize > 0) {
+
+		if (myQuizSize > 0) {
 			List<Integer> block = paginationService.paginationBlock(member_no, pageNo, myQuizSize);
-			
+
 			return block;
 		} else {
 			return null;
 		}
-		
+
+	}
+
+	// 아로리 회원정보 수정
+	@Override
+	public void updateinfo(MemberDto memberDto, AroriMemberDto aroriMemberDto) {
+		// MEMBER 테이블 수정
+		memberDao.updateSocial(memberDto);
+		// arori 테이블 수정
+		memberDao.updateArori(aroriMemberDto);
+
+	}
+
+	// 아로리 멤버의 비밀번호수정
+	@Override
+	public void changeAroriPW(AroriMemberDto aroriMemberDto) {
+
+		memberDao.changeAroriPW(aroriMemberDto);
+
 	}
 
 }

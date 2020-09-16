@@ -6,7 +6,7 @@
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                         <br>
                         <div class="d-flex">
-	                        <h1 class="font-weight-bold mt-4" style="flex:18;">My Info | Arori</h1>
+	                        <h1 class="font-weight-bold mt-4" style="flex:18;">My Info</h1>
                         </div>
                         <hr><br>
 						<div class="card m-5">
@@ -93,7 +93,6 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
-
     // The data for our dataset
     data: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -104,16 +103,13 @@ var chart = new Chart(ctx, {
             data: [0, 10, 5, 2, 20, 30, 45]
         }]
     },
-
     // Configuration options go here
     options: {}
 });
-
 var ctx2 = document.getElementById('myChart2').getContext('2d');
 var chart2 = new Chart(ctx2, {
     // The type of chart we want to create
     type: 'line',
-
     // The data for our dataset
     data: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -124,7 +120,6 @@ var chart2 = new Chart(ctx2, {
             data: [0, 10, 5, 2, 20, 30, 45]
         }]
     },
-
     // Configuration options go here
     options: {}
 });

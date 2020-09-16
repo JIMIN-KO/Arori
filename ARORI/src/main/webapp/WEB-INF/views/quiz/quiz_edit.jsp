@@ -89,7 +89,7 @@
 									    <div class="card-header bg-primary font-weight-bold text-white" id="heading${thisQuizDto.question_no }">
 									      <h2 class="mb-0">
 									        <button class="btn btn-link btn-block text-left text-white p-2" type="button" data-toggle="collapse" data-target="#collapse${thisQuizDto.question_no }" aria-expanded="true" aria-controls="collapse${thisQuizDto.question_no }" style="font-size: large;">
-									        		Q${q_index}
+									        		Question ${q_index}
 									        </button>
 									        <c:set var="q_index" value="${q_index + 1 }"></c:set>
 									      </h2>

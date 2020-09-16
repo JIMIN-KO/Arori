@@ -25,8 +25,12 @@
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto" alias="classesDto"/>
 		
+		<!-- Report table -->
+		<typeAlias type="com.kh.arori.entity.member.ReportDto" alias="reportDto"/>
+    
 		<!-- Subscribe Table -->
 		<typeAlias type="com.kh.arori.entity.study.SubscribeDto" alias="subDto"/>
+
 	
 		<!-- Quiz Table -->
 		<typeAlias type="com.kh.arori.entity.study.QuizDto" alias="quizDto"/>
@@ -70,6 +74,13 @@
 		<!-- This_IMG Table (각 테이블 별 오작교) -->
 		<typeAlias type="com.kh.arori.entity.img.This_imgDto" alias="this_imgDto"/>
 		
+
+		<typeAlias type="com.kh.arori.entity.study.OxDto" alias="oxDto"/>
+		
+		<!-- 전체 멤버  Table -->
+		<typeAlias type="com.kh.arori.entity.member.AllMemberDto" alias="allMemberDto"/>
+		
+		<typeAlias type="com.kh.arori.entity.member.IncomeVO" alias="incomeVO"/>
 
 	</typeAliases>
  </configuration>
