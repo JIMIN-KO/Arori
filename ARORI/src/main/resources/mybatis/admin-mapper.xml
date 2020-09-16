@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+
+	<!-- 관리자가 회원아이디를 통해 회원을 삭제시킨다. -->
+
+	<delete id="delete" parameterType="memberDto">
+		DELETE FROM MEMBER WHERE
+		member_id=#{member_id}
+	</delete>
+
+	<!--멤버+클래스 member_no 단일조회 -->
+	<select id="getclass" resultType="classesDto"
+		parameterType="int">
+		SELECT*FROM MEMBER INNER JOIN CLASSES ON
+		MEMBER.MEMBER_NO = CLASSES.MEMBER_NO
+		WHERE
+		MEMBER.member_no=#{member_no}
+	</select>
+
+	<!--회원 1명이 가지고 있는 클래스의 개수 -->
+	<select id="countclass" resultType="int" parameterType="int">
+		SELECT
+		COUNT(classes.c_no )FROM CLASSES INNER JOIN MEMBER ON
+		classes.MEMBER_NO = MEMBER.MEMBER_NO
+		WHERE MEMBER.MEMBER_NO
+		=#{member_no}
+	</select>
+
+	<!-- 클래스 목록(차트) -->
+	<select id="classList" resultType="classesDto">
+		SELECT * FROM classes
+	</select>
+
+	<!-- member+member_img 단일조회 -->
+	<select id="memberImage" resultType="this_imgDto"
+		parameterType="int">
+		SELECT *FROM member_img INNER JOIN member ON
+		member_img.THIS_NO=MEMBER.member_no
+		WHERE member.member_no=#{member_no}
+	</select>
+
+	<!-- 회원 검색 -->
+	<select id="search" resultType="allMemberDto" parameterType="map">
+		SELECT
+		m.member_no,m.MEMBER_id,m.member_nick,m.member_state,m.MEMBER_join,m.member_login,m.REPORT_STATE,m.SUSPENSION,am.member_email,am.member_phone
+		FROM MEMBER m FULL JOIN arori_member am ON
+		M.MEMBER_NO=am.MEMBER_NO
+		WHERE instr(${type},#{keyword})>0 ORDER BY m.member_no ASC
+	</select>
+
+	<!-- 회원 검색 -->
+
+	<!-- 총 클래스 카운트 -->
+	<select id="classCount" resultType="int"
+		parameterType="classesDto">
+		SELECT count(*)FROM CLASSES
+
+	</select>
+
+	<!-- 총 멤버 카운트 -->
+	<select id="memberCount" resultType="int"
+		parameterType="memberDto">
+		SELECT count(*)FROM MEMBER
+	</select>
+
+	<!-- 총 아로리멤버 카운트 -->
+	<select id="aroriCount" resultType="int"
+		parameterType="aroriMemberDto">
+		SELECT count(*)FROM ARORI_MEMBER
+	</select>
+
+	<!-- 회원 전체 목록 -->
+	<select id="allList" resultType="allMemberDto">
+		SELECT
+		m.member_no,m.member_id,m.member_nick,m.member_state,m.member_join,m.member_login,m.report_state,m.suspension,am.member_email
+		FROM MEMBER m LEFT OUTER JOIN ARORI_MEMBER am ON m.MEMBER_NO =
+		am.member_no ORDER BY member_no ASC
+	</select>
+
+</mapper>
