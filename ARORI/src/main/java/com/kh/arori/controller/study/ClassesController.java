@@ -1,6 +1,5 @@
 package com.kh.arori.controller.study;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +61,6 @@ public class ClassesController {
 		classesDto.setMember_no(memberDto.getMember_no());
 		int c_no = classesService.createClasses(classesDto);
 		System.out.println("c_title: " + classesDto.getC_title());
-		System.out.println("c_public: " + classesDto.getC_public());
 		return "redirect:readme/" + c_no;
 	}
 
@@ -99,12 +97,17 @@ public class ClassesController {
 
 	// 클래스 수정 기능
 	@PostMapping("/classes/edit")
-	public String edit(@ModelAttribute ClassesDto classesDto, int member_no) {
+	public String edit(@ModelAttribute ClassesDto classesDto, int member_no, HttpSession session, 
+			RedirectAttributes redirectAttribute, HttpServletRequest request) {
 
 		classesDao.edit(classesDto);
-
-		// return "redirect:detail/" + classesDto.getC_no();
-
+		MemberDto userinfo = (MemberDto)session.getAttribute("userinfo");
+		
+		String referer = request.getHeader("Referer");
+		if(userinfo.getMember_auth()==1) {
+			
+			return "redirect:"+referer;
+		}
 		return "redirect:myclass/" + member_no;
 	}
 
