@@ -237,4 +237,5 @@ public class MemberDaoImpl implements MemberDao {
       AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
       return allmember;
    }
+
 }

@@ -81,16 +81,18 @@ public interface MemberDao {
 
 	// 비번 변경전에 확인사항
 	public boolean checkChangePw(String member_id, String member_pw);
-	
-	//소셜+아로리) 단일조회 = 번호
+
+	// 소셜+아로리) 단일조회 = 번호
 	public MemberDto getNo(int member_no);
-	
-	//소셜+아로리 업데이트 (관리자가)
+
+	// 소셜+아로리 업데이트 (관리자가)
 	public void adminUpdate(AllMemberDto allMemberDto);
-	
-	//소셜+아로리)아우터조인 단일조회(중요)
+
+	// 소셜+아로리)아우터조인 단일조회(중요)
 	public AllMemberDto memberProfile(int member_no);
-	
-	//전체조회
+
+	// 전체조회
 	public AllMemberDto allGet(String member_id);
+
+
 }

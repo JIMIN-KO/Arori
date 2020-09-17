@@ -35,4 +35,5 @@ public interface AdminService {
 	
 	//멤버 총 인원
 	public int memberCount(MemberDto memberDto);
+	
 }

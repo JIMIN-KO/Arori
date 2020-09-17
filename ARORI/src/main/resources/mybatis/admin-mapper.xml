@@ -80,4 +80,5 @@
 		am.member_no ORDER BY member_no ASC
 	</select>
 
+
 </mapper>
