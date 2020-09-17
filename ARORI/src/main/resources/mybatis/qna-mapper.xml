@@ -46,16 +46,14 @@
 	<!-- 게시글 수정  -->
 	<update id="edit" parameterType="qnaDto">
 		UPDATE QNA SET 
-		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}, QNA_STATE = #{qna_state} ,
-		MEMBER_NO = #{member_no}, GROUP_NO  = #{group_no}
+		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}, QNA_STATE = #{qna_state} , MEMBER_NO = #{member_no}
 		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
 	</update>
 	
 		<!-- 게시글 수정  -->
 	<update id="editReply" parameterType="qnaDto">
 		UPDATE QNA SET 
-		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}, QNA_STATE = #{qna_state} ,
-		MEMBER_NO = #{member_no}, GROUP_NO  = #{group_no}, SUPER_NO = #{super_no}, DEPTH = #{depth}
+		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}, QNA_STATE = #{qna_state} , MEMBER_NO = #{member_no}
 		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
 	</update>
 	
@@ -90,7 +88,7 @@
 	
 	<!-- 임시 저장소 데이터 저장 -->
 	<insert id="createTemp" parameterType="qnaDto">
-		INSERT INTO QNA_TEMP VALUES(#{qna_no},#{c_no}, #{qna_title}, #{qna_content}, SYSDATE)
+		INSERT INTO QNA_TEMP VALUES(#{qna_no},#{c_no}, #{qna_title}, #{qna_content}, SYSDATE, #{DEPTH}, #{SUPER_NO}, #{GROUP_NO})
 	</insert>
 	
 	<!-- 임시 저장소 데이터 조회 -->

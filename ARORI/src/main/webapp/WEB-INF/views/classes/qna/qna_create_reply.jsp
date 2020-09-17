@@ -20,20 +20,22 @@
 						<!-- 게시글 작성 영역 -->
                         <div id="editor"></div>
                         <div class="float-right mt-5">
-                        	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         	
-                        	<!-- 전송 영역 -->
+                        <!-- 전송 영역 -->
                         	<form action="${pageContext.request.contextPath }/classes/qna/edit_reply" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${qnaDto.c_no }">
                         		<input type="hidden" name="member_no" value="${userinfo.member_no}">
                         		<input type="hidden" name="qna_title">
                         		<input type="hidden" name="content" id="qna_content">
+                        		<input type="hidden" name="qna_state" value="1">
                         		<input type="hidden" name="qna_no" value="${qnaDto.qna_no }">
                         		<input type="hidden" name="group_no"  value="${qnaDto.group_no }">
                         		<input type="hidden" name="super_no"  value="${mother_qna_no}">
                         		<input type="hidden" name="depth"  value="${qnaDto.depth + 1}">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createQna" value="작성">
                         	</form>
+                       <!-- 취소 영역 -->
+                            <a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
                         </div>
                     </div>
                     

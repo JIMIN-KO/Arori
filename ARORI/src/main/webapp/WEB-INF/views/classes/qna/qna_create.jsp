@@ -27,6 +27,7 @@
                         		<input type="hidden" name="qna_no" value="${qnaDto.qna_no }">
                         		<input type="hidden" name="qna_title"> 
                         		<input type="hidden" name="content" id="qna_content">
+                        		<input type="hidden" name="qna_state" value="1">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createQna" value="작성">
                         	</form>
                         	<!-- 취소 영역 -->

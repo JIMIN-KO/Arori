@@ -1,5 +1,6 @@
 package com.kh.arori.controller.study;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.util.List;
@@ -108,6 +109,7 @@ public class QnaController {
 		QnaDto qnaDto = qnaDao.getCQ(oldQna);
 
 		List<QnaDto> temp = qnaDao.getTemp(qnaDto);
+
 		if (temp != null) {
 			model.addAttribute("temp", temp);
 		}
@@ -122,22 +124,23 @@ public class QnaController {
 	@PostMapping("/classes/qna/edit")
 	public String qnaEdit(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
 
-//		qnaDto = QnaDto.builder().member_no(Integer.parseInt(member_no))
-//					.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).super_no(Integer.parseInt(super_no))
-//					.group_no(Integer.parseInt(group_no)).build();
-
+		System.out.println(qnaDto.getC_no());
+		System.out.println(qnaDto.getQna_no());
+		System.out.println(qnaDto.getQna_title());
+		System.out.println(qnaDto.getMember_no());
 		// 객체 > Service 에서 수정 후 URL 받아오기
 		String result = qnaService.edit(content, qnaDto);
 
 		return result;
 	}
-	// qna 게시글 답작성 / 수정 기능
+
+	// qna 게시글 답글 작성 / 수정 기능
 	@PostMapping("/classes/qna/edit_reply")
 	public String qnaEditReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
-
-//		qnaDto = QnaDto.builder().member_no(Integer.parseInt(member_no))
-//					.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).super_no(Integer.parseInt(super_no))
-//					.group_no(Integer.parseInt(group_no)).build();
+		System.out.println(qnaDto.getC_no());
+		System.out.println(qnaDto.getQna_no());
+		System.out.println(qnaDto.getQna_title());
+		System.out.println(qnaDto.getMember_no());
 
 		// 객체 > Service 에서 수정 후 URL 받아오기
 		String result = qnaService.editReply(content, qnaDto);
@@ -172,5 +175,21 @@ public class QnaController {
 		String result = qnaService.createTemp(qna_content, qnaDto);
 		return result;
 	}
+
+//	// QNA 게시글 수정 중 임시 저장
+//	@PostMapping("/classes/qna/temp")
+//	public String qnaTemp(@RequestParam List<String> qna_content, @RequestParam String c_no,
+//			@RequestParam String qna_no, @RequestParam String qna_title, @RequestParam String qna_state,
+//			@RequestParam String depth, @RequestParam String super_no, @RequestParam String group_no) {
+//		// 매개변수 데이터 객체화
+//		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).qna_no(Integer.parseInt(qna_no))
+//				.qna_title(qna_title).qna_state(Integer.parseInt(qna_state))
+//				.depth(Integer.parseInt(depth)).super_no(Integer.parseInt(super_no)).group_no(Integer.parseInt(group_no))
+//				.build();
+//
+//		// 임시 저장 후 QNA 게시판으로 이동
+//		String result = qnaService.createTemp(qna_content, qnaDto);
+//		return result;
+//	}
 
 }
