@@ -34,8 +34,9 @@
                         		<input type="hidden" name="c_no" value="${c_no }">
                         		<input type="hidden" name="qna_no" value="${qnaDto.qna_no }">
                         		<input type="hidden" name="qna_title" value="${qnaDto.qna_title}">
-                        		<input type="hidden" name="qna_state" value="1">
-                        		<input type="hidden" name="qna_content" id="qna_content">
+                        		<input type="hidden" name="group_no"  value="${qnaDto.group_no }">
+                        		<input type="hidden" name="super_no"  value="${mother_qna_no}">
+                        		<input type="hidden" name="depth"  value="${qnaDto.depth + 1}">
 	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="editQna" value="수정">
                         	</form>
                         	<!-- 취소 영역 -->

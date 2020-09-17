@@ -67,21 +67,25 @@ public class QnaServiceImpl implements QnaService{
 	public int createReply(QnaDto qnaDto) {
 		
 		// QNA 게시글 고유번호 
-		int qna_no = qnaDao.getSeg();
+		int reply_qna_no = qnaDao.getSeg();
 		
 		 MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
 			
+		 
 		QnaDto.builder().c_no(qnaDto.getC_no()).member_no(userinfo.getMember_no())
-					.qna_no(qna_no).qna_title(qnaDto.getC_no() + "-"  + qna_no + " Q&A 게시글 답글 작성 중" )
-					.qna_content(qnaDto.getC_no() + "-"  + qna_no + " Q&A 게시글 답글 작성 중")
-					.qna_state(0).depth(qnaDto.getDepth() + 1).super_no(qnaDto.getQna_no()).group_no(qnaDto.getGroup_no()).build();
+					.qna_no(reply_qna_no).qna_title(qnaDto.getC_no() + "-"  +  reply_qna_no + " Q&A 게시글 답글 작성 중" )
+					.qna_content(qnaDto.getC_no() + "-"  +  reply_qna_no+ " Q&A 게시글 답글 작성 중")
+					.qna_state(0).depth(qnaDto.getDepth()).super_no(qnaDto.getQna_no()).group_no(qnaDto.getGroup_no()).build();
 			
-//			qnaDto.setDepth(qnaDto.getDepth() + 1); // 부모차수에서 +1 
-//			qnaDto.setSuper_no(qnaDto.getQna_no()); // jsp에서 받아온 부모 글번호를 super_no로 지정 
-//			qnaDto.setQna_no(qna_no); // 새로 발급받은 고유 번호 
+//		qnaDto.setDepth(qnaDto.getDepth() + 1); // 부모차수에서 +1 
+//		qnaDto.setSuper_no(qnaDto.getQna_no()); // jsp에서 받아온 부모 글번호를 super_no로 지정 
+			qnaDto.setDepth(qnaDto.getDepth() + 1 ); // depth +1 하고
+			qnaDto.setGroup_no(qnaDto.getGroup_no()); // 그룹넘버는 부모한테 가져오고
+			qnaDto.setSuper_no(qnaDto.getQna_no()); //부모 넘버는 부모 qna_no를 가져온다		
+			
 		
 		// QNA 게시글 작성		
-		qnaDto.setQna_no(qna_no);
+		qnaDto.setQna_no(reply_qna_no);
 		qnaDao.createReply(qnaDto);
 	
 		return qnaDto.getQna_no();
@@ -135,10 +139,45 @@ public class QnaServiceImpl implements QnaService{
 			// VIEW 에서 받아온 qna_content 를 재가공하는 작업 
 			String content = toastService.content(qna_content);
 			
-			if(qnaDto.getSuper_no() == 0) {
+			if(qnaDto.getQna_state() == 0) { // 임시게시글이라면
+				qnaDto.setQna_state(1);			// 공개 게시글로 바꿔라
+			}
+			
+			if(qnaDto.getSuper_no() == 0) { // 부모가 없다면 (새글이라면)
 				qnaDto.setDepth(0);
 				qnaDto.setGroup_no(qnaDto.getQna_no());
 				qnaDto.setSuper_no(0);
+			}
+			
+//			if(qnaDto.getSuper_no() > 0) { // 답글이라면 
+//				qnaDto.setDepth(qnaDto.getDepth() + 1 ); // depth +1 하고
+//				qnaDto.setGroup_no(qnaDto.getGroup_no()); // 그룹넘버는 부모한테 가져오고
+//				qnaDto.setSuper_no(qnaDto.getQna_no()); //부모 넘버는 부모 qna_no를 가져온다
+//			}
+			
+			qnaDto.setQna_content(content);
+			
+			
+			// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송 
+			int result = qnaDao.edit(qnaDto);
+			
+			// 성공 
+			if(result == 1) {
+				return "redirect:" + qnaDto.getC_no() + "/1";
+			}
+			
+			// 실패 
+			return "redirect:" + qnaDto.getC_no() + "/1?fail";
+		}
+		
+		// QNA 게시글 답글 수정 기능 
+		@Override
+		public String editReply(List<String> qna_content, QnaDto qnaDto) {
+			// VIEW 에서 받아온 qna_content 를 재가공하는 작업 
+			String content = toastService.content(qna_content);
+			
+			if(qnaDto.getQna_state() == 0) { // 임시게시글이라면
+				qnaDto.setQna_state(1);			// 공개 게시글로 바꿔라
 			}
 			
 			qnaDto.setQna_content(content);
@@ -155,25 +194,6 @@ public class QnaServiceImpl implements QnaService{
 			return "redirect:" + qnaDto.getC_no() + "/1?fail";
 		}
 		
-		//qna 게시글 답글 수정
-		@Override
-		public String editReply(List<String> qna_content, QnaDto qnaDto) {
-			// VIEW 에서 받아온 qna_content 를 재가공하는 작업 
-				String content = toastService.content(qna_content);
-					
-				qnaDto.setQna_content(content);
-					
-				// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송 
-				int result = qnaDao.edit(qnaDto);
-						
-				// 성공 
-				if(result == 1) {
-					return "redirect:" + qnaDto.getC_no() + "/1";
-				}
-						
-				// 실패 
-				return "redirect:" + qnaDto.getC_no() + "/1?fail";
-		}
 
 		@Override
 		// QNA 게시글 삭제 기능 

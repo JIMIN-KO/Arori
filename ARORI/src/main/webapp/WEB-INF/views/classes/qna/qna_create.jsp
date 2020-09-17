@@ -51,7 +51,7 @@ $(function(){
 		location.href = "/arori/classes/qna/delete/${qnaDto.c_no}/${qnaDto.qna_no}"
 	})
 	
-	// 모달 ) 임시 저장 클릭 시 n_state 상태 0  으로 변경 
+	// 모달 ) 임시 저장 클릭 시 qna_state 상태 0  으로 변경 
 	$("#save").click(function(){
 		$("input[name=qna_state]").val(0)
 		$("#qna_content").val(editor.getMarkdown()); // 에디터 데이터를 폼에 삽입 

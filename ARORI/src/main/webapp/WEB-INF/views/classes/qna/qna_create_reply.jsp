@@ -23,7 +23,7 @@
                         	<a href="javascript:history.back();" class="btn btn-primary btn-lg font-weight-bold" id="createCancel">취소</a>
                         	
                         	<!-- 전송 영역 -->
-                        	<form action="${pageContext.request.contextPath }/classes/qna/edit" method="post" style="display: inline-block;">
+                        	<form action="${pageContext.request.contextPath }/classes/qna/edit_reply" method="post" style="display: inline-block;">
                         		<input type="hidden" name="c_no" value="${qnaDto.c_no }">
                         		<input type="hidden" name="member_no" value="${userinfo.member_no}">
                         		<input type="hidden" name="qna_title">

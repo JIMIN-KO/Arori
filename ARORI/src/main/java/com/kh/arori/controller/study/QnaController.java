@@ -26,64 +26,67 @@ import com.kh.arori.service.study.QnaService;
 
 @Controller
 public class QnaController {
-	
+
 	@Autowired
 	private ClassesDao classesDao;
-	
+
 	@Autowired
 	private QnaDao qnaDao;
-	
+
 	@Autowired
 	private QnaService qnaService;
-	
-	//QNA작성 페이지 새글
+
+	// QNA작성 페이지 새글
 	@GetMapping("/classes/qna/create/{c_no}")
-	public String qnaCreate(@PathVariable String c_no, Model model, HttpSession session) {	
-		
+	public String qnaCreate(@PathVariable String c_no, Model model, HttpSession session) {
+
 		// 임시 게시글 insert
 		int qna_no = qnaService.create(c_no, c_no);
-	    MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
-		
-		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(userinfo.getMember_no()).qna_no(qna_no).build();
-		
-		model.addAttribute("qnaDto",qnaDto);
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+
+		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).member_no(userinfo.getMember_no()).qna_no(qna_no)
+				.build();
+
+		model.addAttribute("qnaDto", qnaDto);
 
 		return "classes/qna/qna_create";
-	}	
+	}
 
-	// QNA 작성 페이지 답글 
+	// QNA 작성 페이지 답글
 	@GetMapping("/classes/qna/create_reply/{c_no}/{qna_no}")
 	public String qnaCreateReply(@PathVariable int c_no, @PathVariable int qna_no, Model model, HttpSession session) {
 
-		
-		// c_no + qna_no 를 단일 조회 
-		QnaDto qnaDto = 	QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
+		// c_no + qna_no 를 단일 조회
+		QnaDto qnaDto = QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
 		qnaDto = qnaDao.getCQ(qnaDto);
-		
+
 		// 임시 게시글 insert
 		int reply_qna_no = qnaService.createReply(qnaDto);
 		qnaDto.setQna_no(reply_qna_no);
-		
+
 		model.addAttribute("qnaDto", qnaDto);
 		model.addAttribute("mother_qna_no", qna_no);
 		return "classes/qna/qna_create_reply";
 	}
-	
+
 	// QNA 게시글 리스트
 	@GetMapping("/classes/qna/{c_no}/{pageNo}")
 	public String qnaList(@PathVariable String c_no, @PathVariable int pageNo, Model model) {
 		// 권한 조회를 위한 해당 클래스 단일 조회
 		ClassesDto classes = classesDao.get(Integer.parseInt(c_no));
-		
-		// 공지 게시글 불러오기
+
+		// 게시글 불러오기
 		List<QnaDto> list = qnaService.getP(c_no, pageNo);
 
+		for (QnaDto qna : list) {
+			System.out.println(qna.getQna_title());
+		}
 		// 페이지 네비게이터 계산
 		List<Integer> block = qnaService.pagination(Integer.parseInt(c_no), pageNo);
 
 		// 임시 저장 데이터 조회
 		List<QnaDto> temp = qnaDao.getCT(Integer.parseInt(c_no));
-		if(temp != null) {
+		if (temp != null) {
 			model.addAttribute("temp", temp);
 		}
 
@@ -95,8 +98,7 @@ public class QnaController {
 		return "classes/qna/qna_list";
 	}
 
-
-	//  QNA 게시글 수정 페이지
+	// QNA 게시글 수정 페이지
 	@GetMapping("/classes/qna/edit/{c_no}/{qna_no}")
 	public String qnaEdit(@PathVariable String c_no, @PathVariable String qna_no, Model model) {
 		// PathVariable 로 받아온 매개변수 객체화
@@ -104,9 +106,9 @@ public class QnaController {
 
 		// 해당 게시글 데이터 조회
 		QnaDto qnaDto = qnaDao.getCQ(oldQna);
-		
+
 		List<QnaDto> temp = qnaDao.getTemp(qnaDto);
-		if(temp != null) {
+		if (temp != null) {
 			model.addAttribute("temp", temp);
 		}
 
@@ -116,34 +118,32 @@ public class QnaController {
 		return "classes/qna/qna_edit";
 	}
 
-	// qna 게시글 새글 작성 / 수정 기능
-		@PostMapping("/classes/qna/edit")
-		public String qnaEdit(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
+	// qna 게시글 작성 / 수정 기능
+	@PostMapping("/classes/qna/edit")
+	public String qnaEdit(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
 
 //		qnaDto = QnaDto.builder().member_no(Integer.parseInt(member_no))
 //					.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).super_no(Integer.parseInt(super_no))
 //					.group_no(Integer.parseInt(group_no)).build();
 
-			// 객체 > Service 에서 수정 후 URL 받아오기
-			String result = qnaService.edit(content, qnaDto);
+		// 객체 > Service 에서 수정 후 URL 받아오기
+		String result = qnaService.edit(content, qnaDto);
 
-			return result;
-		}
-		
-		// qna 게시글 답글 작성 / 수정 기능
-		@PostMapping("/classes/qna/edit_reply")
-		public String qnaEditReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
+		return result;
+	}
+	// qna 게시글 답작성 / 수정 기능
+	@PostMapping("/classes/qna/edit_reply")
+	public String qnaEditReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
 
 //		qnaDto = QnaDto.builder().member_no(Integer.parseInt(member_no))
 //					.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).super_no(Integer.parseInt(super_no))
 //					.group_no(Integer.parseInt(group_no)).build();
 
-			// 객체 > Service 에서 수정 후 URL 받아오기
-			String result = qnaService.editReply(content, qnaDto);
+		// 객체 > Service 에서 수정 후 URL 받아오기
+		String result = qnaService.editReply(content, qnaDto);
 
-			return result;
-		}
-
+		return result;
+	}
 
 	// QNA 게시글 삭제 기능
 	@GetMapping("/classes/qna/delete/{c_no}/{qna_no}")
@@ -159,18 +159,18 @@ public class QnaController {
 
 		return result;
 	}
-	
-	//  QNA 게시글 수정 중 임시 저장 
+
+	// QNA 게시글 수정 중 임시 저장
 	@PostMapping("/classes/qna/temp")
-	public String qnaTemp(@RequestParam List<String> qna_content, @RequestParam String c_no, @RequestParam String qna_no,
-			@RequestParam String qna_title, @RequestParam String qna_state) {
-		// 매개변수 데이터 객체화 
+	public String qnaTemp(@RequestParam List<String> qna_content, @RequestParam String c_no,
+			@RequestParam String qna_no, @RequestParam String qna_title, @RequestParam String qna_state) {
+		// 매개변수 데이터 객체화
 		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).qna_no(Integer.parseInt(qna_no))
 				.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).build();
-		
-		// 임시 저장 후  QNA 게시판으로 이동 
+
+		// 임시 저장 후 QNA 게시판으로 이동
 		String result = qnaService.createTemp(qna_content, qnaDto);
 		return result;
 	}
-	
+
 }

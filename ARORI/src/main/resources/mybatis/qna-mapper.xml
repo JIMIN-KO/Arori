@@ -18,7 +18,7 @@
 	<!-- QNA 게시글 작성 덧글-->
 	<insert id="createReply" parameterType="QnaDto">
 		INSERT INTO qna VALUES (
-		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, #{depth}, 1, #{super_no}, #{group_no}
+		#{qna_no}, #{c_no}, #{member_no}, #{qna_title}, #{qna_content}, sysdate, 1, 0, #{super_no}, #{group_no}
 		)  
 	</insert>
 
@@ -71,11 +71,11 @@
 <!-- 	</select> -->
 	<select id="getP" resultType="qnaDto" parameterType="map">
 		SELECT 
-		a.qna_no, a.c_no, a.member_no, a.qna_title,
-		a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
-		FROM (SELECT ROWNUM rn, q.* FROM qna q CONNECT BY PRIOR qna_no=super_no
-		START WITH super_no=0
-		ORDER SIBLINGS BY group_no DESC, qna_no ASC) a WHERE a.c_no = 8 AND rn BETWEEN ${start}  AND ${finish}
+		a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
+		FROM
+			(SELECT ROWNUM rn, q.* 
+			FROM qna q CONNECT BY PRIOR qna_no=super_no START WITH super_no=0 ORDER SIBLINGS BY group_no DESC, qna_no ASC) a 
+		WHERE a.c_no = #{c_no} AND a.qna_state = 1 AND rn BETWEEN ${start}  AND ${finish}
 	</select>
 	
 	<!-- 해당 클래스의 QNA 게시글 개수 -->
