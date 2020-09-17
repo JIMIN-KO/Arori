@@ -39,17 +39,10 @@
 								<!-- 퀴즈 설명 (Toast UI Editor) 영역 -->
 								<div id="editor" class="mt-5"></div>
 								<!-- 퀴즈 설정 영역 -->
-								<!-- Runtime / Score Open -->
+								<!-- Runtime -->
+								<!-- Opening / Closing -->
 								<div class="form-row mt-5">
-									<div class="form-group col-6">
-										<div class="input-group input-group-lg">
-											<div class="input-group-prepend">
-												<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
-											</div>
-											<input type="datetime-local" class="form-control" name="q_score_open" id="q_score_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
-										</div>
-									</div>
-									<div class="form-group col-6">
+									<div class="form-group col-4">
 										<div class="input-group input-group-lg">
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
@@ -57,10 +50,7 @@
 											<input type="number" class="form-control" name="q_runtime" id="q_runtime" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" min="10" required="required">
 										</div>
 									</div>
-								</div>
-								<!-- Opening / Closing -->
-								<div class="form-row">
-									<div class="form-group col-6">
+									<div class="form-group col-4">
 										<div class="input-group input-group-lg">
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Opening</span>
@@ -68,7 +58,7 @@
 											<input type="datetime-local" class="form-control" name="q_open" id="q_open" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" required="required">
 										</div>
 									</div>
-									<div class="form-group col-6">
+									<div class="form-group col-4">
 										<div class="input-group input-group-lg">
 											<div class="input-group-prepend">
 												<span class="input-group-text" id="inputGroup-sizing-lg">Closing</span>
@@ -213,12 +203,18 @@
 						</div>
 						<div class="form-row float-right mt-5">
 							<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 등록</button>
-							<a href="${pageContext.request.contextPath }/classes/quiz/delete/${quizDto.c_no}/${quizDto.q_no}" class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
+							<a class="btn btn-primary btn-lg font-weight-bold" id="cancel" data-target="#deleteQuiz">취소</a>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
  $(function(){
+
+			 $('#deleteQuiz').modal('hide') // 모달 숨기기 
+		
+			 $("#cancel").click(function(){
+			 	$('#deleteQuiz').modal('show') // 모달 띄우기
+			 })
             //답안유형 숨김
             $(".ox").hide();
             $(".multiple").hide();
@@ -389,4 +385,23 @@ const editor2 = new Editor({
 	}
 });
 </script>
+						<div class="modal fade" id="deleteQuiz" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">퀴즈 삭제</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						       	지금 풀고 계신 페이지를 벗어나시면 퀴즈가 저장되지 않습니다. 나가시겠습니까?
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">창 닫기</button>
+						        <a href="${pageContext.request.contextPath }/classes/quiz/delete/${quizDto.c_no}/${quizDto.q_no}"  type="button" class="btn btn-primary">퀴즈 나가기</a>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>

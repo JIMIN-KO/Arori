@@ -53,15 +53,8 @@
                                             <!-- 퀴즈 상세 정보 -->
 				             				<div class="form-row mt-5">
 				             					<div class="row">
-													<div class="form-group col-6">
-														<div class="input-group input-group-lg">
-															<div class="input-group-prepend">
-																<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
-															</div>
-															<input type="text" class="form-control" value="${quizDto.q_score_open }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
-														</div>
-													</div>
-													<div class="form-group col-6">
+				             						<!-- Runtime / Opening / Closing -->
+													<div class="form-group col-4">
 														<div class="input-group input-group-lg">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
@@ -69,12 +62,7 @@
 															<input type="text" class="form-control" value="${quizDto.q_runtime } 분" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
 														</div>
 													</div>
-												</div>
-											</div>
-											<!-- Opening / Closing -->
-											<div class="form-row mb-3">
-												<div class="row">
-													<div class="form-group col-6">
+													<div class="form-group col-4">
 														<div class="input-group input-group-lg">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="inputGroup-sizing-lg">Opening</span>
@@ -82,7 +70,7 @@
 															<input type="text" class="form-control" value="${quizDto.q_open }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
 														</div>
 													</div>
-													<div class="form-group col-6">
+													<div class="form-group col-4">
 														<div class="input-group input-group-lg">
 															<div class="input-group-prepend">
 																<span class="input-group-text" id="inputGroup-sizing-lg">Closing</span>
@@ -144,19 +132,22 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                   <li class="page-item">
-                                  	<c:set var="index" value="0"></c:set>
+									<c:if test="${pageNo > 10 }">
 	                                    <a class="page-link" href="${pageContext.request.contextPath }/cmember/myQuiz/${block[0] - 1}" aria-label="Previous">
 	                                      <span aria-hidden="true">&laquo;</span>
 	                                    </a>
+	                                 </c:if>   
                                   </li>
 									<c:forEach var="block" items="${block }">
                                   		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/member/myQuiz/${block}">${block }</a></li>
-										<c:set var="index" value="${block }"></c:set>
 									</c:forEach>
                                   <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/member/myQuiz/${block[9]+1}" aria-label="Next">
-                                      <span aria-hidden="true">&raquo;</span>
-                                    </a>
+                                  	<c:set var="size" value="${fn:length(block) }"></c:set>
+                                    <c:if test="${size > pageNo and pageNo > 10 }">
+	                                    <a class="page-link" href="${pageContext.request.contextPath }/member/myQuiz/${block[9]+1}" aria-label="Next">
+	                                      <span aria-hidden="true">&raquo;</span>
+	                                    </a>
+                                    </c:if>
                                   </li>
                                 </ul>
                               </nav>

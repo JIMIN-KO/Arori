@@ -195,6 +195,7 @@ public class MemberController {
 		model.addAttribute("quizDto", list);
 		model.addAttribute("block", block);
 		model.addAttribute("no", no);
+		model.addAttribute("pageNo", pageNo);
 
 		return "member/myQuiz";
 	}

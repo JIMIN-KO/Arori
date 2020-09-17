@@ -16,7 +16,6 @@ public class QuizDto {
 	private String q_open;
 	private String q_close;
 	private int q_runtime;
-	private String q_score_open;
 	private String q_when;
 	private String q_content;
 	private int q_state;

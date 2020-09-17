@@ -32,7 +32,7 @@ public class QuizServiceImpl implements QuizService {
 
 	@Autowired
 	private QuestionDao questionDao;
-	
+
 	@Autowired
 	private PaginationService paginationService;
 
@@ -60,7 +60,6 @@ public class QuizServiceImpl implements QuizService {
 		quizDto.setQ_content(q_content);
 		quizDto.setQ_open(quizDto.getQ_open().replace("T", " ") + ":00"); // 퀴즈 오픈 시간 포맷 수정
 		quizDto.setQ_close(quizDto.getQ_close().replace("T", " ") + ":00"); // 퀴즈 클로스 시간 포맷 수정
-		quizDto.setQ_score_open(quizDto.getQ_score_open().replace("T", " ") + ":00"); // 점수 오픈 시간 포맷 수정
 
 		int result = quizDao.update(quizDto);
 		if (result == 1) {
@@ -92,13 +91,10 @@ public class QuizServiceImpl implements QuizService {
 				this_qDto.setTable_name(NameConst.EXPLAIN);
 			}
 
+			// 퀘스쳔 번호를 이용해 해당 퀘스쳔의 이미지 삭제
 			this_qDto.setNo(Integer.parseInt(String.valueOf(map.get("this_no"))));
-			imgService.delete(Integer.parseInt(String.valueOf(map.get("question_no"))), NameConst.QUESTION); // 퀘스쳔 번호를
-																												// 이용해
-																												// 해당
-																												// 퀘스쳔의
-																												// 이미지
-																												// 삭제
+			imgService.delete(Integer.parseInt(String.valueOf(map.get("question_no"))), NameConst.QUESTION); 
+
 			questionDao.deleteAnswer(this_qDto);
 		}
 
@@ -106,7 +102,7 @@ public class QuizServiceImpl implements QuizService {
 		QuizDto quizDto = QuizDto.builder().c_no(c_no).q_no(q_no).build();
 		imgService.delete(q_no, NameConst.QUIZ); // 퀴즈 번호를 이용해 해당 퀴즈 이미지 전체 삭제
 		quizDao.delete(quizDto);
-		return "redirect:/classes/quiz/" + c_no;
+		return "redirect:/classes/quiz/" + c_no + "/1";
 	}
 
 	// 퀴즈 날짜 형식 변환
@@ -124,8 +120,6 @@ public class QuizServiceImpl implements QuizService {
 		quizDto.setQ_close(format2.format(date));
 
 		// q_score_open
-		date = format1.parse(quizDto.getQ_score_open());
-		quizDto.setQ_score_open(format2.format(date));
 		return quizDto;
 	}
 
