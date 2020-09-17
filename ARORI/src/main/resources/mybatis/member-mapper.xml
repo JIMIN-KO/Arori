@@ -27,7 +27,7 @@
 		INSERT INTO MEMBER
 		VALUES(#{member_no}, #{member_id}, #{member_nick},
 		#{member_state},
-		SYSDATE, NULL, '정상', NULL)
+		SYSDATE, NULL, '정상', NULL, 0)
 	</insert>
 
 	<!-- 전체 회원 조회 -->
