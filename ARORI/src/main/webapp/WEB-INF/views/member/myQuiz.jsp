@@ -23,16 +23,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                		<c:set var="index" value="${quizDto.size() }"></c:set>
+                                		<c:set var="no" value="${no }"></c:set>
                                     	<c:forEach var="quizDto" items="${quizDto }">
                                     <tr class="text-center">
-                                        <th scope="row">${index }</th>
-	                                    	<c:set var="index" value="${index - 1 }"></c:set>
+                                        <th scope="row">${no }</th>
+	                                    	<c:set var="no" value="${no - 1 }"></c:set>
                                         <th>
-                                            <label for="${index }">
+                                            <label for="${no }">
                                                 ${quizDto.q_title }
                                             </label>
-                                            <input type="radio" name="title" id="${index }" >
+                                            <input type="radio" name="title" id="${no }" >
                                         </th>
                                         <td>${quizDto.when }</td>
                                         <td>${quizDto.score } 점</td>

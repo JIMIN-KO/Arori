@@ -49,5 +49,13 @@ public class PaginationServiceImpl implements PaginationService {
 				}
 				return block;
 	}
+
+	// 게시글 번호
+	@Override
+	public int no(int pageNo , int thisCount) {
+		int count = thisCount;
+		int no = count - ((10 * pageNo) - 10);
+		return no;
+	}
 	
 }

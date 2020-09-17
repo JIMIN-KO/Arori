@@ -111,10 +111,9 @@
 			b.q_runtime, b.q_score_open, b.q_when,
 			b.q_content, b.q_state 
 		FROM 
-			(SELECT rownum rn, a.* FROM MQISCORE a) b 
-		WHERE 
-			MEMBER_NO = #{member_no}
-		AND	
+			(SELECT rownum rn, a.* FROM MQISCORE a 
+			WHERE a.MEMBER_NO = #{member_no}) b 
+		WHERE 	
 			rn 
 		BETWEEN 
 			#{start} AND #{finish}

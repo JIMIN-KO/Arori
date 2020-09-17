@@ -21,7 +21,7 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
-                    	<c:set var="start" value="${start }"></c:set>
+                    	<c:set var="no" value="${no }"></c:set>
                     	<div class="ml-3 mr-3">
                             <table class="table table-hover">
                                 <thead>
@@ -38,8 +38,8 @@
                                 <tbody>
                                     	<c:forEach var="quizDto" items="${quizDto }">
                                     <tr class="text-center">
-                                        <th scope="row">${start }</th>
-                                        <c:set var="start" value="${start + 1 }"></c:set>
+                                        <th scope="row">${no }</th>
+                                        <c:set var="no" value="${no - 1 }"></c:set>
                                         <td>
                                             	<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}" class="font-weight-bold">
                                                 ${quizDto.q_title }
@@ -85,8 +85,9 @@
                                   		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/classes/quiz/${quizDto.get(0).c_no }/${block}">${block }</a></li>
 									</c:forEach>
                                   <li class="page-item">
-                                  <c:if test="${block.size() > pageNo and pageNo > 10}">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/quiz/${quizDto.get(0).c_no }/${block[block.size()]+1}" aria-label="Next">
+                                  <c:set var="size" value="${fn:length(block) }"></c:set>
+                                  <c:if test="${size > pageNo and pageNo > 10}">
+                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/quiz/${quizDto.get(0).c_no }/${block[size]+1}" aria-label="Next">
                                       <span aria-hidden="true">&raquo;</span>
                                     </a>
                                     </c:if>

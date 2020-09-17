@@ -52,8 +52,10 @@ public class QuizController {
 		// 해당 클래스 조회
 		ClassesDto classesDto = classesDao.get(c_no);
 		model.addAttribute("classesDto", classesDto);
-		System.out.println(c_no);
-		System.out.println(pageNo);
+
+		int count = quizDao.getSize(c_no);
+		int no = paginationService.no(pageNo, count);
+		model.addAttribute("no", no);
 
 		// 퀴즈목록
 		List<QuizDto> list = quizService.getQuiz(c_no, pageNo);

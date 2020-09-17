@@ -56,13 +56,18 @@ public class NoticeController {
 
 		// 페이지 네이션 계산 정보
 		Map<String, Integer> pagination = paginationService.pagination("c_no", Integer.parseInt(c_no), pageNo);
-
+		
+		// 게시글 번호
+		int count = noticeDao.count(Integer.parseInt(c_no));
+		int no = paginationService.no(pageNo, count);
+		
 		// VIEW 로 던질 모델 (게시글 / 해당 클래스 정보)
 		model.addAttribute("list", list);
 		model.addAttribute("classes", classes);
 		model.addAttribute("block", block);
 		model.addAttribute("start", pagination.get("start"));
 		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
 
 		return "classes/notice/notice_list";
 	}
