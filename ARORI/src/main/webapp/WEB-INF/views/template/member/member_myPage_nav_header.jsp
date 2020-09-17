@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+				<div class="row">
+					<c:set var="updatePath" value="updateSocial"></c:set>
+					<c:choose>
+						<c:when test="${userinfo.member_state eq 'ARORI' }">
+							<c:set var="updatePath" value="${updatePath = 'updateArori' }"></c:set>
+						</c:when>
+					</c:choose>
+                    <div class="col-12 readmerow class-menu2 active mt-5 position-fixed" style="border-bottom: 1px solid rgba(190, 190, 190, 0.493); z-index: 100; background-color: white;">
+                        <ul class="nav w-100 text-center">
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/member/myPage">My Info</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/member/${updatePath}">Edit</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/member/myQuiz/1">Quiz</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }">Q & A</a></button></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row content-top mt-5 h-100">
+                    <div class="col-1 h-100 class-menu1">
+                        <ul class="nav flex-column h-100 text-center position-fixed" style="border-right: 1px solid rgba(190, 190, 190, 0.493); z-index: 5;">
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }/member/myPage">Info</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }/member/${updatePath}">Edit</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }/member/myQuiz/1">Quiz</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }">Q & A</a></button></li>
+                        </ul>
+                    </div>

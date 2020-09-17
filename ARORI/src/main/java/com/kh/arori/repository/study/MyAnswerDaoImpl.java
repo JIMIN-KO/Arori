@@ -70,4 +70,20 @@ public class MyAnswerDaoImpl implements MyAnswerDao {
 		return sqlSession.selectOne("answer.check", myAnswerDto);
 	}
 
+	
+	// 나의 정답 카운트 
+	@Override
+	public int getCurCount(MyAnswerDto myAnswerDto) {
+
+		return sqlSession.selectOne("answer.getCurCount", myAnswerDto);
+	}
+
+	
+	// 나의 오답 카운트
+	@Override
+	public int getInCurCount(MyAnswerDto myAnswerDto) {
+
+		return sqlSession.selectOne("answer.getInCurCount", myAnswerDto);
+	}
+
 }

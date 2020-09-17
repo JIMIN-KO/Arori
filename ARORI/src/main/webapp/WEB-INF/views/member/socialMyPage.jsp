@@ -7,7 +7,7 @@
 
 <input type="hidden" value="${memberDto.getMember_no()}">
 닉네임
-<input type = "text" value="${ memberDto.getMember_nick}" readonly="readonly">
+<input type = "text" value="${memberDto.getMember_nick}" readonly="readonly">
 <br>
 가입날짜
 <input type ="text" value="${memberDto.member_join}" readonly="readonly">

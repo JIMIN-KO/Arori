@@ -45,7 +45,7 @@ public class NoticeDaoImpl implements NoticeDao {
 
 	// 공지 게시글 페이지 네이션 기능
 	@Override
-	public List<NoticeDto> getP(Map<String, String> pagination) {
+	public List<NoticeDto> getP(Map<String, Integer> pagination) {
 
 		return sqlSession.selectList("notice.getP", pagination);
 	}

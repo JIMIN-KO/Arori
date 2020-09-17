@@ -64,6 +64,11 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        
+        /* 흰박스 안에 내용 */
+        .row {
+        padding-top : 5px
+        }
     </style>
 </head>
 <body>
@@ -165,4 +170,4 @@
             </div>
         </div>
         <div class="row mb-5">
-            <div class="offset-1 col-10 offset-lg-3 col-lg-6 mt-4 login-box text-center">
+         

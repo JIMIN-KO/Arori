@@ -2,6 +2,7 @@
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=utf-8"); %>
 <jsp:include page="/WEB-INF/views/template/home_header.jsp"></jsp:include>
+              <div class="offset-1 col-10 offset-lg-3 col-lg-6 mt-4 login-box text-center" style="height: 650px; !important">
                 <div class="row mt-5">
                     <div class="offset-sm-1 col-sm-10 offset-md-3 col-md-6 h1 font-weight-bolder">Sign In</div>
                 </div>

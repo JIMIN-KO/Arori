@@ -27,39 +27,34 @@ public class NonMemberAjaxController {
 	private MemberService memberService;
 
 	// 아로리 회원 로그인
-	   @PostMapping("/loginSuccess")
-	   public MemberDto loginSuccess(@RequestParam String member_id, @RequestParam String member_pw,
-	        HttpSession session) {
+	@PostMapping("/loginSuccess")
+	public MemberDto loginSuccess(@RequestParam String member_id, @RequestParam String member_pw, HttpSession session) {
 
-	      MemberDto member = memberService.aroriLogin(member_id, member_pw);
+		MemberDto member = memberService.aroriLogin(member_id, member_pw);
 
-	      if (member.getReport_state().equals("정상")) {
+		if (member.getReport_state().equals("정상")) {
 //	         System.out.println("member : " + member.getReport_state());
-	         if (member != null) {
-	            session.setAttribute("userinfo", member);
-	            return member;
-	         } else {
-	           
-	        	 return null;
+			if (member != null) {
+				session.setAttribute("userinfo", member);
+				return member;
+			}
+		}
+		return null;
+	}
 
-	         }
-	      }
-	      return null;
-	   }
+	// 소셜 이메일 회원 조회
+	@RequestMapping("/checkEmail")
+	public boolean checkEmail(@RequestParam String member_id) {
+		System.out.println(member_id);
+		// 1. 파라미터로 소셜 로그인 요청 회원의 이메일 데이터 조회
+		MemberDto member = memberDao.get(member_id);
 
-	   // 소셜 이메일 회원 조회
-	   @RequestMapping("/checkEmail")
-	   public boolean checkEmail(@RequestParam String member_id) {
-	      System.out.println(member_id);
-	      // 1. 파라미터로 소셜 로그인 요청 회원의 이메일 데이터 조회
-	      MemberDto member = memberDao.get(member_id);
+		// 2. 해당 member
+		if (member != null)
+			return true;
 
-	      // 2. 해당 member
-	      if (member != null)
-	         return true;
-
-	      return false;
-	   }
+		return false;
+	}
 
 	// 아이디 찾기
 	@RequestMapping(value = "/findId", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")

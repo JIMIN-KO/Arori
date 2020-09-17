@@ -14,5 +14,6 @@ public class ClassesDto {
 	private int c_subscribe;
 	private String c_when;
 	private String c_info;
+	private int img_no;
 }
 

@@ -15,4 +15,5 @@ public class MyQuizDto {
 	private int member_no;
 	private int q_no;
 	private String when;
+	private int score;
 }
