@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QuizDto;
 import com.kh.arori.entity.study.ThisQuizDto;
@@ -110,6 +111,11 @@ public class QuizController {
 		// 퀴즈 조회
 		quizDto = quizDao.get(quizDto);
 		model.addAttribute("quizDto", quizDto);
+		
+		// 퀘스쳔 존재 조회
+		List<AllQuestionDto> list = questionDao.getQuestion(q_no);
+		model.addAttribute("questionSize", list.size());
+		
 		return "quiz/quiz_detail";
 	}
 

@@ -207,14 +207,35 @@
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/locale/ko.min.js" integrity="sha512-3kMAxw/DoCOkS6yQGfQsRY1FWknTEzdiz8DOwWoqf+eGRN45AmjS2Lggql50nCe9Q6m5su5dDZylflBY2YjABQ==" crossorigin="anonymous"></script>
 <script>
  $(function(){
 
+			// 날짜 제한
+			 var min_date = moment().format().slice (0,16);
+			 console.log(min_date)
+			 $("input[type=datetime-local]").attr("value", min_date)
+			 $("input[type=datetime-local]").attr("min", min_date)
+
+			 // 오픈 기간 지정 시, 클로즈 최소 기간 >  오픈 기간
+			 $("#q_open").on("change",function(){
+					var min = $("#q_open").val()
+					$("#q_close").attr("min", min)
+			})
+			 
+			 // 클로즈 기간 지정 시, 오픈 최대 기간 < 클로즈 기간 
+			$("#q_close").on("change",function(){
+					var max = $("#q_close").val()
+					$("#q_open").attr("max",max)
+			})
+			
 			 $('#deleteQuiz').modal('hide') // 모달 숨기기 
 		
 			 $("#cancel").click(function(){
 			 	$('#deleteQuiz').modal('show') // 모달 띄우기
 			 })
+			 
             //답안유형 숨김
             $(".ox").hide();
             $(".multiple").hide();
@@ -253,7 +274,16 @@
  $(function(){
 		$("#save").click(function(){
 			$("input[name=content]").val(editor.getMarkdown())
-			document.querySelector("#quizDetail").submit()
+			var q_runtime = document.querySelector("input[name=q_runtime]").value
+			var q_title = document.querySelector("input[name=q_title]").value
+			console.log(q_title)
+			if(q_title === "") {
+				alert("퀴즈 제목을 입력해주세요.")
+			} else if(q_runtime < 10){
+				alert("퀴즈 런타임을 10분 이상으로 설정해주세요.")
+			} else {
+				document.querySelector("#quizDetail").submit()
+			}
 		})
 	})
 

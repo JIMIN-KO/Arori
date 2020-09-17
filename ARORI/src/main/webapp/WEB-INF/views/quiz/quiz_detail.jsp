@@ -59,12 +59,32 @@
 								</div>
 							</div>
 						<div class="row mt-5 d-flex justify-content-center">
-							<a href="${pageContext.request.contextPath }/classes/quiz/play/${quizDto.q_no}"><button class="btn btn-lg btn-warning font-weight-bold mt-5">퀴즈 풀기</button></a>
+							<button class="btn btn-lg btn-warning font-weight-bold mt-5 playBtn">퀴즈 풀기</button>
 							<a href="${pageContext.request.contextPath }/classes/quiz/${quizDto.c_no}/1" class="btn btn-lg btn-primary font-weight-bold mt-5" >돌아가기</a>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
+$(function(){
+	// 파라미터 "sorry" 가 들어오면 현재 퀴즈 오픈 기간이 아님.
+	var sorry = location.search
+	console.log(sorry)
+	if(sorry === '?sorry') {
+			alert("현재 퀴즈 오픈 기간이 아닙니다.")
+		}
+})
+
+
+// 퀴즈 풀기
+$(".playBtn").click(function(){
+	var questionSize = ${questionSize}
+
+	if(questionSize > 0) {
+		location.href="${pageContext.request.contextPath }/classes/quiz/play/${quizDto.q_no}"
+	} else {
+		alert("현재 퀴즈를 준비 중입니다.")
+	}
+})
 
 //Toast Plugin 불러오기 
 const Viewer = toastui.Editor;

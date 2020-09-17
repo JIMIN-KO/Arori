@@ -328,11 +328,13 @@
 						  </div>
 						</div>
 						<div class="form-row float-right mt-5">
-							<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 등록</button>
+							<button type="submit" class="btn btn-warning btn-lg font-weight-bold" id="save" >퀴즈 수정</button>
 							<a class="btn btn-primary btn-lg font-weight-bold" id="cancel" data-target="#deleteQuiz">취소</a>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/locale/ko.min.js" integrity="sha512-3kMAxw/DoCOkS6yQGfQsRY1FWknTEzdiz8DOwWoqf+eGRN45AmjS2Lggql50nCe9Q6m5su5dDZylflBY2YjABQ==" crossorigin="anonymous"></script>
 <script>
 $(function(){
 	 $('#deleteQuiz').modal('hide') // 모달 숨기기 
@@ -341,6 +343,23 @@ $(function(){
 	 	$('#deleteQuiz').modal('show') // 모달 띄우기
 	 })
 	 
+	 // 시간 / 기간 제한 설정
+	 var min_date = moment().format().slice (0,16);
+	console.log(min_date)
+	$("input[type=datetime-local]").attr("min", min_date)
+	
+	 // 오픈 기간 지정 시, 클로즈 최소 기간 >  오픈 기간
+	$("#q_open").on("change",function(){
+		var min = $("#q_open").val()
+		$("#q_close").attr("min", min)
+	})
+			 
+	// 클로즈 기간 지정 시, 오픈 최대 기간 < 클로즈 기간 
+	$("#q_close").on("change",function(){
+		var max = $("#q_close").val()
+		$("#q_open").attr("max",max)
+	})
+	
 	// 기존의 퀘스쳔 수정 시
 	$(".editQuestionBtn").click(function(){
 			
@@ -458,7 +477,13 @@ $(function(){
  $(function(){
 		$("#save").click(function(){
 			$("#quizDetailContent").val(editor.getMarkdown())
-			document.querySelector("#quizDetail").submit()
+			var q_runtime = document.querySelector("input[name=q_runtime]").value
+			console.log(q_runtime)
+			if(q_runtime >= 10) {
+				document.querySelector("#quizDetail").submit()
+			} else {
+				alert("퀴즈 런타임 시간을 설정해주세요.")
+			}
 		})
 	})
 
