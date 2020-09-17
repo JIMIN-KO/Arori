@@ -50,7 +50,7 @@ public class ImgServiceImpl implements ImgService {
 		return img_no;
 	}
 
-	// 이미지 파일 업로드 + 데이터 베이스 데이터 추가 
+	// 이미지 파일 업로드 + 데이터 베이스 데이터 추가
 	@Override
 	@Transactional
 	public int insert(MultipartHttpServletRequest req, String table_name, int this_no) throws Exception {
@@ -118,6 +118,25 @@ public class ImgServiceImpl implements ImgService {
 		// 해당 게시글의 모든 데이터 삭제
 		imgDao.delete2(this_imgDto);
 
+	}
+
+	// 이미지 검사 후 삭제 및 등록
+	@Override
+	@Transactional
+	public void removeAndInsert(int this_no, String table_name, MultipartHttpServletRequest req) throws Exception {
+		// 0. 이미지 존재 검사
+		This_imgDto this_imgDto = This_imgDto.builder().this_no(this_no).table_name(table_name).build();
+		List<This_imgDto> list = imgDao.get2(this_imgDto);
+		boolean result = list != null;
+
+		// 1. result 값으로 이미지 삭제할지 안할지 결정
+		if (result) {
+			// 이미지 삭제
+			this.delete(this_no, table_name);
+		}
+
+		// 2. 삭제 후 혹은 result 값이 true 라면 이미지를 새로 등록
+		this.insert(req, table_name, this_no);
 	}
 
 }

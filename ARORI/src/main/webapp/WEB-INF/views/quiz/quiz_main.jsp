@@ -21,10 +21,11 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
+                    	<c:set var="index" value="${quizDto.size() }"></c:set>
                     	<div class="ml-3 mr-3">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th scope="col" class="font-weight-bold">No</th>
                                         <th scope="col" class="font-weight-bold">Quiz Title</th>
                                         <th scope="col" class="font-weight-bold">Open</th>
@@ -36,8 +37,9 @@
                                 </thead>
                                 <tbody>
                                     	<c:forEach var="quizDto" items="${quizDto }">
-                                    <tr>
-                                        <th scope="row">${quizDto.q_no }</th>
+                                    <tr class="text-center">
+                                        <th scope="row">${index }</th>
+                                        <c:set var="index" value="${index - 1 }"></c:set>
                                         <td>
                                             	<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}" class="font-weight-bold">
                                                 ${quizDto.q_title }

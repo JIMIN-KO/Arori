@@ -31,6 +31,9 @@ public interface QuestionDao {
 
 	// 해당 퀴즈의 퀘스천 정보 + 정답 불러오기 (THIS_QUIZ)
 	public List<ThisQuizDto> getTQ(int q_no);
+	
+	// 해당 퀴즈의 새로운 퀘스쳔 정답 불러오기
+	public ThisQuizDto getTQ2(int question_no);
 
 	// 퀘스쳔 오작교
 	// 퀘스쳔 오작교 시퀀스 번호 발급

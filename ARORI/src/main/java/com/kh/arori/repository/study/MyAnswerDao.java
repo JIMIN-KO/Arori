@@ -29,5 +29,10 @@ public interface MyAnswerDao {
 
 	// 채점을 위한 해당 퀘스쳔 정보 조회
 	public MyAnswerDto check(MyAnswerDto myAnswerDto);
-
+	
+	// 정답 카운트
+	public int getCurCount(MyAnswerDto myAnswerDto);
+	
+	// 오답 카운트
+	public int getInCurCount(MyAnswerDto myAnswerDto);
 }

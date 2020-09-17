@@ -17,4 +17,7 @@ public interface ImgService {
 
 	// 파일 삭제
 	public void delete(int this_no, String table_name);
+	
+	// 이미지 검사 후 삭제 및 등록
+	public void removeAndInsert(int this_no, String table_name, MultipartHttpServletRequest req) throws Exception;
 }

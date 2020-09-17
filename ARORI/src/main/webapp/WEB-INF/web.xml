@@ -55,12 +55,15 @@
 	<!-- ProxyFilter : 필터 대행 등록 - 어떤 필터든지 등록되는 형태는 다음과 같다. - org.springframework.web.filter.DelegatingFilterProxy 
 		- filter-name 에 내가 등록시킬 필터의 bean name 을 적는다. -->
 	<filter>
-		<filter-name>testFilter</filter-name>
+		<filter-name>loginFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>testFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/member/*</url-pattern>
+		<url-pattern>/classes/*</url-pattern>
+		<url-pattern>/search/*</url-pattern>
+		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
 
 </web-app>

@@ -14,7 +14,7 @@ function agreeCheck(frm)
 <jsp:include page="/WEB-INF/views/template/home_header.jsp"></jsp:include>
 				<div class="row mt-3">
 					<div class="offset-1 col-10 font-italic font-weight-light text-left">
-						<a class="text-link" style="cursor: pointer; color: gray;" href="${pageContext.request.contextPath }">
+						<a class="text-link" style="cursor: pointer; color: gray;" href="${pageContext.request.contextPath}/member/myPage">
 							&laquo; &#32;Back
 						</a>
 					</div>
