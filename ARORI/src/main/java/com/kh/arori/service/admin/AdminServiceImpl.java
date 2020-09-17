@@ -62,16 +62,19 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.allList();
 	}
 
+	//아로리 멤버 총 카운트
 	@Override
 	public int aroriCount(AroriMemberDto aroriMemberDto) {
 	
 		return adminDao.aroriCount(aroriMemberDto);
 	}
 
+	//전체회원 멤버카운트
 	@Override
 	public int memberCount(MemberDto memberDto) {
 		
 		return adminDao.memberCount(memberDto);
 	}
+
 
 }

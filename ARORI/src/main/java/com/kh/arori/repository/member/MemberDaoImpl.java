@@ -14,7 +14,6 @@ import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 
-
 @Repository
 public class MemberDaoImpl implements MemberDao {
 
@@ -148,7 +147,6 @@ public class MemberDaoImpl implements MemberDao {
 		return result;
 	}
 
-
 	// 회원 가입시 중복닉네임을 검사
 	// 재정의하셨는데 모양이 다르네요
 	@Override
@@ -197,14 +195,15 @@ public class MemberDaoImpl implements MemberDao {
 		List<PasswordQDto> pwList = sqlSession.selectList("member.passQ");
 		return pwList;
 	}
-	//회원전체  단일조회(번호를 통한)
+
+	// 회원전체 단일조회(번호를 통한)
 	@Override
 	public MemberDto getNo(int member_no) {
 		MemberDto getNo = sqlSession.selectOne("member.getNo", member_no);
 		return getNo;
 	}
 
-	//회원상세정보 전체업데이트
+	// 회원상세정보 전체업데이트
 	@Override
 	public void adminUpdate(AllMemberDto allMemberDto) {
 
@@ -212,13 +211,12 @@ public class MemberDaoImpl implements MemberDao {
 
 	}
 
-	//소셜+아로리 아우터조인 단일조회
+	// 소셜+아로리 아우터조인 단일조회
 	@Override
 	public AllMemberDto memberProfile(int member_no) {
 		AllMemberDto memberProfile = sqlSession.selectOne("member.allMemberList", member_no);
 		return memberProfile;
 	}
-
 
 	@Override
 	public AllMemberDto allGet(String member_id) {
@@ -227,4 +225,3 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 }
-

@@ -55,6 +55,7 @@ public class NonMemberController {
 //
 //		return "redirect:/?loginFail";
 //	}
+	
 
 	// 아로리 회원 가입 페이지 
 	@GetMapping("/joinArori")

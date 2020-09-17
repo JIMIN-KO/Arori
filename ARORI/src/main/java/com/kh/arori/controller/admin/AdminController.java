@@ -93,7 +93,7 @@ public class AdminController {
 	 * 
 	 * }
 	 */
-	// 리스트 연습
+	// 리스트
 	@GetMapping("/allList")
 	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto, @ModelAttribute ClassesDto classesDto,
 			@ModelAttribute MemberDto memberDto) {

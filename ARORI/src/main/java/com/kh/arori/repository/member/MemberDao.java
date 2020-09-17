@@ -92,6 +92,7 @@ public interface MemberDao {
 	
 	//전체조회
 	public AllMemberDto allGet(String member_id);
+	
 
 }
 

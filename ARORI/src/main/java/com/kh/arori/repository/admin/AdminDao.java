@@ -44,4 +44,5 @@ public interface AdminDao {
 	//아로리 총 멤버
 	public List<AllMemberDto>allList();
 	
+
 }
