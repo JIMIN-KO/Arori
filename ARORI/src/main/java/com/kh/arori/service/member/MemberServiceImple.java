@@ -271,9 +271,13 @@ public class MemberServiceImple implements MemberService {
 
 		// 페이지 네이션을 위한 1~10번째 게시글 번호 받아오기
 		Map<String, Integer> pagination = paginationService.pagination("member_no", member_no, pageNo);
-
+		System.out.println(pagination.get("start"));
+		System.out.println(pagination.get("finish"));
+		
 		// 페이지 네이션 결과값을 통해 데이터 받아오기
 		List<MqInfoDto> list = quizDao.getMQInfo(pagination);
+
+		System.out.println(list.size());
 
 		// 푼 퀴즈가 하나라도 있다면
 		if (!list.isEmpty()) {

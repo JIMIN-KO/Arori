@@ -1,6 +1,7 @@
 package com.kh.arori.controller.study;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.NoticeDao;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.service.study.NoticeService;
 
 @Controller
@@ -31,6 +33,9 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
+	@Autowired
+	private PaginationService paginationService;
+
 	// 공지 게시글 리스트 (공지 게시판)
 	@GetMapping("/classes/notice/{c_no}/{pageNo}")
 	public String noticeList(@PathVariable String c_no, @PathVariable int pageNo, Model model) {
@@ -42,16 +47,22 @@ public class NoticeController {
 		// 페이지 네비게이터 계산
 		List<Integer> block = noticeService.pagination(Integer.parseInt(c_no), pageNo);
 
+
 		// 임시 저장 데이터 조회
 		List<NoticeDto> temp = noticeDao.getCT(Integer.parseInt(c_no));
-		if(temp != null) {
+		if (temp != null) {
 			model.addAttribute("temp", temp);
 		}
+
+		// 페이지 네이션 계산 정보
+		Map<String, Integer> pagination = paginationService.pagination("c_no", Integer.parseInt(c_no), pageNo);
 
 		// VIEW 로 던질 모델 (게시글 / 해당 클래스 정보)
 		model.addAttribute("list", list);
 		model.addAttribute("classes", classes);
 		model.addAttribute("block", block);
+		model.addAttribute("start", pagination.get("start"));
+		model.addAttribute("pageNo", pageNo);
 
 		return "classes/notice/notice_list";
 	}
@@ -59,16 +70,16 @@ public class NoticeController {
 	// 공지 게시글 작성 페이지
 	@GetMapping("/classes/notice/create/{c_no}")
 	public String noticeCreate(@PathVariable String c_no, Model model) {
-		
+
 		// 작성 페이지를 들어오면 해당 게시글 데이터 INSERT
 		int n_no = noticeService.create(c_no);
-		
-		// 매개변수 c_no 와 더미 데이터 생성 시 발급받은 고유 번호 객체화 
+
+		// 매개변수 c_no 와 더미 데이터 생성 시 발급받은 고유 번호 객체화
 		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(n_no).build();
-		
-		// 해당 jsp 파일로 전달 
+
+		// 해당 jsp 파일로 전달
 		model.addAttribute("noticeDto", noticeDto);
-		
+
 		return "classes/notice/notice_create";
 	}
 
@@ -80,9 +91,9 @@ public class NoticeController {
 
 		// 해당 게시글 데이터 조회
 		NoticeDto noticeDto = noticeDao.getCN(oldNotice);
-		
+
 		List<NoticeDto> temp = noticeDao.getTemp(noticeDto);
-		if(temp != null) {
+		if (temp != null) {
 			model.addAttribute("temp", temp);
 		}
 
@@ -120,16 +131,16 @@ public class NoticeController {
 
 		return result;
 	}
-	
-	// 공지 게시글 수정 중 임시 저장 
+
+	// 공지 게시글 수정 중 임시 저장
 	@PostMapping("/classes/notice/temp")
 	public String noticeTemp(@RequestParam List<String> n_content, @RequestParam String c_no, @RequestParam String n_no,
 			@RequestParam String n_title, @RequestParam String n_state) {
-		// 매개변수 데이터 객체화 
+		// 매개변수 데이터 객체화
 		NoticeDto noticeDto = NoticeDto.builder().c_no(Integer.parseInt(c_no)).n_no(Integer.parseInt(n_no))
 				.n_title(n_title).n_state(Integer.parseInt(n_state)).build();
-		
-		// 임시 저장 후 공지 게시판으로 이동 
+
+		// 임시 저장 후 공지 게시판으로 이동
 		String result = noticeService.createTemp(n_content, noticeDto);
 		return result;
 	}

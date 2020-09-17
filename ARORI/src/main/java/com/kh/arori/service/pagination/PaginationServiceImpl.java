@@ -42,7 +42,8 @@ public class PaginationServiceImpl implements PaginationService {
 
 				// startBlock ~ finishBlock 만큼 반복 후 배열 객체화
 				List<Integer> block = new ArrayList<Integer>();
-
+				System.out.println(startBlock);
+				System.out.println(finishBlock);
 				for (int i = startBlock; i <= finishBlock; i++) {
 					block.add(i);
 				}

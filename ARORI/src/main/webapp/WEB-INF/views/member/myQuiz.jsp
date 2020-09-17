@@ -144,16 +144,17 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                   <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[0] - 1}" aria-label="Previous">
-                                      <span aria-hidden="true">&laquo;</span>
-                                      
-                                    </a>
+                                  	<c:set var="index" value="0"></c:set>
+	                                    <a class="page-link" href="${pageContext.request.contextPath }/cmember/myQuiz/${block[0] - 1}" aria-label="Previous">
+	                                      <span aria-hidden="true">&laquo;</span>
+	                                    </a>
                                   </li>
 									<c:forEach var="block" items="${block }">
-                                  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block}">${block }</a></li>
+                                  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/member/myQuiz/${block}">${block }</a></li>
+										<c:set var="index" value="${block }"></c:set>
 									</c:forEach>
                                   <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[9]+1}" aria-label="Next">
+                                    <a class="page-link" href="${pageContext.request.contextPath }/member/myQuiz/${block[9]+1}" aria-label="Next">
                                       <span aria-hidden="true">&raquo;</span>
                                     </a>
                                   </li>

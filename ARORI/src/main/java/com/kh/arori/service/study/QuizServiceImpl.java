@@ -15,6 +15,7 @@ import com.kh.arori.entity.study.This_qDto;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.img.ImgService;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.service.toast.ToastService;
 
 @Service
@@ -31,6 +32,9 @@ public class QuizServiceImpl implements QuizService {
 
 	@Autowired
 	private QuestionDao questionDao;
+	
+	@Autowired
+	private PaginationService paginationService;
 
 	// 퀴즈 생성
 	@Override
@@ -123,5 +127,22 @@ public class QuizServiceImpl implements QuizService {
 		date = format1.parse(quizDto.getQ_score_open());
 		quizDto.setQ_score_open(format2.format(date));
 		return quizDto;
+	}
+
+	// 퀴즈 페이지 네이션
+	@Override
+	public List<QuizDto> getQuiz(int c_no, int pageNo) {
+		// 페이지 네이션 메소드를 이용해서 조회할 수 있는 숫자 계산
+		Map<String, Integer> pagination = paginationService.pagination("c_no", c_no, pageNo);
+		List<QuizDto> list = quizDao.getList(pagination);
+		return list;
+	}
+
+	// 퀴즈 페이지 네이션
+	@Override
+	public List<Integer> getQuizBlock(int c_no, int pageNo) {
+		int count = quizDao.getSize(c_no);
+		List<Integer> block = paginationService.paginationBlock(c_no, pageNo, count);
+		return block;
 	}
 }

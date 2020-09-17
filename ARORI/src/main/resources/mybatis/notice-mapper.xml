@@ -46,7 +46,7 @@
 	
 	<!-- 해당 클래스의 공지 게시글 개수 -->
 	<select id="count" resultType="int" parameterType="noticeDto">
-		SELECT COUNT(*) FROM NOTICE WHERE C_NO = #{c_no}
+		SELECT COUNT(*) FROM NOTICE WHERE C_NO = #{c_no} AND N_STATE = 1
 	</select>
 	
 	<!-- 해당 클래스의 특정 공지 게시글 삭제 -->

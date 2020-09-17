@@ -16,14 +16,18 @@
 	</insert>
 
 	<!-- 퀴즈 목록 -->
-	<select id="getList" resultType="quizDto" parameterType="quizDto">
-		SELECT * FROM QUIZ WHERE C_NO = ${c_no} AND Q_STATE = 1 ORDER BY Q_NO
-		DESC
+	<select id="getList" resultType="quizDto" parameterType="map">
+		SELECT col.q_no, col.c_no, col.q_title, col.q_open, col.q_close, col.q_runtime,col.q_score_open,col.q_when, col.q_content, col.q_state FROM (SELECT ROWNUM rn, q.* FROM QUIZ q WHERE q.C_NO = ${c_no} AND Q_STATE = 1 ORDER BY Q_NO DESC) col WHERE rn BETWEEN ${start} AND ${finish}
 	</select>
 
 	<!-- 퀴즈 단일 조회 -->
 	<select id="get" resultType="quizDto" parameterType="quizDto">
 		SELECT * FROM QUIZ WHERE Q_NO = #{q_no} 
+	</select>
+	
+	<!-- 클래스 퀴즈 조회(카운트 용) -->
+	<select id="getSize" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM QUIZ WHERE C_NO = #{c_no} AND Q_STATE = 1
 	</select>
 
 	<!-- 퀴즈 수정 / 갱신 -->

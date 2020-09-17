@@ -21,7 +21,7 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
-                    	<c:set var="index" value="${quizDto.size() }"></c:set>
+                    	<c:set var="start" value="${start }"></c:set>
                     	<div class="ml-3 mr-3">
                             <table class="table table-hover">
                                 <thead>
@@ -38,8 +38,8 @@
                                 <tbody>
                                     	<c:forEach var="quizDto" items="${quizDto }">
                                     <tr class="text-center">
-                                        <th scope="row">${index }</th>
-                                        <c:set var="index" value="${index - 1 }"></c:set>
+                                        <th scope="row">${start }</th>
+                                        <c:set var="start" value="${start + 1 }"></c:set>
                                         <td>
                                             	<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}" class="font-weight-bold">
                                                 ${quizDto.q_title }
@@ -75,18 +75,21 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                   <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[0] - 1}" aria-label="Previous">
-                                      <span aria-hidden="true">&laquo;</span>
-                                      
-                                    </a>
+                                  <c:if test="${pageNo > 10}">
+	                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/quiz/${quizDto.get(0).c_no }/${block[0] - 1}" aria-label="Previous">
+	                                      <span aria-hidden="true">&laquo;</span>
+	                                    </a>
+                                    </c:if>
                                   </li>
 									<c:forEach var="block" items="${block }">
-                                  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block}">${block }</a></li>
+                                  		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/classes/quiz/${quizDto.get(0).c_no }/${block}">${block }</a></li>
 									</c:forEach>
                                   <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/notice/${classes.c_no }/${block[9]+1}" aria-label="Next">
+                                  <c:if test="${block.size() > pageNo and pageNo > 10}">
+                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/quiz/${quizDto.get(0).c_no }/${block[block.size()]+1}" aria-label="Next">
                                       <span aria-hidden="true">&raquo;</span>
                                     </a>
+                                    </c:if>
                                   </li>
                                 </ul>
                               </nav>

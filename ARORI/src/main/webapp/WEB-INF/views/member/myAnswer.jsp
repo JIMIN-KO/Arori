@@ -92,10 +92,16 @@
 						    			<c:when test="${thisQuizVo.qt_no == 3 }">
 						    				<!-- 단답형 문제 영역 -->
 						    				<div class="input-group mt-3 mb-3">
-										  <div class="input-group-prepend">
-										    <span class="input-group-text">정답을 입력해주세요!</span>
-										  </div>
-										  <textarea class="form-control" name="${thisQuizVo.question_no }">나의 답안 : ${thisQuizVo.myAnswer } /// 정답 : ${thisQuizVo.explain_answer } </textarea>
+											  <div class="input-group-prepend">
+											    <span class="input-group-text">나의 답안</span>
+											  </div>
+										  		<textarea class="form-control ${thisQuizVo.correct eq 1 ? 'bg-success text-white' : 'bg-warning text-white' }" name="${thisQuizVo.question_no }" readonly="readonly">${thisQuizVo.myAnswer }</textarea>
+										</div>
+										<div class="input-group mt-3 mb-3">
+											  <div class="input-group-prepend">
+											    <span class="input-group-text">문제 정답</span>
+											  </div>
+										  		<textarea class="form-control" name="${thisQuizVo.question_no }" readonly="readonly">${thisQuizVo.explain_answer }</textarea>
 										</div>
 						    			</c:when>
 						    		</c:choose>
@@ -112,9 +118,10 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
-/* 문제 푼 후 업데이트 영역 */
+
 $(function(){
-/* 토스트 뷰어 영역 */
+	
+	/* 토스트 뷰어 영역 */
 	var viewers = document.querySelectorAll(".viewer") /* viewer 클래스 생성 */
 	var aq_content = document.querySelectorAll(".aq_content") /* String 으로 뭉쳐진 마크다운 코드 받아오기 */
 

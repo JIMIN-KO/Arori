@@ -101,11 +101,10 @@ public class MemberController {
 			// 아로리 회원 정보 단일 조회 후 모델로 jsp 로 보내기
 			AroriMemberDto aroriMemberDto = memberDao.getArori(userinfo.getMember_id());
 			model.addAttribute("aroriMemberDto", aroriMemberDto);
-			return "member/myPage_arori";
-		} else {
-			// 아닐 경우 myPage_social.jsp 띄우기
-			return "member/myPage_social";
+
 		}
+		// 아닐 경우 myPage_social.jsp 띄우기
+		return "member/myPage";
 	}
 
 	// 회원 목록 리스트 (윤아)
