@@ -12,7 +12,14 @@
 						<div class="card m-5">
 						  <div class="row no-gutters">
 						    <div class="col-md-4">
-						      <img src="${pageContext.request.contextPath }/imgAjax/member/download/${memberDto.ai_no}" class="card-img" alt="...">
+								<c:choose>
+									<c:when test="${memberDto.ai_no > 0}" >
+										<img src="${pageContext.request.contextPath }/imgAjax/member/download/${memberDto.ai_no}" class="card-img" alt="...">
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="card-img" alt="...">
+									</c:otherwise>
+								</c:choose>
 						     <input type = "button" data-target="#imgEdit" class="imgEdit" value="이미지 변경"> 
 						    </div>
 						    <div class="col-md-8">

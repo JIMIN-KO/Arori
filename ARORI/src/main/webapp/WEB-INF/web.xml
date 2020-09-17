@@ -66,4 +66,20 @@
 		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
 
+
+ <!-- adminfilter 관리자필터!  -->
+	
+	<filter>
+		<filter-name>adminFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>adminFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+
+
+
+
+
 </web-app>
