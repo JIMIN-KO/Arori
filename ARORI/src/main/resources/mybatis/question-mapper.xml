@@ -39,6 +39,12 @@
 		SELECT * FROM THIS_QUIZ WHERE Q_NO = ${q_no} ORDER BY QUESTION_NO ASC
 	</select>
 	
+	<!-- 해당 퀘스쳔의 정답 불러오기 -->
+	<!-- 퀴즈에 새로운 퀘스쳔 등록 후, 기존의 회원이 해당 퀴즈를 다시 풀 경우 -->
+	<select id="getTQ2" resultType="thisQuizDto" parameterType="int">
+		SELECT * FROM THIS_QUIZ WHERE QUESTION_NO = #{question_no}
+	</select>
+	
 	<!-- 퀘스쳔 오작교 시퀀스 번호 발급 -->
 	<select id="getSeq2" resultType="int" parameterType="this_qDto">
 		SELECT ${table_name}_Q_SEQ.NEXTVAL FROM DUAL

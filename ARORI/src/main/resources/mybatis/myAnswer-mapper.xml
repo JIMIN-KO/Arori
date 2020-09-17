@@ -3,45 +3,72 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="answer">
-	
+
 	<!-- 나의 정답 고유 번호 발급 -->
 	<select id="getSeq" resultType="int">
-		SELECT MY_ANSWER_SEQ.NEXTVAL FROM DUAL
-	</select>
-	
-	<!-- 나의 정답 더미 데이터 생성 -->
-	<insert id="insert" parameterType="myAnswerDto">
-		INSERT INTO MY_ANSWER VALUES(#{no},#{member_no},#{q_no},#{question_no},'답안 작성 중',#{question_answer},0)
-	</insert>
-	
-	<!-- 나의 정답 데이터 갱신 / 수정 -->
-	<update id="update" parameterType="myAnswerDto">
-		UPDATE MY_ANSWER SET MY_ANSWER = '${my_answer}', RESULT = #{result} WHERE MEMBER_NO = #{member_no} AND QUESTION_NO = #{question_no}
-	</update>
-	
-	<!-- 나의 정답 데이터 삭제 -->
-	<delete id="delete" parameterType="myAnswerDto">
-		DELETE MY_ANSWER WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
-	</delete>
-	
-	<!-- 자동 채점을 위한 해당 퀘스쳔 정답 조회 -->
-	<select id="check" resultType="myAnswerDto" parameterType="myAnswerDto">
-		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no} AND QUESTION_NO = #{question_no}
-	</select>
-	
-	<!-- 나의 정답 조회 > 퀴즈 번호  -->
-	<select id="get" resultType="myAnswerDto" parameterType="myAnswerDto">
-		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
-	</select>
-	
-	<!-- 나의 정답만 조회 > 퀴즈 번호 -->
-	<select id="getCur" resultType="myAnswerDto" parameterType="myAnswerDto">
-		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no} AND RESULT = 1
-	</select>
-	
-	<!-- 나의 오답만 조회 > 퀴즈 번호 -->
-	<select id="getIncur" resultType="myAnswerDto" parameterType="myAnswerDto">
-		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no} AND Q_NO = #{q_no} AND RESULT = 0
+		SELECT MY_ANSWER_SEQ.NEXTVAL FROM
+		DUAL
 	</select>
 
+	<!-- 나의 정답 더미 데이터 생성 -->
+	<insert id="insert" parameterType="myAnswerDto">
+		INSERT INTO MY_ANSWER
+		VALUES(#{no},#{member_no},#{q_no},#{question_no},'답안 작성
+		중',#{question_answer},0)
+	</insert>
+
+	<!-- 나의 정답 데이터 갱신 / 수정 -->
+	<update id="update" parameterType="myAnswerDto">
+		UPDATE MY_ANSWER SET MY_ANSWER
+		= '${my_answer}', RESULT = #{result} WHERE MEMBER_NO = #{member_no}
+		AND QUESTION_NO = #{question_no}
+	</update>
+
+	<!-- 나의 정답 데이터 삭제 -->
+	<delete id="delete" parameterType="myAnswerDto">
+		DELETE MY_ANSWER WHERE
+		MEMBER_NO = #{member_no} AND Q_NO = #{q_no}
+	</delete>
+
+	<!-- 자동 채점을 위한 해당 퀘스쳔 정답 조회 -->
+	<select id="check" resultType="myAnswerDto"
+		parameterType="myAnswerDto">
+		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no}
+		AND QUESTION_NO = #{question_no}
+	</select>
+
+	<!-- 나의 정답 조회 > 퀴즈 번호 -->
+	<select id="get" resultType="myAnswerDto"
+		parameterType="myAnswerDto">
+		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no}
+		AND Q_NO = #{q_no}
+	</select>
+
+	<!-- 나의 정답만 조회 > 퀴즈 번호 -->
+	<select id="getCur" resultType="myAnswerDto"
+		parameterType="myAnswerDto">
+		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no}
+		AND Q_NO = #{q_no} AND RESULT = 1
+	</select>
+
+	<!-- 나의 정답 카운트 -->
+	<select id="getCurCount" resultType="int"
+		parameterType="myAnswerDto">
+		SELECT COUNT(*) FROM MY_ANSWER WHERE MEMBER_NO =
+		#{member_no} AND Q_NO = #{q_no} AND RESULT = 1
+	</select>
+
+	<!-- 나의 오답만 조회 > 퀴즈 번호 -->
+	<select id="getIncur" resultType="myAnswerDto"
+		parameterType="myAnswerDto">
+		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no}
+		AND Q_NO = #{q_no} AND RESULT = 0
+	</select>
+
+	<!-- 나의 오답 카운트 -->
+	<select id="getInCurCount" resultType="int"
+		parameterType="myAnswerDto">
+		SELECT COUNT(*) FROM MY_ANSWER WHERE MEMBER_NO = #{member_no}
+		AND Q_NO = #{q_no} AND RESULT = 0
+	</select>
 </mapper>

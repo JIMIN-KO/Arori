@@ -89,7 +89,7 @@
 									    <div class="card-header bg-primary font-weight-bold text-white" id="heading${thisQuizDto.question_no }">
 									      <h2 class="mb-0">
 									        <button class="btn btn-link btn-block text-left text-white p-2" type="button" data-toggle="collapse" data-target="#collapse${thisQuizDto.question_no }" aria-expanded="true" aria-controls="collapse${thisQuizDto.question_no }" style="font-size: large;">
-									        		Q${q_index}
+									        		Question ${q_index}
 									        </button>
 									        <c:set var="q_index" value="${q_index + 1 }"></c:set>
 									      </h2>
@@ -515,6 +515,17 @@ $(function(){
 							}	
 							questionContent[questionContent.length - 1].innerHTML = string
 							$(".question-list").last().css("display","block")
+
+							editor2.setMarkdown("")
+							$("input[name=o_content]").val("")
+							$("input[name=x_content]").val("")
+							$("select[name=ox_answer]").val("")
+							$("textarea[name=multiple_one]").val("")
+							$("textarea[name=multiple_two]").val("")
+							$("textarea[name=multiple_three]").val("")
+							$("textarea[name=multiple_four]").val("")
+							$("select[name=multiple_answer]").val("")
+							$("textarea[name=explain_answer]").val("")
 				})
 		})
 })

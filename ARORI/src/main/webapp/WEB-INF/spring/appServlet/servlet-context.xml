@@ -60,8 +60,8 @@
 			<beans:bean class="com.kh.arori.interceptor.TestInterceptor"></beans:bean>
 		</interceptor>
 		<interceptor>
-			<mapping path="/**"/>
-			<beans:bean class="com.kh.arori.interceptor.MemberInterceptor"></beans:bean>
+			<mapping path="/classes/quiz/play/*"/>
+			<beans:bean class="com.kh.arori.interceptor.QuizInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
 	

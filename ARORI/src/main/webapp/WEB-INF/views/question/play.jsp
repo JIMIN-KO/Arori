@@ -11,10 +11,12 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
+                    	<c:set var="index" value="1"></c:set>
                     	<c:forEach var="thisQuizDto" items="${thisQuizDto }">
                     	<div class="card m-5 question qt_${thisQuizDto.qt_no }">
                     	<input type="hidden" value="${thisQuizDto.question_no }">
-						  <div class="card-header h3 bg-warning text-white">${thisQuizDto.question_no }</div>
+						  <div class="card-header h3 bg-warning text-white">Question ${index }</div>
+						  <c:set var="index" value="${index + 1 }"></c:set>
 						  <div class="card-body">
 						    <div class="viewer"></div>
 						    <input type="hidden" value="${thisQuizDto.aq_content }" class="aq_content">
@@ -118,6 +120,7 @@ $('#deleteMyAnswer').modal('hide') // 모달 숨기기
 $(".deleteMyAnswer").click(function(){
 	$('#deleteMyAnswer').modal('show') // 모달 띄우기
 })
+
 $(".question").on("change",function(){
 
 		// 경로 변수

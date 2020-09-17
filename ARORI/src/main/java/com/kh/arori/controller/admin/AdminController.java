@@ -58,6 +58,10 @@ public class AdminController {
 		return "admin/main_admin";
 	}
 
+	@GetMapping("/memberList")
+	public String memberList() {
+		return "admin/memberList";
+	}
 
 	// 날짜 변수 타입 매핑
 	@InitBinder
@@ -247,4 +251,3 @@ public class AdminController {
 	}
 
 }
-

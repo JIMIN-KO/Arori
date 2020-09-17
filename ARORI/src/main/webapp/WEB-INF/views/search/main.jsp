@@ -18,7 +18,6 @@
 	.card-img {
 	height: 200px;
 	width: 100%;
-
 	}
 	
 	/* 드롭다운 */
@@ -58,9 +57,6 @@
 	outline: none;
 	}
 	#keyword:focus {
-	outline:none;
-	}
-	#search:focus {
 	outline:none;
 	}
 	
@@ -106,10 +102,8 @@
 	.card-btn {
 	text-align:center;
 	}
-
 	
 </style>
-	
 <div class="row content-top mt-5 h-100">
 	<div class="col-12 overflow-auto">
 		<!-- 본문 내용 -->
@@ -139,7 +133,7 @@
 			</div>
 			
 			<!--  클론 시작 -->
-				<div class="col-sm-12 col-md-6 col-lg-3 cardList" style="display: none;">
+				<div class="col-sm-12 col-md-6 col-lg-3 cardList p-0" style="display: none;">
 						<div class="card-deck">
   							<div class="card">
   								<a href="${pageContext.request.contextPath }/classes/readme/">
@@ -174,7 +168,7 @@
 					
 			<div class="row classCard">
 				<c:forEach var="MCIDto" items="${MCIDto}">
-					<div class="col-sm-12 col-md-6 col-lg-3 cardList">
+					<div class="col-sm-12 col-md-6 col-lg-3 cardList p-0">
 						<div class="card-deck">
   							<div class="card">
   								<a href="${pageContext.request.contextPath }/classes/readme/${MCIDto.c_no}">
@@ -232,8 +226,29 @@
 	
 <script>
 	$(function() {
-		var backup = $(".cardList").first().clone()
+		var subBtn = document.querySelectorAll(".subBtn")
+		
+		$(document).on("click",".subBtn",function(){
+			console.log("hello")
+			var subDto = {
+					member_no:${userinfo.member_no},
+					c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
+			}
+			console.log(subDto)
+			var path = $(this).parents(".card").children(".card-body").children(".title").children(".badge")
+			
+			axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+			 	headers:{
+					'content-type':'application/json',
+			 	}
+			 }).then(function(resp){
 
+				 $(path).text(resp.data)
+				 
+		 	})
+		})
+		
+		var backup = $(".cardList").first().clone()
 		$("#search").click(function() {
 			searchClass(backup)
 		})
@@ -250,7 +265,6 @@
 		var searchOption = $("#searchOption").val()
 		var select = $(".select-down").val()
 		var list = document.querySelector(".card")
-
 		axios({
 			url : '${pageContext.request.contextPath}/searchAjax/search?keyword=' + keyword + '&searchOption=' + searchOption + "&col=" + select,
 			method : 'get'
@@ -317,27 +331,6 @@
       	}
 	
 	}
-		
-	$(".subBtn").click(function(){
-
-		var subDto = {
-				member_no:${userinfo.member_no},
-				c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
-		}
-		
-		console.log(subDto)
-		
-		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
-		 	headers:{
-				'content-type':'application/json',
-		 	}
-		 }).then(function(resp){
-			 console.log(resp.data)
-			$(this).parents(".card").children(".card-body").children(".subCount").text(resp.data)
-			 
-	 	})
-	})
-
 </script>
 
 	<jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
