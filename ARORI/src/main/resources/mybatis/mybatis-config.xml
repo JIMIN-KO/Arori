@@ -16,6 +16,18 @@
 		<typeAlias type="com.kh.arori.entity.member.PasswordQDto"
 			alias="passwordQDto" />
 
+		<!-- My_Quiz -->
+		<typeAlias type="com.kh.arori.entity.study.MyQuizDto"
+			alias="myQuizDto" />
+
+		<!-- My Quiz + Quiz -->
+		<typeAlias type="com.kh.arori.entity.study.MqInfoDto"
+			alias="mqInfoDto" />
+
+		<!-- My Answer -->
+		<typeAlias type="com.kh.arori.entity.study.MyAnswerDto"
+			alias="myAnswerDto" />
+
 		<!-- Classes Table -->
 		<typeAlias type="com.kh.arori.entity.study.ClassesDto"
 			alias="classesDto" />
@@ -24,29 +36,46 @@
 		<typeAlias type="com.kh.arori.entity.member.ReportDto"
 			alias="reportDto" />
 
+		<!-- Subscribe Table -->
+		<typeAlias type="com.kh.arori.entity.study.SubscribeDto"
+			alias="subDto" />
+
 		<!-- Quiz Table -->
 		<typeAlias type="com.kh.arori.entity.study.QuizDto"
 			alias="quizDto" />
 
 		<!-- Question Table -->
+
 		<typeAlias type="com.kh.arori.entity.study.AllQuestionDto"
 			alias="allQuestionDto" />
+
+		<!-- Question Type -->
 		<typeAlias type="com.kh.arori.entity.study.QuestionTypeDto"
 			alias="questionTypeDto" />
+
+		<!-- OX -->
 		<typeAlias type="com.kh.arori.entity.study.OxDto"
 			alias="oxDto" />
+
+		<!-- Multiple -->
 		<typeAlias type="com.kh.arori.entity.study.MultipleDto"
 			alias="multipleDto" />
+
+		<!-- Explain -->
 		<typeAlias type="com.kh.arori.entity.study.ExplainDto"
 			alias="explainDto" />
+
+		<!-- This_Quiz (VIEW) -->
+		<typeAlias type="com.kh.arori.entity.study.ThisQuizDto"
+			alias="thisQuizDto" />
 
 		<!-- 퀘스쳔 오작교 -->
 		<typeAlias type="com.kh.arori.entity.study.This_qDto"
 			alias="this_qDto" />
 
-		<!-- MC Table -->
-		<typeAlias type="com.kh.arori.entity.study.McDto"
-			alias="mcDto" />
+		<!-- MCI Table -->
+		<typeAlias type="com.kh.arori.entity.study.MCIDto"
+			alias="mciDto" />
 
 		<!-- Readme Table -->
 		<typeAlias type="com.kh.arori.entity.study.ReadmeDto"
@@ -75,6 +104,8 @@
 		<typeAlias type="com.kh.arori.entity.member.AllMemberDto"
 			alias="allMemberDto" />
 
+		<typeAlias type="com.kh.arori.entity.member.IncomeVO"
+			alias="incomeVO" />
 
 	</typeAliases>
 </configuration>

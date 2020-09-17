@@ -36,13 +36,13 @@ public class NonMemberController {
 
 		if (member != null) {
 			session.setAttribute("userinfo", member);
-			return "redirect:member/main";
+			return "redirect:member/myPage";
 		}
 		
 		return "redirect:/?loginFail";
 	}
-	
-//	// 아로리 회원 로그인 
+
+	// 아로리 회원 로그인 
 //	@PostMapping("/loginSuccess")
 //	public String loginSuccess(@RequestParam String member_id, @RequestParam String member_pw, HttpSession session) {
 //		
@@ -55,7 +55,7 @@ public class NonMemberController {
 //
 //		return "redirect:/?loginFail";
 //	}
-	
+
 
 	// 아로리 회원 가입 페이지 
 	@GetMapping("/joinArori")
@@ -75,7 +75,6 @@ public class NonMemberController {
 	// 소셜 회원 가입 
 	@GetMapping("/joinSocial")
 	public String joinSocial(@RequestParam String emailPath, @ModelAttribute MemberDto memberDto) {
-		System.out.println("Controller");
 		memberService.join(emailPath, memberDto);
 		return "redirect:/";
 	}

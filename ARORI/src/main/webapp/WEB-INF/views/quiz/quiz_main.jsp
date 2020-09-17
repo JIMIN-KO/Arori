@@ -21,13 +21,13 @@
                         </div>
                     	<hr><br>
                     	<!-- 본문 내용 -->
+                    	<c:set var="index" value="${quizDto.size() }"></c:set>
                     	<div class="ml-3 mr-3">
                             <table class="table table-hover">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th scope="col" class="font-weight-bold">No</th>
                                         <th scope="col" class="font-weight-bold">Quiz Title</th>
-                                        	<th scope="col" class="font-weight-bold">Score</th>
                                         <th scope="col" class="font-weight-bold">Open</th>
                                         <th scope="col" class="font-weight-bold">Close</th>
                                         	<c:if test="${classesDto.member_no == userinfo.member_no }">
@@ -37,16 +37,14 @@
                                 </thead>
                                 <tbody>
                                     	<c:forEach var="quizDto" items="${quizDto }">
-                                    <tr>
-                                        <th scope="row">${quizDto.q_no }</th>
+                                    <tr class="text-center">
+                                        <th scope="row">${index }</th>
+                                        <c:set var="index" value="${index - 1 }"></c:set>
                                         <td>
                                             	<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}" class="font-weight-bold">
                                                 ${quizDto.q_title }
                                             	</a>
                                        	</td>
-                                        	<td>
-                                        		${quizDto.q_score} 점
-                                        	</td>
                                         	<td>
                                         		<fmt:parseDate value="${quizDto.q_open}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
 											<fmt:formatDate value="${time}" pattern="yy-MM-dd HH:mm"/> 부터	
@@ -57,13 +55,13 @@
                                         	</td>
                                 			<c:if test="${classesDto.member_no == userinfo.member_no }">
 	                                        <td>
-	                                        		<a class="text-primary font-weight-bold mr-3" href="">
+	                                        		<a class="text-primary font-weight-bold mr-3" href="${pageContext.request.contextPath}/classes/quiz/edit/${quizDto.c_no}/${quizDto.q_no}">
 	                                        			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hammer" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 													  <path d="M9.812 1.952a.5.5 0 0 1-.312.89c-1.671 0-2.852.596-3.616 1.185L4.857 5.073V6.21a.5.5 0 0 1-.146.354L3.425 7.853a.5.5 0 0 1-.708 0L.146 5.274a.5.5 0 0 1 0-.706l1.286-1.29a.5.5 0 0 1 .354-.146H2.84C4.505 1.228 6.216.862 7.557 1.04a5.009 5.009 0 0 1 2.077.782l.178.129z"/>
 													  <path fill-rule="evenodd" d="M6.012 3.5a.5.5 0 0 1 .359.165l9.146 8.646A.5.5 0 0 1 15.5 13L14 14.5a.5.5 0 0 1-.756-.056L4.598 5.297a.5.5 0 0 1 .048-.65l1-1a.5.5 0 0 1 .366-.147z"/>
 													</svg>
 	                                        		</a>
-	                                        		<a class="text-danger font-weight-bold ml-3" href="">
+	                                        		<a class="text-danger font-weight-bold ml-3 deletepopup" data-target="#deleteQuiz" data-cno="${quizDto.c_no }" data-qno="${quizDto.q_no }">
 	                                        			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 													  <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
 													</svg>
@@ -96,6 +94,36 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
+$('#deleteQuiz').modal('hide')
+$(".deletepopup").click(function(){
 	
+	var c_no = $(this).data("cno")
+	var q_no = $(this).data("qno")
+	var path = "${pageContext.request.contextPath}/classes/quiz/delete/" + c_no + "/" + q_no
+	$(".deleteBtn").attr("href",path)
+	
+	$('#deleteQuiz').modal('show')	
+})
 </script>
+<div class="modal fade" id="deleteQuiz" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">퀴즈 삭제</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	삭제하시면 되돌릴 수 없습니다.
+       	<br>
+       	해당 퀴즈를 삭제하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">창 닫기</button>
+        <a type="button" class="btn btn-primary deleteBtn">삭제하기</a>
+      </div>
+    </div>
+  </div>
+</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
