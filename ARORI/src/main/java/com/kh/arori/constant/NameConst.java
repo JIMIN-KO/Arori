@@ -16,4 +16,6 @@ public interface NameConst {
 	
 	// 파일 경로 상수
 	String imgPath = "C:\\Users\\user1\\Desktop\\img";
+
+
 }
