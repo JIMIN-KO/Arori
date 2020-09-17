@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MAIDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 
@@ -236,6 +237,12 @@ public class MemberDaoImpl implements MemberDao {
 	public AllMemberDto allGet(String member_id) {
 		AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
 		return allmember;
+	}
+
+	@Override
+	public MAIDto getMAI(int member_no) {
+
+		return sqlSession.selectOne("member.getMAI",member_no);
 	}
 
 }
