@@ -104,8 +104,5 @@
 		<typeAlias type="com.kh.arori.entity.member.AllMemberDto"
 			alias="allMemberDto" />
 
-		<typeAlias type="com.kh.arori.entity.member.IncomeVO"
-			alias="incomeVO" />
-
 	</typeAliases>
 </configuration>

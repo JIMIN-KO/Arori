@@ -27,8 +27,6 @@
 						<th scope="col">이메일</th>
 						<th scope="col">H.P</th>
 						<th scope="col">회원구분</th>
-						<th scope="col">가입일시</th>
-						<th scope="col">로그인일시</th>
 						<th scope="col">회원상태</th>
 						<th scope="col">DETAIL</th>
 					</tr>
@@ -44,8 +42,6 @@
 									<td>${allMemberDto.member_email}</td>
 									<td>${allMemberDto.member_phone}</td>
 									<td>${allMemberDto.member_state}</td>
-									<td>${allMemberDto.member_join}</td>
-									<td>${allMemberDto.member_login}</td>
 									<td>${allMemberDto.report_state}</td>
 
 

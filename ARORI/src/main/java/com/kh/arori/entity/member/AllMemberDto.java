@@ -21,5 +21,6 @@ public class AllMemberDto {
 	private String member_login; //로그인
 	private String report_state; // 정상 / 일시 정지 / 영구 정지 
 	private String suspension; //상태
+	private String member_auth; //회원 권한
 
 }

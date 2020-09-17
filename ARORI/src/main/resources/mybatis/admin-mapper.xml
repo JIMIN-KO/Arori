@@ -75,7 +75,7 @@
 	<!-- 회원 전체 목록 -->
 	<select id="allList" resultType="allMemberDto">
 		SELECT
-		m.member_no,m.member_id,m.member_nick,m.member_state,m.member_join,m.member_login,m.report_state,m.suspension,am.member_email
+		m.member_no,m.member_id,m.member_nick,m.member_state,m.member_join,m.member_login,m.report_state,m.suspension,m.member_auth,am.member_email,am.member_phone
 		FROM MEMBER m LEFT OUTER JOIN ARORI_MEMBER am ON m.MEMBER_NO =
 		am.member_no ORDER BY member_no ASC
 	</select>

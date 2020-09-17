@@ -102,12 +102,16 @@ public class AdminController {
 	@GetMapping("/allList")
 	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto, @ModelAttribute ClassesDto classesDto,
 			@ModelAttribute MemberDto memberDto) {
+		
+		
 		List<AllMemberDto> list = adminService.allList();
 		model.addAttribute("list", list);
+
 
 		int memberCount = adminDao.memberCount(memberDto);
 		model.addAttribute("memberCount", memberCount);
 
+		
 		int classCount = adminDao.classCount(classesDto);
 		model.addAttribute("classCount", classCount);
 
@@ -208,7 +212,7 @@ public class AdminController {
 
 		System.out.println("정보수정 성공");
 
-		return "redirect:/";
+		return "admin/allList";
 	}
 
 	// 소셜+아로리) 아우터조인 단일조회 + 클래스 개수 전달

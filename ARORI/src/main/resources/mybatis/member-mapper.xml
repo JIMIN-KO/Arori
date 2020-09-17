@@ -145,9 +145,8 @@
 	<!-- 관리자가 회원 정보 수정 -->
 	<update id="adminEdit" parameterType="allMemberDto">
 		UPDATE MEMBER SET
-		member_nick=#{member_nick} , member_state=#{member_state}
-		,
-		REPORT_STATE =#{report_state} , SUSPENSION =#{suspension} WHERE
+		member_auth=#{member_auth},member_nick=#{member_nick} , member_state=#{member_state}
+		,REPORT_STATE =#{report_state} , SUSPENSION =#{suspension} WHERE
 		member_id
 		=#{member_id}
 	</update>

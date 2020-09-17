@@ -2,10 +2,12 @@ package com.kh.arori.rest.member;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +39,9 @@ public class NonMemberAjaxController {
 			if (member != null) {
 				session.setAttribute("userinfo", member);
 				return member;
+			} else {
+				return null;
+
 			}
 		}
 		return null;
