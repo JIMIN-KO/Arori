@@ -10,7 +10,7 @@
 	</select>
 	<!-- 클래스 생성 -->
 	<insert id="createClasses" parameterType="classesDto">
-		INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_public}, #{c_subscribe}, SYSDATE, #{c_info})
+		INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_subscribe}, SYSDATE, #{c_info})
 	</insert>
 	<!-- 단일 조회 -->
 	<select id="get" parameterType="int" resultType="classesDto">
@@ -28,7 +28,7 @@
 	
 	<!-- 정보 수정 -->
 	<update id="edit" parameterType="classesDto">
-		UPDATE classes SET c_title=#{c_title}, c_info=#{c_info}, c_public=#{c_public} WHERE c_no=#{c_no}
+		UPDATE classes SET c_title=#{c_title}, c_info=#{c_info} WHERE c_no=#{c_no}
 	</update>
 	<!-- 클래스 삭제 -->
 	<delete id="delete" parameterType="int">

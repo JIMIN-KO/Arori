@@ -57,8 +57,7 @@ public class ClassesController {
 		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 		classesDto.setMember_no(memberDto.getMember_no());
 		int c_no = classesService.createClasses(classesDto);
-		System.out.println("c_title: " + classesDto.getC_title());
-		System.out.println("c_public: " + classesDto.getC_public());
+		
 		return "redirect:readme/" + c_no;
 	}
 
@@ -145,7 +144,6 @@ public class ClassesController {
 		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 
 		// 구독한 목록 호출
-		System.out.println("회원 번호 : " + memberDto.getMember_no());
 		List<MCIDto> list = classesDao.mySub(memberDto.getMember_no());
 
 		model.addAttribute("MCIDto", list);

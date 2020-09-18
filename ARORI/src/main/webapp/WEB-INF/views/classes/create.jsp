@@ -35,13 +35,6 @@
 	    <textarea id="c_info" class="form-control" name="c_info"></textarea>
 	        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
 	  </div>
-	  <div class="form-group form-check">
-	    <label class="form-check-label" for="c_public">Public Check</label>
-						<select  class="form-control" name="c_public" id="c_public">
-							<option value="1">공개</option>
-							<option value="0" >비공개</option>
-						</select>
-	  </div>
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 	</div>

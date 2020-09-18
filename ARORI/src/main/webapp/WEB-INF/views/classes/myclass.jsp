@@ -106,9 +106,7 @@
 	</div>
 	<div class="col-4 d-flex justify-content-center">
 		<c:if test="${userinfo.member_no eq member_no }">
-			<a href="${pageContext.request.contextPath}/classes/create" class="mr-lg-5">
-				<button class="top-btn mr-lg-5" style="font-size:14px">클래스 만들기</button>
-			</a>
+				<button class="top-btn mr-lg-5 createClass" style="font-size:14px">클래스 만들기</button>
 		</c:if>
 	</div>
 	<div class="col-4 w-100 d-flex justify-content-end">
@@ -202,8 +200,13 @@
 
 <script>
 	$(function() {
+		$("#createClass").modal("hide")// 클래스 생성 모달 숨김
 		$("#classEdit").modal("hide") // 클래스 수정 모달 숨김
 		$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
+
+		$(".createClass").click(function(){
+			$("#createClass").modal("show")// 클래스 생성 모달 띄우기
+		})
 		
 		$(".editClass").click(
 				function() {
@@ -214,8 +217,8 @@
 					var c_public = $(this).parents(".card-body").children(".card-public").text()
 
 					$("input[name=c_no]").val(c_no)
-					$("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
-					$("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기
+					$(".edit-title").val(c_title) // 모달에 타이틀 데이터 던지기
+					$(".edit-info").val(c_info) // 모달에 인포 데이터 던지기
 
 				})
 		// 수정하기 버튼을 누르면 수정이 되도록 한다!
@@ -264,8 +267,42 @@
 </script>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
 
+<!-- 클래스 생성 모달 -->
+<div class="modal fade" id="createClass" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 생성</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+					<form action="${pageContext.request.contextPath }/classes/create" method="post">
+					<div class="modal-body">
+					  <div class="form-group">
+					  <input type="hidden" name="member_no" value="${userinfo.member_no }">
+					    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
+					    <input type="text" class="form-control" id="c_title"  name="c_title">
+					    <small id="emailHelp" class="form-text text-muted">클래스 이름은 20자 이내로 작성해주세요.</small>
+					  </div>
+					  <div class="form-group">
+					    <label for="c_info" class="h5 font-weight-bold">Class Info</label>
+					    <textarea id="c_info" class="form-control" name="c_info"></textarea>
+					        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
+					  </div>
+				</div>
+					<div class="modal-footer">
+						 <button type="submit" class="btn btn-warning btn-lg font-weight-bold">생성하기</button>
+						<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
+					</div>
+				</form>
+			</div>
+		</div>
+</div>
+
 <!-- 이미지 수정 모달 -->
-<div class="modal" id="imgEdit" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="imgEdit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -282,16 +319,15 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">창 닫기</button>
-					<button type="button" class="btn btn-primary" id="goimgEdit">수정하기</button>
+					<button type="button" class="btn btn-warning btn-lg font-weight-bold" id="goimgEdit">수정하기</button>
+					<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
 				</div>
 			</div>
 		</div>
 </div>
 	
 <!-- 클래스 수정 모달 -->
-<div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="classEdit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -303,29 +339,23 @@
 				</div>
 				<div class="modal-body">
 					<form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
-						<input type="hidden" name="c_no"> <input type="hidden" name="member_no" value="${userinfo.member_no }"> 
-						<div>
-							<label for="c_title">Class Title :</label>
-							<input type="text" name="c_title" class="modal-content">
-						</div>
-						<div>
-							<label for="c_info">Class Info :</label>
-							<input type="text" name="c_info" class="modal-content">
-						</div>
-						<div>
-							<label for="c_public">Public Check :</label>
-							<select	name="c_public" class="select">
-								<option value=1 >공개</option>
-								<option value=0>비공개</option>
-							</select>
-						</div>
-					
+						<input type="hidden" name="c_no">
+						<input type="hidden" name="member_no" value="${userinfo.member_no }"> 
+						<div class="form-group">
+						    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
+						    <input type="text" class="form-control edit-title" id="c_title"  name="c_title">
+						    <small id="emailHelp" class="form-text text-muted">클래스 이름은 20자 이내로 작성해주세요.</small>
+						  </div>
+						  <div class="form-group">
+						    <label for="c_info" class="h5 font-weight-bold">Class Info</label>
+						    <textarea id="c_info" class="form-control edit-info" name="c_info"></textarea>
+						        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
+						  </div>			
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">창 닫기</button>
-					<button type="button" class="btn btn-primary" id="goEdit">수정하기</button>
+					<button type="button" class="btn btn-warning btn-lg font-weight-bold" id="goEdit">수정하기</button>
+					<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
 				</div>
 			</div>
 		</div>
