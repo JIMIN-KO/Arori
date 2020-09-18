@@ -34,7 +34,7 @@
 	}
 	 #keyword {
 		margin-top: 10px;
-		width: 150px;
+		width: 200px;
 		height: 35px;
 		font-size: 15px;
 		color: #999;
