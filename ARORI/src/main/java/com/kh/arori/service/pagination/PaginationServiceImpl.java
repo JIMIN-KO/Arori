@@ -42,11 +42,20 @@ public class PaginationServiceImpl implements PaginationService {
 
 				// startBlock ~ finishBlock 만큼 반복 후 배열 객체화
 				List<Integer> block = new ArrayList<Integer>();
-
+				System.out.println(startBlock);
+				System.out.println(finishBlock);
 				for (int i = startBlock; i <= finishBlock; i++) {
 					block.add(i);
 				}
 				return block;
+	}
+
+	// 게시글 번호
+	@Override
+	public int no(int pageNo , int thisCount) {
+		int count = thisCount;
+		int no = count - ((10 * pageNo) - 10);
+		return no;
 	}
 	
 }

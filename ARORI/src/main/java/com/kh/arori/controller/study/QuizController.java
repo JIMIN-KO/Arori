@@ -1,6 +1,7 @@
 package com.kh.arori.controller.study;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QuizDto;
 import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.service.study.MyAnswerService;
 import com.kh.arori.service.study.QuizService;
 
@@ -40,18 +43,36 @@ public class QuizController {
 
 	@Autowired
 	private QuestionDao questionDao;
+	
+	@Autowired
+	private PaginationService paginationService;
 
 	// 퀴즈 메인
-	@GetMapping("/classes/quiz/{c_no}")
-	public String quizmain(@PathVariable int c_no, Model model) {
+	@GetMapping("/classes/quiz/{c_no}/{pageNo}")
+	public String quizmain(@PathVariable int c_no, @PathVariable int pageNo, Model model) {
 		// 해당 클래스 조회
 		ClassesDto classesDto = classesDao.get(c_no);
 		model.addAttribute("classesDto", classesDto);
 
+		int count = quizDao.getSize(c_no);
+		int no = paginationService.no(pageNo, count);
+		model.addAttribute("no", no);
+
 		// 퀴즈목록
-		List<QuizDto> list = quizDao.getList(c_no);
+		List<QuizDto> list = quizService.getQuiz(c_no, pageNo);
 		model.addAttribute("quizDto", list);
+
+		// 퀴즈 페이지네이션 블록
+		List<Integer> block = quizService.getQuizBlock(c_no, pageNo);
+		model.addAttribute("block", block);
+
+		// 페이지 시작점
+		Map<String, Integer> pagination = paginationService.pagination("c_no", c_no, pageNo);
+		model.addAttribute("start", pagination.get("start"));
+	
+		model.addAttribute("pageNo", pageNo);
 		return "quiz/quiz_main";
+		
 	}
 
 	// 퀴즈 생성 페이지
@@ -90,6 +111,11 @@ public class QuizController {
 		// 퀴즈 조회
 		quizDto = quizDao.get(quizDto);
 		model.addAttribute("quizDto", quizDto);
+		
+		// 퀘스쳔 존재 조회
+		List<AllQuestionDto> list = questionDao.getQuestion(q_no);
+		model.addAttribute("questionSize", list.size());
+		
 		return "quiz/quiz_detail";
 	}
 

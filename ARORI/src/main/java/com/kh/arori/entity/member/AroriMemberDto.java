@@ -1,7 +1,5 @@
 package com.kh.arori.entity.member;
 
-import com.kh.arori.entity.member.PasswordQDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

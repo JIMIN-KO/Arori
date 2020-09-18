@@ -93,7 +93,14 @@
 					$('#loginFail').modal('show') // 로그인 실패 시 모달 띄우기 
 				} else {
 					// console.log("로그인 성공!")
-					window.location.href = "member/myPage";
+					console.log(resp.data)
+					if(resp.data.member_auth === '1') {
+						window.location.href = "admin/main";
+					} else {
+						window.location.href = "member/myPage";
+					}
+					
+					
 				}
 			})
 		})

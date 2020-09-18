@@ -15,7 +15,7 @@ public interface QuizDao {
 	public void createQuiz(QuizDto quizDto);
 
 	// 퀴즈 목록
-	public List<QuizDto> getList(int c_no);
+	public List<QuizDto> getList(Map<String, Integer> pagination);
 
 	// 퀴즈 단일 조회
 	public QuizDto get(QuizDto quizDto);
@@ -52,4 +52,7 @@ public interface QuizDao {
 	
 	// My Quiz > 내가 푼 퀴즈에 대한 사람들의 총합 + 푼 사람 갯수 
 	public int getThisQuizSum(int q_no);
+	
+	// 클래스의 퀴즈 개수
+	public int getSize(int c_no);
 }
