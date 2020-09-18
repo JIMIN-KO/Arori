@@ -5,18 +5,35 @@
 <mapper namespace="adminClasses">
 
 	<!-- QNA 관리자 목록 -->
-	<select id="adminQnaList" resultType="qnaDto">
-		SELECT * FROM qna ORDER BY qna_no DESC
+	<select id="adminQnaList" resultType="qnaMemberDto">
+		SELECT a.*, b.member_nick FROM QNA a INNER JOIN MEMBER b ON a.member_no = b.member_no ORDER BY QNA_NO DESC
 	</select>
 	
 	<!-- QNA 관리자 목록 페이지네이션 -->
 	<select id="getP" resultType="qnaDto" parameterType="map">
-	SELECT 
-		a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
-	FROM
-		(SELECT ROWNUM rn, q.* FROM qna q ORDER BY qna_no ASC) a 
-	WHERE rn BETWEEN ${start}  AND ${finish};
+		SELECT 
+			a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
+		FROM
+			(SELECT ROWNUM rn, q.* FROM qna q ORDER BY qna_no ASC) a 
+		WHERE rn BETWEEN ${start}  AND ${finish};
 	</select>
+	
+	<!-- QNA 게시글 c_no + qna_no 단일 조회 -->
+	<select id="getCQ" resultType="qnaDto" parameterType="qnaDto">
+		SELECT * FROM QNA WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
+	</select>
+	
+	<!-- QNA 관리자 수정 -->
+	<update id="editAdmin" parameterType="qnaDto">
+		UPDATE QNA SET 
+		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}
+		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</update>
+	
+	<!-- QNA 게시글 관리자 삭제 -->
+	<delete id="deleteAdmin" parameterType="qnaDto">
+		DELETE QNA WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</delete>
 
 
 </mapper>

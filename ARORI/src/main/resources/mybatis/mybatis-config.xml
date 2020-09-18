@@ -107,5 +107,8 @@
 <!-- 		<typeAlias type="com.kh.arori.entity.member.IncomeVO" -->
 <!-- 			alias="incomeVO" /> -->
 
+		<typeAlias type="com.kh.arori.entity.study.QnaMemberDto"
+			alias="qnaMemberDto"/>
+
 	</typeAliases>
 </configuration>
