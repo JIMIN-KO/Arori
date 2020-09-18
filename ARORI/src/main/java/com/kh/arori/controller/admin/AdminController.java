@@ -251,7 +251,7 @@ public class AdminController {
 
 		adminService.delete(memberDto);
 
-		return "admin/delete";
+		return "/delete";
 	}
 
 }

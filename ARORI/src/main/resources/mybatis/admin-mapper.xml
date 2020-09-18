@@ -6,7 +6,7 @@
 
 	<!-- 관리자가 회원아이디를 통해 회원을 삭제시킨다. -->
 
-	<delete id="delete" parameterType="memberDto">
+	<delete id="delete">
 		DELETE FROM MEMBER WHERE
 		member_id=#{member_id}
 	</delete>

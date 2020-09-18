@@ -22,7 +22,7 @@
 	</select>
 
 	<!-- 신고글 삭제 -->
-	<delete id="delete" parameterType="reportDto">
+	<delete id="delete">
 		DELETE FROM REPORT WHERE
 		report_no=#{report_no}
 	</delete>

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.member.MemberService;
 
@@ -24,6 +26,9 @@ public class NonMemberAjaxController {
 
 	@Autowired
 	private MemberDao memberDao;
+
+	@Autowired
+	private AdminDao adminDao;
 
 	@Autowired
 	private MemberService memberService;

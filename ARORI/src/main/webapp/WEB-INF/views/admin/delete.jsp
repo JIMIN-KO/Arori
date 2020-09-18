@@ -1,4 +1,4 @@
-<jsp:include
+<%-- <jsp:include
 	page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>
 <jsp:include
 	page="/WEB-INF/views/template/member/member_classes_nav_header.jsp"></jsp:include>
@@ -30,4 +30,4 @@
 				</tr>
 </table>
 </form>
-<jsp:include page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include> --%>

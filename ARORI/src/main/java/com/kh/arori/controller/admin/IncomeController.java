@@ -21,6 +21,8 @@ import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.service.admin.AdminService;
 
+
+//차트 생성 
 @Controller
 @RequestMapping("/admin")
 public class IncomeController {
