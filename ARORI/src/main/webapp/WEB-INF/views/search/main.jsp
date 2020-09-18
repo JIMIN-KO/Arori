@@ -103,6 +103,19 @@
 	text-align:center;
 	}
 	
+	/* 수정 버튼 */
+	.editClass {
+	width: 120px;
+    left: 40px;
+    bottom: 15px;
+	}
+	
+	/* 삭제버튼 */
+	.delete {
+	width: 120px;
+    bottom: 15px;
+	}
+	
 </style>
 <div class="row content-top mt-5 h-100">
 	<div class="col-12 overflow-auto">
@@ -163,7 +176,7 @@
 											<a class="btn btn-warning btn-sm btn-block delete" style="font-size:14px">DELETE</a>
 										</div>
 									</div>
-  									<form method="post" class="d-flex justify-content-center mb-3">
+  									<form method="post" class="d-flex justify-content-center">
 										<span class="card-btn">
 											<input type="hidden" name="c_no" class="subC_no">
 											<input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px">	
@@ -412,7 +425,7 @@
 						<input type="text" name="c_title" class="modal-content">
 					</div>
 					<div style="margin-top:10px;">
-						<label for="c_info">Class Info</label>
+						<label for="c_info">Class Information</label>
 						<input type="text" name="c_info" class="modal-content">
 					</div>
 				

@@ -294,7 +294,7 @@ $(function() {
 						<input type="text" name="c_title" class="modal-content">
 					</div>
 					<div style="margin-top:10px;">
-						<label for="c_info">Class Info </label>
+						<label for="c_info">Class Information </label>
 						<input type="text" name="c_info" class="modal-content">
 					</div>
 				
