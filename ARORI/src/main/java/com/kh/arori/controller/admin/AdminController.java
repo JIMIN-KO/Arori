@@ -246,7 +246,7 @@ public class AdminController {
 	}
 
 	// 회원탈퇴 시키기
-	@GetMapping("/delete")
+	@PostMapping("/delete")
 	public String memberDelete(@ModelAttribute MemberDto memberDto) {
 
 		adminService.delete(memberDto);
