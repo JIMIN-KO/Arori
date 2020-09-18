@@ -32,15 +32,8 @@
 						<div id="viewer" class="mb-5"></div>
 						<input type="hidden" value="${quizDto.q_content }" id="q_content">
              				<div class="form-row mt-5">
-								<div class="form-group col-6">
-									<div class="input-group input-group-lg">
-										<div class="input-group-prepend">
-											<span class="input-group-text" id="inputGroup-sizing-lg">Score Open</span>
-										</div>
-										<input type="text" class="form-control" value="${quizDto.q_score_open }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
-									</div>
-								</div>
-								<div class="form-group col-6">
+             				<!-- Runtime / Opening / Closing -->
+								<div class="form-group col-4">
 									<div class="input-group input-group-lg">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-lg">Time</span>
@@ -48,10 +41,7 @@
 										<input type="text" class="form-control" value="${quizDto.q_runtime } 분" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
 									</div>
 								</div>
-							</div>
-							<!-- Opening / Closing -->
-							<div class="form-row mb-3">
-								<div class="form-group col-6">
+								<div class="form-group col-4">
 									<div class="input-group input-group-lg">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-lg">Opening</span>
@@ -59,7 +49,7 @@
 										<input type="text" class="form-control" value="${quizDto.q_open }" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" readonly="readonly">
 									</div>
 								</div>
-								<div class="form-group col-6">
+								<div class="form-group col-4">
 									<div class="input-group input-group-lg">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="inputGroup-sizing-lg">Closing</span>
@@ -69,12 +59,32 @@
 								</div>
 							</div>
 						<div class="row mt-5 d-flex justify-content-center">
-							<a href="${pageContext.request.contextPath }/classes/quiz/play/${quizDto.q_no}"><button class="btn btn-lg btn-warning font-weight-bold mt-5">퀴즈 풀기</button></a>
-							<button class="btn btn-lg btn-primary font-weight-bold mt-5" onclick="javascript=history.back()">돌아가기</button>
+							<button class="btn btn-lg btn-warning font-weight-bold mt-5 playBtn">퀴즈 풀기</button>
+							<a href="${pageContext.request.contextPath }/classes/quiz/${quizDto.c_no}/1" class="btn btn-lg btn-primary font-weight-bold mt-5" >돌아가기</a>
 						</div>
 					</div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
+$(function(){
+	// 파라미터 "sorry" 가 들어오면 현재 퀴즈 오픈 기간이 아님.
+	var sorry = location.search
+	console.log(sorry)
+	if(sorry === '?sorry') {
+			alert("현재 퀴즈 오픈 기간이 아닙니다.")
+		}
+})
+
+
+// 퀴즈 풀기
+$(".playBtn").click(function(){
+	var questionSize = ${questionSize}
+
+	if(questionSize > 0) {
+		location.href="${pageContext.request.contextPath }/classes/quiz/play/${quizDto.q_no}"
+	} else {
+		alert("현재 퀴즈를 준비 중입니다.")
+	}
+})
 
 //Toast Plugin 불러오기 
 const Viewer = toastui.Editor;

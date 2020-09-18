@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 import com.kh.arori.entity.study.MyAnswerDto;
+import com.kh.arori.entity.study.MyQuizDto;
 import com.kh.arori.entity.study.QuizDto;
 import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.repository.member.MemberDao;
@@ -26,6 +26,7 @@ import com.kh.arori.repository.study.MyAnswerDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.member.MemberService;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.vo.MQIScoreVo;
 import com.kh.arori.vo.ThisQuizVo;
 
@@ -47,6 +48,9 @@ public class MemberController {
 
 	@Autowired
 	private MyAnswerDao myAnswerDao;
+	
+	@Autowired
+	private PaginationService paginationService;
 
 	// 로그아웃
 	@RequestMapping("/logout")
@@ -101,11 +105,10 @@ public class MemberController {
 			// 아로리 회원 정보 단일 조회 후 모델로 jsp 로 보내기
 			AroriMemberDto aroriMemberDto = memberDao.getArori(userinfo.getMember_id());
 			model.addAttribute("aroriMemberDto", aroriMemberDto);
-			return "member/myPage_arori";
-		} else {
-			// 아닐 경우 myPage_social.jsp 띄우기
-			return "member/myPage_social";
+
 		}
+		// 아닐 경우 myPage_social.jsp 띄우기
+		return "member/myPage";
 	}
 
 	// 회원 목록 리스트 (윤아)
@@ -184,8 +187,15 @@ public class MemberController {
 		List<MQIScoreVo> list = memberService.respectQuizAvg(userinfo.getMember_no(), pageNo);
 		List<Integer> block = memberService.respectQPBlock(userinfo.getMember_no(), pageNo);
 
+		MyQuizDto myQuizDto = MyQuizDto.builder().member_no(userinfo.getMember_no()).build();
+		List<MyQuizDto> quizList = quizDao.getAMQ(myQuizDto);
+		int count = quizList.size();
+		int no = paginationService.no(pageNo, count);
+		
 		model.addAttribute("quizDto", list);
 		model.addAttribute("block", block);
+		model.addAttribute("no", no);
+		model.addAttribute("pageNo", pageNo);
 
 		return "member/myQuiz";
 	}

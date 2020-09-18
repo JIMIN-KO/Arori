@@ -20,8 +20,7 @@ public class MQIScoreVo extends MqInfoDto {
 		this.setQ_title(info.getQ_title());
 		this.setQ_open(info.getQ_open());
 		this.setQ_close(info.getQ_close());
-		this.setQ_runtime(info.getQ_runtime());
-		this.setQ_score_open(info.getQ_score_open());
+		this.setQ_runtime(info.getQ_runtime());;
 		this.setQ_when(info.getQ_when());
 		this.setQ_content(info.getQ_content());
 		this.setQ_state(info.getQ_state());
