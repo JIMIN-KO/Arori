@@ -35,4 +35,7 @@ public interface AdminService {
 	
 	//멤버 총 인원
 	public int memberCount(MemberDto memberDto);
+	
+	// 오늘의 카운트
+	public int[] todayCount();
 }

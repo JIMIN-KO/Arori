@@ -2,12 +2,12 @@ package com.kh.arori.repository.admin;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
-import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.entity.study.ClassesDto;
 
 
@@ -44,4 +44,6 @@ public interface AdminDao {
 	//아로리 총 멤버
 	public List<AllMemberDto>allList();
 	
+	// 생성일 불러오기
+	public int todayCount(Map<String, String> map);
 }

@@ -1,6 +1,7 @@
 package com.kh.arori.repository.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,12 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<AllMemberDto> allList() {
 		return sqlSession.selectList("admin.allList");
+	}
+
+	@Override
+	public int todayCount(Map<String, String> map) {
+		
+		return sqlSession.selectOne("todayCount", map);
 	}
 
 }
