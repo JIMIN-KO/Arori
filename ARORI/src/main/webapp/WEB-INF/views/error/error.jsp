@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
 
 <Style>
 	* {
@@ -19,8 +19,6 @@
 	background-color {
 		#4A70F6;	
 	}
-	
-
 
 	/* 로고 */
 	.logo {
@@ -44,13 +42,20 @@
 	
 	/*홈으로 돌아가기*/
 	.gohome {
-		color : white;
+	text-align:center;
+	}
+	a {
+		color : rgb(35, 85, 173);
 		font-size: 30px;
 	    text-align: center;
-	    margin-top:65px;
-	    text-decoration: none;
+	    margin-top:80px;
+	    text-decoration:none;
 	}
-	a:link { color: white; text-decoration: none;}
+	
+	a:hover {
+		text-decoration:none;
+	}
+
 
 </style>
 
@@ -65,8 +70,8 @@
 	 </div>
 
 	 <div class="gohome">
-		 <a href="${pageContext.request.contextPath }">
-		 	GO BACK HOME		 
+		 <a href="#" onClick="history.back()">
+		 	이전 페이지로 돌아가기		 
 		 </a>
 	 </div>
 </body>
