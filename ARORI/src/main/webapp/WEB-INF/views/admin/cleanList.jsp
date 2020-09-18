@@ -24,8 +24,6 @@
 						<th scope="col">번호</th>
 						<th scope="col">아이디</th>
 						<th scope="col">닉네임</th>
-						<th scope="col">이메일</th>
-						<th scope="col">H.P</th>
 						<th scope="col">회원구분</th>
 						<th scope="col">회원상태</th>
 						<th scope="col">DETAIL</th>
@@ -38,8 +36,6 @@
 								<tr>
 									<th scope="row">${allMemberDto.member_no}</th>
 									<td>${allMemberDto.member_id}</td>
-									<td>${allMemberDto.member_nick}</td>
-									<td>${allMemberDto.member_email}</td>
 									<td>${allMemberDto.member_phone}</td>
 									<td>${allMemberDto.member_state}</td>
 									<td>${allMemberDto.report_state}</td>

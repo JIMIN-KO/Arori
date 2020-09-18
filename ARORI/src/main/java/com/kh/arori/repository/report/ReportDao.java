@@ -17,9 +17,6 @@ public interface ReportDao {
 	//신고글 보기
 	public ReportDto content(int report_no);
 	
-	//신고글 삭제
-	public void delete(ReportDto reportDto);
-	
 	// 페이지 네이션 
 	public List<ReportDto> page(Map<String, String> page);
 
@@ -31,6 +28,9 @@ public interface ReportDao {
 	
 	//블랙리스트
 	public List<ReportDto>blacklist();
+	
+	//신고글 삭제
+	public void delete(int report_no);
 	
 	
 }

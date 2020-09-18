@@ -6,9 +6,7 @@
 	<div class="col-8 offset-2">
 		<h1>신고 접수 리스트</h1>
 		<table class="table table-hover">
-
-			<th>총 신고된 접수 내역은 ${reportCount} 건 입니다.
-			<th>
+			<span>총 신고된 접수 내역은 ${reportCount} 건 입니다.</span>
 			<tr>
 				<th scope="col">번호</th>
 				<th scope="col">신고 접수자</th>
@@ -16,7 +14,6 @@
 				<th scope="col">신고 내용</th>
 				<th scope="col">신고 접수된 회원</th>
 				<th scope="col">신고한 날짜</th>
-
 			</tr>
 
 
@@ -39,21 +36,21 @@
 				</tr>
 			</c:forEach>
 			<form action="search" method="post">
-				<tr>
-					<th scope="col"></th>
-					<td><select name="type" class="custom-select">
-							<option value="report_member">신고자</option>
-							<option value="report_type">신고유형</option>
-							<option value="report_crimi">신고회원</option>
-					</select></td>
-					<td><input type="text" class="form-control" name="keyword"
-						placeholder="검색어"></td>
-					<td><input type="submit"
-						class="btn btn-primary btn-lg font-weight-bold" value="찾기"></td>
-				</tr>
+				<table>
+					<tr>
+						<th scope="col"></th>
+						<td><select name="type" class="custom-select">
+								<option value="report_member">신고자</option>
+								<option value="report_type">신고유형</option>
+								<option value="report_crimi">신고회원</option>
+						</select></td>
+						<td><input type="text" class="form-control" name="keyword"
+							placeholder="검색어"></td>
+						<td><input type="submit"
+							class="btn btn-primary btn-lg font-weight-bold" value="찾기"></td>
+					</tr>
+				</table>
 			</form>
-
-
 		</table>
 	</div>
 </div>

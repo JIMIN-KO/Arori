@@ -12,7 +12,7 @@
 					<tr>
 						<th scope="col">REPORT_MEMBER</th>
 						<td><input type="text" name="report_member"
-							class="form-control" placeholder="아이디를 입력해주세요"></td>
+							class="form-control" value="${memberDto.member_id}" disabled="disabled"></td>
 					</tr>
 					<tr>
 						<th scope="col">REPORT TYPE</th>
@@ -41,9 +41,7 @@
 					<tr>
 						<td><input type="submit"
 							class="btn btn-primary btn-lg font-weight-bold" value="신고접수"
-							id="ok"> <a href="${pageContext.request.contextPath}"><input
-								type="submit" class="btn btn-primary btn-lg font-weight-bold"
-								value="돌아가기" id="cancel"></a></td>
+							id="ok">
 					</tr>
 				</tbody>
 			</table>
@@ -54,11 +52,6 @@
 <script>
 	$("#report").submit(function(event) {
 
-		if ($('.form-control').val() == "") {
-			alert("아이디를 입력해주세요");
-			$('[name=report_member]').focus();
-			return false;
-		}
 		if ($('[name=report_type]').val() == "") {
 			alert("신고사유를 선택해주세요.");
 			$('[name=report_type]').focus();

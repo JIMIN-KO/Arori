@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.ReportDto;
+import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.report.ReportDao;
 import com.kh.arori.service.report.ReportService;
 
@@ -36,35 +38,46 @@ public class ReportController {
 	@Autowired
 	private SqlSession sqlSession;
 
+	@Autowired
+	private MemberDao memberDao;
+
 // 신고글 작성하기
 	@GetMapping("/write")
-	public String write() {
+	public String write(Model model, HttpSession session) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		MemberDto member = memberDao.get(userinfo.getMember_id());
+		MemberDto memberno = memberDao.getNo(userinfo.getMember_no());
+		model.addAttribute("memberDto", member);
+		model.addAttribute("memberDto", memberno);
+		System.out.println(userinfo.getMember_id());
+
 		return "report/write";
 
 	}
+
 	@PostMapping("/write")
-	public String write(@ModelAttribute ReportDto reportDto, HttpSession session) {
-		session.getAttribute("userinfo");
+	public String write(@ModelAttribute ReportDto reportDto) {
 		reportService.write(reportDto);
-		return "redirect:/";
+		return "member/myPage";
 	}
 
 // 신고글 리스트
 	@GetMapping("/list")
 	public String list(Model model, @ModelAttribute ReportDto reportDto) {
-		model.addAttribute("list", reportService.list());
+		List<ReportDto> list = reportDao.list();
+		model.addAttribute("list", list);
 		int reportCount = reportDao.reportCount(reportDto);
 		model.addAttribute("reportCount", reportCount);
 		return "report/list";
 	}
 
-	//페이지네이션
-	@GetMapping("/list_data")
-	@ResponseBody
-	public List<ReportDto> listData(Model model) {
-		List<ReportDto> list = sqlSession.selectList("report.list");
-		return list;
-	}
+	// 페이지네이션
+	/*
+	 * @GetMapping("/list_data")
+	 * 
+	 * @ResponseBody public List<ReportDto> listData(Model model) { List<ReportDto>
+	 * list = sqlSession.selectList("report.list"); return list; }
+	 */
 
 	// 신고글 리스트
 	@GetMapping("/searchList")
@@ -77,7 +90,6 @@ public class ReportController {
 		return "report/searchList";
 
 	}
-	
 
 // 신고별 검색
 	@PostMapping("/search")
@@ -104,17 +116,21 @@ public class ReportController {
 
 	}
 
-	// 신고글 삭제
-	@GetMapping("/delete")
-	public String delete() {
-		return "report/delete";
+	// 신고글 단일조회
+	@PostMapping("/content/{report_no}")
+	public String content(@PathVariable(required = false) int report_no) {
+
+		return "redirect:/admin/allList";
+
 	}
 
-	@PostMapping("/delete")
-	public String delete(@ModelAttribute ReportDto reportDto) {
-		reportService.delete(reportDto);
+	// 신고글 삭제
+	@GetMapping("/delete/{report_no}")
+	public String memberDelete(@PathVariable int report_no) {
+		System.out.println();
+		reportDao.delete(report_no);
 
-		return "report/delete";
+		return "redirect:/report/list";
 	}
 
 }

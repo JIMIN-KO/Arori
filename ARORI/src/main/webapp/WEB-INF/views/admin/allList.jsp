@@ -30,8 +30,6 @@
 						<th scope="col">아이디</th>
 						<th scrope="col">권한</th>
 						<th scope="col">닉네임</th>
-						<th scope="col">이메일</th>
-						<th scope="col">H.P</th>
 						<th scope="col">회원구분</th>
 						<th scope="col">회원상태</th>
 						<th scope="col">DETAIL</th>
@@ -52,8 +50,6 @@
 						일반회원				
 						</c:if></td>
 							<td>${allMemberDto.member_nick}</td>
-							<td>${allMemberDto.member_email}</td>
-							<td>${allMemberDto.member_phone}</td>
 							<td>${allMemberDto.member_state}</td>
 							<td>${allMemberDto.report_state}</td>
 
@@ -67,8 +63,6 @@
 					</c:forEach>
 
 
-
-					</td>
 					<form action="search" method="post">
 						<tr>
 							<td><select name="type" class="custom-select">

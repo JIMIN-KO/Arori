@@ -27,29 +27,29 @@ public class ReportDaoImpl implements ReportDao {
 	public List<ReportDto> list() {
 		return sqlSession.selectList("report.list");
 	}
-
+	//신고글 상세조회
 	@Override
 	public ReportDto content(int report_no) {
 
 		return sqlSession.selectOne("report.content", report_no);
 	}
-
+	//신고글 삭제
 	@Override
-	public void delete(ReportDto reportDto) {
-		sqlSession.delete("report.delete", reportDto);
+	public void delete(int report_no) {
+		sqlSession.delete("report.delete", report_no);
 
 	}
-
+	//신고글 페이지네이션
 	@Override
 	public List<ReportDto> page(Map<String, String> pagenation) {
 		return sqlSession.selectList("report.page", pagenation);
 	}
-
+	//신고글 개수
 	@Override
 	public int count(int report_no) {
 		return sqlSession.selectOne("report.count", report_no);
 	}
-
+	//신고 카운트
 	@Override
 	public int reportCount(ReportDto reportDto) {
 		int reportCount = 0;
@@ -58,7 +58,7 @@ public class ReportDaoImpl implements ReportDao {
 		return reportCount;
 	}
 
-	//블랙리스트
+	// 블랙리스트
 	@Override
 	public List<ReportDto> blacklist() {
 		return sqlSession.selectList("report.blacklist");

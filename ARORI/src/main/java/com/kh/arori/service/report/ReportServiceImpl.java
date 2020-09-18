@@ -35,12 +35,6 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public void delete(ReportDto reportDto) {
-		reportDao.delete(reportDto);
-
-	}
-
-	@Override
 	public List<ReportDto> page(String report_no, int pageNo) {
 		int pageSize = 10; // 한 페이지 넘버 당 게시글 개수 -> 10개
 		int finish = pageNo * pageSize; // 해당 페이지 번호의 마지막 번호

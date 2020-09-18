@@ -17,9 +17,6 @@ public interface ReportService {
 	//신고글 조회
 	public ReportDto content(int report_no);
 	
-	//신고글 삭제
-	public void delete(ReportDto reportDto);
-	
 	// 페이지 네이션 
 	public List<ReportDto> page(String report_no, int pageNo);
 

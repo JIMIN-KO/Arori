@@ -102,7 +102,6 @@ function del(member_no) {
 					</tr>
 				</tbody>
 			</table>
-	
 	</div>
 </div>
 <jsp:include
