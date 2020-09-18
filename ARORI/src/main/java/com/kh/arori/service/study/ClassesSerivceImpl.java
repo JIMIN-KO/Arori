@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.entity.study.SubscribeDto;
@@ -17,6 +18,7 @@ public class ClassesSerivceImpl implements ClassesService {
 
 	@Autowired
 	private ClassesDao classesDao;
+
 	
 	// 클래스 생성(classDao에 클래스 번호 전달)
 	@Override
@@ -67,7 +69,6 @@ public class ClassesSerivceImpl implements ClassesService {
 		// 갱신된 classesDto 단일조회해서 classesDto 넘기기
 		classesDto = classesDao.get(subDto.getC_no());
 	}
-
 
 	
 }

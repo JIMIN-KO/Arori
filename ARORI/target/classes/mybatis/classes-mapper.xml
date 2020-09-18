@@ -10,7 +10,7 @@
 	</select>
 	<!-- 클래스 생성 -->
 	<insert id="createClasses" parameterType="classesDto">
-		INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_public}, #{c_subscribe}, SYSDATE, #{c_info})
+		INSERT INTO classes VALUES(#{c_no}, #{member_no}, #{c_title}, #{c_subscribe}, SYSDATE, #{c_info})
 	</insert>
 	<!-- 단일 조회 -->
 	<select id="get" parameterType="int" resultType="classesDto">
@@ -28,7 +28,7 @@
 	
 	<!-- 정보 수정 -->
 	<update id="edit" parameterType="classesDto">
-		UPDATE classes SET c_title=#{c_title}, c_info=#{c_info}, c_public=#{c_public} WHERE c_no=#{c_no}
+		UPDATE classes SET c_title=#{c_title}, c_info=#{c_info} WHERE c_no=#{c_no}
 	</update>
 	<!-- 클래스 삭제 -->
 	<delete id="delete" parameterType="int">
@@ -79,6 +79,10 @@
 	<!-- member_no회원이 구독한 클래스 정보(얘 사용할거임!) -->
 	<select id="getSub" parameterType="memberDto" resultType="mciDto">
 		SELECT mci.* FROM MCI mci INNER JOIN SUBSCRIBE sub ON mci.C_NO = sub.C_NO WHERE sub.MEMBER_NO = #{member_no}
+	</select>
+	<!--나를 구독한 사람들(모달용) -->
+	<select id="subMe" parameterType="int" resultType="MemberDto">
+		SELECT m.MEMBER_NICK  FROM MEMBER m INNER JOIN SUBSCRIBE s ON m.MEMBER_NO =s.MEMBER_NO WHERE s.C_NO #{c_no}
 	</select>
 
 </mapper>

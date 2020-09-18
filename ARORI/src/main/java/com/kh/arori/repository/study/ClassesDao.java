@@ -1,5 +1,6 @@
 package com.kh.arori.repository.study;
 
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.entity.study.SubscribeDto;
@@ -59,4 +60,7 @@ public interface ClassesDao {
 
 	// 구독 목록 조회
 	List<MCIDto> mySub(int member_no);
+	
+	//  나를 구독한 목록 조회
+	List<MemberDto> subMe(int c_no);
 }
