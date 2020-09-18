@@ -51,4 +51,10 @@ public interface QnaDao {
 	// QNA  게시글 작성 중 임시 저장 게시글 전체 조회 
 	public List<QnaDto> getCT(int c_no);
 	
+	// 마이페이지 > 내가 작성한 QNA 게시글
+	public List<QnaDto> getMP(Map<String, Integer> pagination);
+	
+	// 마이페이지 >  내가 작성한 전체 QNA 게시글 카운트
+	public int countMyQna(int member_no);
+	
 }

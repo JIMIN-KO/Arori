@@ -28,7 +28,7 @@
                                     <tr class="text-center">
                                         <th scope="row">${no }</th>
 	                                    	<c:set var="no" value="${no - 1 }"></c:set>
-                                        <th>
+                                        <th class="font-weight-bold">
                                             <label for="${no }">
                                                 ${quizDto.q_title }
                                             </label>

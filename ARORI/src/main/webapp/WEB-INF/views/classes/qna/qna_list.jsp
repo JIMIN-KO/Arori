@@ -51,7 +51,7 @@
                                     <tr>
                                         <th scope="row">${no }</th>
                                         <c:set var="no" value="${no - 1 }"></c:set>
-                                        <td>
+                                        <td class="font-weight-bold">
                                             <label for="${list.qna_no}">
                                             	<!-- 답글이라면 댑스만큼 공백을 둔 후 RE:를 붙임 -->
                                                 <c:if test ="${list.super_no > 0}">

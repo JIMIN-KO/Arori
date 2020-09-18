@@ -19,10 +19,12 @@ import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 import com.kh.arori.entity.study.MyAnswerDto;
 import com.kh.arori.entity.study.MyQuizDto;
+import com.kh.arori.entity.study.QnaDto;
 import com.kh.arori.entity.study.QuizDto;
 import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.MyAnswerDao;
+import com.kh.arori.repository.study.QnaDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.member.MemberService;
@@ -48,9 +50,12 @@ public class MemberController {
 
 	@Autowired
 	private MyAnswerDao myAnswerDao;
-	
+
 	@Autowired
 	private PaginationService paginationService;
+	
+	@Autowired
+	private QnaDao qnadDao;
 
 	// 로그아웃
 	@RequestMapping("/logout")
@@ -191,7 +196,7 @@ public class MemberController {
 		List<MyQuizDto> quizList = quizDao.getAMQ(myQuizDto);
 		int count = quizList.size();
 		int no = paginationService.no(pageNo, count);
-		
+
 		model.addAttribute("quizDto", list);
 		model.addAttribute("block", block);
 		model.addAttribute("no", no);
@@ -233,4 +238,26 @@ public class MemberController {
 		return "member/myAnswer";
 	}
 
+	// 성헌) 나의 QNA 게시글 확인
+	@GetMapping("/myQna/{pageNo}")
+	public String myQna(@PathVariable int pageNo, HttpSession session, Model model) {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		
+		// 한 페이지에 출력될 게시글
+		List<QnaDto> list = memberService.getMyQna(userinfo.getMember_no(), pageNo);
+
+		// 해당 게시판의 페이지네이션 블럭
+		List<Integer> block = memberService.getQnaBlock(userinfo.getMember_no(), pageNo);
+		
+		// 게시글 번호 뿌리기
+		int count = qnadDao.countMyQna(userinfo.getMember_no());
+		int no = paginationService.no(pageNo, count);
+		
+		model.addAttribute("qnaDto", list);
+		model.addAttribute("block", block);
+		model.addAttribute("no", no);
+		model.addAttribute("pageNo", pageNo);
+		
+		return "member/myQna";
+	}
 }

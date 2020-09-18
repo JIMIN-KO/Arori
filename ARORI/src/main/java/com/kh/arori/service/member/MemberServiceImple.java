@@ -17,8 +17,10 @@ import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.MqInfoDto;
 import com.kh.arori.entity.study.MyAnswerDto;
 import com.kh.arori.entity.study.MyQuizDto;
+import com.kh.arori.entity.study.QnaDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.MyAnswerDao;
+import com.kh.arori.repository.study.QnaDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.email.EmailService;
@@ -48,6 +50,9 @@ public class MemberServiceImple implements MemberService {
 
 	@Autowired
 	private MyAnswerDao myAnswerDao;
+
+	@Autowired
+	private QnaDao qnaDao;
 
 	// 시퀀스 발급
 	@Override
@@ -371,6 +376,26 @@ public class MemberServiceImple implements MemberService {
 
 		memberDao.changeAroriPW(aroriMemberDto);
 
+	}
+
+	// 마이페이지 > 나의 큐앤에이 섹션 > 큐엔에이 페이지 네이션
+	@Override
+	public List<QnaDto> getMyQna(int member_no, int pageNo) {
+
+		Map<String, Integer> pagination = paginationService.pagination("member_no", member_no, pageNo);
+		List<QnaDto> list = qnaDao.getMP(pagination);
+
+		return list;
+	}
+
+	// 마이페이지 > 나의 큐앤에이 섹션 > 큐엔에이 페이지 블럭
+	@Override
+	public List<Integer> getQnaBlock(int member_no, int pageNo) {
+
+		int count = qnaDao.countMyQna(member_no);
+		List<Integer> block = paginationService.paginationBlock(member_no, pageNo, count);
+
+		return block;
 	}
 
 }
