@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminClasses">
+
+	<!-- QNA 관리자 목록 -->
+	<select id="adminQnaList" resultType="qnaDto">
+		SELECT * FROM qna ORDER BY qna_no DESC
+	</select>
+	
+	<!-- QNA 관리자 목록 페이지네이션 -->
+	<select id="getP" resultType="qnaDto" parameterType="map">
+	SELECT 
+		a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
+	FROM
+		(SELECT ROWNUM rn, q.* FROM qna q ORDER BY qna_no ASC) a 
+	WHERE rn BETWEEN ${start}  AND ${finish};
+	</select>
+
+
+</mapper>
