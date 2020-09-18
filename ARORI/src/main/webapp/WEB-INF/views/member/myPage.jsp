@@ -6,13 +6,21 @@
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                         <br>
                         <div class="d-flex">
-	                        <h1 class="font-weight-bold mt-4" style="flex:18;">My Info | Social</h1>
+                        <c:choose>
+									<c:when test="${userinfo.member_state eq 'ARORI' }">
+	                       				 <h1 class="font-weight-bold mt-4" style="flex:18;">My Info</h1>
+									</c:when>
+									<c:otherwise>
+	                       				 <h1 class="font-weight-bold mt-4" style="flex:18;">My Info | Social</h1>
+									</c:otherwise>
+								</c:choose>
+                        	
                         </div>
                         <hr><br>
 						<div class="card m-5">
 						  <div class="row no-gutters">
 						    <div class="col-md-4">
-						    	<c:choose>
+								<c:choose>
 									<c:when test="${memberDto.ai_no > 0}" >
 										<img src="${pageContext.request.contextPath }/imgAjax/member/download/${memberDto.ai_no}" class="card-img" alt="...">
 									</c:when>
@@ -20,7 +28,7 @@
 										<img src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="card-img" alt="...">
 									</c:otherwise>
 								</c:choose>
-						    <input type = "button"  data-target="#imgEdit" class="imgEdit" value="이미지 변경"> 
+						     <input type = "button" data-target="#imgEdit" class="imgEdit" value="이미지 변경"> 
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body pb-0">
@@ -70,7 +78,7 @@
 												      <span class="card-text font-weight-bolder" style="font-size: 3rem;">
 												      	<c:choose>
 																<c:when test="${not empty memberScore }">
-																	${memberScore.get(3) }
+																	${memberScore.get(2) }
 																</c:when>
 																<c:otherwise>
 																	0
@@ -98,7 +106,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 
-
 $(function(){
 
 	$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
@@ -114,8 +121,6 @@ $(function(){
 		$(form).submit()
 	})
 })
-
-
 
 
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -177,5 +182,4 @@ var chart2 = new Chart(ctx2, {
 				</div>
 			</div>
 		</div>
-	</div>
 

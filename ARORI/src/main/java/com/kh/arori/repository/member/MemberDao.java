@@ -97,6 +97,9 @@ public interface MemberDao {
 	
 	//  Member + Member_IMG 같이 (멤버 정보와 프로필 이미지 번호)
 	public MAIDto getMAI(int member_no);
+
+	//회원 권한 조회 
+	public MemberDto getAuth(String member_auth);
 	
 	
 }

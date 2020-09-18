@@ -102,19 +102,9 @@ public class MemberController {
 		MAIDto maiDto = memberDao.getMAI(userinfo.getMember_no());
 		model.addAttribute("memberDto", maiDto);
 
-		
-		// 만약에 userinfo 의 member_state 가 ARORI 일 경우 myPage_arori.jsp 띄우기
-		if (userinfo.getMember_state().equals("ARORI")) {
-			// 아로리 회원 정보 단일 조회 후 모델로 jsp 로 보내기
-			AroriMemberDto aroriMemberDto = memberDao.getArori(userinfo.getMember_id());
-			model.addAttribute("aroriMemberDto", aroriMemberDto);
-			return "member/myPage_arori";
-		} else {
-			// 아닐 경우 myPage_social.jsp 띄우기
-			return "member/myPage_social";
+		return "member/myPage";
 		}
-	}
-
+	
 	// 회원 목록 리스트 (윤아)
 	@GetMapping("/memberList")
 	public String memberList(Model model) {
