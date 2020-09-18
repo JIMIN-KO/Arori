@@ -80,6 +80,10 @@
 	<select id="getSub" parameterType="memberDto" resultType="mciDto">
 		SELECT mci.* FROM MCI mci INNER JOIN SUBSCRIBE sub ON mci.C_NO = sub.C_NO WHERE sub.MEMBER_NO = #{member_no}
 	</select>
+	<!--나를 구독한 사람들(모달용) -->
+	<select id="subMe" parameterType="int" resultType="MemberDto">
+		SELECT m.MEMBER_NICK  FROM MEMBER m INNER JOIN SUBSCRIBE s ON m.MEMBER_NO =s.MEMBER_NO WHERE s.C_NO #{c_no}
+	</select>
 
 </mapper>
 

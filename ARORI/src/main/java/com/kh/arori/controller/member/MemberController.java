@@ -3,6 +3,7 @@ package com.kh.arori.controller.member;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MAIDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 import com.kh.arori.entity.study.MyAnswerDto;
@@ -27,6 +31,7 @@ import com.kh.arori.repository.study.MyAnswerDao;
 import com.kh.arori.repository.study.QnaDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
+import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.member.MemberService;
 import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.vo.MQIScoreVo;
@@ -52,8 +57,10 @@ public class MemberController {
 	private MyAnswerDao myAnswerDao;
 
 	@Autowired
+	private ImgService imgService;
+
 	private PaginationService paginationService;
-	
+
 	@Autowired
 	private QnaDao qnadDao;
 
@@ -96,6 +103,11 @@ public class MemberController {
 	public String mypage(HttpSession session, Model model) {
 		// 세션에서 userinfo 정보를 받아온다
 		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo"); // 로그인한 정보를 세션 userinfo에 담는다.
+
+		// 프로필사진 수정및 등록을 위한 MAIDTO
+		// MAIDto maiDto = memberdao.getMAI(member_no)
+		MAIDto maiDto = memberDao.getMAI(userinfo.getMember_no());
+		model.addAttribute("maiDto", maiDto);
 
 		// 정보 갱신을 위한 단일 조회 > 마이 페이지에서 세션으로 정보 띄워주면 갱신 불편, 속도 느려짐 + 보안 문제
 		MemberDto member = memberDao.get(userinfo.getMember_id());
@@ -242,22 +254,36 @@ public class MemberController {
 	@GetMapping("/myQna/{pageNo}")
 	public String myQna(@PathVariable int pageNo, HttpSession session, Model model) {
 		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
-		
+
 		// 한 페이지에 출력될 게시글
 		List<QnaDto> list = memberService.getMyQna(userinfo.getMember_no(), pageNo);
 
 		// 해당 게시판의 페이지네이션 블럭
 		List<Integer> block = memberService.getQnaBlock(userinfo.getMember_no(), pageNo);
-		
+
 		// 게시글 번호 뿌리기
 		int count = qnadDao.countMyQna(userinfo.getMember_no());
 		int no = paginationService.no(pageNo, count);
-		
+
 		model.addAttribute("qnaDto", list);
 		model.addAttribute("block", block);
 		model.addAttribute("no", no);
 		model.addAttribute("pageNo", pageNo);
-		
+
 		return "member/myQna";
 	}
+
+	// 프로필 이미지 등록기능
+	@PostMapping("/img/setting")
+	public String imgCreate(MultipartHttpServletRequest file, HttpSession session, HttpServletResponse resp)
+			throws Exception {
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		// 1. 해당 클래스에 이미지가 있는지 조회
+		// 2. 이미지가 있다면 삭제
+		// 3. 새로 들어온 이미지 등록
+		imgService.removeAndInsert(userinfo.getMember_no(), NameConst.MEMBER, file);
+
+		return "redirect:/member/myPage";
+	}
+
 }

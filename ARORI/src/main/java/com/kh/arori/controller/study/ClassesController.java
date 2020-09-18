@@ -1,9 +1,11 @@
 package com.kh.arori.controller.study;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.member.MemberDto;
@@ -94,12 +97,17 @@ public class ClassesController {
 
 	// 클래스 수정 기능
 	@PostMapping("/classes/edit")
-	public String edit(@ModelAttribute ClassesDto classesDto, int member_no) {
+	public String edit(@ModelAttribute ClassesDto classesDto, int member_no, HttpSession session, 
+			RedirectAttributes redirectAttribute, HttpServletRequest request) {
 
 		classesDao.edit(classesDto);
-
-		// return "redirect:detail/" + classesDto.getC_no();
-
+		MemberDto userinfo = (MemberDto)session.getAttribute("userinfo");
+		
+		String referer = request.getHeader("Referer");
+		if(userinfo.getMember_auth()==1) {
+			
+			return "redirect:"+referer;
+		}
 		return "redirect:myclass/" + member_no;
 	}
 
@@ -130,10 +138,11 @@ public class ClassesController {
 
 	// 클래스 삭제
 	@GetMapping("/classes/delete/{c_no}")
-	public String delete(@PathVariable int c_no, HttpSession session) {
-		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+	public String delete(@PathVariable int c_no, HttpSession session, RedirectAttributes redirectAttribute, HttpServletRequest request) {
+		//MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
 		classesDao.delete(c_no);
-		return "redirect:/classes/myclass/" + userinfo.getMember_no();
+		String referer = request.getHeader("Referer");
+		return "redirect:"+referer;
 	}
 
 	// 구독 목록
@@ -162,6 +171,14 @@ public class ClassesController {
 		imgService.removeAndInsert(Integer.parseInt(c_no), NameConst.CLASSES, file);
 
 		return "redirect:/classes/myclass/" + userinfo.getMember_no();
+	}
+	
+	// 나를 구독한 사람들 목록
+	@GetMapping("classes/subMe")
+	public String subMe(@PathVariable int c_no, Model model) {
+		List<MemberDto> list = classesDao.subMe(c_no);
+		model.addAttribute("MemberDto", list);
+		return "redirect:myclass/" + c_no;
 	}
 
 }
