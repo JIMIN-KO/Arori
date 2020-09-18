@@ -60,14 +60,16 @@
 					<div class="col-sm-12 col-md-6 col-lg-3 p-0">
 						<div class="card-deck">
   							<div class="card">
-  								<c:choose>
-									<c:when test="${MCIDto.ai_no > 0}">
-										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
-									</c:when>
-									<c:otherwise>
-										<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" alt="love" class="card-img">
-									</c:otherwise>
-								</c:choose>
+  								<a href="${pageContext.request.contextPath }/classes/readme/${MCIDto.c_no}">
+	  								<c:choose>
+										<c:when test="${MCIDto.ai_no > 0}">
+											<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
+										</c:when>
+										<c:otherwise>
+											<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" alt="love" class="card-img">
+										</c:otherwise>
+									</c:choose>
+								</a>
    								<div class="card-body">
       								<span class="h4 title">${MCIDto.c_title}</span>
 									<span class="badge badge-pill badge-success subCount">${MCIDto.c_subscribe}</span>

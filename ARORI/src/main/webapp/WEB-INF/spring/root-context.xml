@@ -18,6 +18,8 @@
 		Filter
 	 -->
 	<bean id="loginFilter" class="com.kh.arori.filter.LoginFilter"></bean>
+	<bean id="adminFilter" class="com.kh.arori.filter.AdminFilter"></bean>
+	
 	<!-- 
 		Properties 를 불러오는 설정
 		${이름}

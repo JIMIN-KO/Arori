@@ -3,6 +3,7 @@ package com.kh.arori.controller.member;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+
+import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MAIDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 import com.kh.arori.entity.study.MyAnswerDto;
@@ -25,6 +31,7 @@ import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.MyAnswerDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
+import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.member.MemberService;
 import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.vo.MQIScoreVo;
@@ -50,6 +57,8 @@ public class MemberController {
 	private MyAnswerDao myAnswerDao;
 	
 	@Autowired
+	private ImgService imgService;
+	
 	private PaginationService paginationService;
 
 	// 로그아웃
@@ -92,6 +101,12 @@ public class MemberController {
 		// 세션에서 userinfo 정보를 받아온다
 		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo"); // 로그인한 정보를 세션 userinfo에 담는다.
 
+		
+		// 프로필사진 수정및 등록을 위한 MAIDTO
+		// MAIDto maiDto = memberdao.getMAI(member_no)
+			MAIDto maiDto = memberDao.getMAI(userinfo.getMember_no());
+			model.addAttribute("maiDto", maiDto);
+		
 		// 정보 갱신을 위한 단일 조회 > 마이 페이지에서 세션으로 정보 띄워주면 갱신 불편, 속도 느려짐 + 보안 문제
 		MemberDto member = memberDao.get(userinfo.getMember_id());
 		model.addAttribute("memberDto", member);
@@ -110,6 +125,7 @@ public class MemberController {
 		// 아닐 경우 myPage_social.jsp 띄우기
 		return "member/myPage";
 	}
+	
 
 	// 회원 목록 리스트 (윤아)
 	@GetMapping("/memberList")
@@ -233,4 +249,21 @@ public class MemberController {
 		return "member/myAnswer";
 	}
 
+	//프로필 이미지 등록기능 
+		@PostMapping("/img/setting")
+		public String imgCreate(MultipartHttpServletRequest file, HttpSession session,
+				HttpServletResponse resp) throws Exception {
+			MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+			// 1. 해당 클래스에 이미지가 있는지 조회
+			// 2. 이미지가 있다면 삭제
+			// 3. 새로 들어온 이미지 등록
+			imgService.removeAndInsert(userinfo.getMember_no(), NameConst.MEMBER, file);
+
+			return "redirect:/member/myPage";
+		}
+			
+	
+	
+	
+	
 }
