@@ -273,7 +273,7 @@ public class MemberServiceImple implements MemberService {
 		Map<String, Integer> pagination = paginationService.pagination("member_no", member_no, pageNo);
 		System.out.println(pagination.get("start"));
 		System.out.println(pagination.get("finish"));
-		
+
 		// 페이지 네이션 결과값을 통해 데이터 받아오기
 		List<MqInfoDto> list = quizDao.getMQInfo(pagination);
 
@@ -299,7 +299,7 @@ public class MemberServiceImple implements MemberService {
 				// 해당 퀴즈의 퀘스쳔 개수 가지고 오기
 				List<AllQuestionDto> thisQuizQ = questionDao.getQuestion(info.getQ_no());
 				int thisQuizSize = thisQuizQ.size(); // 현재 퀴즈의 퀘스쳔 개수값
-				double thisQuizScore = 100 / thisQuizSize; // 현재 퀴즈의 한 퀘스쳔 당 점수
+				double thisQuizScore = 100 / (double) thisQuizSize; // 현재 퀴즈의 한 퀘스쳔 당 점수
 
 				// 3-1. 맞은 개수 * 퀘스쳔 당 점수 = 내 점수
 				int myScore = (int) ((myCur * thisQuizScore));

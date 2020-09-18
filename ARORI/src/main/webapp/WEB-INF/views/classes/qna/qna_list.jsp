@@ -46,10 +46,11 @@
                                 
                                 
                                 <tbody>
+                                		<c:set var="no" value="${no }"></c:set>
                                     	<c:forEach var="list" items="${list }">
                                     <tr>
-                                        <th scope="row">${list.qna_no }</th>
-                                        
+                                        <th scope="row">${no }</th>
+                                        <c:set var="no" value="${no - 1 }"></c:set>
                                         <td>
                                             <label for="${list.qna_no}">
                                             	<!-- 답글이라면 댑스만큼 공백을 둔 후 RE:를 붙임 -->
@@ -109,18 +110,22 @@
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
                                   <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/qna/${classes.c_no }/${block[0] - 1}" aria-label="Previous">
-                                      <span aria-hidden="true">&laquo;</span>
-                                      
-                                    </a>
-                                  </li>
+	                                  <c:if test="${pageNo > 10 }">
+		                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/qna/${classes.c_no }/${block[0] - 1}" aria-label="Previous">
+		                                      <span aria-hidden="true">&laquo;</span>
+		                                    </a>
+	                                    </c:if>
+                                 	 </li>
 									<c:forEach var="block" items="${block }">
                                   		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/classes/qna/${classes.c_no }/${block}">${block }</a></li>
 									</c:forEach>
-                                  <li class="page-item">
-                                    <a class="page-link" href="${pageContext.request.contextPath }/classes/qna/${classes.c_no }/${block[9]+1}" aria-label="Next">
-                                      <span aria-hidden="true">&raquo;</span>
-                                    </a>
+                                  	<li class="page-item">
+                                  	<c:set var="size" value="${fn:length(block) }"></c:set>
+                                  	<c:if test="${size > pageNo and pageNo > 10 }">
+	                                    	<a class="page-link" href="${pageContext.request.contextPath }/classes/qna/${classes.c_no }/${block[9]+1}" aria-label="Next">
+	                                      <span aria-hidden="true">&raquo;</span>
+	                                    </a>
+                                    </c:if>
                                   </li>
                                 </ul>
                               </nav>

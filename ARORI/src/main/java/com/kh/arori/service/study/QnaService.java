@@ -2,8 +2,6 @@ package com.kh.arori.service.study;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import com.kh.arori.entity.study.QnaDto;
 
 public interface QnaService {
@@ -16,7 +14,7 @@ public interface QnaService {
 	public int createReply(QnaDto qnaDto);
 	
 	// QNA 게시글 페이지 네이션 기능
-	public List<QnaDto> getP(String c_no, int pageNo);
+	public List<QnaDto> getP(int c_no, int pageNo);
 	
 	// 페이지네이션 계산 코드
 	public List<Integer> pagination(int c_no, int pageNo);
