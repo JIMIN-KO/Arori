@@ -21,7 +21,6 @@ public class MqInfoDto {
 	public String q_open;
 	public String q_close;
 	public int q_runtime;
-	public String q_score_open;
 	public String q_when;
 	public String q_content;
 	public int q_state;

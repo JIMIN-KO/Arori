@@ -41,6 +41,17 @@
 	    text-align: center;
 	    margin-top:630px;
 	}
+	
+	/*홈으로 돌아가기*/
+	.gohome {
+		color : white;
+		font-size: 30px;
+	    text-align: center;
+	    margin-top:65px;
+	    text-decoration: none;
+	}
+	a:link { color: white; text-decoration: none;}
+
 </style>
 
 </head>
@@ -51,6 +62,12 @@
 	 <img alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="logo">
 	 <div class="message">
 	 	"현재 서비스의 상태가 원활하지 않습니다."
+	 </div>
+
+	 <div class="gohome">
+		 <a href="${pageContext.request.contextPath }">
+		 	GO BACK HOME		 
+		 </a>
 	 </div>
 </body>
 

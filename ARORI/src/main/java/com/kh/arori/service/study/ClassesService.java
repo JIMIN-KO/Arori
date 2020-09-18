@@ -1,7 +1,6 @@
 package com.kh.arori.service.study;
 
 import java.util.List;
-import java.util.Map;
 
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
