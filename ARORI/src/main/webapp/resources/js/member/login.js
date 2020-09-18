@@ -94,9 +94,9 @@
 				} else {
 					// console.log("로그인 성공!")
 					if(resp.data.member_auth === 1) {
-						window.location.href = "member/myPage";
-					} else {
 						window.location.href = "admin/main";
+					} else {
+						window.location.href = "member/myPage";
 					}
 					
 					
