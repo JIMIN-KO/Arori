@@ -10,11 +10,11 @@
                         </div>
                         <hr><br>
 						<div class="card m-5">
-						 <div class="row no-gutters">
+						  <div class="row no-gutters">
 						    <div class="col-md-4">
 								<c:choose>
-									<c:when test="${maiDto.ai_no > 0}" >
-										<img src="${pageContext.request.contextPath }/imgAjax/member/download/${maiDto.ai_no}" class="card-img" alt="...">
+									<c:when test="${memberDto.ai_no > 0}" >
+										<img src="${pageContext.request.contextPath }/imgAjax/member/download/${memberDto.ai_no}" class="card-img" alt="...">
 									</c:when>
 									<c:otherwise>
 										<img src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="card-img" alt="...">
@@ -114,6 +114,7 @@ $(function(){
 	})
 })
 
+
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -150,7 +151,8 @@ var chart2 = new Chart(ctx2, {
 });
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
-<!-- 모달자리 -->
+<!--모달자리 -->
+
 <div class="modal" id="imgEdit" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -173,4 +175,4 @@ var chart2 = new Chart(ctx2, {
 				</div>
 			</div>
 		</div>
-	</div>
+

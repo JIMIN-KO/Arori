@@ -217,5 +217,11 @@
 		parameterType="allMemberDto">
 		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
 	</select>
+	
+	
+	<select id="getMAI" resultType="maiDto" parameterType="int">
+		SELECT * FROM M_AND_IMG WHERE MEMBER_no = #{member_no}
+	</select>
+	
 
 </mapper>
