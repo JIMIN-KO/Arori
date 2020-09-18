@@ -101,6 +101,12 @@ public class MemberController {
 		// 세션에서 userinfo 정보를 받아온다
 		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo"); // 로그인한 정보를 세션 userinfo에 담는다.
 
+		
+		// 프로필사진 수정및 등록을 위한 MAIDTO
+		// MAIDto maiDto = memberdao.getMAI(member_no)
+			MAIDto maiDto = memberDao.getMAI(userinfo.getMember_no());
+			model.addAttribute("maiDto", maiDto);
+		
 		// 정보 갱신을 위한 단일 조회 > 마이 페이지에서 세션으로 정보 띄워주면 갱신 불편, 속도 느려짐 + 보안 문제
 		MemberDto member = memberDao.get(userinfo.getMember_id());
 		model.addAttribute("memberDto", member);
