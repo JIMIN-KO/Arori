@@ -18,4 +18,10 @@ public interface QuizService {
 	// 퀴즈 날짜 형식 변환
 	public QuizDto dateFormat(QuizDto quizDto) throws Exception;
 	
+	// 퀴즈 페이지 네이션
+	public List<QuizDto> getQuiz(int c_no, int pageNo);
+	
+	// 퀴즈 페이지 네이션 블럭
+	public List<Integer> getQuizBlock(int c_no, int pageNo);
+	
 }

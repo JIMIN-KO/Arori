@@ -26,7 +26,7 @@ public class QuizInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+
 		// 퀴즈 번호 받아오기
 		String uri = request.getRequestURI();
 		int q_no = Integer.parseInt(uri.substring(25));
@@ -62,8 +62,10 @@ public class QuizInterceptor extends HandlerInterceptorAdapter {
 			}
 			
 			// 오픈 기간이 아닐 경우 디테일 페이지로 강제 이동
+			System.out.println("퀴즈 기간 인터셉터 통과!");
 			response.sendRedirect(
 					request.getContextPath() + "/classes/quiz/detail/" + quizDto.getC_no() + "/" + quizDto.getQ_no() + "?sorry");
+			
 			return false;
 		}
 

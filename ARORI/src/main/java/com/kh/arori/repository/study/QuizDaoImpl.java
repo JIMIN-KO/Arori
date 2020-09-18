@@ -31,8 +31,8 @@ public class QuizDaoImpl implements QuizDao {
 
 	// 퀴즈 리스트
 	@Override
-	public List<QuizDto> getList(int c_no) {
-		List<QuizDto> list = sqlSession.selectList("quiz.getList", c_no);
+	public List<QuizDto> getList(Map<String, Integer> pagination) {
+		List<QuizDto> list = sqlSession.selectList("quiz.getList", pagination);
 		return list;
 	}
 
@@ -118,6 +118,14 @@ public class QuizDaoImpl implements QuizDao {
 	public int getThisQuizSum(int q_no) {
 
 		return sqlSession.selectOne("quiz.getThisQuizSum", q_no);
+	}
+
+	// 클래스의 퀴즈 개수
+	@Override
+	public int getSize(int c_no) {
+
+		return sqlSession.selectOne("quiz.getSize", c_no);
+
 	}
 
 }
