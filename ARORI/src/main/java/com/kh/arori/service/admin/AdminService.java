@@ -18,9 +18,6 @@ public interface AdminService {
 	//변경후 단일조회를 통한 상세정보 조회1
 	public AllMemberDto memberProfile(int member_no);
 	
-	//회원삭제
-	public void delete(MemberDto memberDto);
-	
 	//차트 연습
 	public List<ClassesDto>getIncome();
 	

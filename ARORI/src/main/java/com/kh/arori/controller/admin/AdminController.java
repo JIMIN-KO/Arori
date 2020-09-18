@@ -246,12 +246,12 @@ public class AdminController {
 	}
 
 	// 회원탈퇴 시키기
-	@PostMapping("/delete")
-	public String memberDelete(@ModelAttribute MemberDto memberDto) {
+	@GetMapping("/delete/{member_no}")
+	public String memberDelete(@PathVariable int member_no) {
+		System.out.println();
+		adminDao.delete(member_no);
 
-		adminService.delete(memberDto);
-
-		return "admin/allList";
+		return "redirect:/admin/allList";
 	}
 
 }

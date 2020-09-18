@@ -44,5 +44,8 @@ public interface AdminDao {
 	//아로리 총 멤버
 	public List<AllMemberDto>allList();
 	
+	//회원 탈퇴
+	public void delete(int member_no);
+	
 
 }

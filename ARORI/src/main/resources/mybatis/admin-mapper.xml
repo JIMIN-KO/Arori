@@ -6,9 +6,9 @@
 
 	<!-- 관리자가 회원아이디를 통해 회원을 삭제시킨다. -->
 
-	<delete id="delete">
+	<delete id="delete" parameterType="int">
 		DELETE FROM MEMBER WHERE
-		member_id=#{member_id}
+		member_no=#{member_no}
 	</delete>
 
 	<!--멤버+클래스 member_no 단일조회 -->

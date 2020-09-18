@@ -59,7 +59,10 @@
 		
 	</table>
 </div>
-
+ 
+                
+                    
+               
 
 <jsp:include
 	page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>

@@ -35,12 +35,6 @@ public class AdminServiceImpl implements AdminService {
 		return memberProfile;
 	}
 
-	// 회원탈퇴
-	@Override
-	public void delete(MemberDto memberDto) {
-		adminDao.Delete(memberDto);
-
-	}
 
 	// 차트생성 클래스
 	@Override

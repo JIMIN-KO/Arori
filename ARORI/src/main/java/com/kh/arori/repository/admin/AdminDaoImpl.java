@@ -93,5 +93,12 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectList("admin.allList");
 	}
 
+	//회원 삭제
+	@Override
+	public void delete(int member_no) {
+		sqlSession.delete("admin.delete",member_no);
+		
+	}
+
 
 }

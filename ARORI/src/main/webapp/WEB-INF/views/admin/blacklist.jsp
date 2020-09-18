@@ -6,13 +6,12 @@
 	<div class="col-8 offset-2">
 		<h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
 		<script>
-			<script>
 			$(document).ready(function() {
 				$('input[value=일시 정지]').css('color', 'red');
 
 			});
 		</script>
-		||
+
 		<button class="btn btn-lg btn-warning font-weight-bold mt-5">
 			<a href="${pageContext.request.contextPath}/admin/cleanList">CLEAN
 				MEMBER </a>
