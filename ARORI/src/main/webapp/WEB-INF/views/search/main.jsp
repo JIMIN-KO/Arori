@@ -2,9 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<jsp:include
-	page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
-	
+<c:choose>
+	<c:when test="${userinfo.member_auth eq 1 }">
+		<jsp:include page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>	
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
+	</c:otherwise>
+</c:choose>	
 <style>
 		/* 전체 카드 */
 	.card-deck {

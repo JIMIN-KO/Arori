@@ -15,6 +15,7 @@ public interface NameConst {
 	String EXPLAIN = "explain";	
 	
 	// 파일 경로 상수
+
 	String imgPath = "C:\\Users\\jimin\\Desktop\\Java\\upload";
 
 }
