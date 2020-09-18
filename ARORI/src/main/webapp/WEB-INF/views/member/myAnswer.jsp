@@ -23,35 +23,35 @@
 						    <hr class="mt-5 mb-5">
 						    <p class="card-text">
 						    		<c:choose>
-						    			<c:when test="${thisQuizVo.qt_no == 1 }">
+						    			<c:when test="${thisQuizVo.qt_no eq 1 }">
 						    			<!-- OX 문제 영역 -->
 						    				<div class="input-group mt-3 mb-3">
-										  <div class="input-group-prepend">
-										    <div class="input-group-text">
-										      <input type="radio" value="0"  name="${thisQuizVo.question_no }" id="o_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 0 }">checked</c:if>>
-										    </div>
-										  </div>
-										  <label for="o_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.ox_answer eq 0 ? 'bg-success text-white' : '' }">
-										  	<span class="h5">${thisQuizVo.o_content }</span>
-										  </label>
-										</div>
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="radio" value="0"  name="${thisQuizVo.question_no }" id="o_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '0' }">checked</c:if>>
+											    </div>
+											  </div>
+											  <label for="o_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.ox_answer eq 0 ? 'bg-success text-white' : '' }">
+											  	<span class="h5">${thisQuizVo.o_content }</span>
+											  </label>
+											</div>
 						    				<div class="input-group mt-3 mb-3">
-										  <div class="input-group-prepend">
-										    <div class="input-group-text">
-										      <input type="radio" value="1" name="${thisQuizVo.question_no }" id="x_${thisQuizVo.question_no }"  disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 1 }">checked</c:if>>
-										    </div>
-										  </div>
-										  <label for="x_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.ox_answer eq 1 ? 'bg-success text-white' : '' }">
-										 	<span class="h5">${thisQuizVo.x_content }</span>
-										  </label>
-										</div>
+											  <div class="input-group-prepend">
+											    <div class="input-group-text">
+											      <input type="radio" value="1" name="${thisQuizVo.question_no }" id="x_${thisQuizVo.question_no }"  disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '1' }">checked</c:if>>
+											    </div>
+											  </div>
+											  <label for="x_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.ox_answer eq 1 ? 'bg-success text-white' : '' }">
+											 	<span class="h5">${thisQuizVo.x_content }</span>
+											  </label>
+											</div>
 						    			</c:when>
-						    			<c:when test="${thisQuizVo.qt_no == 2 }">
+						    			<c:when test="${thisQuizVo.qt_no eq 2 }">
 						    				<!-- 선다형 문제 영역 -->
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="1"  name="${thisQuizVo.question_no }" id="one_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 1 }">checked</c:if>>
+										      <input type="radio" value="1"  name="${thisQuizVo.question_no }" id="one_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '1' }">checked</c:if>>
 										    </div>
 										  </div>
 										  <label for="one_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.multiple_answer eq 1 ? 'bg-success text-white' : '' }">
@@ -61,7 +61,7 @@
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="2" name="${thisQuizVo.question_no }" id="two_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 2 }">checked</c:if>>
+										      <input type="radio" value="2" name="${thisQuizVo.question_no }" id="two_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '2' }">checked</c:if>>
 										    </div>
 										  </div>
 										  <label for="two_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.multiple_answer eq 2 ? 'bg-success text-white' : '' }">
@@ -71,7 +71,7 @@
 										<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="3"  name="${thisQuizVo.question_no }" id="three_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 3 }">checked</c:if>>
+										      <input type="radio" value="3"  name="${thisQuizVo.question_no }" id="three_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '3' }">checked</c:if>>
 										    </div>
 										  </div>
 										  <label for="three_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.multiple_answer eq 3 ? 'bg-success text-white' : '' }">
@@ -81,7 +81,7 @@
 						    				<div class="input-group mt-3 mb-3">
 										  <div class="input-group-prepend">
 										    <div class="input-group-text">
-										      <input type="radio" value="4" name="${thisQuizVo.question_no }" id="four_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 4 }">checked</c:if>>
+										      <input type="radio" value="4" name="${thisQuizVo.question_no }" id="four_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '4' }">checked</c:if>>
 										    </div>
 										  </div>
 										  <label for="four_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.multiple_answer eq 4 ? 'bg-success text-white' : '' }">
@@ -89,13 +89,19 @@
 										  </label>
 										</div>
 						    			</c:when>
-						    			<c:when test="${thisQuizVo.qt_no == 3 }">
+						    			<c:when test="${thisQuizVo.qt_no eq 3 }">
 						    				<!-- 단답형 문제 영역 -->
 						    				<div class="input-group mt-3 mb-3">
-										  <div class="input-group-prepend">
-										    <span class="input-group-text">정답을 입력해주세요!</span>
-										  </div>
-										  <textarea class="form-control" name="${thisQuizVo.question_no }">나의 답안 : ${thisQuizVo.myAnswer } /// 정답 : ${thisQuizVo.explain_answer } </textarea>
+											  <div class="input-group-prepend">
+											    <span class="input-group-text">나의 답안</span>
+											  </div>
+										  		<textarea class="form-control ${thisQuizVo.correct eq 1 ? 'bg-success text-white' : 'bg-warning text-white' }" name="${thisQuizVo.question_no }" readonly="readonly">${thisQuizVo.myAnswer }</textarea>
+										</div>
+										<div class="input-group mt-3 mb-3">
+											  <div class="input-group-prepend">
+											    <span class="input-group-text">문제 정답</span>
+											  </div>
+										  		<textarea class="form-control" name="${thisQuizVo.question_no }" readonly="readonly">${thisQuizVo.explain_answer }</textarea>
 										</div>
 						    			</c:when>
 						    		</c:choose>
@@ -106,15 +112,16 @@
 						<div class="row mt-5 mr-4">
 							<div class="col-12 d-flex justify-content-end">
 								<a href="${pageContext.request.contextPath }/classes/quiz/detail/${quizDto.c_no }/${quizDto.q_no}" class="btn btn-lg btn-warning font-weight-bold">다시 풀기</a>
-								<button class="btn btn-lg btn-primary font-weight-bold deleteMyAnswer"  data-target="#deleteMyAnswer">취소</button>
+								<a href="${pageContext.request.contextPath }/member/myQuiz/1"class="btn btn-lg btn-primary font-weight-bold deleteMyAnswer"  data-target="#deleteMyAnswer">돌아가기</a>
 							</div>
 						</div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
-/* 문제 푼 후 업데이트 영역 */
+
 $(function(){
-/* 토스트 뷰어 영역 */
+	
+	/* 토스트 뷰어 영역 */
 	var viewers = document.querySelectorAll(".viewer") /* viewer 클래스 생성 */
 	var aq_content = document.querySelectorAll(".aq_content") /* String 으로 뭉쳐진 마크다운 코드 받아오기 */
 

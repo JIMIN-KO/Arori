@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+
 import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MAIDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 import com.kh.arori.entity.study.MyAnswerDto;
+import com.kh.arori.entity.study.MyQuizDto;
 import com.kh.arori.entity.study.QuizDto;
 import com.kh.arori.entity.study.ThisQuizDto;
 import com.kh.arori.repository.member.MemberDao;
@@ -31,6 +33,7 @@ import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.member.MemberService;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.vo.MQIScoreVo;
 import com.kh.arori.vo.ThisQuizVo;
 
@@ -56,6 +59,7 @@ public class MemberController {
 	@Autowired
 	private ImgService imgService;
 	
+	private PaginationService paginationService;
 
 	// 로그아웃
 	@RequestMapping("/logout")
@@ -90,21 +94,33 @@ public class MemberController {
 		return "redirect:myPage";
 
 	}
-	// 마이페이지 이동(윤아)
 
+	// 마이페이지 이동(윤아)
 	@GetMapping("/myPage")
 	public String mypage(HttpSession session, Model model) {
 		// 세션에서 userinfo 정보를 받아온다
 		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo"); // 로그인한 정보를 세션 userinfo에 담는다.
 
 		// 정보 갱신을 위한 단일 조회 > 마이 페이지에서 세션으로 정보 띄워주면 갱신 불편, 속도 느려짐 + 보안 문제
-		// MAIDto maiDto = memberdao.getMAI(member_no)
-		MAIDto maiDto = memberDao.getMAI(userinfo.getMember_no());
-		model.addAttribute("memberDto", maiDto);
+		MemberDto member = memberDao.get(userinfo.getMember_id());
+		model.addAttribute("memberDto", member);
 
-		return "member/myPage";
+		// 점수 계산
+		List<Integer> memberScore = memberService.quizAvg(member.getMember_no());
+		model.addAttribute("memberScore", memberScore);
+
+		// 만약에 userinfo 의 member_state 가 ARORI 일 경우 myPage_arori.jsp 띄우기
+		if (userinfo.getMember_state().equals("ARORI")) {
+			// 아로리 회원 정보 단일 조회 후 모델로 jsp 로 보내기
+			AroriMemberDto aroriMemberDto = memberDao.getArori(userinfo.getMember_id());
+			model.addAttribute("aroriMemberDto", aroriMemberDto);
+
 		}
+		// 아닐 경우 myPage_social.jsp 띄우기
+		return "member/myPage";
+	}
 	
+
 	// 회원 목록 리스트 (윤아)
 	@GetMapping("/memberList")
 	public String memberList(Model model) {
@@ -181,8 +197,15 @@ public class MemberController {
 		List<MQIScoreVo> list = memberService.respectQuizAvg(userinfo.getMember_no(), pageNo);
 		List<Integer> block = memberService.respectQPBlock(userinfo.getMember_no(), pageNo);
 
+		MyQuizDto myQuizDto = MyQuizDto.builder().member_no(userinfo.getMember_no()).build();
+		List<MyQuizDto> quizList = quizDao.getAMQ(myQuizDto);
+		int count = quizList.size();
+		int no = paginationService.no(pageNo, count);
+		
 		model.addAttribute("quizDto", list);
 		model.addAttribute("block", block);
+		model.addAttribute("no", no);
+		model.addAttribute("pageNo", pageNo);
 
 		return "member/myQuiz";
 	}

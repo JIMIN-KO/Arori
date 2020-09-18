@@ -62,7 +62,7 @@ public class QuestionController {
 		quizDao.deleteMQ(myQuizDto);
 		myAnswerDao.deleete(myAnswerDto);
 		
-		return "redirect:/classes/quiz/" + c_no;
+		return "redirect:/classes/quiz/" + c_no + "/" + 1;
 	}
 	
 }

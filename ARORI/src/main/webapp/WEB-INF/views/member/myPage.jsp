@@ -6,29 +6,13 @@
                     <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
                         <br>
                         <div class="d-flex">
-                        <c:choose>
-									<c:when test="${userinfo.member_state eq 'ARORI' }">
-	                       				 <h1 class="font-weight-bold mt-4" style="flex:18;">My Info</h1>
-									</c:when>
-									<c:otherwise>
-	                       				 <h1 class="font-weight-bold mt-4" style="flex:18;">My Info | Social</h1>
-									</c:otherwise>
-								</c:choose>
-                        	
+	                        <h1 class="font-weight-bold mt-4" style="flex:18;">My Info</h1>
                         </div>
                         <hr><br>
 						<div class="card m-5">
 						  <div class="row no-gutters">
 						    <div class="col-md-4">
-								<c:choose>
-									<c:when test="${memberDto.ai_no > 0}" >
-										<img src="${pageContext.request.contextPath }/imgAjax/member/download/${memberDto.ai_no}" class="card-img" alt="...">
-									</c:when>
-									<c:otherwise>
-										<img src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="card-img" alt="...">
-									</c:otherwise>
-								</c:choose>
-						     <input type = "button" data-target="#imgEdit" class="imgEdit" value="이미지 변경"> 
+						      <img src="${pageContext.request.contextPath}/imgAjax/readme/download/22" class="card-img" alt="...">
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body pb-0">
@@ -105,24 +89,6 @@
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
-
-$(function(){
-
-	$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
-	
-	// 이미지 수정 모달 띄우기
-	$(".imgEdit").click(function(){
-		$("#imgEdit").modal("show"); // 클래스 수정 모달 띄우기
-	})
-
-	// 이미지 수정하기
-	$("#goimgEdit").click(function(){
-		var form = document.querySelector("#addImg")
-		$(form).submit()
-	})
-})
-
-
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -159,27 +125,3 @@ var chart2 = new Chart(ctx2, {
 });
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
-<!--모달자리 -->
-<div class="modal" id="imgEdit" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"> 이미지 수정</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="${pageContext.request.contextPath }/member/img/setting" method="post" enctype="multipart/form-data" id="addImg">
-						<input type="file" accept=".jpg, .png, .jpeg" name="req">
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">창 닫기</button>
-					<button type="button" class="btn btn-primary" id="goimgEdit">수정하기</button>
-				</div>
-			</div>
-		</div>
-
