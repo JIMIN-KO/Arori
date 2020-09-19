@@ -2,6 +2,7 @@
 	page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div class="row mt-5">
 	<div class="offset-2 col-8">
 		<h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
@@ -21,9 +22,9 @@
 				<tr>
 					<th><select onchange="visit(this)" class="custom-select">
 							<option value="">
-							<option value="http://localhost:8080/arori/admin/allList">전체회원</option>
-							<option value="http://localhost:8080/arori/admin/aroriList">아로리</option>
-							<option value="http://localhost:8080/arori/admin/socialList"
+							<option value="http://localhost:8080/arori/admin/allList/1">전체회원</option>
+							<option value="http://localhost:8080/arori/admin/aroriList/1">아로리</option>
+							<option value="http://localhost:8080/arori/admin/socialList/1"
 								selected>소셜</option>
 					</select></th>
 				</tr>
@@ -61,6 +62,8 @@
 							</c:if>
 						</tr>
 					</c:forEach>
+
+
 					<form action="search" method="post">
 						<table>
 							<tr>
@@ -81,6 +84,28 @@
 				</tbody>
 			</table>
 		</form>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item"><c:if test="${pageNo > 10 }">
+						<a class="page-link"
+							href="${pageContext.request.contextPath }/admin/socialList/${block[0] - 1}"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						</a>
+					</c:if></li>
+				<c:forEach var="block" items="${block}">
+					<li class="page-item"><a class="page-link"
+						href="${pageContext.request.contextPath }/admin/socialList/${block}">${block}</a></li>
+				</c:forEach>
+				<li class="page-item"><c:set var="size"
+						value="${fn:length(block)}"></c:set> <c:if
+						test="${size> pageNo and pageNo >10}">
+						<a class="page-link"
+							href="${pageContext.request.contextPath }/admin/socialList/${block[size]+1}"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						</a>
+					</c:if></li>
+			</ul>
+		</nav>
 	</div>
 </div>
 

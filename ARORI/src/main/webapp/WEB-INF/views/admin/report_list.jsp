@@ -92,19 +92,19 @@
 					<li class="page-item">
 					<c:if test="${pageNo > 10 }">
 							<a class="page-link"
-								href="${pageContext.request.contextPath }/report/list/${block[0] - 1}"
+								href="${pageContext.request.contextPath }/admin/report_list/${block[0] - 1}"
 								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 							</a>
 						</c:if></li>
 					<c:forEach var="block" items="${block}">
 						<li class="page-item"><a class="page-link"
-							href="${pageContext.request.contextPath }/report/list/${block}">${block}</a></li>
+							href="${pageContext.request.contextPath }/admin/report_list/${block}">${block}</a></li>
 					</c:forEach>
 					<li class="page-item">
 						<c:set var="size" value="${fn:length(block)}"></c:set>
 						<c:if test="${size> pageNo and pageNo >10}">
 							<a class="page-link"
-								href="${pageContext.request.contextPath }/report/list/${block[size]+1}"
+								href="${pageContext.request.contextPath }/admin/report_list/${block[size]+1}"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a>
 						</c:if>

@@ -31,6 +31,7 @@ import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
+import com.kh.arori.repository.report.ReportDao;
 import com.kh.arori.service.admin.AdminService;
 import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.service.report.ReportService;
@@ -50,6 +51,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminDao adminDao;
+
+	@Autowired
+	private ReportDao reportDao;
 
 	@Autowired
 	private ReportService reportService;
@@ -132,14 +136,26 @@ public class AdminController {
 	}
 
 	// 소셜 + 아로리) 소셜조회
-	@GetMapping("/aroriList")
-	public String arorilist(Model model, Model model2, @ModelAttribute MemberDto memberDto,
+	@GetMapping("/aroriList/{pageNo}")
+	public String arorilist(@PathVariable int pageNo, Model model, @ModelAttribute MemberDto memberDto,
 			@ModelAttribute AroriMemberDto aroriMemberDto) {
-		List<AllMemberDto> list = adminService.allList();
-		model.addAttribute("list", list);
+		// 회원 목록 불러오기
+		List<AllMemberDto> list = adminService.page(pageNo);
 
-		int memberCount = adminDao.memberCount();
+		// 멤버 인원 조회
+		int memberCount = adminService.memberCount();
 		model.addAttribute("memberCount", memberCount);
+
+		// 페이지 네이션
+		List<Integer> block = adminService.pagination(0, pageNo);
+		// 멤버 게시글 번호
+		int no = paginationService.no(pageNo, memberCount);
+
+		// 페이지 네비게이션에 필요한 뷰젼달
+		model.addAttribute("list", list);
+		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
 
 		int aroriCount = adminDao.aroriCount(aroriMemberDto);
 		model.addAttribute("aroriCount", aroriCount);
@@ -149,19 +165,29 @@ public class AdminController {
 	}
 
 	// 소셜 + 아로리) 소셜조회
-	@GetMapping("/socialList")
-	public String socialList(Model model, Model model2, @ModelAttribute MemberDto memberDto,
+	@GetMapping("/socialList/{pageNo}")
+	public String socialList(@PathVariable int pageNo, Model model, Model model2, @ModelAttribute MemberDto memberDto,
 			@ModelAttribute AroriMemberDto aroriMemberDto) {
+		// 회원 목록 불러오기
+		List<AllMemberDto> list = adminService.page(pageNo);
 
-		List<AllMemberDto> list = adminService.allList();
-		model.addAttribute("list", list);
-
-		int memberCount = adminDao.memberCount();
+		// 멤버 인원 조회
+		int memberCount = adminService.memberCount();
 		model.addAttribute("memberCount", memberCount);
+
+		// 페이지 네이션
+		List<Integer> block = adminService.pagination(0, pageNo);
+		// 멤버 게시글 번호
+		int no = paginationService.no(pageNo, memberCount);
+
+		// 페이지 네비게이션에 필요한 뷰젼달
+		model.addAttribute("list", list);
+		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
 
 		int aroriCount = adminDao.aroriCount(aroriMemberDto);
 		model.addAttribute("aroriCount", aroriCount);
-
 		int socialCount = memberCount - aroriCount;
 		model.addAttribute(socialCount);
 		return "admin/socialList";
@@ -169,22 +195,54 @@ public class AdminController {
 	}
 
 	// 블랙멤버 리스트
-	@GetMapping("/blacklist")
-	public String blacklist(Model model, @ModelAttribute MemberDto memberDto, @ModelAttribute ReportDto reportDto) {
+	@GetMapping("/blacklist/{pageNo}")
+	public String blacklist(@PathVariable int pageNo, Model model, @ModelAttribute MemberDto memberDto,
+			@ModelAttribute ReportDto reportDto) {
 
-		List<AllMemberDto> list = adminService.allList();
+		// 회원 목록 불러오기
+		List<AllMemberDto> list = adminService.page(pageNo);
+
+		// 멤버 인원 조회
+		int memberCount = adminService.memberCount();
+		model.addAttribute("memberCount", memberCount);
+
+		// 페이지 네이션
+		List<Integer> block = adminService.pagination(0, pageNo);
+		// 멤버 게시글 번호
+		int no = paginationService.no(pageNo, memberCount);
+
+		// 페이지 네비게이션에 필요한 뷰젼달
 		model.addAttribute("list", list);
+		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
 
 		return "admin/blacklist";
 
 	}
 
 	// 클린멤버 리스트
-	@GetMapping("/cleanList")
-	public String cleanList(Model model, @ModelAttribute MemberDto memberDto, @ModelAttribute ReportDto reportDto) {
+	@GetMapping("/cleanList/{pageNo}")
+	public String cleanList(@PathVariable int pageNo, Model model, @ModelAttribute MemberDto memberDto,
+			@ModelAttribute ReportDto reportDto) {
 
-		List<AllMemberDto> list = adminService.allList();
+		// 회원 목록 불러오기
+		List<AllMemberDto> list = adminService.page(pageNo);
+
+		// 멤버 인원 조회
+		int memberCount = adminService.memberCount();
+		model.addAttribute("memberCount", memberCount);
+
+		// 페이지 네이션
+		List<Integer> block = adminService.pagination(0, pageNo);
+		// 멤버 게시글 번호
+		int no = paginationService.no(pageNo, memberCount);
+
+		// 페이지 네비게이션에 필요한 뷰젼달
 		model.addAttribute("list", list);
+		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
 
 		return "admin/cleanList";
 
@@ -197,10 +255,10 @@ public class AdminController {
 		Map<String, String> param = new HashMap<>();
 		param.put("type", type);
 		param.put("keyword", keyword);
-		List<MemberDto> list = sqlSession.selectList("admin.search", param);
+		List<AllMemberDto> list = sqlSession.selectList("admin.search", param);
 		model.addAttribute("list", list);
 
-		return "admin/allList";
+		return "admin/allList/{pageNo}";
 
 	}
 
@@ -265,4 +323,29 @@ public class AdminController {
 		return "redirect:/admin/allList";
 	}
 
+	// 신고글 리스트
+	@GetMapping("/report_list/{pageNo}")
+	public String list(@PathVariable int pageNo, Model model, @ModelAttribute ReportDto reportDto) {
+
+		// 신고글리스트 불러오기
+		List<ReportDto> list = reportService.page(pageNo);
+
+		// 신고글 개수 조회 (관리자가 보기위한)
+		int reportCount = reportDao.reportCount();
+		model.addAttribute("reportCount", reportCount);
+
+		// 페이지네이션
+		List<Integer> block = reportService.pagination(0, pageNo);
+
+		// 신고 게시글 번호
+		int no = paginationService.no(pageNo, reportCount);
+
+		// 페이지 네비게이션에 필요한 뷰젼달
+		model.addAttribute("list", list);
+		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
+
+		return "admin/report_list";
+	}
 }

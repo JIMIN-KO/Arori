@@ -54,11 +54,12 @@ function del(report_no) {
 				<tr>
 					<th colspan="3"><a
 						href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}"
-						class="btn btn-primary btn-lg font-weight-bold">상태변경</a>
-					<a href="${pageContext.request.contextPath}/report/list"
-						class="btn btn-primary btn-lg font-weight-bold">목록으로</a>
-						<input type="button" value="삭제하기" class="btn btn-primary btn-lg font-weight-bold" onclick="del(${reportDto.report_no})">
-						</th>
+						class="btn btn-primary btn-lg font-weight-bold">상태변경</a> <a
+						href="${pageContext.request.contextPath}/admin/report_list/1"
+						class="btn btn-primary btn-lg font-weight-bold">목록으로</a> <input
+						type="button" value="삭제하기"
+						class="btn btn-primary btn-lg font-weight-bold"
+						onclick="del(${reportDto.report_no})"></th>
 				</tr>
 
 			</tbody>

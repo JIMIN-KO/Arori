@@ -5,8 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div class="row mt-5">
 	<div class="col-8 offset-2">
-		<form action="adminUpdate" method="post" class="mt-3">
+		<form class="mt-3">
 			<h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
+			<span>총 회원 수는 ${memberCount} 명 입니다. 생성 된 클래스 의 개수는 ${classCount}
+	클래스 입니다.</span>
+<a href="${pageContext.request.contextPath}">메인페이지로 이동</a>
 			<button class="btn btn-lg btn-warning font-weight-bold mt-5"
 				value="BLACK MEMBER">
 				<a href="${pageContext.request.contextPath}/admin/blacklist">BLACK
@@ -16,10 +19,10 @@
 				<tr>
 					<th><select onchange="visit(this)" class="custom-select">
 							<option value="">
-							<option value="http://localhost:8080/arori/admin/allList"
+							<option value="http://localhost:8080/arori/admin/allList/1"
 								selected>전체회원</option>
-							<option value="http://localhost:8080/arori/admin/aroriList">아로리</option>
-							<option value="http://localhost:8080/arori/admin/socialList">소셜</option>
+							<option value="http://localhost:8080/arori/admin/aroriList/1">아로리</option>
+							<option value="http://localhost:8080/arori/admin/socialList/1">소셜</option>
 					</select></th>
 				</tr>
 			</div>
@@ -28,31 +31,30 @@
 					<tr>
 						<th scope="col">번호</th>
 						<th scope="col">아이디</th>
-						<th scrope="col">권한</th>
-						<th scope="col">닉네임</th>
 						<th scope="col">회원구분</th>
-						<th scope="col">회원상태</th>
+						<th scope="col">닉네임</th>
+						<th scope="col">권한</th>
 						<th scope="col">DETAIL</th>
 					</tr>
 				</thead>
 				<tbody>
 
-				<c:set var="no" value="${no }"></c:set>
+					<c:set var="no" value="${no }"></c:set>
 					<c:forEach var="allMemberDto" items="${list}" varStatus="status">
 						<tr>
 						<tr>
 							<th scope="row">${no }</th>
 							<c:set var="no" value="${no - 1 }"></c:set>
 							<td>${allMemberDto.member_id}</td>
+							<td>${allMemberDto.member_state}</td>
+							<td>${allMemberDto.member_nick}</td>
 							<td><c:if
 									test="${fn:contains(allMemberDto.member_auth,'1') || fn:contains(allMemberDto.member_nick,'admin')}">
 						관리자					
 						</c:if> <c:if test="${fn:contains(allMemberDto.member_auth,'0')}">
 						일반회원				
 						</c:if></td>
-							<td>${allMemberDto.member_nick}</td>
-							<td>${allMemberDto.member_state}</td>
-							<td>${allMemberDto.report_state}</td>
+			
 
 
 							<td><button>
@@ -64,53 +66,47 @@
 					</c:forEach>
 				</tbody>
 			</table>
-	<nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center">
-					<li class="page-item">
-					<c:if test="${pageNo > 10 }">
-							<a class="page-link"
-								href="${pageContext.request.contextPath }/admin/allList/${block[0] - 1}"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a>
-						</c:if></li>
-					<c:forEach var="block" items="${block}">
-						<li class="page-item"><a class="page-link"
-							href="${pageContext.request.contextPath }/admin/allList/${block}">${block}</a></li>
-					</c:forEach>
-					<li class="page-item">
-						<c:set var="size" value="${fn:length(block)}"></c:set>
-						<c:if test="${size> pageNo and pageNo >10}">
-							<a class="page-link"
-								href="${pageContext.request.contextPath }/admin/allList/${block[size]+1}"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a>
-						</c:if>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-
-
-			<%-- <form action="search" method="post">
-				<tr>
-					<td><select name="type" class="custom-select">
-							<option value="member_id">ID</option>
-							<option value="member_state">소셜/아로리회원</option>
-							<option value="member_nick">닉네임</option>
-					</select></td>
-					<td><input type="text" class="form-control" name="keyword"
-						placeholder="검색어"></td>
-					<td><input type="submit" class="form-control" value="찾기"></td>
-				</tr>
-			</form>
-			<span>총 회원 수는 ${memberCount} 명 입니다. 생성 된 클래스 의 개수는
-				${classCount} 클래스 입니다.</span> <a href="${pageContext.request.contextPath}">메인페이지로
-				이동</a>
-
-		</form> --%>
+		</form>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item"><c:if test="${pageNo > 10 }">
+						<a class="page-link"
+							href="${pageContext.request.contextPath }/admin/allList/${block[0] - 1}"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						</a>
+					</c:if></li>
+				<c:forEach var="block" items="${block}">
+					<li class="page-item"><a class="page-link"
+						href="${pageContext.request.contextPath }/admin/allList/${block}">${block}</a></li>
+				</c:forEach>
+				<li class="page-item"><c:set var="size"
+						value="${fn:length(block)}"></c:set> <c:if
+						test="${size> pageNo and pageNo >10}">
+						<a class="page-link"
+							href="${pageContext.request.contextPath }/admin/allList/${block[size]+1}"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						</a>
+					</c:if></li>
+			</ul>
+		</nav>
 	</div>
 </div>
+
+
+<form action="search" method="post">
+	<table>
+		<tr>
+			<td><select name="type" class="custom-select">
+					<option value="member_id">ID</option>
+					<option value="member_state">소셜/아로리회원</option>
+					<option value="member_nick">닉네임</option>
+			</select></td>
+			<td><input type="text" class="form-control" name="keyword"
+				placeholder="검색어"></td>
+			<td><input type="submit" class="btn btn-primary btn-lg font-weight-bold"  value="찾기"></td>
+		</tr>
+	</table>
+</form>
 <script type="text/javascript">
 	function visit(url) {
 		if (url.selectedIndex != 0) {
