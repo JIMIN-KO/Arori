@@ -14,11 +14,15 @@ public interface AdminClassesDao {
 	// QNA 페이지 네이션 
 	public List<QnaMemberDto> getP(Map<String, String> page);
 	
+	
 	// QNA  게시글 c_no + qna_no 단일 조회
 	public QnaDto getCQ(QnaDto qnaDto);
 		
 	// QNA  게시글 관리자 수정 
-	public int editAdmin(QnaDto qnaDto);
+	public int editQnaAdmin(QnaDto qnaDto);
+	
+//	// QNA  게시글 임시 데이터 저장 
+//	public int createTempAdmin(QnaDto qnaDto);
 	
 	// QNA  게시글 관리자 삭제 
 	public int deleteAdmin(QnaDto qnaDto);

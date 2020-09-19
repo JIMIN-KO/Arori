@@ -10,11 +10,11 @@
 	</select>
 	
 	<!-- QNA 관리자 목록 페이지네이션 -->
-	<select id="getP" resultType="qnaDto" parameterType="map">
+	<select id="getP" resultType="qnaMemberDto" parameterType="map">
 		SELECT 
-			a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
+			a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no, a.member_nick
 		FROM
-			(SELECT ROWNUM rn, q.* FROM qna q ORDER BY qna_no ASC) a 
+			(SELECT ROWNUM rn, q.* FROM QM q ORDER BY qna_no ASC) a 
 		WHERE rn BETWEEN ${start}  AND ${finish};
 	</select>
 	
@@ -24,16 +24,35 @@
 	</select>
 	
 	<!-- QNA 관리자 수정 -->
-	<update id="editAdmin" parameterType="qnaDto">
+	<update id="editQnaAdmin" parameterType="qnaDto">
 		UPDATE QNA SET 
 		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}
 		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
 	</update>
 	
+	<!-- 임시 저장소 데이터 저장 -->
+	<insert id="createTempAdmin" parameterType="qnaDto">
+		INSERT INTO QNA_TEMP VALUES(#{qna_no},#{c_no}, #{qna_title}, #{qna_content}, SYSDATE, #{DEPTH}, #{SUPER_NO}, #{GROUP_NO})
+	</insert>
+	
 	<!-- QNA 게시글 관리자 삭제 -->
 	<delete id="deleteAdmin" parameterType="qnaDto">
 		DELETE QNA WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
 	</delete>
+	
+	<!-- QNA 게시글 리스트 검색 : $는 정적바인딩, #은 동적바인딩-->
+	<select id="searchQna" resultType="qnaMemberDto" parameterType="map">
+		SELECT * FROM QM 
+		WHERE instr(${type}, #{keyword}) > 0 
+		ORDER BY qna_no DESC
+	</select>
+	<select id="unionQnaList" resultType="qnaMemberDto" parameterType="map">
+		SELECT * FROM QM
+		<if test="type != null and keyword != null">
+		WHERE instr(${type}, #{keyword}) > 0 
+		</if>
+		ORDER BY qna_no DESC
+	</select>
 
 
 </mapper>

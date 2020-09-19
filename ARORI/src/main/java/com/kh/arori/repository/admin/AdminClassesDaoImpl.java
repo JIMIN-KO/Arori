@@ -36,9 +36,15 @@ public class AdminClassesDaoImpl implements AdminClassesDao{
 	
 	// QNA  게시글 관리자 수정
 	@Override
-	public int editAdmin(QnaDto qnaDto) {
-		return sqlSession.update("adminClasses.editAdmin", qnaDto);
+	public int editQnaAdmin(QnaDto qnaDto) {
+		return sqlSession.update("adminClasses.editQnaAdmin", qnaDto);
 	}
+	
+//	// QNA 게시글 임시 데이터 저장 
+//	@Override
+//	public int createTempAdmin(QnaDto qnaDto) {
+//		return sqlSession.insert("adminClasses.createTempAdmin", qnaDto);
+//	}
 	
 	// QNA  게시글 관리자 삭제 
 	@Override
