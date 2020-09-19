@@ -99,7 +99,7 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public List<ChartDto> thisChart(ChartDto chartDto) {
-		return sqlSession.selectOne("admin.thisChart", chartDto);
+		return sqlSession.selectList("admin.thisChart", chartDto);
 	}
 
 }

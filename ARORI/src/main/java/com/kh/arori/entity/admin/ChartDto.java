@@ -17,4 +17,7 @@ public class ChartDto {
 	private String col;
 	private String table_name;
 	private String period;
+	
+	private String when;
+	private int count;
 }

@@ -102,25 +102,113 @@
 		 $("input[name=memberChart]").attr("max",max_date)
 		 $("input[name=classesChart]").attr("max",max_date)
 		 
+		// 멤버 차트
 		$("input[name=memberChart]").on("change",function(){
 			console.log($(this).val())
-			ajax({
-				url:"",
-				method:"",
-				data:""
-			}).then(function(resp){
-				
+			
+			// 전달할 데이터 json화
+			var chartDto = {
+				col:"member_join",
+				table_name:"member",
+				period:$(this).val()
+			}
+			console.log($(chartDto))
+			 axios.post("/arori/chartAjax/totalChart", JSON.stringify(chartDto), {
+				 	headers:{
+						'content-type':'application/json',
+				 	}
+			 }) .then(resp=>{
+				console.log(resp)
 			})
 		})
 		
+		// 클래스 차트
 		$("input[name=classesChart]").on("change",function(){
 			console.log($(this).val())
-			ajax({
-				url:"",
-				method:"",
-				data:""
-			}).then(function(resp){
+			
+			// 전달할 데이터 json화
+			var chartDto = {
+				col:"c_when",
+				table_name:"classes",
+				period:$(this).val()
+			}
+			console.log($(chartDto))
+			 axios.post("/arori/chartAjax/totalChart", JSON.stringify(chartDto), {
+				 	headers:{
+						'content-type':'application/json',
+				 	}
+			 }) .then(resp=>{
+				console.log(resp)
+				for(var i = 0; i < $(resp.data).size; i++) {
+					console.log("hello")
+					console.log(resp.data[i])
+				}
 				
+				// 2D그리기 도구를 ctx라는 이름으로 저장
+				var ctx = document.getElementById('chart').getContext('2d');
+				
+				// 멤버 차트
+				// 차트 생성 코드
+				var chart = new Chart(ctx, {
+				    // The type of chart we want to create
+				    type: 'line',
+				    
+				    // 실제 차트를 구성하는 데이터
+				    data: {
+				    	// 축에 표시될 라벨 정보
+				        labels: ['5월', '6월', '7월', '8월', '9월'],
+				        
+				        // 실제 데이터
+				        datasets: [{
+				            label: 'Total',
+				            backgroundColor: 'rgba(0, 0, 0, 0)',
+				            borderColor: '#ED6D85',
+				            data: [0, 10, 40, 45, 20, 50],
+				        	borderWidth:4
+				        }]
+				    },
+
+				    // 기타 제어용 옵션
+				    options: {
+				    	responsive: false,
+				    	scales: {
+				            xAxes: [{
+				                display: true,
+				                ticks:{
+				                   	fontSize : 14,
+				                   	fontColor : 'rgba(12, 13, 13, 1)'
+				                },
+				                scaleLabel: {
+				                    display: true,
+				                    labelString: '기간',
+				                	fontSize : 12,
+				           		  fontColor : 'rgba(12, 13, 13, 1)'
+				                }
+				            }],
+				            yAxes: [{
+				                display: true,
+				                ticks: {
+				                  	min : 0,
+				                  	max:100,
+				                  	stepSize : 20,
+				                    fontSize :14,
+				                    fontColor : 'rgba(12, 13, 13, 1)'
+								
+								
+				                },
+				                scaleLabel: {
+				                    display: true,
+				                    labelString: '명 수',
+				                    fontSize : 12,
+				                    fontColor : 'rgba(12, 13, 13, 1)',
+
+				                  
+				                }
+				            }]
+				        }
+				    	
+				    }
+				});
 			})
 		})
 	})
