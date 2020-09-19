@@ -13,6 +13,7 @@ public interface NameConst {
 	String OX = "ox";
 	String MULTIPLE = "multiple";
 	String EXPLAIN = "explain";	
+	String REPORT = "report";
 	
 	// 파일 경로 상수
 

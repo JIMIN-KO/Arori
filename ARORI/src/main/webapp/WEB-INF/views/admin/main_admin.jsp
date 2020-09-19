@@ -184,7 +184,7 @@
 			   // 실제 차트를 구성하는 데이터
 			   data: {
 			   	// 축에 표시될 라벨 정보
-			       labels: ['회원가입', '클래스', '퀴즈', 'Q&A'],
+			       labels: ['회원가입', '클래스', '퀴즈', 'Q&A', '신고'],
 		
 			        
 			        // 실제 데이터
@@ -192,7 +192,7 @@
 			        	label: 'Today New',
 			            backgroundColor: 'rgba(0, 0, 0, 0)',
 			            borderColor: '#C2C5BF',
-			            data: [${count[0]}, ${count[1]}, ${count[2]}, ${count[3]}],
+			            data: [${count[0]}, ${count[1]}, ${count[2]}, ${count[3]}, ${count[4]}],
 			        	borderWidth:2       	
 			        }
 			        

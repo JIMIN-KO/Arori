@@ -105,7 +105,13 @@ public class AdminServiceImpl implements AdminService {
 		map2.put("col", "qna_when");
 		int qnaCount = adminDao.todayCount(map2);
 		
-		int[] count = {memberCount, classesCount, quizCount, qnaCount};
+		// 5. 신고 수
+		map2.clear();
+		map2.put("table_name", NameConst.REPORT);
+		map2.put("col", "report_date");
+		int reportCount = adminDao.todayCount(map2);
+		
+		int[] count = {memberCount, classesCount, quizCount, qnaCount, reportCount};
 		
 		return count;
 	}

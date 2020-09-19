@@ -85,9 +85,9 @@
 		SELECT COUNT(*) FROM ${table_name} WHERE SUBSTR(${col}, 0,10)=SUBSTR(SYSDATE,0,10)
 	</select>
 	<!-- 멤버 가입수 현황 -->
-	<select id="memberCount" >
+	<!-- <select id="memberCount" >
 		SELECT COUNT(*) AS count, TO_CHAR(member_join, 'yyyy-MM' ) AS member_join FROM MEMBER 
 		WHERE member_join>=to_date('20200501','yyyy-MM-dd hh:mI:ss') AND MEMBER_JOIN<TO_DATE('20200930','yyyy-MM-dd hh:mI:ss') 
 		GROUP BY to_char(member_join, 'yyyy-MM')
-	</select>
+	</select> -->
 </mapper>
