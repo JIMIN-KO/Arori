@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.arori.entity.member.ReportDto;
-import com.kh.arori.entity.study.NoticeDto;
 
 public interface ReportDao {
 	

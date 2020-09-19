@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import com.kh.arori.entity.member.IncomeVO;
 
 import lombok.Setter;
-import lombok.extern.java.Log;
 
 @Service
-@Log
 public class IncomeServiceImpl implements IncomeService {
 
 	@Setter(onMethod_=@Autowired)

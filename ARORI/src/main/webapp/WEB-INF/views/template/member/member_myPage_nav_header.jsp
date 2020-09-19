@@ -12,7 +12,7 @@
                             <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/member/myPage">My Info</a></button></li>
                             <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/member/${updatePath}">Edit</a></button></li>
                             <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/member/myQuiz/1">Quiz</a></button></li>
-                            <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }">Q & A</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold"><a href="${pageContext.request.contextPath }/member/myQna/1">Q & A</a></button></li>
                         </ul>
                     </div>
                 </div>
@@ -22,6 +22,6 @@
                             <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }/member/myPage">Info</a></button></li>
                             <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }/member/${updatePath}">Edit</a></button></li>
                             <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }/member/myQuiz/1">Quiz</a></button></li>
-                            <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }">Q & A</a></button></li>
+                            <li class="nav-item"><button class="btn btn-link font-weight-bold mt-5 mb-5"><a href="${pageContext.request.contextPath }/member/myQna/1">Q & A</a></button></li>
                         </ul>
                     </div>

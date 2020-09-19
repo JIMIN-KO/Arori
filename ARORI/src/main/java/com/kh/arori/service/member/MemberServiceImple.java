@@ -17,8 +17,10 @@ import com.kh.arori.entity.study.AllQuestionDto;
 import com.kh.arori.entity.study.MqInfoDto;
 import com.kh.arori.entity.study.MyAnswerDto;
 import com.kh.arori.entity.study.MyQuizDto;
+import com.kh.arori.entity.study.QnaDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.study.MyAnswerDao;
+import com.kh.arori.repository.study.QnaDao;
 import com.kh.arori.repository.study.QuestionDao;
 import com.kh.arori.repository.study.QuizDao;
 import com.kh.arori.service.email.EmailService;
@@ -48,6 +50,9 @@ public class MemberServiceImple implements MemberService {
 
 	@Autowired
 	private MyAnswerDao myAnswerDao;
+
+	@Autowired
+	private QnaDao qnaDao;
 
 	// 시퀀스 발급
 	@Override
@@ -273,7 +278,7 @@ public class MemberServiceImple implements MemberService {
 		Map<String, Integer> pagination = paginationService.pagination("member_no", member_no, pageNo);
 		System.out.println(pagination.get("start"));
 		System.out.println(pagination.get("finish"));
-		
+
 		// 페이지 네이션 결과값을 통해 데이터 받아오기
 		List<MqInfoDto> list = quizDao.getMQInfo(pagination);
 
@@ -299,7 +304,7 @@ public class MemberServiceImple implements MemberService {
 				// 해당 퀴즈의 퀘스쳔 개수 가지고 오기
 				List<AllQuestionDto> thisQuizQ = questionDao.getQuestion(info.getQ_no());
 				int thisQuizSize = thisQuizQ.size(); // 현재 퀴즈의 퀘스쳔 개수값
-				double thisQuizScore = 100 / thisQuizSize; // 현재 퀴즈의 한 퀘스쳔 당 점수
+				double thisQuizScore = 100 / (double) thisQuizSize; // 현재 퀴즈의 한 퀘스쳔 당 점수
 
 				// 3-1. 맞은 개수 * 퀘스쳔 당 점수 = 내 점수
 				int myScore = (int) ((myCur * thisQuizScore));
@@ -371,6 +376,26 @@ public class MemberServiceImple implements MemberService {
 
 		memberDao.changeAroriPW(aroriMemberDto);
 
+	}
+
+	// 마이페이지 > 나의 큐앤에이 섹션 > 큐엔에이 페이지 네이션
+	@Override
+	public List<QnaDto> getMyQna(int member_no, int pageNo) {
+
+		Map<String, Integer> pagination = paginationService.pagination("member_no", member_no, pageNo);
+		List<QnaDto> list = qnaDao.getMP(pagination);
+
+		return list;
+	}
+
+	// 마이페이지 > 나의 큐앤에이 섹션 > 큐엔에이 페이지 블럭
+	@Override
+	public List<Integer> getQnaBlock(int member_no, int pageNo) {
+
+		int count = qnaDao.countMyQna(member_no);
+		List<Integer> block = paginationService.paginationBlock(member_no, pageNo, count);
+
+		return block;
 	}
 
 }

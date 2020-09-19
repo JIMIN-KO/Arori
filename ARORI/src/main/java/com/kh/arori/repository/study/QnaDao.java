@@ -23,7 +23,7 @@ public interface QnaDao {
 	public List<QnaDto> getC(int c_no);
 
 	// QNA  게시글 페이지 네이션 기능
-	public List<QnaDto> getP(Map<String, String> page);
+	public List<QnaDto> getP(Map<String, Integer> pagination);
 
 	// 해당 클래스 공지 게시글 개수 조회
 	public int count(int c_no);
@@ -50,5 +50,11 @@ public interface QnaDao {
 	
 	// QNA  게시글 작성 중 임시 저장 게시글 전체 조회 
 	public List<QnaDto> getCT(int c_no);
+	
+	// 마이페이지 > 내가 작성한 QNA 게시글
+	public List<QnaDto> getMP(Map<String, Integer> pagination);
+	
+	// 마이페이지 >  내가 작성한 전체 QNA 게시글 카운트
+	public int countMyQna(int member_no);
 	
 }
