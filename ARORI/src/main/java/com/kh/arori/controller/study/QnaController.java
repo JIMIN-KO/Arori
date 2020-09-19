@@ -1,8 +1,5 @@
 package com.kh.arori.controller.study;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,15 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
-import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.entity.study.QnaDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QnaDao;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.service.study.QnaService;
 
 @Controller
@@ -36,6 +32,9 @@ public class QnaController {
 
 	@Autowired
 	private QnaService qnaService;
+	
+	@Autowired
+	private PaginationService paginationService;
 
 	// QNA작성 페이지 새글
 	@GetMapping("/classes/qna/create/{c_no}")
@@ -72,29 +71,33 @@ public class QnaController {
 
 	// QNA 게시글 리스트
 	@GetMapping("/classes/qna/{c_no}/{pageNo}")
-	public String qnaList(@PathVariable String c_no, @PathVariable int pageNo, Model model) {
+	public String qnaList(@PathVariable int c_no, @PathVariable int pageNo, Model model) {
 		// 권한 조회를 위한 해당 클래스 단일 조회
-		ClassesDto classes = classesDao.get(Integer.parseInt(c_no));
+		ClassesDto classes = classesDao.get(c_no);
 
 		// 게시글 불러오기
 		List<QnaDto> list = qnaService.getP(c_no, pageNo);
-
-		for (QnaDto qna : list) {
-			System.out.println(qna.getQna_title());
-		}
+		
 		// 페이지 네비게이터 계산
-		List<Integer> block = qnaService.pagination(Integer.parseInt(c_no), pageNo);
+		List<Integer> block = qnaService.pagination(c_no, pageNo);
 
 		// 임시 저장 데이터 조회
-		List<QnaDto> temp = qnaDao.getCT(Integer.parseInt(c_no));
+		List<QnaDto> temp = qnaDao.getCT(c_no);
 		if (temp != null) {
 			model.addAttribute("temp", temp);
 		}
 
+		// 해당 클래스의 QNA 별 번호
+		List<QnaDto> qnaSize = qnaDao.getC(c_no);
+		int count = qnaSize.size();
+		int no = paginationService.no(pageNo, count);
+		
 		// VIEW 로 던질 모델 (게시글 / 해당 클래스 정보)
 		model.addAttribute("list", list);
 		model.addAttribute("classes", classes);
 		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
 
 		return "classes/qna/qna_list";
 	}
@@ -175,21 +178,5 @@ public class QnaController {
 		String result = qnaService.createTemp(qna_content, qnaDto);
 		return result;
 	}
-
-//	// QNA 게시글 수정 중 임시 저장
-//	@PostMapping("/classes/qna/temp")
-//	public String qnaTemp(@RequestParam List<String> qna_content, @RequestParam String c_no,
-//			@RequestParam String qna_no, @RequestParam String qna_title, @RequestParam String qna_state,
-//			@RequestParam String depth, @RequestParam String super_no, @RequestParam String group_no) {
-//		// 매개변수 데이터 객체화
-//		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).qna_no(Integer.parseInt(qna_no))
-//				.qna_title(qna_title).qna_state(Integer.parseInt(qna_state))
-//				.depth(Integer.parseInt(depth)).super_no(Integer.parseInt(super_no)).group_no(Integer.parseInt(group_no))
-//				.build();
-//
-//		// 임시 저장 후 QNA 게시판으로 이동
-//		String result = qnaService.createTemp(qna_content, qnaDto);
-//		return result;
-//	}
 
 }

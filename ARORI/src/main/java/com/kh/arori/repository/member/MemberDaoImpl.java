@@ -239,7 +239,7 @@ public class MemberDaoImpl implements MemberDao {
 		return allmember;
 	}
 
-	@Override
+	   @Override
 	   public MAIDto getMAI(int member_no) {
 
 	      return sqlSession.selectOne("member.getMAI",member_no);
@@ -250,6 +250,5 @@ public class MemberDaoImpl implements MemberDao {
 	   public MemberDto getAuth(String member_auth) {
 	      // TODO Auto-generated method stub
 	      return null;
-
-	   }
+}
 }

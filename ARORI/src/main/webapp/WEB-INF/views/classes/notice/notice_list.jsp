@@ -46,7 +46,7 @@
                                     <tr class="text-center">
                                         <th scope="row">${index }</th>
                                         <c:set var="index" value="${index - 1 }"></c:set>
-                                        <td>
+                                        <td class="font-weight-bold">
                                             <label for="${list.n_no }">
                                                 ${list.n_title }
                                             </label>

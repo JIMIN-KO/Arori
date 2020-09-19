@@ -3,10 +3,127 @@
 <jsp:include
 	page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<style>
+/* 차트 스타일 */
+	#chart {
+		width: 650px;
+		margin-top: 70px;
+		margin-left: 15px;
+	}
+	
+	#chart2 {
+		width: 650px;
+		margin-top: 70px;
+	}
+	
+	#chart3 {
+		width: 800px;
+		margin-top: 70px;
+	}
 
+	/* 제목 div */
+	.title {
+		text-align: center;
+		font-weight: 700;
+		padding-top:20px;
+	}
+	/* 제목 텍스트 */
+	.title-text {
+		font-size:17px;
+	}
+</style>
+
+<body>
+	<div class="container-fluid">
+	
+		<!-- 회원가입, 클래스 제목 -->
+		<div class="row mt-5">
+			<div class="col-6 mt-5 title">
+				<div class="row">
+					<div class="col-7 text-center">
+						<span class="title-text ml-5 h4"> 회원 수 현황 </span>
+					</div>
+					<div class="col-5 text-left">					
+						<span>
+							<input type="month" name="memberChart">
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 mt-5 title">
+				<div class="row">
+					<div class="col-7 text-center">
+						<span class="title-text ml-5 h4"> 클래스 수 현황 </span>
+					</div>
+					<div class="col-5 text-left">					
+						<span>
+							<input type="month" name="classesChart">
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+		<!-- 회원가입 차트 -->
+			<div class="memberChart col-6 d-flex justify-content-center">
+				<canvas id="chart">	 
+			</canvas>
+		<!--  클래스 차트 -->
+			</div>
+			<div class="classChart col-6 d-flex justify-content-center">
+				<canvas id="chart2">	 
+			</canvas>
+			</div>
+		</div>
+		
+		<div class="row">
+		<!-- 요약 제목 -->
+			<div class="col-12 mt-5 title" style="text-align:center">
+				<span class="title-text"> 오늘의 아로리 </span>
+			</div>
+			<div class="col-12 mb-5" style="text-align: -webkit-center;">
+				<canvas id="chart3"></canvas>
+			</div>
+			
+		</div>
+	</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js" integrity="sha512-Q1f3TS3vSt1jQ8AwP2OuenztnLU6LwxgyyYOG1jgMW/cbEMHps/3wjvnl1P3WTrF3chJUWEoxDUEjMxDV8pujg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/locale/ko.min.js" integrity="sha512-3kMAxw/DoCOkS6yQGfQsRY1FWknTEzdiz8DOwWoqf+eGRN45AmjS2Lggql50nCe9Q6m5su5dDZylflBY2YjABQ==" crossorigin="anonymous"></script>
 
 <script>
+
+	$(function(){
+		 var max_date = moment().format().slice (0,7);
+		 console.log(max_date)
+		 $("input[name=memberChart]").attr("max",max_date)
+		 $("input[name=classesChart]").attr("max",max_date)
+		 
+		$("input[name=memberChart]").on("change",function(){
+			console.log($(this).val())
+			ajax({
+				url:"",
+				method:"",
+				data:""
+			}).then(function(resp){
+				
+			})
+		})
+		
+		$("input[name=classesChart]").on("change",function(){
+			console.log($(this).val())
+			ajax({
+				url:"",
+				method:"",
+				data:""
+			}).then(function(resp){
+				
+			})
+		})
+	})
 
 	$(function(){
 		
@@ -241,81 +358,6 @@
 			});	
 		})
 </script>
-
-<style>
-
-	/* 차트 스타일 */
-	#chart {
-		width: 650px;
-		height: 650px;
-		margin-top: 70px;
-		margin-left: 15px;
-	}
-	
-	#chart2 {
-		width: 650px;
-		height: 650px;
-		margin-top: 70px;
-	}
-	
-	#chart3 {
-		width: 800px;
-		height: 650px;
-		margin-top: 70px;
-	}
-
-	/* 제목 div */
-	.title {
-		text-align: center;
-		font-weight: 700;
-		padding-top:20px;
-	}
-	/* 제목 텍스트 */
-	.title-text {
-		font-size:17px;
-	}
-</style>
-
-<body>
-	<div class="container-fluid">
-	
-		<!-- 회원가입, 클래스 제목 -->
-		<div class="row mt-5">
-			<div class="col-6 mt-5 title">
-				<span class="title-text"> 회원 수 현황 </span>
-			</div>
-			<div class="col-6 mt-5 title">
-				<span class="title-text" > 클래스 생성 현황 </span>
-			</div>
-		</div>
-		
-		<div class="row">
-		<!-- 회원가입 차트 -->
-			<div class="memberChart col-6">
-				<canvas id="chart">	 
-			</canvas>
-		<!--  클래스 차트 -->
-			</div>
-			<div class="classChart col-6">
-				<canvas id="chart2">	 
-			</canvas>
-			</div>
-		</div>
-		
-		<div class="row">
-		<!-- 요약 제목 -->
-			<div class="col-12 mt-5 title" style="text-align:center">
-				<span class="title-text"> 오늘의 아로리 </span>
-			</div>
-			<div class="col-12 mb-5" style="text-align: -webkit-center;">
-				<canvas id="chart3"></canvas>
-			</div>
-			
-		</div>
-	</div>
-
-</body>
-
 
 <jsp:include
 	page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>

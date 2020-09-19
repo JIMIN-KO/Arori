@@ -2,7 +2,6 @@ package com.kh.arori.repository.admin;
 
 
 import java.util.List;
-import java.util.Map;
 
 import com.kh.arori.entity.admin.ChartDto;
 import com.kh.arori.entity.img.This_imgDto;

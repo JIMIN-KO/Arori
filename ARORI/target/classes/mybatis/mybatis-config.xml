@@ -79,8 +79,6 @@
 		
 		<!-- 전체 멤버  Table -->
 		<typeAlias type="com.kh.arori.entity.member.AllMemberDto" alias="allMemberDto"/>
-		
-		<typeAlias type="com.kh.arori.entity.member.IncomeVO" alias="incomeVO"/>
 
 		<!-- Member + Member_IMG -->
 		<typeAlias type="com.kh.arori.entity.member.MAIDto" alias="maiDto"/>
