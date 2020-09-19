@@ -36,7 +36,7 @@
                         		<input type="hidden" name="n_title">
                         		<input type="hidden" name="n_state" value="1">
                         		<input type="hidden" name="n_content" id="n_content">
-	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="editNotice" value="수정">
+	                        	<input type="button" class="btn btn-warning btn-lg font-weight-bold" id="editNotice" value="수정">
                         	</form>
                         	<!-- 취소 영역 -->
                         	<a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
@@ -95,6 +95,13 @@ $(function(){
 	$("#editNotice").click(function(){
 		/* $("#n_content").val(editor.getTextObject()._mde.toastMark.lineTexts) */
 		$("#n_content").val(editor.getMarkdown());
+		var n_title = $("input[name=n_title]").val()
+
+		if(!n_title) {
+			alert("제목을 입력해주세요.")
+		} else {
+			$("#editForm").submit()
+		}
 	})
 
 })

@@ -40,6 +40,7 @@
 
                      // 회원가입 페이지로 이동
 
+
                      window.location.href = "joinSocial?emailPath=" + emailPath + "&member_id=" + loginEmail + "&member_nick=" + memberNick;
                      // 소셜 로그인 > 로그아웃 
                      firebase.auth().signOut().then(function() {});
@@ -94,10 +95,10 @@
             } else {
                // console.log("로그인 성공!")
                console.log(resp.data)
-               if(resp.data.member_auth === '1') {
+               if(resp.data.member_auth == 1) {
                   window.location.href = "admin/main";
                } else {
-                  window.location.href = "member/myPage";
+                 window.location.href = "member/myPage";
                }
                
                

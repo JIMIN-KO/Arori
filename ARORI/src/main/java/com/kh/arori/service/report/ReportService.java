@@ -4,7 +4,6 @@ package com.kh.arori.service.report;
 import java.util.List;
 
 import com.kh.arori.entity.member.ReportDto;
-import com.kh.arori.entity.study.NoticeDto;
 
 public interface ReportService {
 

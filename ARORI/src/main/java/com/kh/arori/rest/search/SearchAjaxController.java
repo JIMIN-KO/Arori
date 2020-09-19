@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.repository.study.ClassesDao;
-import com.kh.arori.service.study.ClassesService;
 
 @RestController
 @RequestMapping("/searchAjax")

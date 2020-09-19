@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
+import com.kh.arori.entity.member.MAIDto;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.PasswordQDto;
 
@@ -96,4 +97,10 @@ public interface MemberDao {
 	
 	public List<PasswordQDto> pwList();
 
+	//  Member + Member_IMG 같이 (멤버 정보와 프로필 이미지 번호)
+	public MAIDto getMAI(int member_no);
+
+	//회원 권한 조회 
+	public MemberDto getAuth(String member_auth);
 }
+

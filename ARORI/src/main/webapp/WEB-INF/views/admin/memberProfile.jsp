@@ -2,7 +2,7 @@
 	page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script>
 function del(member_no) {
     var chk = confirm("정말 삭제하시겠습니까?")

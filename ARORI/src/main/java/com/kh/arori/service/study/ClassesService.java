@@ -2,6 +2,7 @@ package com.kh.arori.service.study;
 
 import java.util.List;
 
+import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.entity.study.SubscribeDto;
@@ -21,6 +22,5 @@ public interface ClassesService {
 
 	// 구독
 	public void already(SubscribeDto subDto);
-	
-	
+
 }

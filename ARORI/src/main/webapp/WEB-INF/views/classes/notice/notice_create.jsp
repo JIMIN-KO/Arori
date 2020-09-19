@@ -18,13 +18,13 @@
                         <div id="editor" class="mt-5"></div>
                         <div class="float-right mt-5">
                         	<!-- 전송 영역 -->
-                        	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;">
+                        	<form action="${pageContext.request.contextPath }/classes/notice/edit" method="post" style="display: inline-block;" class="createNotice">
                         		<input type="hidden" name="c_no" value="${noticeDto.c_no }">
                         		<input type="hidden" name="n_no" value="${noticeDto.n_no }">
                         		<input type="hidden" name="n_title">
                         		<input type="hidden" name="n_content" id="n_content">
                         		<input type="hidden" name="n_state" value="1">
-	                        	<input type="submit" class="btn btn-warning btn-lg font-weight-bold" id="createNotice" value="작성">
+	                        	<input type="button" class="btn btn-warning btn-lg font-weight-bold" id="createNotice" value="작성">
                         	</form>
                         	<!-- 취소 영역 -->
                             <a class="btn btn-primary btn-lg font-weight-bold" id="cancel">취소</a>
@@ -64,6 +64,13 @@ $(function(){
 	$("#createNotice").click(function(){
 		/* $("#n_content").val(editor.getTextObject()._mde.toastMark.lineTexts) */
 		$("#n_content").val(editor.getMarkdown());
+		var n_title = $("input[name=n_title]").val()
+
+		if(!n_title) {
+			alert("제목을 입력해주세요.")
+		} else {
+			$(".createNotice").submit()
+		}
 	})
 })
 

@@ -239,19 +239,19 @@
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">O</span>
 									  </div>
-									  <input type="text" name="o_content" class="form-control" placeholder="O > 지문을 입력해주세요.">
+									  <input type="text" name="o_content" class="form-control answer" placeholder="O > 지문을 입력해주세요.">
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">X</span>
 									  </div>
-									  <input type="text" name="x_content" class="form-control" placeholder="X > 지문을 입력해주세요.">
+									  <input type="text" name="x_content" class="form-control answer" placeholder="X > 지문을 입력해주세요.">
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <label class="input-group-text" id="inputGroup-sizing-lg">정답을 지정해주세요.</label>
 									  </div>
-									  <select class="custom-select" name="ox_answer">
+									  <select class="custom-select answer" name="ox_answer">
 									    <option disabled="disabled">정답 선택</option>
 									    <option value="0" selected>O</option>
 									    <option value="1">X</option>
@@ -271,31 +271,31 @@
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">1.</span>
 									  </div>
-									  <textarea class="form-control" name="multiple_one"></textarea>
+									  <textarea class="form-control answer" name="multiple_one"></textarea>
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">2.</span>
 									  </div>
-									  <textarea class="form-control" name="multiple_two"></textarea>
+									  <textarea class="form-control answer" name="multiple_two"></textarea>
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <span class="input-group-text" >3.</span>
 									  </div>
-									  <textarea class="form-control" name="multiple_three"></textarea>
+									  <textarea class="form-control answer" name="multiple_three"></textarea>
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <span class="input-group-text">4.</span>
 									  </div>
-									  <textarea class="form-control" name="multiple_four"></textarea>
+									  <textarea class="form-control answer" name="multiple_four"></textarea>
 									</div>
 									<div class="input-group mb-3 input-group-lg">
 									  <div class="input-group-prepend">
 									    <label class="input-group-text" id="inputGroup-sizing-lg">정답을 지정해주세요.</label>
 									  </div>
-									  <select class="custom-select" name="multiple_answer">
+									  <select class="custom-select answer" name="multiple_answer">
 									    <option disabled="disabled" selected>정답 선택</option>
 									    <option value="1" >1번</option>
 									    <option value="2">2번</option>
@@ -318,7 +318,7 @@
 										  <div class="input-group-prepend">
 										    <span class="input-group-text">단답형 정답</span>
 										  </div>
-										  <textarea class="form-control" name="explain_answer"></textarea>
+										  <textarea class="form-control answer" name="explain_answer"></textarea>
 										</div>
 						  		</form>
 						  	</div>
@@ -495,59 +495,73 @@ $(function(){
 	$(".add").click(function(){
 		// 클릭한 폼의 정보를 불러온다.
 		var add = $(".add").val()
-		// 해당 퀘스쳔 등록하고 새로운 퀘스쳔 생성
-		$("input[name=content]").val(editor2.getMarkdown())
-			axios({
-					url:"/arori/questionAjax/create/" + add,
-					method:"post",
-					data:$("." + add).serialize()
-				}).then(function(resp){
-					console.log(resp.data)
-					$("input[name=question_no]").val(resp.data)
+		
+		var answerValue = $("." + add).find(".answer")
+		var result = false
+		for(var i = 0; i < answerValue.length; i++) {
+			if(!answerValue[i].value) {
+					alert("해당 퀘스쳔의 정보를 다시 입력해주세요.")
+					return
+				} else {
+					result = true
+				}
+			}
+			if(result) {
+				// 해당 퀘스쳔 등록하고 새로운 퀘스쳔 생성
+				$("input[name=content]").val(editor2.getMarkdown())
+					axios({
+							url:"/arori/questionAjax/create/" + add,
+							method:"post",
+							data:$("." + add).serialize()
+						}).then(function(resp){
+							console.log(resp.data)
+							$("input[name=question_no]").val(resp.data)
 
-					var clone = backup.clone()	
-					$(".question-list").last().after(clone)
-					var questionContent = document.querySelectorAll(".question-content")
-					var questionType = document.querySelectorAll(".question-type")
-					var string
-					// 지금 만든 퀘스쳔 띄우기 		
-					if(add == "ox") {
-								var o_content = $("input[name=o_content]").val()
-								var x_content = $("input[name=x_content]").val()
-								var ox_answer = $("select[name=ox_answer]").val()
-								string = "O : " + o_content + "<br>X : " + x_content + "<br><br>정답 : " + ox_answer
+							var clone = backup.clone()	
+							$(".question-list").last().after(clone)
+							var questionContent = document.querySelectorAll(".question-content")
+							var questionType = document.querySelectorAll(".question-type")
+							var string
+							// 지금 만든 퀘스쳔 띄우기 		
+							if(add == "ox") {
+										var o_content = $("input[name=o_content]").val()
+										var x_content = $("input[name=x_content]").val()
+										var ox_answer = $("select[name=ox_answer]").val()
+										string = "O : " + o_content + "<br>X : " + x_content + "<br><br>정답 : " + ox_answer
 
-								questionType[questionType.length - 1].innerHTML = "OX 문제"
-							
-							} else if(add == "multiple") {
-								var one = $("textarea[name=multiple_one]").val()
-								var two = $("textarea[name=multiple_two]").val()
-								var three = $("textarea[name=multiple_three]").val()
-								var four = $("textarea[name=multiple_four]").val()
-								var answer = $("select[name=multiple_answer]").val()
-								string = "1번 : " + one + "<br>2번 : " + two + "<br>3번 : " + three + "<br>4번 : " + four + "<br><br>정답 : " + answer + "번"
+										questionType[questionType.length - 1].innerHTML = "OX 문제"
+									
+									} else if(add == "multiple") {
+										var one = $("textarea[name=multiple_one]").val()
+										var two = $("textarea[name=multiple_two]").val()
+										var three = $("textarea[name=multiple_three]").val()
+										var four = $("textarea[name=multiple_four]").val()
+										var answer = $("select[name=multiple_answer]").val()
+										string = "1번 : " + one + "<br>2번 : " + two + "<br>3번 : " + three + "<br>4번 : " + four + "<br><br>정답 : " + answer + "번"
 
-								questionType[questionType.length - 1].innerHTML = "선다형 문제"
-							} else {
-								var explain_answer = $("textarea[name=explain_answer]").val()
-								string = "정답 : " + explain_answer
+										questionType[questionType.length - 1].innerHTML = "선다형 문제"
+									} else {
+										var explain_answer = $("textarea[name=explain_answer]").val()
+										string = "정답 : " + explain_answer
 
-								questionType[questionType.length - 1].innerHTML = "단답형 문제"
-							}	
-							questionContent[questionContent.length - 1].innerHTML = string
-							$(".question-list").last().css("display","block")
+										questionType[questionType.length - 1].innerHTML = "단답형 문제"
+									}	
+									questionContent[questionContent.length - 1].innerHTML = string
+									$(".question-list").last().css("display","block")
 
-							editor2.setMarkdown("")
-							$("input[name=o_content]").val("")
-							$("input[name=x_content]").val("")
-							$("select[name=ox_answer]").val("")
-							$("textarea[name=multiple_one]").val("")
-							$("textarea[name=multiple_two]").val("")
-							$("textarea[name=multiple_three]").val("")
-							$("textarea[name=multiple_four]").val("")
-							$("select[name=multiple_answer]").val("")
-							$("textarea[name=explain_answer]").val("")
-				})
+									editor2.setMarkdown("")
+									$("input[name=o_content]").val("")
+									$("input[name=x_content]").val("")
+									$("select[name=ox_answer]").val("")
+									$("textarea[name=multiple_one]").val("")
+									$("textarea[name=multiple_two]").val("")
+									$("textarea[name=multiple_three]").val("")
+									$("textarea[name=multiple_four]").val("")
+									$("select[name=multiple_answer]").val("")
+									$("textarea[name=explain_answer]").val("")
+						})
+				}
+
 		})
 })
  

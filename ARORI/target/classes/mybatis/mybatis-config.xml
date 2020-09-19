@@ -104,5 +104,9 @@
 		<typeAlias type="com.kh.arori.entity.member.AllMemberDto"
 			alias="allMemberDto" />
 
+		<!-- Member + Member_IMG -->
+		<typeAlias type="com.kh.arori.entity.member.MAIDto" alias="maiDto"/>
+		
+
 	</typeAliases>
 </configuration>

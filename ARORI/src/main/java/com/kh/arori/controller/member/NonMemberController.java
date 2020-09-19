@@ -57,6 +57,7 @@ public class NonMemberController {
 //	}
 
 
+
 	// 아로리 회원 가입 페이지 
 	@GetMapping("/joinArori")
 	public String joinArori(Model model) {
