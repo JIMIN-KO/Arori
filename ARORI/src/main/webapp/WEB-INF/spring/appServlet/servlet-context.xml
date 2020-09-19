@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -69,16 +71,16 @@
 		Web Socket
 		- websocket 을 사용하기 위해서 namespace를 해당 xml 에 등록
 	-->
-<!-- 	<beans:bean id="test" class="com.kh.arori.websocket.WebSocketTestServer"></beans:bean>
+<beans:bean id="alarm" class="com.kh.arori.websocket.WebSocketServer"></beans:bean>
 	<websocket:handlers>
-		접속 주소 > ws://localhost:포트번호/spring/basic
-		<websocket:mapping handler="test" path="/test/basic"/>
-		설정 추가
-		HttpSession 정보를 가져오기 위한 도구 등록
+		<!-- 접속 주소 > ws://localhost:포트번호/spring/basic -->
+		<websocket:mapping handler="alarm" path="/alarm"/>
+		<!-- 설정 추가
+		HttpSession 정보를 가져오기 위한 도구 등록 -->
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
 		</websocket:handshake-interceptors>
-	</websocket:handlers> -->
+	</websocket:handlers>
 	
 	
 </beans:beans>

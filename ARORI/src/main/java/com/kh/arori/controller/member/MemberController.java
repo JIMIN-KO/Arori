@@ -59,6 +59,7 @@ public class MemberController {
 	@Autowired
 	private ImgService imgService;
 
+	@Autowired
 	private PaginationService paginationService;
 
 	@Autowired
@@ -206,6 +207,7 @@ public class MemberController {
 
 		MyQuizDto myQuizDto = MyQuizDto.builder().member_no(userinfo.getMember_no()).build();
 		List<MyQuizDto> quizList = quizDao.getAMQ(myQuizDto);
+
 		int count = quizList.size();
 		int no = paginationService.no(pageNo, count);
 
