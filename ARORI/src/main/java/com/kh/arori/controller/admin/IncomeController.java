@@ -40,7 +40,7 @@ public class IncomeController {
 	public String home(Locale locale, Model model, @ModelAttribute MemberDto memberDto,
 			@ModelAttribute AroriMemberDto aroriMemberDto) throws Exception {
 
-		int memberCount = adminService.memberCount(memberDto);
+		int memberCount = adminService.memberCount();
 
 		int aroriCount = adminService.aroriCount(aroriMemberDto);
 

@@ -37,11 +37,12 @@
 				</thead>
 				<tbody>
 
-
+				<c:set var="no" value="${no }"></c:set>
 					<c:forEach var="allMemberDto" items="${list}" varStatus="status">
 						<tr>
 						<tr>
-							<th scope="row">${allMemberDto.member_no}</th>
+							<th scope="row">${no }</th>
+							<c:set var="no" value="${no - 1 }"></c:set>
 							<td>${allMemberDto.member_id}</td>
 							<td><c:if
 									test="${fn:contains(allMemberDto.member_auth,'1') || fn:contains(allMemberDto.member_nick,'admin')}">
@@ -61,26 +62,53 @@
 						</tr>
 
 					</c:forEach>
-
-
-					<form action="search" method="post">
-						<tr>
-							<td><select name="type" class="custom-select">
-									<option value="member_id">ID</option>
-									<option value="member_state">소셜/아로리회원</option>
-									<option value="member_nick">닉네임</option>
-							</select></td>
-							<td><input type="text" class="form-control" name="keyword"
-								placeholder="검색어"></td>
-							<td><input type="submit" class="form-control" value="찾기"></td>
-						</tr>
-					</form>
-					<span>총 회원 수는 ${memberCount} 명 입니다. 생성 된 클래스 의 개수는
-						${classCount} 클래스 입니다.</span>
-					<a href="${pageContext.request.contextPath}">메인페이지로 이동</a>
 				</tbody>
 			</table>
-		</form>
+	<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item">
+					<c:if test="${pageNo > 10 }">
+							<a class="page-link"
+								href="${pageContext.request.contextPath }/admin/allList/${block[0] - 1}"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+							</a>
+						</c:if></li>
+					<c:forEach var="block" items="${block}">
+						<li class="page-item"><a class="page-link"
+							href="${pageContext.request.contextPath }/admin/allList/${block}">${block}</a></li>
+					</c:forEach>
+					<li class="page-item">
+						<c:set var="size" value="${fn:length(block)}"></c:set>
+						<c:if test="${size> pageNo and pageNo >10}">
+							<a class="page-link"
+								href="${pageContext.request.contextPath }/admin/allList/${block[size]+1}"
+								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a>
+						</c:if>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+
+			<%-- <form action="search" method="post">
+				<tr>
+					<td><select name="type" class="custom-select">
+							<option value="member_id">ID</option>
+							<option value="member_state">소셜/아로리회원</option>
+							<option value="member_nick">닉네임</option>
+					</select></td>
+					<td><input type="text" class="form-control" name="keyword"
+						placeholder="검색어"></td>
+					<td><input type="submit" class="form-control" value="찾기"></td>
+				</tr>
+			</form>
+			<span>총 회원 수는 ${memberCount} 명 입니다. 생성 된 클래스 의 개수는
+				${classCount} 클래스 입니다.</span> <a href="${pageContext.request.contextPath}">메인페이지로
+				이동</a>
+
+		</form> --%>
 	</div>
 </div>
 <script type="text/javascript">

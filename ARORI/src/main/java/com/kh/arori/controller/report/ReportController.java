@@ -42,7 +42,8 @@ public class ReportController {
 	@Autowired
 	private MemberDao memberDao;
 	
-	@Autowired PaginationService  paginationService;
+	@Autowired 
+	private PaginationService  paginationService;
 
 // 신고글 작성하기
 	@GetMapping("/write")
@@ -121,7 +122,7 @@ public class ReportController {
 		List<ReportDto> list = sqlSession.selectList("report.search", param);
 		model.addAttribute("list", list);
 
-		return "report/searchList";
+		return "report/list";
 
 	}
 

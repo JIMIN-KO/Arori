@@ -2,6 +2,7 @@ package com.kh.arori.repository.admin;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
@@ -31,7 +32,7 @@ public interface AdminDao {
 	public int classCount(ClassesDto classesDto);
 	
 	//멤버 총 인원
-	public int memberCount(MemberDto memberDto);
+	public int memberCount();
 
 	//비밀번호 확인
 	public int checkPw(AroriMemberDto aroriMemberDto);
@@ -44,6 +45,9 @@ public interface AdminDao {
 	
 	//회원 탈퇴
 	public void delete(int member_no);
+	
+	// 페이지 네이션 
+	public List<AllMemberDto> page(Map<String, Integer> pagination);
 	
 
 }

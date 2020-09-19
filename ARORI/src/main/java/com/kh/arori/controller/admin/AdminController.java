@@ -32,6 +32,7 @@ import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.service.report.ReportService;
 
 @Controller
@@ -52,6 +53,9 @@ public class AdminController {
 
 	@Autowired
 	private ReportService reportService;
+
+	@Autowired
+	PaginationService paginationService;
 
 	@GetMapping("/main")
 	public String adminPage() {
@@ -99,21 +103,29 @@ public class AdminController {
 	 * }
 	 */
 	// 리스트
-	@GetMapping("/allList")
-	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto, @ModelAttribute ClassesDto classesDto,
-			@ModelAttribute MemberDto memberDto) {
-		
-		
-		List<AllMemberDto> list = adminService.allList();
-		model.addAttribute("list", list);
+	@GetMapping("/allList/{pageNo}")
+	public String allList(@PathVariable int pageNo, Model model, @ModelAttribute AllMemberDto allMemberDto,
+			@ModelAttribute ClassesDto classesDto, @ModelAttribute MemberDto memberDto) {
 
+		// 회원 목록 불러오기
+		List<AllMemberDto> list = adminService.page(pageNo);
 
-		int memberCount = adminDao.memberCount(memberDto);
+		// 멤버 인원 조회
+		int memberCount = adminService.memberCount();
 		model.addAttribute("memberCount", memberCount);
 
-		
+		// 페이지 네이션
+		List<Integer> block = adminService.pagination(0, pageNo);
+		// 멤버 게시글 번호
+		int no = paginationService.no(pageNo, memberCount);
 		int classCount = adminDao.classCount(classesDto);
 		model.addAttribute("classCount", classCount);
+
+		// 페이지 네비게이션에 필요한 뷰젼달
+		model.addAttribute("list", list);
+		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
 
 		return "admin/allList";
 
@@ -126,7 +138,7 @@ public class AdminController {
 		List<AllMemberDto> list = adminService.allList();
 		model.addAttribute("list", list);
 
-		int memberCount = adminDao.memberCount(memberDto);
+		int memberCount = adminDao.memberCount();
 		model.addAttribute("memberCount", memberCount);
 
 		int aroriCount = adminDao.aroriCount(aroriMemberDto);
@@ -144,7 +156,7 @@ public class AdminController {
 		List<AllMemberDto> list = adminService.allList();
 		model.addAttribute("list", list);
 
-		int memberCount = adminDao.memberCount(memberDto);
+		int memberCount = adminDao.memberCount();
 		model.addAttribute("memberCount", memberCount);
 
 		int aroriCount = adminDao.aroriCount(aroriMemberDto);

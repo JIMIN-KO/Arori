@@ -1,6 +1,7 @@
 package com.kh.arori.repository.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class AdminDaoImpl implements AdminDao {
 	// 페이지네이션
 	@Override
 	public int totalCnt() {
-		return sqlSession.selectOne("admin.count");
+		return sqlSession.selectOne("admin.memberCount");
 	}
 
 	// 관리자가 보는 클래스리스트
@@ -57,11 +58,10 @@ public class AdminDaoImpl implements AdminDao {
 
 	// 관리자가 보는 멤버카운트
 	@Override
-	public int memberCount(MemberDto memberDto) {
-		int memberCount = 0;
+	public int memberCount() {
 
-		memberCount = sqlSession.selectOne("admin.memberCount", memberDto);
-		return memberCount;
+		return sqlSession.selectOne("admin.memberCount");
+	
 	}
 
 	// 패스워드체크
@@ -92,6 +92,12 @@ public class AdminDaoImpl implements AdminDao {
 	public void delete(int member_no) {
 		sqlSession.delete("admin.delete", member_no);
 
+	}
+
+	//페이지 네이션
+	@Override
+	public List<AllMemberDto> page(Map<String, Integer> pagination) {
+		return sqlSession.selectList("admin.page", pagination);
 	}
 
 }

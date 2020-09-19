@@ -115,7 +115,7 @@
 	</div>
 
 
-			<!-- 	<form action="search" method="post">
+			<form action="search" method="post">
 					<table>
 						<tr>
 							<th scope="col"></th>
@@ -130,7 +130,7 @@
 								class="btn btn-primary btn-lg font-weight-bold" value="찾기"></td>
 						</tr>
 					</table>
-				</form> -->
+				</form> 
 
 
 			<jsp:include

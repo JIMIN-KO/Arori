@@ -8,7 +8,7 @@
 
 	<delete id="delete" parameterType="int">
 		DELETE FROM MEMBER WHERE
-		 member_no=#{member_no}
+		member_no=#{member_no}
 	</delete>
 
 	<!--멤버+클래스 member_no 단일조회 -->
@@ -43,14 +43,15 @@
 	</select>
 
 	<!-- 회원 검색 -->
-	<select id="search" resultType="allMemberDto" parameterType="map">
+	<select id="search" resultType="allMemberDto"
+		parameterType="map">
 		SELECT
 		m.member_no,m.MEMBER_id,m.member_nick,m.member_state,m.MEMBER_join,m.member_login,m.REPORT_STATE,m.SUSPENSION,am.member_email,am.member_phone
 		FROM MEMBER m FULL JOIN arori_member am ON
 		M.MEMBER_NO=am.MEMBER_NO
 		WHERE instr(${type},#{keyword})>0 ORDER BY m.member_no ASC
 	</select>
-	
+
 	<!-- 총 클래스 카운트 -->
 	<select id="classCount" resultType="int"
 		parameterType="classesDto">
@@ -59,8 +60,7 @@
 	</select>
 
 	<!-- 총 멤버 카운트 -->
-	<select id="memberCount" resultType="int"
-		parameterType="memberDto">
+	<select id="memberCount" resultType="int">
 		SELECT count(*)FROM MEMBER
 	</select>
 
@@ -76,6 +76,15 @@
 		m.member_no,m.member_id,m.member_nick,m.member_state,m.member_join,m.member_login,m.report_state,m.suspension,m.member_auth,am.member_email,am.member_phone
 		FROM MEMBER m LEFT OUTER JOIN ARORI_MEMBER am ON m.MEMBER_NO =
 		am.member_no ORDER BY member_no ASC
+	</select>
+
+	<!-- 페이지 네비게이션 -->
+	<select id="page" resultType="allMemberDto" parameterType="map">
+		SELECT * FROM (SELECT ROWNUM rn,
+		a.member_no,a.member_id,a.member_auth,a.member_nick,a.member_state
+		FROM MEMBER a
+		FULL OUTER JOIN ARORI_MEMBER b ON a.MEMBER_NO = b.MEMBER_NO ORDER BY
+		a.member_no desc) c WHERE rn BETWEEN ${start} AND ${finish}
 	</select>
 
 

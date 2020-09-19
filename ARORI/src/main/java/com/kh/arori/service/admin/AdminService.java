@@ -6,6 +6,7 @@ import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
 import com.kh.arori.entity.member.MemberDto;
+import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.entity.study.ClassesDto;
 
 
@@ -31,6 +32,12 @@ public interface AdminService {
 	public int aroriCount(AroriMemberDto aroriMemberDto);
 	
 	//멤버 총 인원
-	public int memberCount(MemberDto memberDto);
+	public int memberCount();
+	
+	// 페이지 네이션 
+	public List<AllMemberDto> page(int pageNo);
+
+	// 페이지네이션 개수
+	public List<Integer> pagination(int member_no, int pageNo);
 	
 }
