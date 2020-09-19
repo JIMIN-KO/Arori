@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.arori.entity.admin.ChartDto;
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
@@ -88,6 +89,17 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<AllMemberDto> allList() {
 		return sqlSession.selectList("admin.allList");
+	}
+
+	@Override
+	public int todayCount(ChartDto chartDto) {
+		
+		return sqlSession.selectOne("admin.todayCount", chartDto);
+	}
+
+	@Override
+	public List<ChartDto> thisChart(ChartDto chartDto) {
+		return sqlSession.selectList("admin.thisChart", chartDto);
 	}
 
 }

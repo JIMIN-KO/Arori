@@ -3,6 +3,7 @@ package com.kh.arori.repository.admin;
 
 import java.util.List;
 
+import com.kh.arori.entity.admin.ChartDto;
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
@@ -43,4 +44,9 @@ public interface AdminDao {
 	//아로리 총 멤버
 	public List<AllMemberDto>allList();
 	
+	// 생성일 불러오기(지민)
+	public int todayCount(ChartDto chartDto);
+	
+	// 각 테이블 별 수 변화 현항(지민)
+	public List<ChartDto> thisChart(ChartDto chartDto);
 }

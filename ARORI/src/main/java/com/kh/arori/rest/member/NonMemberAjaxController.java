@@ -32,9 +32,8 @@ public class NonMemberAjaxController {
 
 		MemberDto member = memberService.aroriLogin(member_id, member_pw);
 
-		if (member.getReport_state().equals("정상")) {
-//	         System.out.println("member : " + member.getReport_state());
-			if (member != null) {
+		if (member != null) {
+			if (member.getReport_state().equals("정상")) {
 				session.setAttribute("userinfo", member);
 				return member;
 			}

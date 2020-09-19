@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
@@ -32,7 +30,6 @@ import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
-import com.kh.arori.service.report.ReportService;
 
 @Controller
 @RequestMapping("/admin")
@@ -50,11 +47,15 @@ public class AdminController {
 	@Autowired
 	private AdminDao adminDao;
 
-	@Autowired
-	private ReportService reportService;
-
 	@GetMapping("/main")
-	public String adminPage() {
+	public String adminPage(Model model) {
+		
+		int[] count = adminService.todayCount();
+		model.addAttribute("count", count);	
+		
+		// int[] numberofMember = adminDao.memberChart();
+		
+		
 		return "admin/main_admin";
 	}
 
@@ -249,5 +250,7 @@ public class AdminController {
 
 		return "admin/delete";
 	}
+	
+	
 
 }

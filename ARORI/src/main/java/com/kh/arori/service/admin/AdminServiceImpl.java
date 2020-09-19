@@ -1,10 +1,13 @@
 package com.kh.arori.service.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.arori.constant.NameConst;
+import com.kh.arori.entity.admin.ChartDto;
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
@@ -55,7 +58,6 @@ public class AdminServiceImpl implements AdminService {
 		return getImage;
 	}
 
-
 	// 아로리 총 멤버 리스트
 	@Override
 	public List<AllMemberDto> allList() {
@@ -64,14 +66,40 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int aroriCount(AroriMemberDto aroriMemberDto) {
-	
+
 		return adminDao.aroriCount(aroriMemberDto);
 	}
 
 	@Override
 	public int memberCount(MemberDto memberDto) {
-		
+
 		return adminDao.memberCount(memberDto);
+	}
+
+	@Override
+	public int[] todayCount() {
+
+		String[][] list = { { NameConst.MEMBER, "member_join" }, { NameConst.CLASSES, "c_when" },
+				{ NameConst.QUIZ, "q_when" }, { NameConst.QNA, "qna_when" }, { NameConst.REPORT, "report_date" } };
+		ChartDto chartDto = ChartDto.builder().build();
+		int[] count = new int[list.length];
+		
+		for (int i = 0; i < list.length; i++) {
+			
+			chartDto.setTable_name(list[i][0]);
+			chartDto.setCol(list[i][1]);
+			
+			count[i] = adminDao.todayCount(chartDto);
+			
+		}
+
+		return count;
+	}
+
+	@Override
+	public int[] thisChart() {
+		List<ChartDto> list = new ArrayList<ChartDto>();
+		return null;
 	}
 
 }

@@ -162,17 +162,21 @@
 								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 
 								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
 							</small>
-						</p>					
-						<div class="card-btn w-100">
-							<div class="row mt-3">
-								<div class="col-6">
-									<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
-								</div>
-								<div class="col-6">
-									<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
-								</div>
-							</div>
-						</div>						
+						</p>
+						<c:choose>
+							<c:when test="${userinfo.member_no == MCIDto.member_no or userinfo.member_auth == 1 }">
+								<div class="card-btn w-100">
+									<div class="row mt-3">
+										<div class="col-6">
+											<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
+										</div>
+										<div class="col-6">
+											<a href="${pageContext.request.contextPath}/classes/delete/${MCIDto.c_no}" class="btn btn-warning btn-sm btn-block" style="font-size:14px">DELETE</a>
+										</div>
+									</div>
+								</div>							
+							</c:when>																				
+						</c:choose>
 					</div>
 				</div>
 			</div>

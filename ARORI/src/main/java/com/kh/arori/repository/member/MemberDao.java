@@ -102,4 +102,5 @@ public interface MemberDao {
 	public MemberDto getAuth(String member_auth);
 	
 	
+                                                            
 }

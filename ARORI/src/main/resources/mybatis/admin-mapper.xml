@@ -79,5 +79,24 @@
 		FROM MEMBER m LEFT OUTER JOIN ARORI_MEMBER am ON m.MEMBER_NO =
 		am.member_no ORDER BY member_no ASC
 	</select>
-
+	
+	<!--오늘 가입한 회원 수(지민) -->
+	<select id="todayCount" resultType="int" parameterType="chartDto">
+		SELECT COUNT(*) FROM ${table_name} WHERE SUBSTR(${col}, 0,10)=SUBSTR(SYSDATE,0,10)
+	</select>
+	
+	<!--  각 테이블 별 카운트 현황 -->
+	<select id="thisChart" resultType="chartDto" parameterType="chartDto">
+		SELECT 
+			TO_CHAR(${col}, 'yyyy-MM') AS WHEN,
+			COUNT(*) AS count
+		FROM 
+			${table_name} 
+		WHERE 
+			${col}<![CDATA[>=]]>to_date('${period}','yyyy-MM') 
+		AND 
+			${col}<![CDATA[<]]>SYSDATE 
+		GROUP BY 
+			TO_CHAR(${col}, 'yyyy-MM')
+	</select> 
 </mapper>
