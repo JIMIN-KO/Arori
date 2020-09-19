@@ -57,6 +57,9 @@ public class AdminController {
 		int[] count = adminService.todayCount();
 		model.addAttribute("count", count);	
 		
+		// int[] numberofMember = adminDao.memberChart();
+		
+		
 		return "admin/main_admin";
 	}
 

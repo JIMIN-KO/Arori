@@ -59,6 +59,7 @@ public class MemberController {
 	@Autowired
 	private ImgService imgService;
 	
+	@Autowired
 	private PaginationService paginationService;
 
 	// 로그아웃

@@ -13,7 +13,7 @@
 		// 2D그리기 도구를 ctx라는 이름으로 저장
 		var ctx = document.getElementById('chart').getContext('2d');
 		
-		<!-- 멤버 차트-->
+		// 멤버 차트
 		// 차트 생성 코드
 		var chart = new Chart(ctx, {
 		    // The type of chart we want to create
@@ -22,26 +22,26 @@
 		    // 실제 차트를 구성하는 데이터
 		    data: {
 		    	// 축에 표시될 라벨 정보
-		        labels: ['1주차', '2주차', '3주차', '4주차', '5주차', '6주차'],
+		        labels: ['5월', '6월', '7월', '8월', '9월'],
 		        
 		        // 실제 데이터
 		        datasets: [{
 		            label: 'Total',
 		            backgroundColor: 'rgba(0, 0, 0, 0)',
 		            borderColor: '#ED6D85',
-		            data: [0, 10, 40, 45, 20, 50, 45],
+		            data: [0, 10, 40, 45, 20, 50],
 		        	borderWidth:4
 		        }, {
 		        	label: 'ARORI',
 		            backgroundColor: 'rgba(0, 0, 0, 0)',
 		            borderColor: '#4A70F6',
-		            data: [0, 10, 5, 2, 20, 30, 45],
+		            data: [0, 10, 5, 2, 20, 30],
 		        	borderWidth:2       	
 		        }, {
 		        	label: 'SICIAL',
 		            backgroundColor: 'rgba(0, 0, 0, 0)',
 		            borderColor: '#F5C159',
-		            data: [0, 6, 10, 2, 10, 30, 23],
+		            data: [0, 6, 10, 2, 10, 30],
 		        	borderWidth:2	
 		        	
 		        }

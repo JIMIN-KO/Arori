@@ -36,6 +36,9 @@ public interface AdminService {
 	//멤버 총 인원
 	public int memberCount(MemberDto memberDto);
 	
-	// 오늘의 카운트
+	// 오늘의 카운트(지민)
 	public int[] todayCount();
+	
+	// 테이블 별 수 변화 현황(지민)
+	public int[] thisChart();
 }
