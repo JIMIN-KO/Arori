@@ -106,22 +106,41 @@ public class AdminController {
 	 * 
 	 * }
 	 */
+
 	// 리스트
 	@GetMapping("/allList/{pageNo}")
 	public String allList(@PathVariable int pageNo, Model model, @ModelAttribute AllMemberDto allMemberDto,
-			@ModelAttribute ClassesDto classesDto, @ModelAttribute MemberDto memberDto) {
+			@ModelAttribute ClassesDto classesDto, @ModelAttribute MemberDto memberDto,
+			@RequestParam(required = false) String col, @RequestParam(required = false) String keyword) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("pageNo", String.valueOf(pageNo));
+		map.put("col", col);
+		map.put("keyword", keyword);
+		map.put("start", null);
+		map.put("finish", null);
+
+		// 조건에 맞는 게시글 개수 파악을 위한 리스트 조회
+		List<AllMemberDto> thisCount = adminDao.page(map);
 
 		// 회원 목록 불러오기
-		List<AllMemberDto> list = adminService.page(pageNo);
+		List<AllMemberDto> list = adminService.page(map);
 
 		// 멤버 인원 조회
 		int memberCount = adminService.memberCount();
 		model.addAttribute("memberCount", memberCount);
 
-		// 페이지 네이션
-		List<Integer> block = adminService.pagination(0, pageNo);
+		// 페이지 네이션 조건에 따라 게시글 개수가 다르니 현재 검색 혹은 메인 페이지에 있는 게시글만큼 페이지 네이션 블록 생성
+		List<Integer> block = adminService.pagination(thisCount.size(), pageNo);
 		// 멤버 게시글 번호
-		int no = paginationService.no(pageNo, memberCount);
+		int index;
+		
+		if(col == null && keyword == null) {
+			index = thisCount.size();
+		} else {
+			index = list.size();
+		}
+		
+		int no = paginationService.no(pageNo, thisCount.size());
 		int classCount = adminDao.classCount(classesDto);
 		model.addAttribute("classCount", classCount);
 
@@ -132,133 +151,6 @@ public class AdminController {
 		model.addAttribute("no", no);
 
 		return "admin/allList";
-
-	}
-
-	// 소셜 + 아로리) 소셜조회
-	@GetMapping("/aroriList/{pageNo}")
-	public String arorilist(@PathVariable int pageNo, Model model, @ModelAttribute MemberDto memberDto,
-			@ModelAttribute AroriMemberDto aroriMemberDto) {
-		// 회원 목록 불러오기
-		List<AllMemberDto> list = adminService.page(pageNo);
-
-		// 멤버 인원 조회
-		int memberCount = adminService.memberCount();
-		model.addAttribute("memberCount", memberCount);
-
-		// 페이지 네이션
-		List<Integer> block = adminService.pagination(0, pageNo);
-		// 멤버 게시글 번호
-		int no = paginationService.no(pageNo, memberCount);
-
-		// 페이지 네비게이션에 필요한 뷰젼달
-		model.addAttribute("list", list);
-		model.addAttribute("block", block);
-		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("no", no);
-
-		int aroriCount = adminDao.aroriCount(aroriMemberDto);
-		model.addAttribute("aroriCount", aroriCount);
-
-		return "admin/aroriList";
-
-	}
-
-	// 소셜 + 아로리) 소셜조회
-	@GetMapping("/socialList/{pageNo}")
-	public String socialList(@PathVariable int pageNo, Model model, Model model2, @ModelAttribute MemberDto memberDto,
-			@ModelAttribute AroriMemberDto aroriMemberDto) {
-		// 회원 목록 불러오기
-		List<AllMemberDto> list = adminService.page(pageNo);
-
-		// 멤버 인원 조회
-		int memberCount = adminService.memberCount();
-		model.addAttribute("memberCount", memberCount);
-
-		// 페이지 네이션
-		List<Integer> block = adminService.pagination(0, pageNo);
-		// 멤버 게시글 번호
-		int no = paginationService.no(pageNo, memberCount);
-
-		// 페이지 네비게이션에 필요한 뷰젼달
-		model.addAttribute("list", list);
-		model.addAttribute("block", block);
-		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("no", no);
-
-		int aroriCount = adminDao.aroriCount(aroriMemberDto);
-		model.addAttribute("aroriCount", aroriCount);
-		int socialCount = memberCount - aroriCount;
-		model.addAttribute(socialCount);
-		return "admin/socialList";
-
-	}
-
-	// 블랙멤버 리스트
-	@GetMapping("/blacklist/{pageNo}")
-	public String blacklist(@PathVariable int pageNo, Model model, @ModelAttribute MemberDto memberDto,
-			@ModelAttribute ReportDto reportDto) {
-
-		// 회원 목록 불러오기
-		List<AllMemberDto> list = adminService.page(pageNo);
-
-		// 멤버 인원 조회
-		int memberCount = adminService.memberCount();
-		model.addAttribute("memberCount", memberCount);
-
-		// 페이지 네이션
-		List<Integer> block = adminService.pagination(0, pageNo);
-		// 멤버 게시글 번호
-		int no = paginationService.no(pageNo, memberCount);
-
-		// 페이지 네비게이션에 필요한 뷰젼달
-		model.addAttribute("list", list);
-		model.addAttribute("block", block);
-		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("no", no);
-
-		return "admin/blacklist";
-
-	}
-
-	// 클린멤버 리스트
-	@GetMapping("/cleanList/{pageNo}")
-	public String cleanList(@PathVariable int pageNo, Model model, @ModelAttribute MemberDto memberDto,
-			@ModelAttribute ReportDto reportDto) {
-
-		// 회원 목록 불러오기
-		List<AllMemberDto> list = adminService.page(pageNo);
-
-		// 멤버 인원 조회
-		int memberCount = adminService.memberCount();
-		model.addAttribute("memberCount", memberCount);
-
-		// 페이지 네이션
-		List<Integer> block = adminService.pagination(0, pageNo);
-		// 멤버 게시글 번호
-		int no = paginationService.no(pageNo, memberCount);
-
-		// 페이지 네비게이션에 필요한 뷰젼달
-		model.addAttribute("list", list);
-		model.addAttribute("block", block);
-		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("no", no);
-
-		return "admin/cleanList";
-
-	}
-	// 검색
-
-	@PostMapping("/search")
-	public String search(@RequestParam String type, @RequestParam String keyword, Model model) {
-
-		Map<String, String> param = new HashMap<>();
-		param.put("type", type);
-		param.put("keyword", keyword);
-		List<AllMemberDto> list = sqlSession.selectList("admin.search", param);
-		model.addAttribute("list", list);
-
-		return "admin/allList/{pageNo}";
 
 	}
 

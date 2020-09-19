@@ -5,28 +5,35 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div class="row mt-5">
 	<div class="col-8 offset-2">
-		<form class="mt-3">
-			<h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
-			<span>총 회원 수는 ${memberCount} 명 입니다. 생성 된 클래스 의 개수는 ${classCount}
-	클래스 입니다.</span>
-<a href="${pageContext.request.contextPath}">메인페이지로 이동</a>
-			<button class="btn btn-lg btn-warning font-weight-bold mt-5"
-				value="BLACK MEMBER">
-				<a href="${pageContext.request.contextPath}/admin/blacklist">BLACK
-					MEMBER </a>
-			</button>
-			<div class="col-md-3 mb-3">
-				<tr>
-					<th><select onchange="visit(this)" class="custom-select">
-							<option value="">
-							<option value="http://localhost:8080/arori/admin/allList/1"
-								selected>전체회원</option>
-							<option value="http://localhost:8080/arori/admin/aroriList/1">아로리</option>
-							<option value="http://localhost:8080/arori/admin/socialList/1">소셜</option>
-					</select></th>
-				</tr>
+			<div class="card mt-5 mb-5">
+			  <div class="card-header h3 bg-warning text-white">    
+				Statistics
+			  </div>
+			  <div class="card-body">
+			    <blockquote class="mb-0">
+			      <p>총 회원 수는 ${memberCount} 명 입니다.</p>
+			      <p>생성 된 클래스 의 개수는 ${classCount} 클래스 입니다.</p>
+			    </blockquote>
+			  </div>
 			</div>
-			<table class="table table-hover">
+			<form action="${pageContext.request.contextPath }/admin/allList/1" method="get" class="mt-5 mb-5 w-100">
+				<div class="row">
+					<div class="col-1">
+						<select name="col" class="custom-select">
+							<option value="member_id">아이디</option>
+							<option value="member_state">소셜/아로리</option>
+							<option value="member_nick">닉네임</option>
+						</select>
+					</div>
+					<div class="col-10">
+						<input type="text" class="form-control" name="keyword" placeholder="검색어">
+					</div>
+					<div class="col-1">
+						<input type="submit" class="btn btn-primary btn-md font-weight-bold"  value="찾기">
+					</div>
+				</div>
+			</form>
+			<table class="table table-hover text-center">
 				<thead>
 					<tr>
 						<th scope="col">번호</th>
@@ -54,67 +61,56 @@
 						</c:if> <c:if test="${fn:contains(allMemberDto.member_auth,'0')}">
 						일반회원				
 						</c:if></td>
-			
-
-
-							<td><button>
-									<a
-										href="${pageContext.request.contextPath}/admin/memberProfile/${allMemberDto.member_no}">DETAIL</a>
-								</button></td>
+							<td>
+								<a class="btn btn-md btn-primary"href="${pageContext.request.contextPath}/admin/memberProfile/${allMemberDto.member_no}">DETAIL</a>
+							</td>
 						</tr>
 
 					</c:forEach>
 				</tbody>
 			</table>
-		</form>
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
 				<li class="page-item"><c:if test="${pageNo > 10 }">
-						<a class="page-link"
-							href="${pageContext.request.contextPath }/admin/allList/${block[0] - 1}"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						<a class="page-link" href="${pageContext.request.contextPath }/admin/allList/${block[0] - 1}" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
 						</a>
-					</c:if></li>
+					</c:if>
+				</li>
 				<c:forEach var="block" items="${block}">
-					<li class="page-item"><a class="page-link"
-						href="${pageContext.request.contextPath }/admin/allList/${block}">${block}</a></li>
+					<li class="page-item">
+						<a class="page-link block" href="${pageContext.request.contextPath }/admin/allList/${block}">${block}</a>
+					</li>
 				</c:forEach>
-				<li class="page-item"><c:set var="size"
-						value="${fn:length(block)}"></c:set> <c:if
-						test="${size> pageNo and pageNo >10}">
-						<a class="page-link"
-							href="${pageContext.request.contextPath }/admin/allList/${block[size]+1}"
-							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				<li class="page-item">
+				<c:set var="size" value="${fn:length(block)}"></c:set>
+					<c:if test="${size> pageNo and pageNo >10}">
+						<a class="page-link" href="${pageContext.request.contextPath }/admin/allList/${block[size]+1}" aria-label="Next"> 
+							<span aria-hidden="true">&raquo;</span>
 						</a>
-					</c:if></li>
+					</c:if>
+				</li>
 			</ul>
 		</nav>
 	</div>
 </div>
+<script>
+	$(function(){
+		// 페이지 네이션 시, 해당 블럭에 파라미터 값 넣기
+		var block = document.querySelectorAll(".block");
+		var next = document.querySelector(".next");
+		var prev = document.querySelector(".prev");
+		var param = location.search
 
-
-<form action="search" method="post">
-	<table>
-		<tr>
-			<td><select name="type" class="custom-select">
-					<option value="member_id">ID</option>
-					<option value="member_state">소셜/아로리회원</option>
-					<option value="member_nick">닉네임</option>
-			</select></td>
-			<td><input type="text" class="form-control" name="keyword"
-				placeholder="검색어"></td>
-			<td><input type="submit" class="btn btn-primary btn-lg font-weight-bold"  value="찾기"></td>
-		</tr>
-	</table>
-</form>
-<script type="text/javascript">
-	function visit(url) {
-		if (url.selectedIndex != 0) {
-			location.href = url.options[url.selectedIndex].value;
+		if(param) {	
+			$(prev).attr("href","${pageContext.request.contextPath }/admin/allList/" + (block[0] - 1) + param)
+			$(next).attr("href","${pageContext.request.contextPath }/admin/allList/" + (block[block.size]+1) + param)
+			for(var i = 0; i < block.length; i++) {
+				var path = "${pageContext.request.contextPath }/admin/allList/" + (i+1) + param
+				$(block[i]).attr("href",path)
+			}
 		}
-	}
+
+	})
 </script>
-
-
-<jsp:include
-	page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>

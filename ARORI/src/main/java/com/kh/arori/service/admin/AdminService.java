@@ -1,6 +1,7 @@
 package com.kh.arori.service.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
@@ -35,9 +36,9 @@ public interface AdminService {
 	public int memberCount();
 	
 	// 페이지 네이션 
-	public List<AllMemberDto> page(int pageNo);
+	public List<AllMemberDto> page(Map<String, String> map);
 
 	// 페이지네이션 개수
-	public List<Integer> pagination(int member_no, int pageNo);
+	public List<Integer> pagination(int thisCount, int pageNo);
 	
 }

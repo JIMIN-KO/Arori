@@ -47,7 +47,7 @@ public interface AdminDao {
 	public void delete(int member_no);
 	
 	// 페이지 네이션 
-	public List<AllMemberDto> page(Map<String, Integer> pagination);
+	public List<AllMemberDto> page(Map<String, String> map);
 	
 
 }

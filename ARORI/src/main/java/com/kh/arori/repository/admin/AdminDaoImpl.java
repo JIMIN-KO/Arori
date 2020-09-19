@@ -61,7 +61,7 @@ public class AdminDaoImpl implements AdminDao {
 	public int memberCount() {
 
 		return sqlSession.selectOne("admin.memberCount");
-	
+
 	}
 
 	// 패스워드체크
@@ -94,10 +94,10 @@ public class AdminDaoImpl implements AdminDao {
 
 	}
 
-	//페이지 네이션
+	// 페이지 네이션
 	@Override
-	public List<AllMemberDto> page(Map<String, Integer> pagination) {
-		return sqlSession.selectList("admin.page", pagination);
+	public List<AllMemberDto> page(Map<String, String> map) {
+		return sqlSession.selectList("admin.page", map);
 	}
 
 }

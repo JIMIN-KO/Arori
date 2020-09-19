@@ -15,16 +15,8 @@ function del(member_no) {
 <div class="row mt-5">
 	<div class="col-8 offset-2">
 		
-			<h1 class="font-weight-bold mt-4">회원상세정보</h1>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<td>이미지공간<img
-							src="${pageContext.request.contextPath}/imgAjax/notice/download/${this_no}" />
-							이미지가 아직 없어서 안뜨는중
-						</td>
-					</tr>
-				</thead>
+			<h1 class="font-weight-bold mt-5">회원상세정보</h1>
+			<table class="table table-hover text-center">
 				<tbody>
 					<tr>
 						<th scope="col">AUTH</th>
@@ -90,12 +82,12 @@ function del(member_no) {
 						<th scope="col">CLASS</th>
 						<td><input type="text" class="form-control" value="${count}"
 							readonly="readonly"> <a
-							href="${pageContext.request.contextPath}/classes/readme/myclass/${allMemberDto.member_no}"
-							class="btn btn-primary btn-sm font-weight-bold">회원 클래스로 이동</a>
+							href="${pageContext.request.contextPath}/classes/myclass/${allMemberDto.member_no}"
+							class="btn btn-primary btn-sm font-weight-bold mt-5">회원 클래스로 이동</a>
 					</tr>
 
 					<tr>
-						<td><input type="button" class="btn btn-primary btn-lg font-weight-bold" id="update" value="수정하기">
+						<td colspan="2"><input type="button" class="btn btn-primary btn-lg font-weight-bold" id="update" value="수정하기">
 						<input type="button" class="btn btn-primary btn-lg font-weight-bold" value="삭제하기" onclick="del(${allMemberDto.member_no})">
 							<a href="${pageContext.request.contextPath}/admin/allList"
 							class="btn btn-primary btn-lg font-weight-bold">목록으로</a></td>

@@ -80,11 +80,23 @@
 
 	<!-- 페이지 네비게이션 -->
 	<select id="page" resultType="allMemberDto" parameterType="map">
-		SELECT * FROM (SELECT ROWNUM rn,
-		a.member_no,a.member_id,a.member_auth,a.member_nick,a.member_state,a.report_state
-		FROM MEMBER a
-		FULL OUTER JOIN ARORI_MEMBER b ON a.MEMBER_NO = b.MEMBER_NO ORDER BY
-		a.member_no desc) c WHERE rn BETWEEN ${start} AND ${finish}
+		SELECT 
+			* 
+		FROM 
+			(SELECT ROWNUM rn,
+				a.member_no,a.member_id,a.member_auth,a.member_nick,a.member_state,a.report_state
+			FROM 
+				MEMBER a
+			FULL OUTER JOIN 
+				ARORI_MEMBER b ON a.MEMBER_NO = b.MEMBER_NO 
+			<if test="col != null and keyword != null">
+				WHERE INSTR(${col},#{keyword}) > 0 
+			</if>	
+			ORDER BY a.member_no desc) c 
+			<if test="start != null and finish != null">
+				WHERE 
+				rn BETWEEN ${start} AND ${finish}
+			</if>
 	</select>
 
 

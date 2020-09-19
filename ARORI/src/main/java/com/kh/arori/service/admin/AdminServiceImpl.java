@@ -76,19 +76,24 @@ public class AdminServiceImpl implements AdminService {
 
 	// 페이지네이션
 	@Override
-	public List<AllMemberDto> page(int pageNo) {
-		Map<String, Integer> pagination = paginationService.pagination("member_no", 0, pageNo);
-
-		List<AllMemberDto> list = adminDao.page(pagination);
+	public List<AllMemberDto> page(Map<String, String> map) {
+		Map<String, Integer> pagination = paginationService.pagination("member_no", 0, Integer.parseInt(map.get("pageNo")));
+		String start = String.valueOf(pagination.get("start"));
+		String finish = String.valueOf(pagination.get("finish"));
+		
+		map.put("start", start);
+		map.put("finish", finish);
+		
+		List<AllMemberDto> list = adminDao.page(map);
 
 		return list;
 	}
 
 	@Override
-	public List<Integer> pagination(int member_no, int pageNo) {
+	public List<Integer> pagination(int thisCount, int pageNo) {
 		
-		int count = adminDao.totalCnt();// 총멤버 회원 수 
-		List<Integer> block = paginationService.paginationBlock(member_no, pageNo, count);
+		int count = thisCount;
+		List<Integer> block = paginationService.paginationBlock(0, pageNo, count);
 		return block;
 	}
 
