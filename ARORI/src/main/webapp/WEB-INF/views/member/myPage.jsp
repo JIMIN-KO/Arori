@@ -20,7 +20,7 @@
 										<img src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="card-img" alt="...">
 									</c:otherwise>
 								</c:choose>
-						     <input type = "button" data-target="#imgEdit" class="imgEdit btn-warning btn"  style=" margin-left:100px"  value="이미지 변경"> 
+						     <input type = "button" data-target="#imgEdit" class="imgEdit btn-warning btn mt-3"  style=" margin-left:120px"  value="이미지 변경"> 
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body pb-0">
