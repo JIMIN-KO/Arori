@@ -36,7 +36,7 @@ public class NonMemberController {
 
 		if (member != null) {
 			session.setAttribute("userinfo", member);
-			return "redirect:member/main";
+			return "redirect:member/myPage";
 		}
 		
 		return "redirect:/?loginFail";

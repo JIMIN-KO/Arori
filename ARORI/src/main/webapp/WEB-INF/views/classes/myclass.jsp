@@ -7,7 +7,6 @@
 	
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
 <style>
-
 	/* 전체 카드 */
 	.card-deck {
 		height: 460px;
@@ -80,7 +79,6 @@
 		color: #fff;
 		transform: translateY(-7px);
 	}
-
 	/* 정렬 드롭다운 */
 	.select-down {
 		margin-top: 10px;
@@ -95,15 +93,18 @@
 	}
 	
 	/* 정보 수정 모달 중 public 수정 */
-
 </style><!-- 클래스 목록 -->
-<div class="row justify-content-center" style="margin-top: 80px;">
-	<div class="offset-4 col-4">
-		<a href="${pageContext.request.contextPath}/classes/create"><button
-				class="top-btn" style="font-size:14px">클래스 만들기</button></a>
+<div class="row" style="margin-top: 80px;">
+	<div class="col-4 w-100">
+		
 	</div>
-	<div class="col-1">
-		<form action="${pageContext.request.contextPath }/classes/myclass/${MCIDto.get(0).member_no}" method="get" id="myClassOrder">
+	<div class="col-4 d-flex justify-content-center">
+		<c:if test="${userinfo.member_no eq member_no }">
+				<button class="top-btn mr-lg-5 createClass" style="font-size:14px">클래스 만들기</button>
+		</c:if>
+	</div>
+	<div class="col-4 w-100 d-flex justify-content-end">
+		<form action="${pageContext.request.contextPath }/classes/myclass/${member_no}" method="get" id="myClassOrder">
 			<select name="col" id="colSelector" class="select-down" >
 				<option value="c_when">최신순</option>
 				<option value="c_when_old">등록순</option>
@@ -112,6 +113,7 @@
 		</form>	
 	</div>
 </div>
+
 <div class="row">
 	<c:forEach var="MCIDto" items="${MCIDto}">
 		<div class="col-sm-12 col-md-6 col-lg-3">
@@ -190,8 +192,13 @@ $(function(){
 	}
 })
 $(function() {
+	$("#createClass").modal("hide")// 클래스 생성 모달 숨김
 	$("#classEdit").modal("hide") // 클래스 수정 모달 숨김
 	$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
+	
+	$(".createClass").click(function(){
+		$("#createClass").modal("show")// 클래스 생성 모달 띄우기
+	})
 	
 	$(".editClass").click(
 			function() {
@@ -249,65 +256,96 @@ $(function() {
 })
 </script>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+<!-- 클래스 생성 모달 -->
+<div class="modal fade" id="createClass" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 생성</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+					<form action="${pageContext.request.contextPath }/classes/create" method="post">
+					<div class="modal-body">
+					  <div class="form-group">
+					  <input type="hidden" name="member_no" value="${userinfo.member_no }">
+					    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
+					    <input type="text" class="form-control" id="c_title"  name="c_title">
+					    <small id="emailHelp" class="form-text text-muted">클래스 이름은 20자 이내로 작성해주세요.</small>
+					  </div>
+					  <div class="form-group">
+					    <label for="c_info" class="h5 font-weight-bold">Class Info</label>
+					    <textarea id="c_info" class="form-control" name="c_info"></textarea>
+					        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
+					  </div>
+				</div>
+					<div class="modal-footer">
+						 <button type="submit" class="btn btn-warning btn-lg font-weight-bold">생성하기</button>
+						<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
+					</div>
+				</form>
+			</div>
+		</div>
+</div>
+
 <!-- 이미지 수정 모달 -->
-<div class="modal" id="imgEdit" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">클래스 이미지 수정</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="${pageContext.request.contextPath }/classes/img/setting" method="post" enctype="multipart/form-data" id="addImg">
-					<input type="hidden" name="c_no" id="imgEditC_no">
-					<input type="file" accept=".jpg, .png, .jpeg" name="req">
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary"
-					data-dismiss="modal">창 닫기</button>
-				<button type="button" class="btn btn-primary" id="goimgEdit">수정하기</button>
+<div class="modal fade" id="imgEdit" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 이미지 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath }/classes/img/setting" method="post" enctype="multipart/form-data" id="addImg">
+						<input type="hidden" name="c_no" id="imgEditC_no">
+						<input type="file" accept=".jpg, .png, .jpeg" name="req">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning btn-lg font-weight-bold" id="goimgEdit">수정하기</button>
+					<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
+				</div>
 			</div>
 		</div>
-	</div>
 </div>
-
+	
 <!-- 클래스 수정 모달 -->
-<div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">클래스 수정</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
-					<input type="hidden" name="c_no"> <input type="hidden" name="member_no" value="${userinfo.member_no }"> 
-					<div>
-						<label for="c_title">Class Title </label>
-						<input type="text" name="c_title" class="modal-content">
-					</div>
-					<div style="margin-top:10px;">
-						<label for="c_info">Class Information </label>
-						<input type="text" name="c_info" class="modal-content">
-					</div>
-				
-
-				</form>
-			</div>				
-				
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary"
-					data-dismiss="modal">창 닫기</button>
-				<button type="button" class="btn btn-primary" id="goEdit">수정하기</button>
+<div class="modal fade" id="classEdit" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
+						<input type="hidden" name="c_no">
+						<input type="hidden" name="member_no" value="${userinfo.member_no }"> 
+						<div class="form-group">
+						    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
+						    <input type="text" class="form-control edit-title" id="c_title"  name="c_title">
+						    <small id="emailHelp" class="form-text text-muted">클래스 이름은 20자 이내로 작성해주세요.</small>
+						  </div>
+						  <div class="form-group">
+						    <label for="c_info" class="h5 font-weight-bold">Class Info</label>
+						    <textarea id="c_info" class="form-control edit-info" name="c_info"></textarea>
+						        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
+						  </div>			
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning btn-lg font-weight-bold" id="goEdit">수정하기</button>
+					<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-

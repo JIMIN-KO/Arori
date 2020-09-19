@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Created by https://www.gitignore.io/api/git,java,maven,windows,eclipse
 # Edit at https://www.gitignore.io/?templates=git,java,maven,windows,eclipse
@@ -152,6 +154,7 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse
 =======
+>>>>>>> refs/remotes/origin/master
 # Created by https://www.gitignore.io/api/git,java,maven,windows,eclipse
 # Edit at https://www.gitignore.io/?templates=git,java,maven,windows,eclipse
 
@@ -303,6 +306,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse
+<<<<<<< HEAD
+=======
 >>>>>>> refs/remotes/origin/master
 =======
 <<<<<<< HEAD
@@ -609,5 +614,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse
+>>>>>>> refs/remotes/origin/master
 >>>>>>> refs/remotes/origin/master
 >>>>>>> refs/remotes/origin/master

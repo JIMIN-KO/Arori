@@ -255,4 +255,18 @@ public class MemberDaoImpl implements MemberDao {
 
 
 
+//	// 회원과 이미지 번호
+//	@Override
+//	public MAIDto getMAI(int member_no) {
+//
+//		return sqlSession.selectOne("member.getMAI", member_no);
+//	}
+//
+//	// 회원의 권한 조회
+//	@Override
+//	public MemberDto getAuth(String member_auth) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 }

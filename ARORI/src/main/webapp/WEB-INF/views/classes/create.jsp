@@ -35,7 +35,10 @@
 	    <textarea id="c_info" class="form-control" name="c_info"></textarea>
 	        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
 	  </div>
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/remotes/origin/master
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 	</div>
