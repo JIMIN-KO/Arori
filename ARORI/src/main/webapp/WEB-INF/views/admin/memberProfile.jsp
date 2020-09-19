@@ -89,7 +89,7 @@ function del(member_no) {
 					<tr>
 						<td colspan="2"><input type="button" class="btn btn-primary btn-lg font-weight-bold" id="update" value="수정하기">
 						<input type="button" class="btn btn-primary btn-lg font-weight-bold" value="삭제하기" onclick="del(${allMemberDto.member_no})">
-							<a href="${pageContext.request.contextPath}/admin/allList"
+							<a href="${pageContext.request.contextPath}/admin/allList/1"
 							class="btn btn-primary btn-lg font-weight-bold">목록으로</a></td>
 					</tr>
 				</tbody>

@@ -108,18 +108,19 @@ public class ReportController {
 	 */
 
 // 신고별 검색
-	@PostMapping("/search")
-	public String search(@RequestParam String type, @RequestParam String keyword, Model model) {
-
-		Map<String, String> param = new HashMap<>();
-		param.put("type", type);
-		param.put("keyword", keyword);
-		List<ReportDto> list = sqlSession.selectList("report.search", param);
-		model.addAttribute("list", list);
-
-		return "report/list";
-
-	}
+	/*
+	 * @PostMapping("/search") public String search(@RequestParam String
+	 * type, @RequestParam String keyword, Model model) {
+	 * 
+	 * Map<String, String> param = new HashMap<>(); param.put("type", type);
+	 * param.put("keyword", keyword); List<ReportDto> list =
+	 * sqlSession.selectList("report.search", param); model.addAttribute("list",
+	 * list);
+	 * 
+	 * // return "report/list";
+	 * 
+	 * }
+	 */
 
 	// 신고글 단일조회
 	@GetMapping("/content/{report_no}")

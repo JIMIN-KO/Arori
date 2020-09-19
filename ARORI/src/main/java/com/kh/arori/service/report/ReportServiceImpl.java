@@ -40,26 +40,30 @@ public class ReportServiceImpl implements ReportService {
 	
 	//페이지네이션
 	@Override
-	public List<ReportDto> page(int pageNo) {
+	public List<ReportDto> page(Map<String, String> map) {
 	
-		Map<String, Integer> pagination = paginationService.pagination("report_no", 0, pageNo);
+		Map<String, Integer> pagination = paginationService.pagination("report_no", 0, Integer.parseInt(map.get("pageNo")));
+		String start = String.valueOf(pagination.get("start"));
+		String finish = String.valueOf(pagination.get("finish"));
+		map.put("start", start);
+		map.put("finish", finish);
 		
-		List<ReportDto> list = reportDao.page(pagination);
+		List<ReportDto>list = reportDao.page(map);
 
 		return list;
 	}
 
 	
 	@Override
-	public List<Integer> pagination(int report_no, int pageNo) {
+	public List<Integer> pagination(int thisCount, int pageNo) {
 	
 		// 페이지 네비게이터 계산
-		int count = reportDao.reportCount(); // 해당 클래스의 게시물 개수
-		List<Integer> block = paginationService.paginationBlock(report_no, pageNo, count);
+		int count = thisCount;// 해당 클래스의 게시물 개수
+		List<Integer> block = paginationService.paginationBlock(0, pageNo, count);
 		return block;
 
 	}
-
+	
 	@Override
 	public List<ReportDto> blacklist() {
 		// TODO Auto-generated method stub

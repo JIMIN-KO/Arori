@@ -133,13 +133,13 @@ public class AdminController {
 		List<Integer> block = adminService.pagination(thisCount.size(), pageNo);
 		// 멤버 게시글 번호
 		int index;
-		
-		if(col == null && keyword == null) {
+
+		if (col == null && keyword == null) {
 			index = thisCount.size();
 		} else {
 			index = list.size();
 		}
-		
+
 		int no = paginationService.no(pageNo, thisCount.size());
 		int classCount = adminDao.classCount(classesDto);
 		model.addAttribute("classCount", classCount);
@@ -217,20 +217,40 @@ public class AdminController {
 
 	// 신고글 리스트
 	@GetMapping("/report_list/{pageNo}")
-	public String list(@PathVariable int pageNo, Model model, @ModelAttribute ReportDto reportDto) {
+	public String list(@PathVariable int pageNo, Model model, @ModelAttribute ReportDto reportDto,@RequestParam(required = false) String col, @RequestParam(required = false) String keyword) {
 
-		// 신고글리스트 불러오기
-		List<ReportDto> list = reportService.page(pageNo);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("pageNo", String.valueOf(pageNo));
+		map.put("col", col);
+		map.put("keyword", keyword);
+		map.put("start", null);
+		map.put("finish", null);
 
+		
+		// 조건에 맞는 게시글 개수 파악을 위한 리스트 조회
+		List<ReportDto> thisCount= reportDao.page(map);
+		
+		//신고글 목록 불러오기
+		List<ReportDto>list = reportService.page(map);
+		
 		// 신고글 개수 조회 (관리자가 보기위한)
 		int reportCount = reportDao.reportCount();
 		model.addAttribute("reportCount", reportCount);
 
 		// 페이지네이션
-		List<Integer> block = reportService.pagination(0, pageNo);
+		List<Integer> block = reportService.pagination(thisCount.size(), pageNo);
 
 		// 신고 게시글 번호
-		int no = paginationService.no(pageNo, reportCount);
+		
+				int index;
+				
+				if(col == null && keyword == null) {
+					index = thisCount.size();
+				} else {
+					index = list.size();
+				}
+				
+				int no = paginationService.no(pageNo, thisCount.size());
 
 		// 페이지 네비게이션에 필요한 뷰젼달
 		model.addAttribute("list", list);
@@ -240,4 +260,6 @@ public class AdminController {
 
 		return "admin/report_list";
 	}
+
+	
 }

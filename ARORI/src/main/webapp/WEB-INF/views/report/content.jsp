@@ -11,11 +11,13 @@ function del(report_no) {
     }
  }   
 </script>
+
 <div class="row mt-5">
-	<div class="col-10 offset-3">
-		<h1>신고접수 상세 내용</h1>
-		<table class="table table-hover">
-			<tbody>
+	<div class="col-8 offset-2">
+		
+			<h1 class="font-weight-bold mt-5">신고접수 상세 내용</h1>
+			<table class="table table-hover text-center">
+				<tbody>
 				<tr>
 					<th scope="col">NO</th>
 					<td><input type="text" class="form-control"

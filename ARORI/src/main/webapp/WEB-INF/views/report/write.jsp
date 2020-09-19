@@ -5,7 +5,6 @@
 <div class="row mt-5">
 	<div class="col-8 offset-2">
 		<h1>신고글 작성</h1>
-
 		<form action="write" method="post" id="report">
 			<table class="table table-hover">
 				<tbody>

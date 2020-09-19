@@ -89,6 +89,7 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 	}
 
+	//페이지네이션 카운트계산
 	@Override
 	public List<Integer> pagination(int thisCount, int pageNo) {
 		

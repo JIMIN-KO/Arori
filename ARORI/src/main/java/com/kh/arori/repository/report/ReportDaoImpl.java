@@ -41,8 +41,8 @@ public class ReportDaoImpl implements ReportDao {
 	}
 	//신고글 페이지네이션
 	@Override
-	public List<ReportDto> page(Map<String, Integer> pagenation) {
-		return sqlSession.selectList("report.page", pagenation);
+	public List<ReportDto> page(Map<String, String> map) {
+		return sqlSession.selectList("admin.reportPage", map);
 	}
 
 	//신고 카운트

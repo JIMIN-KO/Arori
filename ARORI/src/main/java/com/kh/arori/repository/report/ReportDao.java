@@ -17,7 +17,7 @@ public interface ReportDao {
 	public ReportDto content(int report_no);
 	
 	// 페이지 네이션 
-	public List<ReportDto> page(Map<String, Integer> pagination);
+	public List<ReportDto> page(Map<String, String> map);
 
 	//신고글 개수
 	public int reportCount();
