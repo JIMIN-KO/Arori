@@ -168,7 +168,6 @@ public class AdminController {
 	}
 
 	// 클린멤버 리스트
-	// 블랙리스트
 	@GetMapping("/cleanList")
 	public String cleanList(Model model, @ModelAttribute MemberDto memberDto, @ModelAttribute ReportDto reportDto) {
 

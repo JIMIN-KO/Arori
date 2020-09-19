@@ -91,12 +91,12 @@ function del(member_no) {
 						<td><input type="text" class="form-control" value="${count}"
 							readonly="readonly"> <a
 							href="${pageContext.request.contextPath}/classes/readme/myclass/${allMemberDto.member_no}"
-							class="btn btn- btn-md font-weight-bold">회원 클래스로 이동</a>
+							class="btn btn-primary btn-sm font-weight-bold">회원 클래스로 이동</a>
 					</tr>
 
 					<tr>
-						<td><input type="button" id="update" value="수정하기">
-						<input type="button" value="삭제하기" onclick="del(${allMemberDto.member_no})">
+						<td><input type="button" class="btn btn-primary btn-lg font-weight-bold" id="update" value="수정하기">
+						<input type="button" class="btn btn-primary btn-lg font-weight-bold" value="삭제하기" onclick="del(${allMemberDto.member_no})">
 							<a href="${pageContext.request.contextPath}/admin/allList"
 							class="btn btn-primary btn-lg font-weight-bold">목록으로</a></td>
 					</tr>

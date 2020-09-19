@@ -8,7 +8,7 @@
 
 	<delete id="delete" parameterType="int">
 		DELETE FROM MEMBER WHERE
-		member_no=#{member_no}
+		 member_no=#{member_no}
 	</delete>
 
 	<!--멤버+클래스 member_no 단일조회 -->
@@ -50,9 +50,7 @@
 		M.MEMBER_NO=am.MEMBER_NO
 		WHERE instr(${type},#{keyword})>0 ORDER BY m.member_no ASC
 	</select>
-
-	<!-- 회원 검색 -->
-
+	
 	<!-- 총 클래스 카운트 -->
 	<select id="classCount" resultType="int"
 		parameterType="classesDto">

@@ -23,6 +23,7 @@ import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.member.ReportDto;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.repository.report.ReportDao;
+import com.kh.arori.service.pagination.PaginationService;
 import com.kh.arori.service.report.ReportService;
 
 @Controller
@@ -40,6 +41,8 @@ public class ReportController {
 
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired PaginationService  paginationService;
 
 // 신고글 작성하기
 	@GetMapping("/write")
@@ -62,16 +65,32 @@ public class ReportController {
 	}
 
 // 신고글 리스트
-	@GetMapping("/list")
-	public String list(Model model, @ModelAttribute ReportDto reportDto) {
-		List<ReportDto> list = reportDao.list();
+	@GetMapping("/list/{pageNo}")
+	public String list(@PathVariable int pageNo,Model model,@ModelAttribute ReportDto reportDto ) {
+		
+		//신고글리스트 불러오기
+		List<ReportDto>list = reportService.page(pageNo);
+		
+		//신고글 개수 조회 (관리자가 보기위한)
+		  int reportCount = reportDao.reportCount();
+	      model.addAttribute("reportCount", reportCount);
+		
+		//페이지네이션
+		List<Integer> block = reportService.pagination(0, pageNo);
+
+		//신고 게시글 번호 
+		int no = paginationService.no(pageNo, reportCount);
+		
+		//페이지 네비게이션에 필요한 뷰젼달
 		model.addAttribute("list", list);
-		int reportCount = reportDao.reportCount(reportDto);
-		model.addAttribute("reportCount", reportCount);
+		model.addAttribute("block", block);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("no", no);
+
 		return "report/list";
 	}
 
-	// 페이지네이션
+	// 페이지네이션 (((삭제하기)))
 	/*
 	 * @GetMapping("/list_data")
 	 * 
@@ -79,17 +98,18 @@ public class ReportController {
 	 * list = sqlSession.selectList("report.list"); return list; }
 	 */
 
-	// 신고글 리스트
-	@GetMapping("/searchList")
-	public String searchList(Model model, @ModelAttribute ReportDto reportDto) {
-
-		model.addAttribute("list", reportService.list());
-
-		int reportCount = reportDao.reportCount(reportDto);
-		model.addAttribute("reportCount", reportCount);
-		return "report/searchList";
-
-	}
+	// 신고글 리스트(((삭제하기)))
+	/*
+	 * @GetMapping("/searchList") public String searchList(Model
+	 * model, @ModelAttribute ReportDto reportDto) {
+	 * 
+	 * model.addAttribute("list", reportService.list());
+	 * 
+	 * int reportCount = reportDao.reportCount(reportDto);
+	 * model.addAttribute("reportCount", reportCount); return "report/list";
+	 * 
+	 * }
+	 */
 
 // 신고별 검색
 	@PostMapping("/search")

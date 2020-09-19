@@ -18,7 +18,7 @@ public interface ReportService {
 	public ReportDto content(int report_no);
 	
 	// 페이지 네이션 
-	public List<ReportDto> page(String report_no, int pageNo);
+	public List<ReportDto> page(int pageNo);
 
 	// 페이지네이션 개수
 	public List<Integer> pagination(int report_no, int pageNo);

@@ -123,9 +123,7 @@
                                     </a>
                                   </li>
                                 </ul>
-                              </nav>
-                              
-                              
+                              </nav>      
                         </div>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>

@@ -95,8 +95,8 @@
 					<tr>
 						<td><input type="submit" id="input"
 							class="btn btn-primary btn-lg font-weight-bold" value="수정완료"></td>
-						<td><a href="../delete"><input type="button" id="input"
-								class="btn btn-primary btn-lg font-weight-bold" value="탈퇴시키기"></a></td>
+						<td><a href="../allList"><input type="button" id="input"
+								class="btn btn-primary btn-lg font-weight-bold" value="목록으로"></a></td>
 
 					</tr>
 

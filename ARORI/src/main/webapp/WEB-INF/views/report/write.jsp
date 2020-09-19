@@ -12,7 +12,7 @@
 					<tr>
 						<th scope="col">REPORT_MEMBER</th>
 						<td><input type="text" name="report_member"
-							class="form-control" value="${memberDto.member_id}" disabled="disabled"></td>
+							class="form-control" value="${memberDto.member_id}"></td>
 					</tr>
 					<tr>
 						<th scope="col">REPORT TYPE</th>

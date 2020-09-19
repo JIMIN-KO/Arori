@@ -20,12 +20,6 @@ public class AdminDaoImpl implements AdminDao {
 
 	// 회원삭제
 
-	@Override
-	public void Delete(MemberDto memberDto) {
-		sqlSession.delete("admin.delete", memberDto);
-
-	}
-
 	// 관리자가 보는 나의 클래수 개수
 	@Override
 	public int classCount(int member_no) {
@@ -93,12 +87,11 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectList("admin.allList");
 	}
 
-	//회원 삭제
+	// 회원 삭제
 	@Override
 	public void delete(int member_no) {
-		sqlSession.delete("admin.delete",member_no);
-		
-	}
+		sqlSession.delete("admin.delete", member_no);
 
+	}
 
 }
