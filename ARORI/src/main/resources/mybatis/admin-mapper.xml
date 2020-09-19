@@ -87,7 +87,7 @@
 	
 	<!--  각 테이블 별 카운트 현황 -->
 	<select id="thisChart" resultType="chartDto" parameterType="chartDto">
-		SELECT 
+		SELECT * FROM (SELECT 
 			TO_CHAR(${col}, 'yyyy-MM') AS WHEN,
 			COUNT(*) AS count
 		FROM 
@@ -97,6 +97,6 @@
 		AND 
 			${col}<![CDATA[<]]>SYSDATE 
 		GROUP BY 
-			TO_CHAR(${col}, 'yyyy-MM')
+			TO_CHAR(${col}, 'yyyy-MM')) ORDER BY WHEN ASC
 	</select> 
 </mapper>

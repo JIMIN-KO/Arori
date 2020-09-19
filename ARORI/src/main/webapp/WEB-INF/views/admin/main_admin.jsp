@@ -6,18 +6,15 @@
 <style>
 /* 차트 스타일 */
 	#chart {
-		width: 650px;
 		margin-top: 70px;
 		margin-left: 15px;
 	}
 	
 	#chart2 {
-		width: 650px;
 		margin-top: 70px;
 	}
 	
 	#chart3 {
-		width: 800px;
 		margin-top: 70px;
 	}
 
@@ -34,11 +31,16 @@
 </style>
 
 <body>
-	<div class="container-fluid">
-	
+	<div class="container-fluid mt-5">
 		<!-- 회원가입, 클래스 제목 -->
 		<div class="row mt-5">
-			<div class="col-6 mt-5 title">
+			<div class="col-12 mt-5">
+				<h1 class="font-weight-bold">환영합니다!</h1>
+			</div>
+		</div>
+		<br><hr><br>
+		<div class="row mt-2">
+			<div class="col-lg-4 col-md-12 mt-5 title">
 				<div class="row">
 					<div class="col-7 text-center">
 						<span class="title-text ml-5 h4"> 회원 수 현황 </span>
@@ -49,8 +51,13 @@
 						</span>
 					</div>
 				</div>
+				<div class="row">
+					<div class="memberChart col-lg-12 col-md-10 offset-md-1 d-flex justify-content-center ml-0">
+						<canvas id="chart" class="w-100 h-100">	 </canvas>
+					</div>
+				</div>
 			</div>
-			<div class="col-6 mt-5 title">
+			<div class="col-lg-4 col-md-12 mt-5 title">
 				<div class="row">
 					<div class="col-7 text-center">
 						<span class="title-text ml-5 h4"> 클래스 수 현황 </span>
@@ -61,31 +68,24 @@
 						</span>
 					</div>
 				</div>
+				<div class="row">
+					<div class="classChart col-lg-12 col-md-10 offset-md-1 d-flex justify-content-center ml-0">
+						<canvas id="chart2" class="w-100 h-100">	 </canvas>
+					</div>
+				</div>
 			</div>
-		</div>
-		
-		<div class="row">
-		<!-- 회원가입 차트 -->
-			<div class="memberChart col-6 d-flex justify-content-center">
-				<canvas id="chart">	 
-			</canvas>
-		<!--  클래스 차트 -->
+			<div class="col-lg-4 col-md-12 mt-5 title">
+				<div class="row">
+					<div class="col-12 text-center">
+						<span class="title-text ml-5 h4"> 오늘의 아로리 </span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-10 offset-md-1 d-flex justify-content-center ml-0">
+						<canvas id="chart3" class="w-100 h-100"></canvas>
+					</div>
+				</div>
 			</div>
-			<div class="classChart col-6 d-flex justify-content-center">
-				<canvas id="chart2">	 
-			</canvas>
-			</div>
-		</div>
-		
-		<div class="row">
-		<!-- 요약 제목 -->
-			<div class="col-12 mt-5 title" style="text-align:center">
-				<span class="title-text"> 오늘의 아로리 </span>
-			</div>
-			<div class="col-12 mb-5" style="text-align: -webkit-center;">
-				<canvas id="chart3"></canvas>
-			</div>
-			
 		</div>
 	</div>
 
@@ -118,7 +118,72 @@
 						'content-type':'application/json',
 				 	}
 			 }) .then(resp=>{
-				console.log(resp)
+				
+				var when = []
+				var count = []
+				for(var i = 0; i < resp.data.length; i++) {
+					when[i] = resp.data[i].when
+					count[i] = resp.data[i].count
+				}
+				
+				// 2D그리기 도구를 ctx라는 이름으로 저장
+ 				var ctx = document.getElementById('chart').getContext('2d'); 
+				
+				// 멤버 차트
+				// 차트 생성 코드
+				var chart = new Chart(ctx, {
+				    // The type of chart we want to create
+				    type: 'line',
+				    
+				    // 실제 차트를 구성하는 데이터
+				    data: {
+				    	// 축에 표시될 라벨 정보
+				        labels: when,
+				        
+				        // 실제 데이터
+				        datasets: [{
+				            label: 'Total',
+				            backgroundColor: 'rgba(0, 0, 0, 0)',
+				            borderColor: '#fdc23e',
+				            data: count,
+				        	borderWidth:3
+				        }]
+				    },
+
+				    // 기타 제어용 옵션
+				    options: {
+				    	responsive: true,
+				    	scales: {
+				            xAxes: [{
+				                display: true,
+				                ticks:{
+				                   	fontSize : 14,
+				                   	fontColor : 'rgba(12, 13, 13, 1)'
+				                },
+				                scaleLabel: {
+				                    display: true,
+				                    labelString: 'Date',
+				                	fontSize : 12,
+				           		  fontColor : 'rgba(12, 13, 13, 1)'
+				                }
+				            }],
+				            yAxes: [{
+				                display: true,
+				                ticks: {
+				                  	stepSize : 20,
+				                    fontSize :14,
+				                    fontColor : 'rgba(12, 13, 13, 1)'
+				                },
+				                scaleLabel: {
+				                    display: true,
+				                    labelString: 'Count',
+				                    fontSize : 12,
+				                    fontColor : 'rgba(12, 13, 13, 1)',
+				                }
+				            }]
+				        }
+				    }
+				});
 			})
 		})
 		
@@ -138,14 +203,16 @@
 						'content-type':'application/json',
 				 	}
 			 }) .then(resp=>{
-				console.log(resp)
-				for(var i = 0; i < $(resp.data).size; i++) {
-					console.log("hello")
-					console.log(resp.data[i])
-				}
+				 	var when = []
+					var count = []
+					
+					for(var i = 0; i < resp.data.length; i++) {
+						when[i] = resp.data[i].when
+						count[i] = resp.data[i].count
+					}
 				
 				// 2D그리기 도구를 ctx라는 이름으로 저장
-				var ctx = document.getElementById('chart').getContext('2d');
+				var ctx = document.getElementById('chart2').getContext('2d');
 				
 				// 멤버 차트
 				// 차트 생성 코드
@@ -156,21 +223,21 @@
 				    // 실제 차트를 구성하는 데이터
 				    data: {
 				    	// 축에 표시될 라벨 정보
-				        labels: ['5월', '6월', '7월', '8월', '9월'],
+				        labels: when,
 				        
 				        // 실제 데이터
 				        datasets: [{
 				            label: 'Total',
 				            backgroundColor: 'rgba(0, 0, 0, 0)',
-				            borderColor: '#ED6D85',
-				            data: [0, 10, 40, 45, 20, 50],
-				        	borderWidth:4
+				            borderColor: 'rgb(74, 112, 223)',
+				            data: count,
+				        	borderWidth:3
 				        }]
 				    },
 
 				    // 기타 제어용 옵션
 				    options: {
-				    	responsive: false,
+				    	responsive: true,
 				    	scales: {
 				            xAxes: [{
 				                display: true,
@@ -180,7 +247,7 @@
 				                },
 				                scaleLabel: {
 				                    display: true,
-				                    labelString: '기간',
+				                    labelString: 'Date',
 				                	fontSize : 12,
 				           		  fontColor : 'rgba(12, 13, 13, 1)'
 				                }
@@ -188,8 +255,6 @@
 				            yAxes: [{
 				                display: true,
 				                ticks: {
-				                  	min : 0,
-				                  	max:100,
 				                  	stepSize : 20,
 				                    fontSize :14,
 				                    fontColor : 'rgba(12, 13, 13, 1)'
@@ -198,7 +263,7 @@
 				                },
 				                scaleLabel: {
 				                    display: true,
-				                    labelString: '명 수',
+				                    labelString: 'Count',
 				                    fontSize : 12,
 				                    fontColor : 'rgba(12, 13, 13, 1)',
 
@@ -233,30 +298,15 @@
 		        datasets: [{
 		            label: 'Total',
 		            backgroundColor: 'rgba(0, 0, 0, 0)',
-		            borderColor: '#ED6D85',
+		            borderColor: '#fdc23e',
 		            data: [0, 10, 40, 45, 20, 50],
-		        	borderWidth:4
-		        }, {
-		        	label: 'ARORI',
-		            backgroundColor: 'rgba(0, 0, 0, 0)',
-		            borderColor: '#4A70F6',
-		            data: [0, 10, 5, 2, 20, 30],
-		        	borderWidth:2       	
-		        }, {
-		        	label: 'SICIAL',
-		            backgroundColor: 'rgba(0, 0, 0, 0)',
-		            borderColor: '#F5C159',
-		            data: [0, 6, 10, 2, 10, 30],
-		        	borderWidth:2	
-		        	
-		        }
-		        
-		        ]
+		        	borderWidth:3
+		        }]
 		    },
 
 		    // 기타 제어용 옵션
 		    options: {
-		    	responsive: false,
+		    	responsive: true,
 		    	scales: {
 		            xAxes: [{
 		                display: true,
@@ -266,7 +316,7 @@
 		                },
 		                scaleLabel: {
 		                    display: true,
-		                    labelString: '기간',
+		                    labelString: 'Date',
 		                	fontSize : 12,
 		           		  fontColor : 'rgba(12, 13, 13, 1)'
 		                }
@@ -274,8 +324,6 @@
 		            yAxes: [{
 		                display: true,
 		                ticks: {
-		                  	min : 0,
-		                  	max:100,
 		                  	stepSize : 20,
 		                    fontSize :14,
 		                    fontColor : 'rgba(12, 13, 13, 1)'
@@ -284,7 +332,7 @@
 		                },
 		                scaleLabel: {
 		                    display: true,
-		                    labelString: '명 수',
+		                    labelString: 'Count',
 		                    fontSize : 12,
 		                    fontColor : 'rgba(12, 13, 13, 1)',
 
@@ -295,7 +343,7 @@
 		    	
 		    }
 		});
-	})
+	}) 
 	
 		<!--클래스 생성 차트-->
 	$(function(){
@@ -318,23 +366,15 @@
 			        datasets: [{
 			            label: 'Total',
 			            backgroundColor: 'rgba(0, 0, 0, 0)',
-			            borderColor: '#ED6D85',
+			            borderColor: 'rgb(74, 112, 223)',
 			            data: [0, 10, 40, 45, 20, 50, 45],
-			        	borderWidth:4
-			        }, {
-			        	label: 'Week Total',
-			            backgroundColor: 'rgba(0, 0, 0, 0)',
-			            borderColor: '#C2C5BF',
-			            data: [0, 10, 5, 2, 20, 30, 45],
-			        	borderWidth:2       	
-			        }
-			        
-			        ]
+			        	borderWidth:3
+			        }]
 			    },
 
 			    // 기타 제어용 옵션
 			    options: {
-			    	responsive: false,
+			    	responsive: true,
 			    	scales: {
 			            xAxes: [{
 			                display: true,
@@ -344,7 +384,7 @@
 			                },
 			                scaleLabel: {
 			                    display: true,
-			                    labelString: '기간',
+			                    labelString: 'Date',
 			                	fontSize : 12,
 			           		  fontColor : 'rgba(12, 13, 13, 1)'
 			                }
@@ -352,8 +392,6 @@
 			            yAxes: [{
 			                display: true,
 			                ticks: {
-			                  	min : 0,
-			                  	max:100,
 			                  	stepSize : 20,
 			                    fontSize :14,
 			                    fontColor : 'rgba(12, 13, 13, 1)'
@@ -362,7 +400,7 @@
 			                },
 			                scaleLabel: {
 			                    display: true,
-			                    labelString: '개수',
+			                    labelString: 'Count',
 			                    fontSize : 12,
 			                    fontColor : 'rgba(12, 13, 13, 1)',
 
@@ -406,7 +444,7 @@
 
 			    // 기타 제어용 옵션
 			    options: {
-			    	responsive: false,
+			    	responsive: true,
 			    	scales: {
 			            xAxes: [{
 			                display: true,
@@ -424,8 +462,6 @@
 			            yAxes: [{
 			                display: true,
 			                ticks: {
-			                  	min : 0,
-			                  	max: 30,
 			                  	stepSize : 5,
 			                    fontSize :14,
 			                    fontColor : 'rgba(12, 13, 13, 1)'

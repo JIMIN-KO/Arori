@@ -3,6 +3,7 @@ package com.kh.arori.controller.admin;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.arori.entity.admin.ChartDto;
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
@@ -49,13 +51,41 @@ public class AdminController {
 
 	@GetMapping("/main")
 	public String adminPage(Model model) {
-		
+
+		// 오늘의 아로리
 		int[] count = adminService.todayCount();
-		model.addAttribute("count", count);	
+		model.addAttribute("count", count);
+
+		// 현재 날짜
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -2);
+		String today = format.format(cal.getTime());
 		
-		// int[] numberofMember = adminDao.memberChart();
+		// 회원 통계
+		// 현재로부터 3개월 간의 통계
+		ChartDto member = ChartDto.builder().table_name("member").col("member_join").period(today).build();
+
+		List<ChartDto> memberChart = adminDao.thisChart(member);
 		
+		String[] memberWhen = new String[memberChart.size()];
+		String[] memberCount = new String[memberChart.size()];
 		
+		Map<String, String[]> memberMap = new HashMap<String, String[]>();
+		System.out.println(memberChart.size());
+		for (int i = 0; i < memberChart.size(); i++) {
+			memberWhen[i] =memberChart.get(i).getWhen();
+			memberCount[i] = String.valueOf(memberChart.get(i).getCount());
+		}
+		
+		memberMap.put("when", memberWhen);
+		memberMap.put("count", memberCount);
+		
+		model.addAttribute("memberMap", memberMap);
+		
+		// 클래스 통계
+		// 현재로부터 3개월 간의 통계
+
 		return "admin/main_admin";
 	}
 
@@ -72,33 +102,6 @@ public class AdminController {
 		// 관리자가 정지일자 입력할때 년,월,일만 작성해도 가능하도록 설정
 	}
 
-	// 아로리 회원 이미지 불러오기
-	// 신고별 검색
-
-	/*
-	 * // 소셜 + 아로리) 목록조회
-	 * 
-	 * @GetMapping("/resultMap") public String resultMap(Model model, Model
-	 * model2, @ModelAttribute MemberDto memberDto,
-	 * 
-	 * @ModelAttribute ClassesDto classesDto) {
-	 * 
-	 * List<MemberDto> result = memberDao.resultMap(); model.addAttribute("result",
-	 * result);
-	 * 
-	 * List<MemberDto> result2 = memberDao.resultMap2();
-	 * model.addAttribute("result2", result2);
-	 * 
-	 * int memberCount = adminDao.memberCount(memberDto);
-	 * model.addAttribute("memberCount", memberCount);
-	 * 
-	 * int classCount = adminDao.classCount(classesDto);
-	 * model.addAttribute("classCount", classCount);
-	 * 
-	 * return "admin/resultMap";
-	 * 
-	 * }
-	 */
 	// 리스트 연습
 	@GetMapping("/allList")
 	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto, @ModelAttribute ClassesDto classesDto,
@@ -250,7 +253,5 @@ public class AdminController {
 
 		return "admin/delete";
 	}
-	
-	
 
 }
