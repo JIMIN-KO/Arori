@@ -71,16 +71,16 @@
 		Web Socket
 		- websocket 을 사용하기 위해서 namespace를 해당 xml 에 등록
 	-->
-<beans:bean id="alarm" class="com.kh.arori.websocket.WebSocketServer"></beans:bean>
+<!-- <beans:bean id="alarm" class="com.kh.arori.websocket.WebSocketServer"></beans:bean>
 	<websocket:handlers>
-		<!-- 접속 주소 > ws://localhost:포트번호/spring/basic -->
+		접속 주소 > ws://localhost:포트번호/spring/basic
 		<websocket:mapping handler="alarm" path="/alarm"/>
-		<!-- 설정 추가
-		HttpSession 정보를 가져오기 위한 도구 등록 -->
+		설정 추가
+		HttpSession 정보를 가져오기 위한 도구 등록
 		<websocket:handshake-interceptors>
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></beans:bean>
 		</websocket:handshake-interceptors>
-	</websocket:handlers>
+	</websocket:handlers> -->
 	
 	
 </beans:beans>
