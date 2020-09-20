@@ -16,6 +16,7 @@ import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
+import com.kh.arori.service.pagination.PaginationService;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -25,6 +26,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	AdminDao adminDao;
+	@Autowired
+	private PaginationService paginationService;
 
 	// 상세정보변경
 	@Override
@@ -37,13 +40,6 @@ public class AdminServiceImpl implements AdminService {
 	public AllMemberDto memberProfile(int member_no) {
 		AllMemberDto memberProfile = memberDao.memberProfile(member_no);
 		return memberProfile;
-	}
-
-	// 회원탈퇴
-	@Override
-	public void delete(MemberDto memberDto) {
-		adminDao.Delete(memberDto);
-
 	}
 
 	// 차트생성 클래스
@@ -65,7 +61,6 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.allList();
 	}
 
-	// 아로리 총 인원
 	// 아로리 멤버 총 카운트
 	@Override
 	public int aroriCount(AroriMemberDto aroriMemberDto) {
@@ -73,13 +68,38 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.aroriCount(aroriMemberDto);
 	}
 
-	// 멤버 총 인원
 	// 전체회원 멤버카운트
 	@Override
-	public int memberCount(MemberDto memberDto) {
+	public int memberCount() {
 
-		return adminDao.memberCount(memberDto);
+		return adminDao.memberCount();
 	}
+
+	// 페이지네이션
+	@Override
+	public List<AllMemberDto> page(Map<String, String> map) {
+		Map<String, Integer> pagination = paginationService.pagination("member_no", 0,
+				Integer.parseInt(map.get("pageNo")));
+		String start = String.valueOf(pagination.get("start"));
+		String finish = String.valueOf(pagination.get("finish"));
+
+		map.put("start", start);
+		map.put("finish", finish);
+
+		List<AllMemberDto> list = adminDao.page(map);
+
+		return list;
+	}
+
+	// 페이지네이션 카운트계산
+	@Override
+	public List<Integer> pagination(int thisCount, int pageNo) {
+
+		int count = thisCount;
+		List<Integer> block = paginationService.paginationBlock(0, pageNo, count);
+		return block;
+	}
+
 
 	// 오늘의 총 카운트 (지민)
 	@Override
