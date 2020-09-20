@@ -12,56 +12,50 @@ import com.kh.arori.entity.member.ReportDto;
 @Repository
 public class ReportDaoImpl implements ReportDao {
 
-	@Autowired
-	private SqlSession sqlSession;
+   @Autowired
+   private SqlSession sqlSession;
 
-	// 신고글 작성
-	@Override
-	public void write(ReportDto reportDto) {
+   // 신고글 작성
+   @Override
+   public void write(ReportDto reportDto) {
 
-		sqlSession.insert("report.write", reportDto);
-	}
+      sqlSession.insert("report.write", reportDto);
+   }
 
-	// 신고글 목록
-	@Override
-	public List<ReportDto> list() {
-		return sqlSession.selectList("report.list");
-	}
+   // 신고글 목록
+   @Override
+   public List<ReportDto> list() {
+      return sqlSession.selectList("report.list");
+   }
+   //신고글 상세조회
+   @Override
+   public ReportDto content(int report_no) {
 
-	@Override
-	public ReportDto content(int report_no) {
+      return sqlSession.selectOne("report.content", report_no);
+   }
+   //신고글 삭제
+   @Override
+   public void delete(int report_no) {
+      sqlSession.delete("report.delete", report_no);
 
-		return sqlSession.selectOne("report.content", report_no);
-	}
+   }
+   //신고글 페이지네이션
+   @Override
+   public List<ReportDto> page(Map<String, String> map) {
+      return sqlSession.selectList("admin.reportPage", map);
+   }
 
-	@Override
-	public void delete(ReportDto reportDto) {
-		sqlSession.delete("report.delete", reportDto);
+   //신고 카운트
+   @Override
+   public int reportCount() {
+      
+      return sqlSession.selectOne("report.reportCount");
+   }
 
-	}
-
-	@Override
-	public List<ReportDto> page(Map<String, String> pagenation) {
-		return sqlSession.selectList("report.page", pagenation);
-	}
-
-	@Override
-	public int count(int report_no) {
-		return sqlSession.selectOne("report.count", report_no);
-	}
-
-	@Override
-	public int reportCount(ReportDto reportDto) {
-		int reportCount = 0;
-
-		reportCount = sqlSession.selectOne("report.reportCount", reportDto);
-		return reportCount;
-	}
-
-	//블랙리스트
-	@Override
-	public List<ReportDto> blacklist() {
-		return sqlSession.selectList("report.blacklist");
-	}
+   // 블랙리스트
+   @Override
+   public List<ReportDto> blacklist() {
+      return sqlSession.selectList("report.blacklist");
+   }
 
 }
