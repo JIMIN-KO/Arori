@@ -70,7 +70,7 @@
 								</a>
    								<div class="card-body pb-0">
       								<span class="h4 title font-weight-bold">${MCIDto.c_title}</span>
-									<span class="badge badge-pill badge-success ml-2 mb-1 subCount">${MCIDto.c_subscribe}</span>
+									<span class="badge badge-pill badge-success ml-2 mb-1 subCount h4">${MCIDto.c_subscribe}</span>
       								<hr>
       								<p class="card-info mt-4">${MCIDto.c_info}</p>
       								<p class="card-nick mb-0 font-weight-bold">
