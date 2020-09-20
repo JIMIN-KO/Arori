@@ -73,7 +73,7 @@
 </head>
 <body>
    <!--로그인실패시  나오는 모달  -->
-	<div class="modal" tabindex="-1" id="loginFail">
+	<div class="modal fade" tabindex="-1" id="loginFail">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -93,7 +93,7 @@
 	  </div>
 	</div>
 	  <!-- 아이디 찾기모달  -->
-	<div class="modal" tabindex="-1" id="findIdModal">
+	<div class="modal fade" tabindex="-1" id="findIdModal">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -112,7 +112,7 @@
 	  </div>
 	</div>
 	<!-- 비번 찾기모달  -->
-	<div class="modal" tabindex="-1" id="findPwModal">
+	<div class="modal fade" tabindex="-1" id="findPwModal">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">

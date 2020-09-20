@@ -61,10 +61,28 @@
 			<exclude-mapping path="/test"/>
 			<beans:bean class="com.kh.arori.interceptor.TestInterceptor"></beans:bean>
 		</interceptor>
+		<!-- 퀴즈오픈/클로즈 인터셉터 -->
 		<interceptor>
 			<mapping path="/classes/quiz/play/*"/>
 			<beans:bean class="com.kh.arori.interceptor.QuizInterceptor"></beans:bean>
 		</interceptor>
+
+		<!-- 구독 인터셉터 -->
+		<!-- <interceptor>
+			<mapping path="/classes/quiz/**"/>
+
+			<mapping path="/classes/qna/**"/>
+
+			<mapping path="/classes/notice/**"/>
+
+			<exclude-mapping path="/classes/quiz/create"/>
+			<exclude-mapping path="/classes/quiz/play/*"/>
+			<exclude-mapping path="/classes/qna/edit"/>
+			<exclude-mapping path="/classes/qna/edit_reply"/>
+			<exclude-mapping path="/classes/notice/edit"/>
+			<exclude-mapping path="/classes/notice/temp"/>
+			<beans:bean class="com.kh.arori.interceptor.SubscribeInterceptor"></beans:bean>
+		</interceptor> -->
 	</interceptors>
 	
 	<!-- 

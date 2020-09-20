@@ -15,8 +15,11 @@ public interface NameConst {
 	String EXPLAIN = "explain";	
 	
 	// 파일 경로 상수
-
 	String imgPath = "D:\\arori_upload";
 
-
+	// 지민이 경로
+	//String imgPath = "C:\\Users\\jimin\\Desktop\\Java\\upload";
+	
+	// 성헌이 경로
+	// String imgPath = "/Users/d0/Desktop/Java/upload";
 }
