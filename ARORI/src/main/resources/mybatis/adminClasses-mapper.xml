@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminClasses">
+
+	<!-- QNA 관리자 목록 -->
+	<select id="adminQnaList" resultType="qnaMemberDto">
+		SELECT a.*, b.member_nick FROM QNA a INNER JOIN MEMBER b ON a.member_no = b.member_no ORDER BY QNA_NO DESC
+	</select>
+	
+	<!-- QNA 관리자 목록 페이지네이션 -->
+	<select id="getP" resultType="qnaMemberDto" parameterType="map">
+		SELECT 
+			a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no, a.member_nick
+		FROM
+			(SELECT ROWNUM rn, q.* FROM QM q 
+			<if test="col != null and keyword != null">
+				WHERE INSTR(${col},#{keyword}) > 0 
+			</if>
+			ORDER BY qna_no ASC) a 
+			<if test="start != null and finish != null">
+				WHERE 
+					rn BETWEEN ${start}  AND ${finish}
+			</if>
+	</select>
+	
+	<!-- QNA 게시글 c_no + qna_no 단일 조회 -->
+	<select id="getCQ" resultType="qnaMemberDto" parameterType="qnaDto">
+		SELECT * FROM  QNA WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
+	</select>
+	
+	<!-- QNA 게시글 c_no + qna_no 단일 조회 -->
+	<select id="getCQ2" resultType="qnaMemberDto" parameterType="qnaDto">
+		SELECT * FROM QM WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
+	</select>
+	
+	<!-- QNA 관리자 수정 -->
+	<update id="editQnaAdmin" parameterType="qnaMemberDto">
+		UPDATE QNA SET 
+		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}
+		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</update>
+	
+	<!-- 임시 저장소 데이터 저장 -->
+	<insert id="createTempAdmin" parameterType="qnaDto">
+		INSERT INTO QNA_TEMP VALUES(#{qna_no},#{c_no}, #{qna_title}, #{qna_content}, SYSDATE, #{DEPTH}, #{SUPER_NO}, #{GROUP_NO})
+	</insert>
+	
+	<!-- QNA 게시글 관리자 삭제 -->
+	<delete id="deleteAdmin" parameterType="qnaDto">
+		DELETE QNA WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</delete>
+	
+	<!-- QNA 게시글 리스트 검색 : $는 정적바인딩, #은 동적바인딩-->
+	<select id="searchQna" resultType="qnaMemberDto" parameterType="map">
+		SELECT * FROM QM 
+		WHERE instr(${type}, #{keyword}) > 0 
+		ORDER BY qna_no DESC
+	</select>
+	<select id="unionQnaList" resultType="qnaMemberDto" parameterType="map">
+		SELECT * FROM QM
+		<if test="type != null and keyword != null">
+		WHERE instr(${type}, #{keyword}) > 0 
+		</if>
+		ORDER BY qna_no DESC
+	</select>
+
+
+</mapper>

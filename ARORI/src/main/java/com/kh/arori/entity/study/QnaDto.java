@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class QnaDto {
 
-	private int qna_no;
-	private int c_no;
-	private int member_no;
-	private String qna_title;
-	private String qna_content;
-	private String qna_when;
-	private int super_no;
-	private int group_no;
-	private int depth;
-	private int qna_state;
+	public int qna_no;
+	public int c_no;
+	public int member_no;
+	public String qna_title;
+	public String qna_content;
+	public String qna_when;
+	public int super_no;
+	public int group_no;
+	public int depth;
+	public int qna_state;
 }

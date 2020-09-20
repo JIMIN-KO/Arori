@@ -233,24 +233,40 @@ public class MemberDaoImpl implements MemberDao {
 		return memberProfile;
 	}
 
-	@Override
-	public AllMemberDto allGet(String member_id) {
-		AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
-		return allmember;
-	}
+   @Override
+   public AllMemberDto allGet(String member_id) {
+      AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
+      return allmember;
+   }
+   
+   @Override
+   public MAIDto getMAI(int member_no) {
 
-	// 회원과 이미지 번호
-	@Override
-	public MAIDto getMAI(int member_no) {
+      return sqlSession.selectOne("member.getMAI",member_no);
+   }
 
-		return sqlSession.selectOne("member.getMAI", member_no);
-	}
+   //회원의 권한 조회 
+   @Override
+   public MemberDto getAuth(String member_auth) {
+      // TODO Auto-generated method stub
+      return null; 
+   }
 
-	// 회원의 권한 조회
-	@Override
-	public MemberDto getAuth(String member_auth) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
+
+//	// 회원과 이미지 번호
+//	@Override
+//	public MAIDto getMAI(int member_no) {
+//
+//		return sqlSession.selectOne("member.getMAI", member_no);
+//	}
+//
+//	// 회원의 권한 조회
+//	@Override
+//	public MemberDto getAuth(String member_auth) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
