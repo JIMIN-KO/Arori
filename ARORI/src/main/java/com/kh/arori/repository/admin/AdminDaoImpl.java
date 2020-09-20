@@ -1,6 +1,7 @@
 package com.kh.arori.repository.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,6 @@ public class AdminDaoImpl implements AdminDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	// 회원삭제
-
-	@Override
-	public void Delete(MemberDto memberDto) {
-		sqlSession.delete("admin.delete", memberDto);
-
-	}
-
 	// 관리자가 보는 나의 클래수 개수
 	@Override
 	public int classCount(int member_no) {
@@ -38,7 +31,7 @@ public class AdminDaoImpl implements AdminDao {
 	// 페이지네이션
 	@Override
 	public int totalCnt() {
-		return sqlSession.selectOne("admin.count");
+		return sqlSession.selectOne("admin.memberCount");
 	}
 
 	// 관리자가 보는 클래스리스트
@@ -64,11 +57,10 @@ public class AdminDaoImpl implements AdminDao {
 
 	// 관리자가 보는 멤버카운트
 	@Override
-	public int memberCount(MemberDto memberDto) {
-		int memberCount = 0;
+	public int memberCount() {
 
-		memberCount = sqlSession.selectOne("admin.memberCount", memberDto);
-		return memberCount;
+		return sqlSession.selectOne("admin.memberCount");
+
 	}
 
 	// 패스워드체크
@@ -94,6 +86,19 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectList("admin.allList");
 	}
 
+	// 회원 삭제
+	@Override
+	public void delete(int member_no) {
+		sqlSession.delete("admin.delete", member_no);
+
+	}
+
+	// 페이지 네이션
+	@Override
+	public List<AllMemberDto> page(Map<String, String> map) {
+		return sqlSession.selectList("admin.page", map);
+	}
+
 	// 생성일 불러오기(지민)
 	@Override
 	public int todayCount(ChartDto chartDto) {
@@ -105,6 +110,12 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<ChartDto> thisChart(ChartDto chartDto) {
 		return sqlSession.selectList("admin.thisChart", chartDto);
+	}
+
+	@Override
+	public void Delete(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

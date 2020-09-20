@@ -2,123 +2,119 @@
    page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div class="row mt-5">
    <div class="col-8 offset-2">
-   
-         <h1>회원 목록(관리자 페이지) - 회원 아이디를 클릭하면 상세페이지로 이동</h1>
-  
-         <button class="btn btn-outline-dark font-weight-bold mt-5"
-            value="BLACK MEMBER">
-            <a href="${pageContext.request.contextPath}/admin/blacklist">BLACK
-               MEMBER </a>
-         </button>
-         <div class="col-md-3 mb-3">
-            <tr>
-               <th>
-               
-               <select onchange="visit(this)" class="btn btn-primary dropdown-toggle">
-                     <option value="">
-                     <option value="http://localhost:8080/arori/admin/allList"
-                        selected>전체회원</option>
-                     <option value="http://localhost:8080/arori/admin/aroriList">아로리</option>
-                     <option value="http://localhost:8080/arori/admin/socialList">소셜</option>
-               </select></th>
-               
-            </tr>
-            
+         <div class="card mt-5 mb-5">
+           <div class="card-header h3 bg-warning text-white">    
+            Statistics
+           </div>
+           <div class="card-body">
+             <blockquote class="mb-0">
+               <p><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+</svg>총 회원 수는 ${memberCount} 명 입니다.</p>
+               <p><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+</svg>생성 된 클래스 의 개수는 ${classCount} 클래스 입니다.</p>
+             </blockquote>
+           </div>
          </div>
-        
-         <table class="table table-hover">
+         <form action="${pageContext.request.contextPath}/admin/allList/1" method="get" class="mt-5 mb-5 w-100">
+            <div class="row">
+               <div class="col-1">
+                  <select name="col" class="custom-select">
+                     <option value="member_id">아이디</option>
+                     <option value="member_state">소셜/아로리</option>
+                     <option value="member_nick">닉네임</option>
+                  </select>
+               </div>
+               <div class="col-10">
+                  <input type="text" class="form-control" name="keyword" placeholder="검색어">
+               </div>
+               <div class="col-1">
+                  <input type="submit" class="btn btn-primary btn-md font-weight-bold"  value="찾기">
+               </div>
+            </div>
+         </form>
+         <table class="table table-hover text-center">
             <thead>
                <tr>
                   <th scope="col">번호</th>
                   <th scope="col">아이디</th>
-                  <th scope="col">닉네임</th>
-                  <th scope="col">이메일</th>
-                  <th scope="col">H.P</th>
                   <th scope="col">회원구분</th>
-                  <th scope="col">가입일시</th>
-                  <th scope="col">로그인일시</th>
-                  <th scope="col">회원상태</th>
+                  <th scope="col">닉네임</th>
+                  <th scope="col">권한</th>
                   <th scope="col">DETAIL</th>
                </tr>
             </thead>
             <tbody>
+
+               <c:set var="no" value="${no }"></c:set>
                <c:forEach var="allMemberDto" items="${list}" varStatus="status">
                   <tr>
                   <tr>
-                     <th scope="row">${allMemberDto.member_no}</th>
+                     <th scope="row">${no }</th>
+                     <c:set var="no" value="${no - 1 }"></c:set>
                      <td>${allMemberDto.member_id}</td>
-                     <td>${allMemberDto.member_nick}</td>
-                     <td>${allMemberDto.member_email}</td>
-                     <td>${allMemberDto.member_phone}</td>
                      <td>${allMemberDto.member_state}</td>
-                     <td>${allMemberDto.member_join}</td>
-                     <td>${allMemberDto.member_login}</td>
+                     <td>${allMemberDto.member_nick}</td>
+                     <td><c:if
+                           test="${fn:contains(allMemberDto.member_auth,'1') || fn:contains(allMemberDto.member_nick,'admin')}">
+                  관리자               
+                  </c:if> <c:if test="${fn:contains(allMemberDto.member_auth,'0')}">
+                  일반회원            
+                  </c:if></td>
                      <td>
-             
-                           <select  id="state" name="report_state">
-                              <option value="" selected disabled="disabled">
-                                 ${allMemberDto.report_state}
-                                 <option value="정상">정상</option>
-                              <option value="일시 정지">일시 정지</option>
-                              <option value="영구 정지">영구 정지</option>
-                           </select>
-              
+                        <a class="btn btn-md btn-primary"href="${pageContext.request.contextPath}/admin/memberProfile/${allMemberDto.member_no}">DETAIL</a>
                      </td>
-
-
-                     <td><button>
-                           <a
-                              href="${pageContext.request.contextPath}/admin/memberProfile/${allMemberDto.member_no}">DETAIL</a>
-                        </button></td>
                   </tr>
 
                </c:forEach>
-               <form action="search" method="post">
-                  <tr>
-                     <td><select name="type" class="custom-select">
-                           <option value="member_id">ID</option>
-                           <option value="member_state">소셜/아로리회원</option>
-                           <option value="member_nick">닉네임</option>
-                     </select></td>
-                     <td><input type="text" class="form-control" name="keyword"
-                        placeholder="검색어"></td>
-                     <td><input type="submit" class="form-control" value="찾기"></td>
-                  </tr>
-               </form>
-               <span>총 회원 수는 ${memberCount} 명 입니다. 생성 된 클래스 의 개수는
-                  ${classCount} 클래스 입니다.</span>
-               <a href="${pageContext.request.contextPath}">메인페이지로 이동</a>
             </tbody>
          </table>
-      </form>
+      <nav aria-label="Page navigation example">
+         <ul class="pagination justify-content-center">
+            <li class="page-item"><c:if test="${pageNo > 10 }">
+                  <a class="page-link" href="${pageContext.request.contextPath }/admin/allList/${block[0] - 1}" aria-label="Previous">
+                     <span aria-hidden="true">&laquo;</span>
+                  </a>
+               </c:if>
+            </li>
+            <c:forEach var="block" items="${block}">
+               <li class="page-item">
+                  <a class="page-link block" href="${pageContext.request.contextPath }/admin/allList/${block}">${block}</a>
+               </li>
+            </c:forEach>
+            <li class="page-item">
+            <c:set var="size" value="${fn:length(block)}"></c:set>
+               <c:if test="${size> pageNo and pageNo >10}">
+                  <a class="page-link" href="${pageContext.request.contextPath }/admin/allList/${block[size]+1}" aria-label="Next"> 
+                     <span aria-hidden="true">&raquo;</span>
+                  </a>
+               </c:if>
+            </li>
+         </ul>
+      </nav>
    </div>
 </div>
 <script>
+   $(function(){
+      // 페이지 네이션 시, 해당 블럭에 파라미터 값 넣기
+      var block = document.querySelectorAll(".block");
+      var next = document.querySelector(".next");
+      var prev = document.querySelector(".prev");
+      var param = location.search
 
-$(function(){
-	$("#state").on("change",function(){
-		// 회원 상태 수정 시 필요한 정보
-		// 해당 회원 번호, 바뀔 상태 변수 받아서
-		$.ajax({
-			type:"GET"
-			url:"allList.jsp",
-			dataType:"json",
-		}),
-		success:function(data){
-			
-		
-		}
-		})
-	})
-})
+      if(param) {   
+         $(prev).attr("href","${pageContext.request.contextPath }/admin/allList/" + (block[0] - 1) + param)
+         $(next).attr("href","${pageContext.request.contextPath }/admin/allList/" + (block[block.size]+1) + param)
+         for(var i = 0; i < block.length; i++) {
+            var path = "${pageContext.request.contextPath }/admin/allList/" + (i+1) + param
+            $(block[i]).attr("href",path)
+         }
+      }
 
+   })
 </script>
-
-
-
-<jsp:include
-   page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/admin/main_admin_nav_footer.jsp"></jsp:include>
