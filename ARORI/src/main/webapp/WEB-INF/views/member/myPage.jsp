@@ -92,7 +92,7 @@
 						</div>
 						<!-- 차트 영역 -->
 						<!-- 월별 퀴즈 푼 평균 -->
-						<canvas id="myChart"></canvas>
+						<%-- <canvas id="myChart"></canvas> --%>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 
@@ -107,7 +107,7 @@
 <script>
 
 $(function(){
-
+	
 	$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
 	
 	// 이미지 수정 모달 띄우기
@@ -122,7 +122,7 @@ $(function(){
 	})
 })
 
-var ctx = document.getElementById('myChart').getContext('2d');
+/* var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
@@ -138,7 +138,7 @@ var chart = new Chart(ctx, {
     },
     // Configuration options go here
     options: {}
-});
+}); */
 </script>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_nav_footer.jsp"></jsp:include>
 <!-- 모달자리 -->
