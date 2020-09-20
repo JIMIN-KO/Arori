@@ -30,9 +30,14 @@ public class AdminClassesDaoImpl implements AdminClassesDao{
 	
 	// QNA  게시글 c_no + qna_no 단일 조회
 	@Override
-	public QnaDto getCQ(QnaDto qnaDto) {
+	public QnaMemberDto getCQ(QnaDto qnaDto) {
 		return sqlSession.selectOne("adminClasses.getCQ", qnaDto);
 	}
+	@Override
+	public QnaMemberDto getCQ2(QnaDto qnaDto) {
+		return sqlSession.selectOne("adminClasses.getCQ2", qnaDto);
+	}
+	
 	
 	// QNA  게시글 관리자 수정
 	@Override
@@ -51,6 +56,7 @@ public class AdminClassesDaoImpl implements AdminClassesDao{
 	public int deleteAdmin(QnaDto qnaDto) {
 		return sqlSession.delete("adminClasses.deleteAdmin", qnaDto);
 	}
+
 
 
 }

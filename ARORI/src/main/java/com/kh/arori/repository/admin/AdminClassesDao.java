@@ -16,7 +16,9 @@ public interface AdminClassesDao {
 	
 	
 	// QNA  게시글 c_no + qna_no 단일 조회
-	public QnaDto getCQ(QnaDto qnaDto);
+	public QnaMemberDto getCQ(QnaDto qnaDto);
+	// QNA  게시글 c_no + qna_no 단일 조회2
+	public QnaMemberDto getCQ2(QnaDto qnaDto);
 		
 	// QNA  게시글 관리자 수정 
 	public int editQnaAdmin(QnaDto qnaDto);
@@ -26,5 +28,8 @@ public interface AdminClassesDao {
 	
 	// QNA  게시글 관리자 삭제 
 	public int deleteAdmin(QnaDto qnaDto);
+	
+	
+	
 
 }

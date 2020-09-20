@@ -14,17 +14,29 @@
 		SELECT 
 			a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no, a.member_nick
 		FROM
-			(SELECT ROWNUM rn, q.* FROM QM q ORDER BY qna_no ASC) a 
-		WHERE rn BETWEEN ${start}  AND ${finish};
+			(SELECT ROWNUM rn, q.* FROM QM q 
+			<if test="col != null and keyword != null">
+				WHERE INSTR(${col},#{keyword}) > 0 
+			</if>
+			ORDER BY qna_no ASC) a 
+			<if test="start != null and finish != null">
+				WHERE 
+					rn BETWEEN ${start}  AND ${finish}
+			</if>
 	</select>
 	
 	<!-- QNA 게시글 c_no + qna_no 단일 조회 -->
-	<select id="getCQ" resultType="qnaDto" parameterType="qnaDto">
-		SELECT * FROM QNA WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
+	<select id="getCQ" resultType="qnaMemberDto" parameterType="qnaDto">
+		SELECT * FROM  QNA WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
+	</select>
+	
+	<!-- QNA 게시글 c_no + qna_no 단일 조회 -->
+	<select id="getCQ2" resultType="qnaMemberDto" parameterType="qnaDto">
+		SELECT * FROM QM WHERE C_NO = #{c_no} AND QNA_NO =#{qna_no}
 	</select>
 	
 	<!-- QNA 관리자 수정 -->
-	<update id="editQnaAdmin" parameterType="qnaDto">
+	<update id="editQnaAdmin" parameterType="qnaMemberDto">
 		UPDATE QNA SET 
 		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}
 		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
