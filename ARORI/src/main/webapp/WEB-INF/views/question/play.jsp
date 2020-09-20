@@ -153,7 +153,7 @@ $(".question").on("change",function(){
 				 	headers:{
 						'content-type':'application/json',
 				 	}
-			 }) .then(resp=>{
+			 }).then(resp=>{
 
 			})
 		}

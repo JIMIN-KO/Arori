@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:choose>
    <c:when test="${userinfo.member_auth eq 1 }">
       <jsp:include page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>   
@@ -257,7 +258,7 @@
                                  <form method="post" class="d-flex justify-content-center mb-3 mt-3 blockSub">
                                     <span class="card-btn d-flex justify-content-center">
                                        <input type="hidden" name="c_no" class="subC_no" value="${MCIDto.c_no }">
-                                       <input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px">   
+                                       <input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px" data-target="#subModal">   
                                     </span>
                                  </form>
                            </c:when>
@@ -270,28 +271,35 @@
       </div>
    </div>
 </div>               
-   
 <script>
+	
    $(function() {
-      
+	  $("#subModal").modal("hide") // 모달 수정 모달 숨김
+      // 구독 기능
       $(document).on("click",".subBtn",function(){
-
          var subDto = {
                member_no:${userinfo.member_no},
                c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
          }
-
          var path = $(this).parents(".card").children(".card-body").children(".title").children(".badge")
-         
+         	
          axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
              headers:{
                'content-type':'application/json',
              }
-          }).then(function(resp){
-
+          }).then(resp=>{
+			console.log(resp.data)
+			console.log($(path).text())
+			var msg
+			if($(path).text() < resp.data) {
+				msg = '구독이 완료되었습니다.'
+			} else {
+				msg = '구독이 취소되었습니다.'
+			}
              $(path).text(resp.data)
-             
-          })
+                $(".subModalBody").text(msg)
+             $("#subModal").modal("show") // 모달 수정 모달 숨김
+			})
       })
       
       var backup = $(".cardList").first().clone()
@@ -430,11 +438,11 @@
    <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
    
 <!-- 클래스 수정 모달 -->
-<div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="classEdit" tabindex="-1" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">클래스 수정</h5>
+            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">클래스 수정</h5>
             <button type="button" class="close" data-dismiss="modal"
                aria-label="Close">
                <span aria-hidden="true">&times;</span>
@@ -461,6 +469,26 @@
             <button type="button" class="btn btn-secondary"
                data-dismiss="modal">창 닫기</button>
             <button type="button" class="btn btn-primary" id="goEdit">수정하기</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- 구독 모달 -->
+<div class="modal fade" id="subModal" tabindex="-1" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">구독</h5>
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body subModalBody">
+         </div>            
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">창 닫기</button>
          </div>
       </div>
    </div>

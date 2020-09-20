@@ -57,7 +57,7 @@
 		INSERT INTO subscribe VALUES (#{sub_no}, #{member_no}, #{c_no}, SYSDATE)
 	</insert>
 	<!-- 구독 취소 -->
-	<delete id="delSub">
+	<delete id="delSub" parameterType="subDto">
 		DELETE subscribe WHERE c_no=#{c_no} AND member_no=#{member_no}
 	</delete>
 	<!-- 구독수 -->
@@ -83,6 +83,10 @@
 	<!--나를 구독한 사람들(모달용) -->
 	<select id="subMe" parameterType="int" resultType="MemberDto">
 		SELECT m.MEMBER_NICK  FROM MEMBER m INNER JOIN SUBSCRIBE s ON m.MEMBER_NO =s.MEMBER_NO WHERE s.C_NO #{c_no}
+	</select>
+	<!-- 회원이 구독한 클래스 목록 -->
+	<select id="getMySubClass" resultType="subDto" parameterType="int">
+		SELECT * FROM SUBSCRIBE WHERE MEMBER_NO = #{member_no}
 	</select>
 
 </mapper>

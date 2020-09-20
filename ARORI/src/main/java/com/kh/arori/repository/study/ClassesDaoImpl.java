@@ -109,8 +109,8 @@ public class ClassesDaoImpl implements ClassesDao {
 
 	// 구독 취소
 	@Override
-	public void delSub(SubscribeDto subDto) {
-		sqlSession.delete("classes.delSub", subDto);
+	public int delSub(SubscribeDto subDto) {
+		return sqlSession.delete("classes.delSub", subDto);
 	}
 
 	// 구독 테이블 단일조회
@@ -123,7 +123,7 @@ public class ClassesDaoImpl implements ClassesDao {
 	// 구독 후 데이터 갱신
 	@Override
 	public void subUpdate(ClassesDto classesDto) {
-		sqlSession.update("classes.subUpdate", classesDto);		
+		sqlSession.update("classes.subUpdate", classesDto);
 	}
 
 	// 나의 구독 클래스 리스트
@@ -137,6 +137,12 @@ public class ClassesDaoImpl implements ClassesDao {
 	public List<MemberDto> subMe(int c_no) {
 		List<MemberDto> list = sqlSession.selectList("classes.subMe", c_no);
 		return list;
+	}
+
+	@Override
+	public List<SubscribeDto> getMySubClass(int member_no) {
+		
+		return sqlSession.selectList("classes.getMySubClass", member_no);
 	}
 
 

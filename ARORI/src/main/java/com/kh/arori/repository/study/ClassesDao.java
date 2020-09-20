@@ -53,7 +53,7 @@ public interface ClassesDao {
 	public int countSub(SubscribeDto subDto);
 
 	// 구독 취소
-	public void delSub(SubscribeDto subDto);
+	public int delSub(SubscribeDto subDto);
 
 	// 구독수 업데이트
 	public void subUpdate(ClassesDto classesDto);
@@ -63,4 +63,7 @@ public interface ClassesDao {
 	
 	//  나를 구독한 목록 조회
 	List<MemberDto> subMe(int c_no);
+	
+	// 회원이 구독한 클래스 리스트
+	List<SubscribeDto> getMySubClass(int member_no);
 }
