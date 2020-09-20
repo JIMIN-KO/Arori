@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminNotice">
+	
+	<!-- Notice 관리자 목록 -->
+	<select id="adminNoticeList" resultType="noticeDto">
+		SELECT * FROM NOTICE ORDER BY n_no DESC
+	</select>
+	
+	<!-- 공지 게시글 페이지 네이션 -->
+	<select id="getP" resultType="noticeDto" parameterType="map">
+		SELECT 
+			a.n_no, a.c_no, a.n_title, a.n_content, a.n_when 
+		FROM 
+			(SELECT ROWNUM rn, notice.* FROM NOTICE notice
+			<if test="col != null and keyword != null"> 
+				WHERE INSTR(${col},#{keyword}) > 0 
+			</if>
+			ORDER BY n_no ASC) a
+			<if test="start != null and finish != null">
+				WHERE 
+					rn BETWEEN ${start} AND ${finish}
+			</if>
+	</select>
+	
+	<!-- Notice 게시글 리스트 검색 -->
+	<select id="searchNotice" resultType="noticeDto" parameterType="map">
+		SELECT * FROM Notice
+		WHERE instr(${type}, #{keyword}) > 0
+		ORDER BY qna_no DESC
+	</select>
+	
+	<!-- Notice 게시글 c_no + n_no 단일 조회 -->
+	<select id="getCN" resultType="noticeDto" parameterType="noticeDto">
+		SELECT * FROM NOTICE WHERE C_NO = #{c_no} AND N_NO =#{n_no}
+	</select>
+
+	
+	<!-- QNA 관리자 수정 -->
+	<update id="editQnaAdmin" parameterType="qnaMemberDto">
+		UPDATE QNA SET 
+		QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}
+		WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</update>
+		
+	<!-- QNA 게시글 관리자 삭제 -->
+	<delete id="deleteAdmin" parameterType="qnaDto">
+		DELETE QNA WHERE C_NO = #{c_no} AND QNA_NO = #{qna_no}
+	</delete>
+	
+
+	
+	
+<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->	
+	
+	
+	
+		
+
+	<!-- 공지 게시글 단일 조회 (n_no) -->
+	<select id="get" resultType="noticeDto" parameterType="noticeDto">
+		SELECT * FROM NOTICE WHERE N_NO = #{n_no}
+	</select>
+	
+	<!-- 공지 게시글 단일 조회 (c_no) -->
+	<select id="getC" resultType="noticeDto" parameterType="noticeDto">
+		SELECT * FROM NOTICE WHERE C_NO = #{c_no}
+	</select>
+	
+
+	
+	<!-- 공지 게시글 수정  -->
+	<update id="edit" parameterType="noticeDto">
+		UPDATE NOTICE SET N_TITLE = #{n_title}, N_CONTENT = #{n_content}, N_STATE = #{n_state} WHERE C_NO = #{c_no} AND N_NO = #{n_no}
+	</update>
+	
+	
+	<!-- 해당 클래스의 공지 게시글 개수 -->
+	<select id="count" resultType="int" parameterType="noticeDto">
+		SELECT COUNT(*) FROM NOTICE WHERE C_NO = #{c_no} AND N_STATE = 1
+	</select>
+	
+	<!-- 해당 클래스의 특정 공지 게시글 삭제 -->
+	<delete id="delete" parameterType="noticeDto">
+		DELETE NOTICE WHERE C_NO = #{c_no} AND N_NO = #{n_no}
+	</delete>
+	
+
+</mapper>
