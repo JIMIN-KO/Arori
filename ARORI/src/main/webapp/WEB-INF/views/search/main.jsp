@@ -11,14 +11,12 @@
    </c:otherwise>
 </c:choose>   
 <style>
-      /* 전체 카드 */
-   .card-deck {
-    height:460px;
-    width:380px;
-    padding-bottom: 30px;
-    margin-top: 30px;
-    margin-left: 17px;
-}
+	/* 전체 카드 */
+	.card-deck {
+		padding-bottom: 40px;
+		margin-top: 35px;
+	}
+	
    /* 이미지 사이즈 */
    .card-img {
    height: 200px;
@@ -123,7 +121,7 @@
    
 </style>
 <div class="row content-top mt-5 h-100">
-   <div class="col-12 overflow-auto">
+   <div class="col-12 overflow-auto p-0">
       <!-- 본문 내용 -->
       <div class="ml-3 mr-3 mt-5">
          <!-- 검색창 -->
@@ -151,29 +149,34 @@
          </div>
          
          <!--  클론 시작 -->
-            <div class="col-sm-12 col-md-6 col-lg-3 cardList p-0" style="display: none;">
+            <div class="col-sm-12 col-md-6 col-lg-3 cardList" style="display: none;">
                   <div class="card-deck">
                        <div class="card">
                           <a>
-                           <img class="card-img" alt="...">      
+                           <img class="card-img">      
                         </a>
                            <div class="card-body pb-0">
                               <input type="hidden" class="card-no">
                               <div class="title h4">
-                                 <span class="card-title" style="font-size: 21px;!important"></span>
+                                 <span class="card-title font-weight-bold title h4" style="font-size: 21px;!important"></span>
                                  <span class="badge badge-pill badge-success ml-2 mb-1"></span>
                               </div>
-                              <p class="card-info"></p>
-                              <p class="card-nick">
+                              	<hr>
+                              <p class="card-info mt-4"></p>
+                              <p class="card-nick mb-0 font-weight-bold">
                                  
                               </p>
                               <p class="card-when mb-0">
                                  <small class="text-muted">
-                                    
                               </small>
                            </p>
-                          </div>   
-                             <div class="row mt-3">
+                          </div> 
+                          		<form method="post" class="mb-3 blockForm" style="display:none; !important">
+                                    <span class="d-flex justify-content-center">
+                                       <input type="button" class="btn btn-link btn-md" style="font-size:14px; cursor: default; margin:0px;">   
+                                    </span>
+                                 </form> 
+                             <div class="row mt-5">
                               <div class="col-6">
                                  <button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
                               </div>
@@ -181,8 +184,8 @@
                                  <a class="btn btn-warning btn-sm btn-block delete" style="font-size:14px">DELETE</a>
                               </div>
                            </div>
-                             <form method="post" class="d-flex justify-content-center mb-3">
-                              <span class="card-btn">
+                             <form method="post" class="d-flex justify-content-center mb-3 mt-3 blockSub">
+                              <span class="card-btn d-flex justify-content-center">
                                  <input type="hidden" name="c_no" class="subC_no">
                                  <input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px">   
                               </span>
@@ -192,15 +195,15 @@
                   </div>
                <!--  여기까지 클론 -->
                
-         <div class="row classCard">
+         <div class="row classCard w-100 m-0">
             <c:forEach var="MCIDto" items="${MCIDto}">
-               <div class="col-sm-12 col-md-6 col-lg-3 cardList p-0">
+               <div class="col-sm-12 col-md-6 col-lg-3 cardList">
                   <div class="card-deck">
                        <div class="card">
                           <a href="${pageContext.request.contextPath }/classes/readme/${MCIDto.c_no}">
                            <c:choose>
                               <c:when test="${MCIDto.ai_no > 0}">
-                                 <img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
+                                 <img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img">
                               </c:when>
                               <c:otherwise>
                                  <img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" class="card-img">
@@ -210,11 +213,12 @@
                            <div class="card-body pb-0">
                               <input type="hidden" value="${MCIDto.c_no}" class="card-no">
                               <div class="title h4">
-                                 <span style="font-size: 21px;!important" class="card-title" >${MCIDto.c_title}</span>
+                                 <span style="font-size: 21px;!important" class="card-title h4 title font-weight-bold" >${MCIDto.c_title}</span>
                                  <span class="badge badge-pill badge-success ml-2 mb-1">${MCIDto.c_subscribe }</span>
                               </div>
-                              <p class="card-info" >${MCIDto.c_info}</p>
-                              <p class="card-nick">
+                              	<hr>
+                              <p class="card-info mt-4">${MCIDto.c_info}</p>
+                              <p class="card-nick mb-0 font-weight-bold">
                                  <c:choose>
                                     <c:when test="${MCIDto.member_nick eq 'null'}">
                                        소셜 회원
@@ -224,16 +228,23 @@
                                     </c:otherwise>
                                  </c:choose>
                               </p>
-                              <p class="card-when">
+                              <p class="card-when mb-0">
                                  <small class="text-muted">
                                     <fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
                                  <fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/>
                               </small>
                            </p>
-                          </div>   
+                          </div>
+                          	<c:if test="${MCIDto.member_no == userinfo.member_no}">
+                          		<form method="post" class="d-flex justify-content-center mb-3 mt-3">
+                                    <span class="d-flex justify-content-center">
+                                       <input type="button" class="btn btn-link btn-md" style="font-size:14px; cursor: default; margin:0px;">   
+                                    </span>
+                                 </form>
+                          	</c:if>
                         <c:choose>                  
                            <c:when test="${userinfo.member_auth eq 1 }">
-                              <div class="row mt-3">
+                              <div class="row mt-5">
                                  <div class="col-6">
                                     <button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
                                  </div>
@@ -243,8 +254,8 @@
                               </div>                              
                            </c:when>               
                            <c:when test="${MCIDto.member_no != userinfo.member_no}">
-                                 <form method="post" class="d-flex justify-content-center mb-3">
-                                    <span class="card-btn">
+                                 <form method="post" class="d-flex justify-content-center mb-3 mt-3 blockSub">
+                                    <span class="card-btn d-flex justify-content-center">
                                        <input type="hidden" name="c_no" class="subC_no" value="${MCIDto.c_no }">
                                        <input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px">   
                                     </span>
@@ -289,7 +300,6 @@
       })
       
       $(".select-down").on("change",function(){
-         console.log("hello")
          searchClass(backup)
       })
       
@@ -368,11 +378,7 @@
       var subbuttonVal = $(cardList[i+1]).children(".card-deck").children(".card").children("form").children(".card-btn").children(".subC_no")
       var subbutton = $(cardList[i+1]).children(".card-deck").children(".card").children("form").children(".card-btn").children("span").children(".subBtn")
       var member_no = ${userinfo.member_no}
-      $(subbutton).css("display","none")
-      if((member_no != resp.data[i].member_no) && (${userinfo.member_auth == 0})) {
-         $(subbutton).css("display","block")
-         $(subbuttonVal).val(resp.data[i].c_no)
-         }
+
       
       // 수정 삭제 button
       var editbutton = $(cardList[i+1]).children(".card-deck").children(".card").children(".row").children(".col-6").children(".editClass")
@@ -380,11 +386,21 @@
     
      	 $(editbutton).css("display","none")
          $(deletebutton).css("display","none")
-     
+      	$(subbutton).css("display","none")
+      	
+      	// 구독 버튼
+      if((member_no != resp.data[i].member_no) && (${userinfo.member_auth == 0})) {
+         $(subbutton).css("display","block")
+         $(subbuttonVal).val(resp.data[i].c_no)
+         $(cardList[i+1]).children(".card-deck").children(".card").children(".row").css("display","none")
+       }
+
+      // 삭제 수정 버튼
       if(${userinfo.member_auth == 1}) {
-          	console.log("hello")
          $(editbutton).css("display","block")
          $(deletebutton).css("display","block")
+         $(".blockSub").css("display","none!important")
+         $(".blockForm").css("display","none")
       }
    }
    
@@ -396,8 +412,6 @@
          var c_title = $(this).parents(".card").children(".card-body").children(".title").children(".card-title").text()
          var c_info = $(this).parents(".card").children(".card-body").children(".card-info").text()
 
-         console.log(c_title)
-         console.log(c_no)
          $("input[name=c_no]").val(c_no)
          $("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
          $("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기   

@@ -32,7 +32,7 @@ public class QnaController {
 
 	@Autowired
 	private QnaService qnaService;
-	
+
 	@Autowired
 	private PaginationService paginationService;
 
@@ -77,7 +77,7 @@ public class QnaController {
 
 		// 게시글 불러오기
 		List<QnaDto> list = qnaService.getP(c_no, pageNo);
-		
+
 		// 페이지 네비게이터 계산
 		List<Integer> block = qnaService.pagination(c_no, pageNo);
 
@@ -91,7 +91,7 @@ public class QnaController {
 		List<QnaDto> qnaSize = qnaDao.getC(c_no);
 		int count = qnaSize.size();
 		int no = paginationService.no(pageNo, count);
-		
+
 		// VIEW 로 던질 모델 (게시글 / 해당 클래스 정보)
 		model.addAttribute("list", list);
 		model.addAttribute("classes", classes);
@@ -163,19 +163,6 @@ public class QnaController {
 		// 삭제 기능 시작
 		String result = qnaService.delete(qnaDto, userinfo.getMember_no());
 
-		return result;
-	}
-
-	// QNA 게시글 수정 중 임시 저장
-	@PostMapping("/classes/qna/temp")
-	public String qnaTemp(@RequestParam List<String> qna_content, @RequestParam String c_no,
-			@RequestParam String qna_no, @RequestParam String qna_title, @RequestParam String qna_state) {
-		// 매개변수 데이터 객체화
-		QnaDto qnaDto = QnaDto.builder().c_no(Integer.parseInt(c_no)).qna_no(Integer.parseInt(qna_no))
-				.qna_title(qna_title).qna_state(Integer.parseInt(qna_state)).build();
-
-		// 임시 저장 후 QNA 게시판으로 이동
-		String result = qnaService.createTemp(qna_content, qnaDto);
 		return result;
 	}
 

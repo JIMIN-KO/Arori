@@ -41,7 +41,7 @@
 	<select id="get" resultType="myAnswerDto"
 		parameterType="myAnswerDto">
 		SELECT * FROM MY_ANSWER WHERE MEMBER_NO = #{member_no}
-		AND Q_NO = #{q_no}
+		AND Q_NO = #{q_no} ORDER BY QUESTION_NO ASC
 	</select>
 
 	<!-- 나의 정답만 조회 > 퀴즈 번호 -->
