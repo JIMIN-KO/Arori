@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
@@ -32,7 +30,7 @@ import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
-import com.kh.arori.service.report.ReportService;
+import com.kh.arori.service.today.TodayService;
 
 @Controller
 @RequestMapping("/admin")
@@ -51,10 +49,30 @@ public class AdminController {
 	private AdminDao adminDao;
 
 	@Autowired
-	private ReportService reportService;
+	private TodayService todayService;
 
 	@GetMapping("/main")
-	public String adminPage() {
+	public String adminPage(Model model) {
+
+		// 오늘의 아로리
+		int[] count = adminService.todayCount();
+		model.addAttribute("count", count);
+
+		// 현재 날짜
+		String today = todayService.today(-3);
+
+		// 회원 통계
+		// 현재로부터 3개월 간의 통계
+		Map<String, String[]> memberMap = adminService.thisChart("member", "member_join", today);
+
+		model.addAttribute("memberMap", memberMap);
+
+		// 클래스 통계
+		// 현재로부터 3개월 간의 통계
+		Map<String, String[]> classesMap = adminService.thisChart("classes", "c_when", today);
+
+		model.addAttribute("classesMap", classesMap);
+
 		return "admin/main_admin";
 	}
 
@@ -71,33 +89,6 @@ public class AdminController {
 		// 관리자가 정지일자 입력할때 년,월,일만 작성해도 가능하도록 설정
 	}
 
-	// 아로리 회원 이미지 불러오기
-	// 신고별 검색
-
-	/*
-	 * // 소셜 + 아로리) 목록조회
-	 * 
-	 * @GetMapping("/resultMap") public String resultMap(Model model, Model
-	 * model2, @ModelAttribute MemberDto memberDto,
-	 * 
-	 * @ModelAttribute ClassesDto classesDto) {
-	 * 
-	 * List<MemberDto> result = memberDao.resultMap(); model.addAttribute("result",
-	 * result);
-	 * 
-	 * List<MemberDto> result2 = memberDao.resultMap2();
-	 * model.addAttribute("result2", result2);
-	 * 
-	 * int memberCount = adminDao.memberCount(memberDto);
-	 * model.addAttribute("memberCount", memberCount);
-	 * 
-	 * int classCount = adminDao.classCount(classesDto);
-	 * model.addAttribute("classCount", classCount);
-	 * 
-	 * return "admin/resultMap";
-	 * 
-	 * }
-	 */
 	// 리스트
 	@GetMapping("/allList")
 	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto, @ModelAttribute ClassesDto classesDto,

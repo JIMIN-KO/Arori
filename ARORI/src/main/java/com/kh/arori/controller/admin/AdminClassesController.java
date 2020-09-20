@@ -17,27 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.MemberDto;
-import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QnaDto;
 import com.kh.arori.entity.study.QnaMemberDto;
 import com.kh.arori.repository.admin.AdminClassesDao;
-import com.kh.arori.repository.study.ClassesDao;
-import com.kh.arori.repository.study.QnaDao;
 import com.kh.arori.service.admin.AdminClassesService;
 import com.kh.arori.service.pagination.PaginationService;
-import com.kh.arori.service.study.QnaService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminClassesController {
-
-	@Autowired
-	private ClassesDao classesDao;
-
-	@Autowired
-	private QnaDao qnaDao;
 
 	@Autowired
 	private AdminClassesDao adminClassesDao;

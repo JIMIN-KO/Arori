@@ -14,16 +14,16 @@
 						    <div class="col-md-4">
 								<c:choose>
 									<c:when test="${maiDto.ai_no > 0}" >
-										<img src="${pageContext.request.contextPath }/imgAjax/member/download/${maiDto.ai_no}" class="card-img" alt="...">
+										<img src="${pageContext.request.contextPath }/imgAjax/member/download/${maiDto.ai_no}" class="card-img" alt="..." >
 									</c:when>
 									<c:otherwise>
 										<img src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="card-img" alt="...">
 									</c:otherwise>
 								</c:choose>
-						     <input type = "button" data-target="#imgEdit" class="imgEdit" value="이미지 변경"> 
+						     <input type = "button" data-target="#imgEdit" class="imgEdit btn-warning btn mt-3"  style=" margin-left:90px"  value="이미지 변경"> 
 						    </div>
 						    <div class="col-md-8">
-						      <div class="card-body pb-0">
+						      <div class="card-body pb-0 mt-5">
 						      <div class="row d-flex justify-content-end mr-5 mb-3">
 						      	<h3 class="d-inline-block">${memberDto.member_nick }</h3>
 						      	<h4 class="d-inline-block ml-3">님, 환영합니다!</h4>
@@ -95,6 +95,14 @@
 						<canvas id="myChart2"></canvas>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
+
+<style>
+	.card-img {
+		width:230px;
+		margin-left:20px;
+		margin-top:10px;
+	}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
 
