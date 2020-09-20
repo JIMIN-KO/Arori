@@ -124,16 +124,16 @@ public class AdminNoticeController {
 //		return result;
 //	}
 //
-//	// QNA 게시글 관리자 상세보기
-//	@GetMapping("/qnaDetail/{c_no}/{qna_no}")
-//	public String qnaDetail(@PathVariable int c_no, @PathVariable int qna_no, Model model) {
-//
-//		// c_no + qna_no 조회
-//		QnaDto qnaDto = QnaMemberDto.builder().c_no(c_no).qna_no(qna_no).build();
-//		QnaMemberDto qnaMemberDto = adminClassesDao.getCQ2(qnaDto);
-//		model.addAttribute("qnaMemberDto", qnaMemberDto);
-//
-//		return "admin/classes/qna_detail";
-//	}
+	// Notice 게시글 관리자 상세보기
+	@GetMapping("/noticeDetail/{c_no}/{n_no}")
+	public String noticeDetail(@PathVariable int c_no, @PathVariable int n_no, Model model) {
+
+		// c_no + n_no 조회
+		NoticeDto noticeDto = NoticeDto.builder().c_no(c_no).n_no(n_no).build();
+		noticeDto = adminNoticeDao.getCN(noticeDto);
+		model.addAttribute("noticeDto", noticeDto);
+
+		return "admin/notice/notice_detail";
+	}
 
 }
