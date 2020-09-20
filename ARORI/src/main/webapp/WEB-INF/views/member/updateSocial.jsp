@@ -25,7 +25,7 @@
 								  <div class="input-group-prepend">
 								    <span class="input-group-text" id="basic-addon1">NICK</span>
 								  </div>
-								  <input type="text" class="form-control" placeholder="닉네임을 입력해주세요." aria-label="Username" aria-describedby="basic-addon1"  name="member_nick" value="${memberDto.member_nick}"  oninput="checkNick()">
+								  <input type="text" class="form-control" placeholder="닉네임을 입력해주세요." aria-label="Username" aria-describedby="basic-addon1"  name="member_nick" value="${memberDto.member_nick}"  oninput="checkNick();">
 								</div>
 								  <div class="text-center mb-4 text-danger" style="font-size: 18px;"></div>
 								<button type="submit"  data-target="#memberUpdateFail" class="btn btn-lg btn-warning btn-block font-weight-bold">수정</button>

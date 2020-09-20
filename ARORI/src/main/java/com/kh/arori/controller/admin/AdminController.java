@@ -184,11 +184,12 @@ public class AdminController {
 		int count = adminDao.classCount(member_no);
 		model.addAttribute("count", count);
 
+		//회원 이미지 보이도록
 		This_imgDto this_imgDto = adminDao.getImage(member_no);
 		model.addAttribute("this_imgDto", this_imgDto);
 
 		AllMemberDto allMemberDto = memberDao.memberProfile(member_no);
-		model.addAttribute("allMemberDto", allMemberDto); // 소셜회원 정보전달큐알체크못했는데 어떡
+		model.addAttribute("allMemberDto", allMemberDto); // 소셜회원 
 		// 아로리회원 정보전달
 
 		return "admin/memberProfile";
