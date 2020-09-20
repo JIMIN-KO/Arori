@@ -28,7 +28,7 @@
 						    				<div class="input-group mt-3 mb-3">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="radio" value="0"  name="${thisQuizVo.question_no }" id="o_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '0' }">checked</c:if>>
+											      <input type="radio" value="0"  name="${thisQuizVo.question_no }" id="o_${thisQuizVo.question_no }" disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 0 }">checked</c:if>>
 											    </div>
 											  </div>
 											  <label for="o_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.ox_answer eq 0 ? 'bg-success text-white' : '' }">
@@ -38,7 +38,7 @@
 						    				<div class="input-group mt-3 mb-3">
 											  <div class="input-group-prepend">
 											    <div class="input-group-text">
-											      <input type="radio" value="1" name="${thisQuizVo.question_no }" id="x_${thisQuizVo.question_no }"  disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq '1' }">checked</c:if>>
+											      <input type="radio" value="1" name="${thisQuizVo.question_no }" id="x_${thisQuizVo.question_no }"  disabled="disabled" <c:if test="${thisQuizVo.myAnswer eq 1 }">checked</c:if>>
 											    </div>
 											  </div>
 											  <label for="x_${thisQuizVo.question_no }" class="form-control h-auto ${thisQuizVo.ox_answer eq 1 ? 'bg-success text-white' : '' }">

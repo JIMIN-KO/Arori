@@ -9,11 +9,8 @@
 <style>
 	/* 전체 카드 */
 	.card-deck {
-		height: 460px;
-		width: 380px;
-		padding-bottom: 30px;
-		margin-top: 30px;
-		margin-left: 17px;
+		padding-bottom: 40px;
+		margin-top: 35px;
 	}
 	/* 이미지 사이즈 */
 	.card-img {
@@ -114,7 +111,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row w-100 m-0">
 	<c:forEach var="MCIDto" items="${MCIDto}">
 		<div class="col-sm-12 col-md-6 col-lg-3">
 			<div class="card-deck">
@@ -132,22 +129,21 @@
 					<div class="row">
 						<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 45%;">
 							<a data-target="#imgEdit" class="imgEdit" data-cno="${MCIDto.c_no }">
-								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-									style="width: 30px; height: 30px;">
-								  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z" />
-							  	<path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z" />
+								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:30px; height:30px;">
+								  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
 								</svg>
 							</a>
 						</div>
 					</div>
 					<div class="card-body pb-0">
 						<input type="hidden" class="card-no" value="${MCIDto.c_no }">						
-						<span class="h4 title">${MCIDto.c_title}</span>
-						<span class="badge badge-pill badge-success" >
+						<span class="h4 title font-weight-bold">${MCIDto.c_title}</span>
+						<span class="badge badge-pill badge-success ml-2 mb-1" >
 							${MCIDto.c_subscribe}
 						</span>
-						<p class="card-info">${MCIDto.c_info}</p>
-						<p class="card-nick">
+						<hr>
+						<p class="card-info mt-4">${MCIDto.c_info}</p>
+						<p class="card-nick mb-0 font-weight-bold">
 							<c:choose>
       							<c:when test="${MCIDto.member_nick eq 'null'}">
       								소셜 회원
@@ -157,7 +153,7 @@
       							</c:otherwise>
       						</c:choose>
 						</p>
-						<p class="card-when"> 
+						<p class="card-when mb-0"> 
 							<small class="text-muted"> 
 								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss" /> 
 								<fmt:formatDate value="${time}" pattern="yyyy-MM-dd" />
@@ -166,7 +162,7 @@
 						<c:choose>
 							<c:when test="${userinfo.member_no == MCIDto.member_no or userinfo.member_auth == 1 }">
 								<div class="card-btn w-100">
-									<div class="row mt-3">
+									<div class="row mt-3 mb-3">
 										<div class="col-6">
 											<button type="button" class="btn btn-primary btn-sm editClass btn-block" data-target="#classEdit" style="font-size:14px">EDIT</button>
 										</div>
@@ -212,9 +208,9 @@ $(function() {
 				var c_info = $(this).parents(".card-body").children(".card-info").text()
 	
 				console.log(c_title)
-				$("input[name=c_no]").val(c_no)
-				$("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
-				$("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기		
+				$("#c_no").val(c_no)
+				$("#c_title").val(c_title) // 모달에 타이틀 데이터 던지기
+				$("#c_info").val(c_info) // 모달에 인포 데이터 던지기		
 			})
 	// 수정하기 버튼을 누르면 수정이 되도록 한다!
 	$("#goEdit").click(function() {
@@ -276,12 +272,12 @@ $(function() {
 					  <div class="form-group">
 					  <input type="hidden" name="member_no" value="${userinfo.member_no }">
 					    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
-					    <input type="text" class="form-control" id="c_title"  name="c_title">
+					    <input type="text" class="form-control"  name="c_title">
 					    <small id="emailHelp" class="form-text text-muted">클래스 이름은 20자 이내로 작성해주세요.</small>
 					  </div>
 					  <div class="form-group">
 					    <label for="c_info" class="h5 font-weight-bold">Class Info</label>
-					    <textarea id="c_info" class="form-control" name="c_info"></textarea>
+					    <textarea class="form-control" name="c_info"></textarea>
 					        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
 					  </div>
 				</div>
@@ -332,7 +328,7 @@ $(function() {
 				</div>
 				<div class="modal-body">
 					<form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
-						<input type="hidden" name="c_no">
+						<input type="hidden" name="c_no" id="c_no">
 						<input type="hidden" name="member_no" value="${userinfo.member_no }"> 
 						<div class="form-group">
 						    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
