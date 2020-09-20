@@ -1,6 +1,7 @@
 package com.kh.arori.service.admin;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
@@ -40,5 +41,5 @@ public interface AdminService {
 	public int[] todayCount();
 	
 	// 테이블 별 수 변화 현황(지민)
-	public int[] thisChart();
+	public Map<String, String[]> thisChart(String table_name, String col, String today);
 }

@@ -1,7 +1,8 @@
 package com.kh.arori.service.admin;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,18 +65,21 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.allList();
 	}
 
+	// 아로리 총 인원
 	@Override
 	public int aroriCount(AroriMemberDto aroriMemberDto) {
 
 		return adminDao.aroriCount(aroriMemberDto);
 	}
 
+	// 멤버 총 인원
 	@Override
 	public int memberCount(MemberDto memberDto) {
 
 		return adminDao.memberCount(memberDto);
 	}
 
+	// 오늘의 총 카운트 (지민)
 	@Override
 	public int[] todayCount() {
 
@@ -83,23 +87,40 @@ public class AdminServiceImpl implements AdminService {
 				{ NameConst.QUIZ, "q_when" }, { NameConst.QNA, "qna_when" }, { NameConst.REPORT, "report_date" } };
 		ChartDto chartDto = ChartDto.builder().build();
 		int[] count = new int[list.length];
-		
+
 		for (int i = 0; i < list.length; i++) {
-			
+
 			chartDto.setTable_name(list[i][0]);
 			chartDto.setCol(list[i][1]);
-			
+
 			count[i] = adminDao.todayCount(chartDto);
-			
+
 		}
 
 		return count;
 	}
 
+	// 테이블 별 수 변화 현황(지민)
 	@Override
-	public int[] thisChart() {
-		List<ChartDto> list = new ArrayList<ChartDto>();
-		return null;
+	public Map<String, String[]> thisChart(String table_name, String col, String today) {
+		// 현재로부터 3개월 간의 통계
+		ChartDto chartDto = ChartDto.builder().table_name("member").col("member_join").period(today).build();
+
+		List<ChartDto> chart = adminDao.thisChart(chartDto);
+
+		String[] when = new String[chart.size()];
+		String[] count = new String[chart.size()];
+
+		Map<String, String[]> map = new HashMap<String, String[]>();
+
+		for (int i = 0; i < chart.size(); i++) {
+			when[i] = chart.get(i).getWhen();
+			count[i] = String.valueOf(chart.get(i).getCount());
+		}
+
+		map.put("when", when);
+		map.put("count", count);
+		return map;
 	}
 
 }

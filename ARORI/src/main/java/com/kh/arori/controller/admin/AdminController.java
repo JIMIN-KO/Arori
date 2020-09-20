@@ -3,7 +3,6 @@ package com.kh.arori.controller.admin;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,7 @@ import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.repository.admin.AdminDao;
 import com.kh.arori.repository.member.MemberDao;
 import com.kh.arori.service.admin.AdminService;
+import com.kh.arori.service.today.TodayService;
 
 @Controller
 @RequestMapping("/admin")
@@ -48,6 +48,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminDao adminDao;
+	
+	@Autowired
+	private TodayService todayService;
 
 	@GetMapping("/main")
 	public String adminPage(Model model) {
@@ -57,35 +60,20 @@ public class AdminController {
 		model.addAttribute("count", count);
 
 		// 현재 날짜
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, -2);
-		String today = format.format(cal.getTime());
+		String today = todayService.today(-3);
 		
 		// 회원 통계
 		// 현재로부터 3개월 간의 통계
-		ChartDto member = ChartDto.builder().table_name("member").col("member_join").period(today).build();
-
-		List<ChartDto> memberChart = adminDao.thisChart(member);
-		
-		String[] memberWhen = new String[memberChart.size()];
-		String[] memberCount = new String[memberChart.size()];
-		
-		Map<String, String[]> memberMap = new HashMap<String, String[]>();
-		System.out.println(memberChart.size());
-		for (int i = 0; i < memberChart.size(); i++) {
-			memberWhen[i] =memberChart.get(i).getWhen();
-			memberCount[i] = String.valueOf(memberChart.get(i).getCount());
-		}
-		
-		memberMap.put("when", memberWhen);
-		memberMap.put("count", memberCount);
+		Map<String, String[]> memberMap = adminService.thisChart("member", "member_join", today);
 		
 		model.addAttribute("memberMap", memberMap);
 		
 		// 클래스 통계
 		// 현재로부터 3개월 간의 통계
-
+		Map<String, String[]> classesMap = adminService.thisChart("classes", "c_when", today);
+		
+		model.addAttribute("classesMap", classesMap);
+		
 		return "admin/main_admin";
 	}
 
