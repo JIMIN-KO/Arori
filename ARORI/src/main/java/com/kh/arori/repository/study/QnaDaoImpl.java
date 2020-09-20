@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.arori.entity.study.QnaDto;
+import com.kh.arori.entity.study.QnaMemberDto;
 
 @Repository
 public class QnaDaoImpl implements QnaDao {
@@ -47,7 +48,7 @@ public class QnaDaoImpl implements QnaDao {
 
 	// QNA 게시글 페이지 네이션 기능
 	@Override
-	public List<QnaDto> getP(Map<String, Integer> pagination) {
+	public List<QnaMemberDto> getP(Map<String, Integer> pagination) {
 		return sqlSession.selectList("qna.getP", pagination);
 	}
 

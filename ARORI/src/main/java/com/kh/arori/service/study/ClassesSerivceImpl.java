@@ -43,8 +43,10 @@ public class ClassesSerivceImpl implements ClassesService {
 	
 	// 구독 
 	public void already(SubscribeDto subDto) {
+		
 		// 클래스 넘버를 이용한 단일조회
 		ClassesDto classesDto = classesDao.get(subDto.getC_no());
+
 		
 		// 해당 member_no와 c_no로 데이터 조회 
 		SubscribeDto already = classesDao.checkSub(subDto);

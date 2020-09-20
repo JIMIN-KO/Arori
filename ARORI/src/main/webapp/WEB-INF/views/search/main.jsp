@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:choose>
    <c:when test="${userinfo.member_auth eq 1 }">
       <jsp:include page="/WEB-INF/views/template/admin/main_admin_nav_header.jsp"></jsp:include>   
@@ -257,7 +258,7 @@
                                  <form method="post" class="d-flex justify-content-center mb-3 mt-3 blockSub">
                                     <span class="card-btn d-flex justify-content-center">
                                        <input type="hidden" name="c_no" class="subC_no" value="${MCIDto.c_no }">
-                                       <input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px">   
+                                       <input type="button" class="btn btn-primary btn-md subBtn" value="구독" style="font-size:14px" data-target="#subModal">   
                                     </span>
                                  </form>
                            </c:when>
@@ -270,28 +271,35 @@
       </div>
    </div>
 </div>               
-   
 <script>
+	
    $(function() {
-      
+	  $("#subModal").modal("hide") // 모달 수정 모달 숨김
+      // 구독 기능
       $(document).on("click",".subBtn",function(){
-
          var subDto = {
                member_no:${userinfo.member_no},
                c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
          }
-
          var path = $(this).parents(".card").children(".card-body").children(".title").children(".badge")
-         
+         	
          axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
              headers:{
                'content-type':'application/json',
              }
-          }).then(function(resp){
-
+          }).then(resp=>{
+			console.log(resp.data)
+			console.log($(path).text())
+			var msg
+			if($(path).text() < resp.data) {
+				msg = '구독이 완료되었습니다.'
+			} else {
+				msg = '구독이 취소되었습니다.'
+			}
              $(path).text(resp.data)
-             
-          })
+                $(".subModalBody").text(msg)
+             $("#subModal").modal("show") // 모달 수정 모달 숨김
+			})
       })
       
       var backup = $(".cardList").first().clone()
@@ -399,7 +407,7 @@
       if(${userinfo.member_auth == 1}) {
          $(editbutton).css("display","block")
          $(deletebutton).css("display","block")
-         $(".blockSub").css("display","none!important")
+         $(".blockSub").removeClass("mb-3").removeClass("mt-3")
          $(".blockForm").css("display","none")
       }
    }
@@ -414,7 +422,7 @@
 
          $("input[name=c_no]").val(c_no)
          $("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
-         $("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기   
+         $("textarea[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기   
       })
       
       // 수정하기 버튼을 누르면 수정이 되도록 한다!
@@ -428,39 +436,58 @@
 </script>
 
    <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
-   
+  	
 <!-- 클래스 수정 모달 -->
-<div class="modal" id="classEdit" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="classEdit" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
+						<input type="hidden" name="c_no" id="c_no">
+						<input type="hidden" name="member_no" value="${userinfo.member_no }"> 
+						<div class="form-group">
+						    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
+						    <input type="text" class="form-control edit-title" id="c_title"  name="c_title">
+						    <small id="emailHelp" class="form-text text-muted">클래스 이름은 20자 이내로 작성해주세요.</small>
+						  </div>
+						  <div class="form-group">
+						    <label for="c_info" class="h5 font-weight-bold">Class Info</label>
+						    <textarea id="c_info" class="form-control edit-info" name="c_info"></textarea>
+						        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
+						  </div>			
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning btn-lg font-weight-bold" id="goEdit">수정하기</button>
+					<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- 구독 모달 -->
+<div class="modal fade" id="subModal" tabindex="-1" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">클래스 수정</h5>
+            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">구독</h5>
             <button type="button" class="close" data-dismiss="modal"
                aria-label="Close">
                <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <div class="modal-body">
-            <form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
-               <input type="hidden" name="c_no"> 
-               <input type="hidden" name="member_no" value="${userinfo.member_no }"> 
-               <div>
-                  <label for="c_title">Class Title</label>
-                  <input type="text" name="c_title" class="modal-content">
-               </div>
-               <div style="margin-top:10px;">
-                  <label for="c_info">Class Information</label>
-                  <input type="text" name="c_info" class="modal-content">
-               </div>
-            
-
-            </form>
+         <div class="modal-body subModalBody">
          </div>            
-            
          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"
-               data-dismiss="modal">창 닫기</button>
-            <button type="button" class="btn btn-primary" id="goEdit">수정하기</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">창 닫기</button>
          </div>
       </div>
    </div>

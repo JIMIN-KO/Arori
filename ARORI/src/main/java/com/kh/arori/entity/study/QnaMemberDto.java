@@ -15,4 +15,5 @@ public class QnaMemberDto extends QnaDto {
 	public void setMember_nick(String member_nick) {
 		this.member_nick = member_nick;
 	}
+	
 }

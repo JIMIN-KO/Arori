@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QnaDto;
+import com.kh.arori.entity.study.QnaMemberDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QnaDao;
 import com.kh.arori.service.pagination.PaginationService;
@@ -76,7 +77,7 @@ public class QnaController {
 		ClassesDto classes = classesDao.get(c_no);
 
 		// 게시글 불러오기
-		List<QnaDto> list = qnaService.getP(c_no, pageNo);
+		List<QnaMemberDto> list = qnaService.getP(c_no, pageNo);
 
 		// 페이지 네비게이터 계산
 		List<Integer> block = qnaService.pagination(c_no, pageNo);

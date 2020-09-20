@@ -1,11 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/WEB-INF/views/template/member/main_member_nav_header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/template/member/member_myPage_nav_header.jsp"></jsp:include>
-                    <div class="offset-1 null-side null-side2"></div>                        
-                    <div class="col-9 overflow-auto" style="border-right: 1px solid rgba(190, 190, 190, 0.493);">
-      <div class="card mt-5 mb-5">
-         <div class="card-header h3 bg-danger text-white">신고 게시판</div>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Arori | 불량 회원 신고하기</title>
+<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="card mt-3 mb-3 ml-3 mr-3">
+         <div class="card-header h3 bg-danger text-white">불량 회원 신고하기</div>
          <div class="card-body">
             <blockquote class="mb-0">
                <p>건전한 운영을 위해 회원아이디로 운영되고 있습니다.</p>
@@ -15,13 +23,13 @@
       </div>
 
 
-      <form action="write" method="post" id="report">
+      <form action="${pageContext.request.contextPath }/report/write" method="post" id="report" class="ml-3 mr-3">
          <table class="table table-hover">
             <tbody>
                <tr>
                   <th scope="col">REPORT_MEMBER</th>
                   <td><input type="text" name="report_member"
-                     class="form-control" value="${memberDto.member_id}"></td>
+                     class="form-control" value="${userinfo.member_id}" readonly="readonly"></td>
                </tr>
                <tr>
                   <th scope="col">REPORT TYPE</th>
@@ -47,42 +55,19 @@
 
                <tr>
                   <th scope="col">REPORT CRIMI MEMBER</th>
-                  <td><input type="text" name="report_crimi"
-                     class="form-control" placeholder="신고할 아이디"></td>
+                  <td>
+                  		<input type="text" name="report_crimi" class="form-control" placeholder="신고할 아이디" value="${memberDto.member_id }" readonly="readonly">
+                   </td>
                </tr>
 
                <tr>
-                  <td><input type="submit"
-                     class="btn btn-primary btn-lg font-weight-bold" value="신고접수"
-                     id="ok"><a href="${pageContext.request.contextPath}"><input
-                        type="button" class="btn btn-primary btn-lg font-weight-bold"
-                        value="취소하기"></a></td>
+                  <td colspan="2" class="text-center">
+                  <input type="submit" class="btn btn-warning btn-lg font-weight-bold ml-3 mr-3 text-white" value="신고접수" id="ok">
+                  	<input type="button" class="btn btn-primary btn-lg font-weight-bold ml-3 mr-3" value="취소하기" onclick="javascript:window.close()">
+                  </td>
                </tr>
             </tbody>
          </table>
       </form>
-   </div>
-
-
-<script>
-   $("#report").submit(function(event) {
-
-      if ($('[name=report_type]').val() == "") {
-         alert("신고사유를 선택해주세요.");
-         $('[name=report_type]').focus();
-         return false;
-      }
-      if ($('[name=report_content]').val() == "") {
-         alert("신고내용을 입력해주세요.");
-         $('[name=report_content]').focus();
-         return false;
-      }
-      if ($('[name=report_crimi]').val() == "") {
-         alert("신고하실 회원의 아이디를 입력해주세요.");
-         $('[name=report_crimi]').focus();
-         return false;
-      }
-      return true;
-   });
-</script>
-<jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
+</body>
+</html>

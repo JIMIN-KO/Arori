@@ -30,6 +30,7 @@
 								  <div class="text-center mb-4 text-danger" style="font-size: 18px;"></div>
 								<button type="submit"  data-target="#memberUpdateFail" class="btn btn-lg btn-warning btn-block font-weight-bold">수정</button>
 							</form>
+								<a type="button" class="btn btn-lg btn-danger btn-block font-weight-bold mt-4" href="${pageContext.request.contextPath }/member/delete">탈퇴</a>
 						  </div>
 						</div>
                     </div>

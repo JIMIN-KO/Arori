@@ -38,6 +38,7 @@
                                         <th scope="col" class="font-weight-bold">No</th>
                                         <th scope="col" class="font-weight-bold">Title</th>
                                         <th scope="col" class="font-weight-bold">Date</th>
+                                        <th scope="col" class="font-weight-bold">Writer</th>
                                         	<c:if test="${classes.member_no == userinfo.member_no }">
                                         		<th scope="col" class="font-weight-bold">Ctrl</th>
                                         </c:if>
@@ -67,7 +68,8 @@
                                             <input type="radio" name="title" id="${list.qna_no }" >
                                         </td>
                                         
-                                        <td>${list.qna_when}</td>                                 
+                                        <td>${list.qna_when}</td>
+                                        <th><a href="${pageContext.request.contextPath }/report/write/${list.member_no}" onclick="window.open(this.href, '_blank', 'width=550px,height=650px,toolbars=no,scrollbars=no'); return false;">${list.member_nick }</a></th>                              
                                         	<c:if test="${classes.member_no == userinfo.member_no }">                                       	
 	                                      <td>
 	                                       	<a class="text-primary font-weight-bold mr-3" href="${pageContext.request.contextPath }/classes/qna/edit/${list.c_no}/${list.qna_no}">

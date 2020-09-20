@@ -138,7 +138,7 @@
 					<div class="card-body pb-0">
 						<input type="hidden" class="card-no" value="${MCIDto.c_no }">						
 						<span class="h4 title font-weight-bold">${MCIDto.c_title}</span>
-						<span class="badge badge-pill badge-success ml-2 mb-1" >
+						<span class="badge badge-pill badge-success ml-2 mb-1 h4" >
 							${MCIDto.c_subscribe}
 						</span>
 						<hr>

@@ -58,12 +58,12 @@
 	</update>
 	
 	<!-- 게시글 목록 + 페이지 네이션 -->
-	<select id="getP" resultType="qnaDto" parameterType="map">
+	<select id="getP" resultType="qnaMemberDto" parameterType="map">
 		SELECT 
-		a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no
+		a.qna_no, a.c_no, a.member_no, a.qna_title,a.qna_content, a.qna_when, a.DEPTH, a.qna_state, a.super_no, a.group_no, a.member_nick
 		FROM
 			(SELECT ROWNUM rn, q.* 
-			FROM qna q WHERE q.c_no = ${c_no} AND q.qna_state = 1 CONNECT BY PRIOR qna_no=super_no START WITH super_no=0 ORDER SIBLINGS BY group_no DESC, qna_no ASC) a 
+			FROM QM q WHERE q.c_no = ${c_no} AND q.qna_state = 1 CONNECT BY PRIOR qna_no=super_no START WITH super_no=0 ORDER SIBLINGS BY group_no DESC, qna_no ASC) a 
 		 WHERE rn BETWEEN ${start}  AND ${finish}
 	</select>
 	

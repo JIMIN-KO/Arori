@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.arori.entity.study.QnaDto;
+import com.kh.arori.entity.study.QnaMemberDto;
 
 public interface QnaDao {
 
@@ -23,7 +24,7 @@ public interface QnaDao {
 	public List<QnaDto> getC(int c_no);
 
 	// QNA  게시글 페이지 네이션 기능
-	public List<QnaDto> getP(Map<String, Integer> pagination);
+	public List<QnaMemberDto> getP(Map<String, Integer> pagination);
 
 	// 해당 클래스 공지 게시글 개수 조회
 	public int count(int c_no);

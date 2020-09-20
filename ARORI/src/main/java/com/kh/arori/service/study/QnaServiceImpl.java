@@ -13,6 +13,7 @@ import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.QnaDto;
+import com.kh.arori.entity.study.QnaMemberDto;
 import com.kh.arori.repository.study.ClassesDao;
 import com.kh.arori.repository.study.QnaDao;
 import com.kh.arori.service.img.ImgService;
@@ -88,11 +89,11 @@ public class QnaServiceImpl implements QnaService {
 
 	// QNA 게시글 페이지 네이션 기능
 	@Override
-	public List<QnaDto> getP(int c_no, int pageNo) {
+	public List<QnaMemberDto> getP(int c_no, int pageNo) {
 
 		Map<String, Integer> pagination = paginationService.pagination("c_no", c_no, pageNo);
 
-		List<QnaDto> list = qnaDao.getP(pagination);
+		List<QnaMemberDto> list = qnaDao.getP(pagination);
 
 		return list;
 	}

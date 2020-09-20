@@ -30,10 +30,6 @@ public class SearchController {
 
 		List<MCIDto> list = classesService.searchList(keyword, searchOption, col, order);
 
-		for (MCIDto a : list) {
-			System.out.println(a.getC_title());
-		}
-
 		model.addAttribute("MCIDto", list);
 
 		return "search/main";
