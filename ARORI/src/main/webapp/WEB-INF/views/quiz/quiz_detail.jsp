@@ -68,7 +68,7 @@
 $(function(){
 	// 파라미터 "sorry" 가 들어오면 현재 퀴즈 오픈 기간이 아님.
 	var sorry = location.search
-	console.log(sorry)
+
 	if(sorry === '?sorry') {
 			alert("현재 퀴즈 오픈 기간이 아닙니다.")
 		}
