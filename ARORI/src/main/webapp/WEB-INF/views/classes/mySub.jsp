@@ -6,12 +6,10 @@
 <style>
 	/* 전체 카드 */
 	.card-deck {
-    height:460px;
-    width:380px;
-    padding-bottom: 30px;
-    margin-top: 30px;
-    margin-left: 17px;
-}
+		padding-bottom: 40px;
+		margin-top: 35px;
+	}
+	
 	/* 이미지 사이즈 */
 	.card-img {
 	height:200px;
