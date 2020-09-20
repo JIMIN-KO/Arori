@@ -407,7 +407,7 @@
       if(${userinfo.member_auth == 1}) {
          $(editbutton).css("display","block")
          $(deletebutton).css("display","block")
-         $(".blockSub").css("display","none!important")
+         $(".blockSub").removeClass("mb-3").removeClass("mt-3")
          $(".blockForm").css("display","none")
       }
    }
