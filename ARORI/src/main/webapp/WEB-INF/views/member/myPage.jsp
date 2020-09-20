@@ -19,8 +19,7 @@
 									<c:otherwise>
 										<img src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="card-img" alt="...">
 									</c:otherwise>
-								</c:choose>
-						     <input type = "button" data-target="#imgEdit" class="imgEdit btn-warning btn mt-3"  style=" margin-left:90px"  value="이미지 변경"> 
+								</c:choose>						      
 						    </div>
 						    <div class="col-md-8">
 						      <div class="card-body pb-0 mt-5">
@@ -87,12 +86,13 @@
 						      </div>
 						    </div>
 						  </div>
+						  <div class="row d-flex justify-content-center">
+						  	<input type = "button" data-target="#imgEdit" class="imgEdit btn-warning btn mt-3 mb-3"  value="이미지 변경">
+						  </div>
 						</div>
 						<!-- 차트 영역 -->
 						<!-- 월별 퀴즈 푼 평균 -->
 						<canvas id="myChart"></canvas>
-						<!-- 월별 정답률 -->
-						<canvas id="myChart2"></canvas>
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 
@@ -124,23 +124,6 @@ $(function(){
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
-    // The data for our dataset
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45]
-        }]
-    },
-    // Configuration options go here
-    options: {}
-});
-var ctx2 = document.getElementById('myChart2').getContext('2d');
-var chart2 = new Chart(ctx2, {
     // The type of chart we want to create
     type: 'line',
     // The data for our dataset
