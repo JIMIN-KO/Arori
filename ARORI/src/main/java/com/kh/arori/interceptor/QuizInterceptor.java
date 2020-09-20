@@ -26,7 +26,14 @@ public class QuizInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+		HttpServletRequest req = (HttpServletRequest) request;
+		
+		// 만약 관리자라면 통과
+		MemberDto userinfo = (MemberDto) req.getSession().getAttribute("userinfo");
+		if(userinfo.getMember_auth() == 1) {
+			return true;
+		}
+		
 		// 퀴즈 번호 받아오기
 		String uri = request.getRequestURI();
 		int q_no = Integer.parseInt(uri.substring(25));
@@ -37,7 +44,6 @@ public class QuizInterceptor extends HandlerInterceptorAdapter {
 		
 		// 퀴즈 생성자 비교 
 		ClassesDto classesDto = classesDao.get(quizDto.getC_no());
-		MemberDto userinfo = (MemberDto) request.getSession().getAttribute("userinfo");
 
 		if (classesDto.getMember_no() == userinfo.getMember_no()) {
 			// 현재 로그인 회원과 클래스 생성자와 같은 사람이면 테스트 중이라는 뜻

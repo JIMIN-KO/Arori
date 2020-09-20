@@ -14,6 +14,9 @@ import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.SubscribeDto;
 import com.kh.arori.repository.study.ClassesDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class SubscribeInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
@@ -23,8 +26,9 @@ public class SubscribeInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+
+		log.info("구독 인터셉터 접속!");
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response;
 
 		// 클래스 페이지 진입 시, 받게되는 PathVariables 값 Map 으로 받기
 		Map<String, String> pathVariables = (Map<String, String>) request
@@ -32,6 +36,11 @@ public class SubscribeInterceptor extends HandlerInterceptorAdapter {
 
 		// 로그인한 회원 정보 받아오기
 		MemberDto userinfo = (MemberDto) req.getSession().getAttribute("userinfo");
+		
+		// 만약 관리자라면 통과
+		if(userinfo.getMember_auth() == 1) {
+			return true;
+		}
 
 		// 해당 클래스 번호
 		int c_no = Integer.parseInt(pathVariables.get("c_no"));
