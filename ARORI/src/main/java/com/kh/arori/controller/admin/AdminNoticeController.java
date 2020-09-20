@@ -31,16 +31,10 @@ import com.kh.arori.service.pagination.PaginationService;
 public class AdminNoticeController {
 
 	@Autowired
-	private NoticeDao noticeDao;
-
-	@Autowired
 	private AdminNoticeDao adminNoticeDao;
 
 	@Autowired
 	private AdminNoticeService adminNoticeService;
-
-	@Autowired
-	private SqlSession sqlSession;
 
 	@Autowired
 	private PaginationService paginationService;
@@ -100,7 +94,7 @@ public class AdminNoticeController {
 		return "admin/notice/edit_notice_admin";
 	}
 
-	// 큐앤에이 게시글 수정 기능
+	// 공지 게시글 수정 기능
 	@PostMapping("/noticeEditAdmin")
 	public String noticeEditAdmin(@RequestParam List<String> content, @ModelAttribute NoticeDto noticeDto) {
 
