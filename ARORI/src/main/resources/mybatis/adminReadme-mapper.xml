@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminReadme">
+	
+	<!-- 리드미 관리자 목록 -->
+	<select id="adminReadmeList" resultType="readmeDto">
+		SELECT * FROM README ORDER BY r_no DESC
+	</select>
+	
+	<!-- 리드미 게시글 페이지 네이션 -->
+	<select id="getP" resultType="readmeDto" parameterType="map">
+		SELECT 
+			a.r_no, a.c_no, a.r_content, a.r_when 
+		FROM 
+			(SELECT ROWNUM rn, readme.* FROM README readme
+			<if test="col != null and keyword != null"> 
+				WHERE INSTR(${col},#{keyword}) > 0 
+			</if>
+			ORDER BY r_no ASC) a
+			<if test="start != null and finish != null">
+				WHERE 
+					rn BETWEEN ${start} AND ${finish}
+			</if>
+	</select>
+	
+	<!-- 리드미 게시글 리스트 검색 -->
+	<select id="searchReadme" resultType="readmeDto" parameterType="map">
+		SELECT * FROM README
+		WHERE instr(${type}, #{keyword}) > 0
+		ORDER BY r_no DESC
+	</select>
+	
+	<!-- 리드미 게시글 c_no + r_no 단일 조회 -->
+	<select id="getCR" resultType="readmeDto" parameterType="readmeDto">
+		SELECT * FROM README WHERE C_NO = #{c_no} AND R_NO =#{r_no}
+	</select>
+	
+	<!-- 리드미 관리자 수정 -->
+	<update id="editReadmeAdmin" parameterType="readmeDto">
+		UPDATE README SET 
+		R_CONTENT = #{r_content}
+		WHERE C_NO = #{c_no} AND R_NO = #{r_no}
+	</update>
+		
+	<!-- 리드미 게시글 관리자 삭제 -->
+	<delete id="deleteAdmin" parameterType="readmeDto">
+		DELETE README WHERE C_NO = #{c_no} AND R_NO = #{r_no}
+	</delete>
+	
+
+</mapper>

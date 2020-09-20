@@ -5,6 +5,7 @@
 <html>
 
 <head>
+<title>Arori | 당신의 지식</title>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
