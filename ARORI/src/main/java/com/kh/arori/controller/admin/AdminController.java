@@ -160,14 +160,14 @@ public class AdminController {
 	}
 
 	// 소셜 + 아로리) 상세정보변경
-	@PostMapping("/adminUpdate/{member_id}")
+	@PostMapping("/adminUpdate")
 	public String adminUpdate(@ModelAttribute AllMemberDto allMemberDto) {
 
 		adminService.adminUpdate(allMemberDto);
 
 		System.out.println("정보수정 성공");
 
-		return "admin/allList";
+		return "redirect:/admin/memberProfile/" + allMemberDto.getMember_no();
 	}
 
 	// 소셜+아로리) 아우터조인 단일조회 + 클래스 개수 전달

@@ -9,8 +9,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 <div class="row mt-5">
 	<div class="col-8 offset-2">
-		<form action="adminUpdate" method="post" class="mt-3"
+		<form action="${pageContext.request.contextPath }/admin/adminUpdate" method="post" class="mt-3"
 			onSubmit="return finalcheck();">
+			<input type="hidden" name="member_no" value="${allMemberDto.member_no }">
 			<h1 class="font-weight-bold mt-4">회원정보 업데이트 페이지(관리자)</h1>
 			<table class="table table-hover">
 				<tbody>
@@ -93,7 +94,7 @@
 					</tr>
 
 					<tr>
-						<td align="center"><button type="submit"
+						<td align="center" colspan="2"><button type="submit"
 								data-target="#memberUpdateFail"
 								class="btn btn-warning btn-lg font-weight-bold">수정</button>
 							<a href="../allList/1"><input type="button" id="input"
