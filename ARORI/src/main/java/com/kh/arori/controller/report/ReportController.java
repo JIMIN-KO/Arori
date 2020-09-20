@@ -147,7 +147,7 @@ public class ReportController {
       System.out.println();
       reportDao.delete(report_no);
 
-      return "redirect:/report/list";
+      return "redirect:/admin/report_list/1";
    }
 
 }
