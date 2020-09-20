@@ -93,7 +93,7 @@
 												<form method="post" class="d-flex justify-content-center mb-3 mt-3">
 													<span class="card-btn w-100 d-flex justify-content-center ">
 														<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">										
-														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독" style="font-size:14px">	
+														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독" style="font-size:14px" data-target="#subModal">	
 													</span>
 												</form>
 										</c:when>
@@ -107,14 +107,16 @@
 </div>
 <script>
 $(function(){
+	$("#subModal").modal("hide") // 모달 수정 모달 숨김
 	$(".subBtn").click(function(){
-
+	
 		var subDto = {
 				member_no:${userinfo.member_no},
 				c_no:$(this).parents(".card-btn").children("input[name=c_no]").val()
 		}
-		
-		console.log(subDto)
+	
+		var path = $(this).parents(".card").children(".card-body").children(".badge")
+		console.log(path)
 		
 		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
 		 	headers:{
@@ -122,10 +124,38 @@ $(function(){
 		 	}
 		 }).then(function(resp){
 			 console.log(resp.data)
-			$(this).parents(".card").children(".card-body").children(".subCount").text(resp.data)
-	
+
+			var msg
+			console.log($(path).text())
+			if($(path).text() < resp.data) {
+				msg = '구독이 완료되었습니다.'
+			} else {
+				msg = '구독이 취소되었습니다.'
+			}
+             $(path).text(resp.data)
+                $(".subModalBody").text(msg)
+             $("#subModal").modal("show") // 모달 수정 모달 숨김
 	 	})
 	})
 })
 </script>
 <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
+<!-- 구독 모달 -->
+<div class="modal fade" id="subModal" tabindex="-1" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">구독</h5>
+            <button type="button" class="close" data-dismiss="modal"
+               aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body subModalBody">
+         </div>            
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">창 닫기</button>
+         </div>
+      </div>
+   </div>
+</div>

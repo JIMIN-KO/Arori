@@ -422,7 +422,7 @@
 
          $("input[name=c_no]").val(c_no)
          $("input[name=c_title]").val(c_title) // 모달에 타이틀 데이터 던지기
-         $("input[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기   
+         $("textarea[name=c_info]").val(c_info) // 모달에 인포 데이터 던지기   
       })
       
       // 수정하기 버튼을 누르면 수정이 되도록 한다!
@@ -436,43 +436,42 @@
 </script>
 
    <jsp:include page="/WEB-INF/views/template/member/main_member_nav_footer.jsp"></jsp:include>
-   
+  	
 <!-- 클래스 수정 모달 -->
 <div class="modal fade" id="classEdit" tabindex="-1" aria-hidden="true">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">클래스 수정</h5>
-            <button type="button" class="close" data-dismiss="modal"
-               aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
-               <input type="hidden" name="c_no"> 
-               <input type="hidden" name="member_no" value="${userinfo.member_no }"> 
-               <div>
-                  <label for="c_title">Class Title</label>
-                  <input type="text" name="c_title" class="modal-content">
-               </div>
-               <div style="margin-top:10px;">
-                  <label for="c_info">Class Information</label>
-                  <input type="text" name="c_info" class="modal-content">
-               </div>
-            
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath }/classes/edit" method="post" id="editForm">
+						<input type="hidden" name="c_no" id="c_no">
+						<input type="hidden" name="member_no" value="${userinfo.member_no }"> 
+						<div class="form-group">
+						    <label for="c_title" class="h5 font-weight-bold">Class Title</label>
+						    <input type="text" class="form-control edit-title" id="c_title"  name="c_title">
+						    <small id="emailHelp" class="form-text text-muted">클래스 이름은 20자 이내로 작성해주세요.</small>
+						  </div>
+						  <div class="form-group">
+						    <label for="c_info" class="h5 font-weight-bold">Class Info</label>
+						    <textarea id="c_info" class="form-control edit-info" name="c_info"></textarea>
+						        <small id="emailHelp" class="form-text text-muted">클래스 정보는 한 줄로 간략하게 작성해주세요.</small>
+						  </div>			
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning btn-lg font-weight-bold" id="goEdit">수정하기</button>
+					<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-            </form>
-         </div>            
-            
-         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"
-               data-dismiss="modal">창 닫기</button>
-            <button type="button" class="btn btn-primary" id="goEdit">수정하기</button>
-         </div>
-      </div>
-   </div>
-</div>
 
 <!-- 구독 모달 -->
 <div class="modal fade" id="subModal" tabindex="-1" aria-hidden="true">
@@ -488,7 +487,7 @@
          <div class="modal-body subModalBody">
          </div>            
          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">창 닫기</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">창 닫기</button>
          </div>
       </div>
    </div>
