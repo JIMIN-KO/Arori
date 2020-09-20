@@ -53,9 +53,9 @@
 </style>
 <div class="row content-top mt-5 h-100">
 	<div class="col-12 overflow-auto mt-5">
-			<div class="row w-100">
+			<div class="row w-100 m-0">
 				<c:forEach var="MCIDto" items="${MCIDto}">
-					<div class="col-sm-12 col-md-6 col-lg-3 p-0">
+					<div class="col-sm-12 col-md-6 col-lg-3">
 						<div class="card-deck">
   							<div class="card">
   								<a href="${pageContext.request.contextPath }/classes/readme/${MCIDto.c_no}">
@@ -64,15 +64,16 @@
 											<img src="${pageContext.request.contextPath }/imgAjax/classes/download/${MCIDto.ai_no }" class="card-img" alt="...">
 										</c:when>
 										<c:otherwise>
-											<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" alt="love" class="card-img">
+											<img src="${pageContext.request.contextPath }/imgAjax/classes/download/57" class="card-img">
 										</c:otherwise>
 									</c:choose>
 								</a>
-   								<div class="card-body">
-      								<span class="h4 title">${MCIDto.c_title}</span>
-									<span class="badge badge-pill badge-success subCount">${MCIDto.c_subscribe}</span>
-      								<p class="card-info">${MCIDto.c_info}</p>
-      								<p class="card-info">
+   								<div class="card-body pb-0">
+      								<span class="h4 title font-weight-bold">${MCIDto.c_title}</span>
+									<span class="badge badge-pill badge-success ml-2 mb-1 subCount">${MCIDto.c_subscribe}</span>
+      								<hr>
+      								<p class="card-info mt-4">${MCIDto.c_info}</p>
+      								<p class="card-nick mb-0 font-weight-bold">
       									<c:choose>
       										<c:when test="${MCIDto.member_nick eq 'null'}">
       											소셜 회원
@@ -82,15 +83,15 @@
       										</c:otherwise>
       									</c:choose>
       								</p>
-      								<p class="card-when"><small class="text-muted">
+      								<p class="card-when mb-0"><small class="text-muted">
 	      								<fmt:parseDate value="${MCIDto.c_when}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
 										<fmt:formatDate value="${time}" pattern="yyyy-MM-dd"/></small></p>
   								</div>	
   										<!-- 내 클래스일 때는 수정, 삭제 버튼 / 남의 클래스 일 때는 구독버튼이 보이게 -->
 									<c:choose>
 										<c:when test="${MCIDto.member_no != userinfo.member_no}">
-												<form method="post" class="d-flex justify-content-center mb-3">
-													<span class="card-btn">
+												<form method="post" class="d-flex justify-content-center mb-3 mt-3">
+													<span class="card-btn w-100 d-flex justify-content-center ">
 														<input type="hidden" name="c_no" id="subC_no" value="${MCIDto.c_no }">										
 														<input type="button" class="btn btn-primary btn-sm subBtn" value="구독" style="font-size:14px">	
 													</span>
