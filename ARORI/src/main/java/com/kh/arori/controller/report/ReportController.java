@@ -88,7 +88,8 @@ public class ReportController {
 
    // 페이지네이션 (((삭제하기)))
    /*
-    * @GetMapping("/list_data")
+    * @GetMapping("/list_
+    * }data")
     * 
     * @ResponseBody public List<ReportDto> listData(Model model) { List<ReportDto>
     * list = sqlSession.selectList("report.list"); return list; }
@@ -104,7 +105,6 @@ public class ReportController {
     * int reportCount = reportDao.reportCount(reportDto);
     * model.addAttribute("reportCount", reportCount); return "report/list";
     * 
-    * }
     */
 
 // 신고별 검색
