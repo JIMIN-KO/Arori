@@ -85,44 +85,44 @@ public class AdminNoticeController {
 		return "admin/notice/notice_list";
 	}
 
-	// QNA 게시글 관리자 수정
-//	@GetMapping("/qnaEditAdmin/{c_no}/{qna_no}")
-//	public String qnaEditAdmin(@PathVariable int c_no, @PathVariable int qna_no, Model model) {
-//		// PathVariable 로 받아온 매개변수 객체화
-//		QnaDto qnaDto = QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
-//
-//		// 해당 게시글 데이터 조회
-//		QnaMemberDto qnaMemberDto = adminClassesDao.getCQ(qnaDto);
-//
-//		// Model 로 해당 데이터 전송
-//		model.addAttribute("qnaDto", qnaMemberDto);
-//
-//		return "admin/classes/edit_qna_admin";
-//	}
-//
-//	// 큐앤에이 게시글 수정 기능
-//	@PostMapping("/qnaEditAdmin")
-//	public String qnaEditAdmin(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
-//
-//		// 객체 > Service 에서 수정 후 URL 받아오기
-//		String result = adminClassesService.editQnaAdmin(content, qnaDto);
-//
-//		return result;
-//	}
-//
-//	// QNA 게시글 관리자 삭제
-//	@GetMapping("/qnaDeleteAdmin/{c_no}/{qna_no}")
-//	public String qnaDeleteAdmin(@PathVariable int c_no, @PathVariable int qna_no, HttpSession session) {
-//		// 로그인한 회원정보
-//		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
-//		// PathVariable 객체화
-//		QnaDto qnaDto = QnaDto.builder().c_no(c_no).qna_no(qna_no).build();
-//
-//		// 삭제 기능
-//		String result = adminClassesService.deleteAdmin(qnaDto, userinfo.getMember_auth());
-//
-//		return result;
-//	}
+	// Notice 게시글 관리자 수정
+	@GetMapping("/noticeEditAdmin/{c_no}/{n_no}")
+	public String noticeEditAdmin(@PathVariable int c_no, @PathVariable int n_no, Model model) {
+		// PathVariable 로 받아온 매개변수 객체화
+		NoticeDto noticeDto = NoticeDto.builder().c_no(c_no).n_no(n_no).build();
+
+		// 해당 게시글 데이터 조회
+		noticeDto = adminNoticeDao.getCN(noticeDto);
+
+		// Model 로 해당 데이터 전송
+		model.addAttribute("noticeDto", noticeDto);
+
+		return "admin/notice/edit_notice_admin";
+	}
+
+	// 큐앤에이 게시글 수정 기능
+	@PostMapping("/noticeEditAdmin")
+	public String noticeEditAdmin(@RequestParam List<String> content, @ModelAttribute NoticeDto noticeDto) {
+
+		// 객체 > Service 에서 수정 후 URL 받아오기
+		String result = adminNoticeService.editNoticeAdmin(content, noticeDto);
+
+		return result;
+	}
+
+	// Notice 게시글 관리자 삭제
+	@GetMapping("/noticeDeleteAdmin/{c_no}/{n_no}")
+	public String noticeDeleteAdmin(@PathVariable int c_no, @PathVariable int n_no, HttpSession session) {
+		// 로그인한 회원정보
+		MemberDto userinfo = (MemberDto) session.getAttribute("userinfo");
+		// PathVariable 객체화
+		NoticeDto noticeDto = NoticeDto.builder().c_no(c_no).n_no(n_no).build();
+
+		// 삭제 기능
+		String result = adminNoticeService.deleteAdmin(noticeDto, userinfo.getMember_auth());
+
+		return result;
+	}
 //
 	// Notice 게시글 관리자 상세보기
 	@GetMapping("/noticeDetail/{c_no}/{n_no}")

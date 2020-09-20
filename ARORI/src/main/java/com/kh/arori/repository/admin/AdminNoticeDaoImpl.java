@@ -35,20 +35,20 @@ public class AdminNoticeDaoImpl implements AdminNoticeDao{
 		return sqlSession.selectOne("adminNotice.getCN", noticeDto);
 	}
 
-//	
-//	// QNA  게시글 관리자 수정
-//	@Override
-//	public int editQnaAdmin(QnaDto qnaDto) {
-//		return sqlSession.update("adminClasses.editQnaAdmin", qnaDto);
-//	}
-//	
-//
-//	
-//	// QNA  게시글 관리자 삭제 
-//	@Override
-//	public int deleteAdmin(QnaDto qnaDto) {
-//		return sqlSession.delete("adminClasses.deleteAdmin", qnaDto);
-//	}
+	
+	// Notice  게시글 관리자 수정
+	@Override
+	public int editNoticeAdmin(NoticeDto noticeDto) {
+		return sqlSession.update("adminNotice.editNoticeAdmin", noticeDto);
+	}
+	
+
+	
+	// QNA  게시글 관리자 삭제 
+	@Override
+	public int deleteAdmin(NoticeDto noticeDto) {
+		return sqlSession.delete("adminNotice.deleteAdmin", noticeDto);
+	}
 
 
 

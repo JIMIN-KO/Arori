@@ -35,7 +35,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return adminNoticeDao.adminNoticeList();
 	}
 
-	// QNA 게시글 페이지 네이션 기능
+	// Notice 게시글 페이지 네이션 기능
 	@Override
 	public List<NoticeDto> getP(Map<String, String> map) {
 		Map<String, Integer> pagination = paginationService.pagination("", 0, Integer.parseInt(map.get("pageNo")));
@@ -49,42 +49,42 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return list;
 	}
 
-	// QNA 게시글 관리자 수정
-//	@Override
-//	public String editQnaAdmin(List<String> qna_content, QnaDto qnaDto) {
-//		// VIEW 에서 받아온 qna_content 를 재가공하는 작업
-//		String content = toastService.content(qna_content);
-//
-//		qnaDto.setQna_content(content);
-//		System.out.println("content : " + content);
-//
-//		// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송
-//		int result = adminClassesDao.editQnaAdmin(qnaDto);
-//		System.out.println("result : " + result);
-//		
-//		int c_no = qnaDto.getC_no();
-//		int qna_no = qnaDto.getQna_no();
-//
-//		// 성공
-//		if (result == 1) {
-//			return "redirect:/admin/qnaDetail/" +c_no+ "/" +qna_no;
-//		}
-//		// 실패
-//		return "redirect:/admin/qnaList?fail";
-//	}
-//
-//	// QNA 게시글 삭제 기능
-//	@Override
-//	public String deleteAdmin(QnaDto qnaDto, int member_auth) {
-//
-//		if (member_auth == 1) { // admin인지 검사
-//			imgService.delete(qnaDto.getQna_no(), NameConst.QNA);
-//			adminClassesDao.deleteAdmin(qnaDto);
-//			return "redirect:/admin/qnaList/1";
-//		} else {
-//			return "redirect:/admin/qnaList?fail";
-//		}
-//	}
+	// Notice 게시글 관리자 수정
+	@Override
+	public String editNoticeAdmin(List<String> n_content, NoticeDto noticeDto) {
+		// VIEW 에서 받아온 n_content 를 재가공하는 작업
+		String content = toastService.content(n_content);
+
+		noticeDto.setN_content(content);
+		System.out.println("content : " + content);
+
+		// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송
+		int result = adminNoticeDao.editNoticeAdmin(noticeDto);
+		System.out.println("result : " + result);
+		
+		int c_no = noticeDto.getC_no();
+		int n_no = noticeDto.getN_no();
+
+		// 성공
+		if (result == 1) {
+			return "redirect:/admin/noticeDetail/" +c_no+ "/" +n_no;
+		}
+		// 실패
+		return "redirect:/admin/noticeList?fail";
+	}
+
+	// Notice 게시글 삭제 기능
+	@Override
+	public String deleteAdmin(NoticeDto noticeDto, int member_auth) {
+
+		if (member_auth == 1) { // admin인지 검사
+			imgService.delete(noticeDto.getN_no(), NameConst.NOTICE);
+			adminNoticeDao.deleteAdmin(noticeDto);
+			return "redirect:/admin/noticeList/1";
+		} else {
+			return "redirect:/admin/noticeList?fail";
+		}
+	}
 
 	// 페이지 네이션 블럭
 	@Override

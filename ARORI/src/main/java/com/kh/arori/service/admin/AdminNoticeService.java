@@ -12,16 +12,16 @@ public interface AdminNoticeService {
 	// Notice 관리자 리스트
 	public List<NoticeDto> adminNoticeList();
 
-	// QNA 게시글 페이지 네이션 기능
+	// Notice 게시글 페이지 네이션 기능
 	public List<NoticeDto> getP(Map<String, String> map);
 
-	// QNA 게시글 페이지 네이션 블럭
+	// Notice 게시글 페이지 네이션 블럭
 	public List<Integer> block(int thisCount, int pageNo);
 	
-//	// QNA 게시글 수정 기능
-//	public String editNoticeAdmin(List<String> n_content, NoticeDto noticeDto);
-//
-//	// QNA 게시글 삭제 기능
-//	public String deleteAdmin(NoticeDto noticeDto, int member_auth);
+	// Notice 게시글 수정 기능
+	public String editNoticeAdmin(List<String> n_content, NoticeDto noticeDto);
+
+	// Notice 게시글 삭제 기능
+	public String deleteAdmin(NoticeDto noticeDto, int member_auth);
 	
 }
