@@ -13,7 +13,8 @@ public interface NameConst {
 	String OX = "ox";
 	String MULTIPLE = "multiple";
 	String EXPLAIN = "explain";	
+	String REPORT = "report";
 	
 	// 파일 경로 상수
-	String imgPath = "/Users/d0/Desktop/Java/upload";
+	String imgPath = "C:\\Users\\jimin\\Desktop\\Java\\upload";
 }

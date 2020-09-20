@@ -43,6 +43,13 @@
                     </div>
 <jsp:include page="/WEB-INF/views/template/member/member_classes_viewer_footer.jsp"></jsp:include>
 <script>
+	$(function(){
+		var param = location.search
+
+		if(param === '?plz') {
+			alert("해당 클래스를 구독해주세요!")
+		}
+	})
 	var r_content = document.querySelector("#r_content").value
 	// Toast Plugin 불러오기 
 	const Viewer = toastui.Editor;

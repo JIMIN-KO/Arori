@@ -15,9 +15,8 @@
 	font-family: 'Do Hyeon', sans-serif;
 	}
 	
-	/* 배경 */
-	background-color {
-		#4A70F6;	
+	body {
+		background-color: rgb(74, 112, 223);
 	}
 
 	/* 로고 */
@@ -27,9 +26,6 @@
 		padding:3px;
 		border-radius: 100%;
 		background-color: white;
-		position:absolute;
-	    top:25%;
-	    left:40%;
 	}
 
 	/* 문구 */
@@ -37,7 +33,6 @@
 		color : white;
 		font-size:40px;
 	    text-align: center;
-	    margin-top:630px;
 	}
 	
 	/*홈으로 돌아가기*/
@@ -48,7 +43,6 @@
 		color : rgb(35, 85, 173);
 		font-size: 30px;
 	    text-align: center;
-	    margin-top:80px;
 	    text-decoration:none;
 	}
 	
@@ -61,18 +55,30 @@
 
 </head>
 
-<body class="bg-primary">
+<body>
 
-
-	 <img alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="logo">
-	 <div class="message">
-	 	"현재 서비스의 상태가 원활하지 않습니다."
-	 </div>
-
-	 <div class="gohome">
-		 <a href="#" onClick="history.back()">
-		 	이전 페이지로 돌아가기		 
-		 </a>
+	 <div class="container-fluid w-100">
+	 	<div class="row w-100 mt-5">
+	 		<div class="col-12 w-100 d-flex justify-content-center mt-5 w-100">	
+	 			<div class="row mt-5">	 			
+				 	<img alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png" class="logo mt-5">
+	 			</div>
+	 		</div>
+	 	</div>
+	 	<div class="row w-100 mt-5">
+	 		<div class="col-12 w-100">
+	 			<div class="row d-flex justify-content-center ">	 			
+		 			<div class="message">
+					 	"현재 서비스의 상태가 원활하지 않습니다."
+					 </div>
+	 			</div>
+	 			<div class="row d-flex justify-content-center ">
+					<div class="gohome">
+						<a href="#" onClick="history.back()" class="text-warning">이전 페이지로 돌아가기</a>
+					</div>
+	 			</div>
+	 		</div>
+	 	</div>
 	 </div>
 </body>
 

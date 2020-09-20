@@ -81,11 +81,25 @@
 		<filter-name>adminFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
+ <!-- 에러 페이지 설정   -->
+    
+   	 <error-page>
+                <error-code>400</error-code>
+               <location>/WEB-INF/views/error/error.jsp</location>
+      </error-page>
 
+     <error-page>
+                <error-code>434</error-code>
+               <location>/WEB-INF/views/error/error.jsp</location>
+      </error-page>    
+   
+    <error-page>
+                <error-code>404</error-code>
+               <location>/WEB-INF/views/error/error.jsp</location>
+      </error-page>
 
-
-
-
-
-
+        <error-page>
+                <error-code>500</error-code>
+               <location>/WEB-INF/views/error/error.jsp</location>
+      </error-page>
 </web-app>

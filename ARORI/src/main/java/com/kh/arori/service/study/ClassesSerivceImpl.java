@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.arori.entity.member.MemberDto;
 import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.MCIDto;
 import com.kh.arori.entity.study.SubscribeDto;

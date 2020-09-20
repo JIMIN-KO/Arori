@@ -65,6 +65,13 @@
 			<mapping path="/classes/quiz/play/*"/>
 			<beans:bean class="com.kh.arori.interceptor.QuizInterceptor"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/classes/**"/>
+			<exclude-mapping path="/classes/readme/*"/>
+			<exclude-mapping path="/classes/mySub"/>
+			<exclude-mapping path="/classes/myclass/*"/>
+			<beans:bean class="com.kh.arori.interceptor.SubscribeInterceptor"></beans:bean>
+		</interceptor>
 	</interceptors>
 	
 	<!-- 
