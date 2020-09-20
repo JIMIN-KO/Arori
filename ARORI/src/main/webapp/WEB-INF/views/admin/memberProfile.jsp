@@ -5,7 +5,7 @@
 <div class="row mt-5">
 	<div class="col-8 offset-2">
 		<form action="memberProfile" method="post" class="mt-3">
-			<h1 class="font-weight-bold mt-4">회원상세정보</h1>
+			<h1 class="font-weight-bold mt-4">Q & A 상세정보</h1>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -73,12 +73,9 @@
 					<tr>
 						<th scope="col">CLASS</th>
 						<td><input type="text" class="form-control" value="${count}"
-							readonly="readonly">
-							<button>
-								<a
-									href="${pageContext.request.contextPath}/classes/detail/${allMemberDto.member_no}">클래스보기
-									CLASS</a>
-							</button></td>
+							readonly="readonly"> <a
+							href="${pageContext.request.contextPath}/classes/detail/${allMemberDto.member_no}"
+							class="btn btn- btn-md font-weight-bold">회원 클래스로 이동</a>
 					</tr>
 
 					<tr>

@@ -66,6 +66,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	// 아로리 총 인원
+	// 아로리 멤버 총 카운트
 	@Override
 	public int aroriCount(AroriMemberDto aroriMemberDto) {
 
@@ -73,6 +74,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	// 멤버 총 인원
+	// 전체회원 멤버카운트
 	@Override
 	public int memberCount(MemberDto memberDto) {
 

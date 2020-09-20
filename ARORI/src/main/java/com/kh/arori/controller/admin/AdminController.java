@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.arori.entity.admin.ChartDto;
 import com.kh.arori.entity.img.This_imgDto;
 import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.AroriMemberDto;
@@ -48,7 +47,7 @@ public class AdminController {
 
 	@Autowired
 	private AdminDao adminDao;
-	
+
 	@Autowired
 	private TodayService todayService;
 
@@ -61,19 +60,19 @@ public class AdminController {
 
 		// 현재 날짜
 		String today = todayService.today(-3);
-		
+
 		// 회원 통계
 		// 현재로부터 3개월 간의 통계
 		Map<String, String[]> memberMap = adminService.thisChart("member", "member_join", today);
-		
+
 		model.addAttribute("memberMap", memberMap);
-		
+
 		// 클래스 통계
 		// 현재로부터 3개월 간의 통계
 		Map<String, String[]> classesMap = adminService.thisChart("classes", "c_when", today);
-		
+
 		model.addAttribute("classesMap", classesMap);
-		
+
 		return "admin/main_admin";
 	}
 
@@ -90,7 +89,7 @@ public class AdminController {
 		// 관리자가 정지일자 입력할때 년,월,일만 작성해도 가능하도록 설정
 	}
 
-	// 리스트 연습
+	// 리스트
 	@GetMapping("/allList")
 	public String allList(Model model, @ModelAttribute AllMemberDto allMemberDto, @ModelAttribute ClassesDto classesDto,
 			@ModelAttribute MemberDto memberDto) {

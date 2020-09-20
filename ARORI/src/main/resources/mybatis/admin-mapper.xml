@@ -79,7 +79,7 @@
 		FROM MEMBER m LEFT OUTER JOIN ARORI_MEMBER am ON m.MEMBER_NO =
 		am.member_no ORDER BY member_no ASC
 	</select>
-	
+
 	<!--오늘 가입한 회원 수(지민) -->
 	<select id="todayCount" resultType="int" parameterType="chartDto">
 		SELECT COUNT(*) FROM ${table_name} WHERE SUBSTR(${col}, 0,10)=SUBSTR(SYSDATE,0,10)
@@ -99,4 +99,5 @@
 		GROUP BY 
 			TO_CHAR(${col}, 'yyyy-MM')) ORDER BY WHEN ASC
 	</select> 
+	
 </mapper>

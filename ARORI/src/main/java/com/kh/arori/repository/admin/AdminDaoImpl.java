@@ -71,32 +71,37 @@ public class AdminDaoImpl implements AdminDao {
 		return memberCount;
 	}
 
+	// 패스워드체크
 	@Override
 	public int checkPw(AroriMemberDto aroriMemberDto) {
-		int result=0;
-		result = sqlSession.selectOne("admin.checkPw",aroriMemberDto);
+		int result = 0;
+		result = sqlSession.selectOne("admin.checkPw", aroriMemberDto);
 		return result;
 	}
 
+	// 아로리 카운트
 	@Override
 	public int aroriCount(AroriMemberDto aroriMemberDto) {
-		int aroriCount=0;
-		
-		aroriCount=sqlSession.selectOne("admin.aroriCount",aroriMemberDto);
+		int aroriCount = 0;
+
+		aroriCount = sqlSession.selectOne("admin.aroriCount", aroriMemberDto);
 		return aroriCount;
 	}
 
+	// 전체회원 수정
 	@Override
 	public List<AllMemberDto> allList() {
 		return sqlSession.selectList("admin.allList");
 	}
 
+	// 생성일 불러오기(지민)
 	@Override
 	public int todayCount(ChartDto chartDto) {
-		
+
 		return sqlSession.selectOne("admin.todayCount", chartDto);
 	}
 
+	// 각 테이블 별 수 변화 현항(지민)
 	@Override
 	public List<ChartDto> thisChart(ChartDto chartDto) {
 		return sqlSession.selectList("admin.thisChart", chartDto);
