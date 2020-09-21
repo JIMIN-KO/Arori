@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,12 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.arori.entity.member.AllMemberDto;
 import com.kh.arori.entity.member.MemberDto;
-import com.kh.arori.entity.study.ClassesDto;
 import com.kh.arori.entity.study.NoticeDto;
 import com.kh.arori.repository.admin.AdminNoticeDao;
-import com.kh.arori.repository.study.NoticeDao;
 import com.kh.arori.service.admin.AdminNoticeService;
 import com.kh.arori.service.pagination.PaginationService;
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.arori.constant.NameConst;
 import com.kh.arori.entity.study.NoticeDto;
-import com.kh.arori.repository.admin.AdminClassesDao;
 import com.kh.arori.repository.admin.AdminNoticeDao;
 import com.kh.arori.service.img.ImgService;
 import com.kh.arori.service.pagination.PaginationService;
@@ -61,13 +60,13 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송
 		int result = adminNoticeDao.editNoticeAdmin(noticeDto);
 		System.out.println("result : " + result);
-		
+
 		int c_no = noticeDto.getC_no();
 		int n_no = noticeDto.getN_no();
 
 		// 성공
 		if (result == 1) {
-			return "redirect:/admin/noticeDetail/" +c_no+ "/" +n_no;
+			return "redirect:/admin/noticeDetail/" + c_no + "/" + n_no;
 		}
 		// 실패
 		return "redirect:/admin/noticeList?fail";

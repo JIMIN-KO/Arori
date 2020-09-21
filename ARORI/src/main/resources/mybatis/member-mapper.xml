@@ -214,8 +214,8 @@
 	</select>
 
 	<select id="allGet" resultType="allMemberDto"
-		parameterType="allMemberDto">
-		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+		parameterType="int">
+		SELECT * FROM MEMBER WHERE MEMBER_NO = #{member_no}
 	</select>
 	
 	

@@ -93,7 +93,7 @@ public interface MemberDao {
 	public AllMemberDto memberProfile(int member_no);
 
 	// 전체조회
-	public AllMemberDto allGet(String member_id);
+	public AllMemberDto allGet(int member_no);
 
 	// Member + Member_IMG 같이 (멤버 정보와 프로필 이미지 번호)
 	public MAIDto getMAI(int member_no);

@@ -234,8 +234,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public AllMemberDto allGet(String member_id) {
-		AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_id);
+	public AllMemberDto allGet(int member_no) {
+		AllMemberDto allmember = sqlSession.selectOne("member.allGet", member_no);
 		return allmember;
 	}
 

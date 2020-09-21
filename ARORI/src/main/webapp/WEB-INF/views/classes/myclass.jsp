@@ -187,7 +187,6 @@ $(function(){
 	if(param) {
 		var last = param.indexOf("=") + 1
 		var keyword = param.substring(last)
-		console.log(keyword)
 		$("#colSelector").val(keyword).prop("selected", true)
 	}
 })
@@ -207,7 +206,6 @@ $(function() {
 				var c_title = $(this).parents(".card-body").children(".title").text()
 				var c_info = $(this).parents(".card-body").children(".card-info").text()
 	
-				console.log(c_title)
 				$("#c_no").val(c_no)
 				$("#c_title").val(c_title) // 모달에 타이틀 데이터 던지기
 				$("#c_info").val(c_info) // 모달에 인포 데이터 던지기		
@@ -227,25 +225,27 @@ $(function() {
 	// 이미지 수정하기
 	$("#goimgEdit").click(function(){
 		var form = document.querySelector("#addImg")
-		$(form).submit()
+		var file = document.querySelector("input[name=req]")
+		
+		if(file.value) {
+			$(form).submit()
+		} else {
+			alert("현재 이미지가 없거나 등록할 수 없습니다. 다시 확인해주세요.")
+		}
 	})
 	
 	// 구독
 	$(".subBtn").click(function(){
-		console.log($(this).prev())
 		var subDto = {
 				member_no:${userinfo.member_no},
 				c_no:$(this).parent().prev().val()
 		}
-		
-		console.log(subDto)
 		
 		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
 		 	headers:{
 				'content-type':'application/json',
 		 	}
 		 }).then(resp=>{
-			console.log(resp)
 			$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)			 
 	 	})
 	})
