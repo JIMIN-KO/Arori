@@ -5,7 +5,6 @@
 	})
 		function findAccount(tag) {
 	            var id = tag.id;
-	            // console.log(id);
 	
 	            var tag1 = document.querySelector("#tabfindId");
 	            var tag2 = document.querySelector("#tabfindPw");
@@ -24,13 +23,11 @@
 	            findPw.style.display = "none";
 	
 	            var viewFind = document.getElementById("select" + id);
-	            // console.log(viewFind);
 	            viewFind.style.display = "block";
 	    }
 		
 		function findId() {
 			var formData = $("#goId").serialize();
-			// console.log(formData);
 	
 			axios({
 				url: "/arori/nonMemberAjax/findId",
@@ -39,7 +36,6 @@
 				processData: false,
 	            contentType: 'application/json; charset=utf-8'
 			}).then(function(resp){
-				console.log(resp.data);
 				var idResult = document.querySelector("#idResult");
 	
 				idResult.textContent = "";
@@ -56,7 +52,6 @@
 	
 		function findPw() {
 			var formData = $("#goPw").serialize();
-			// console.log(formData);
 	
 			axios({
 				url: "/arori/nonMemberAjax/findPw",
@@ -65,7 +60,6 @@
 				processData: false,
 				contentType: 'application/json; charset=utf-8'
 			}).then(function(resp) {
-				console.log(resp.data);
 				var pwResult = document.querySelector("#pwResult");
 				pwResult.textContent = "";
 

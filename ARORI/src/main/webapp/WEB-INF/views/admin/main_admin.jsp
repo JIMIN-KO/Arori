@@ -100,13 +100,11 @@
 	$(function(){
 
 		 var max_date = moment().format().slice (0,7);
-		 console.log(max_date)
 		 $("input[name=memberChart]").attr("max",max_date)
 		 $("input[name=classesChart]").attr("max",max_date)
 		 
 		// 멤버 차트
 		$("input[name=memberChart]").on("change",function(){
-			console.log($(this).val())
 			
 			// 전달할 데이터 json화
 			var chartDto = {
@@ -114,7 +112,6 @@
 				table_name:"member",
 				period:$(this).val()
 			}
-			console.log($(chartDto))
 			 axios.post("/arori/chartAjax/totalChart", JSON.stringify(chartDto), {
 				 	headers:{
 						'content-type':'application/json',
@@ -191,7 +188,6 @@
 		
 		// 클래스 차트
 		$("input[name=classesChart]").on("change",function(){
-			console.log($(this).val())
 			
 			// 전달할 데이터 json화
 			var chartDto = {
@@ -199,7 +195,6 @@
 				table_name:"classes",
 				period:$(this).val()
 			}
-			console.log($(chartDto))
 			 axios.post("/arori/chartAjax/totalChart", JSON.stringify(chartDto), {
 				 	headers:{
 						'content-type':'application/json',

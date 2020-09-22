@@ -10,9 +10,7 @@
 	<script>
 		// ?close  > 신고 후 해당 팝업창 닫기
 		var param = location.search
-		console.log(param)
 		if (param === '?close') {
-			console.log(param)
 			window.close();
 		}
 	</script>

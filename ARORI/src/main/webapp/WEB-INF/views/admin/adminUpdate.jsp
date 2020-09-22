@@ -5,8 +5,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 <div class="row mt-5">
 	<div class="col-8 offset-2">
 		<form action="${pageContext.request.contextPath }/admin/adminUpdate" method="post" class="mt-3"
@@ -143,7 +142,6 @@
 										+ member_nick,
 								method : "get"
 							}).then(function(resp) {
-						console.log(resp)
 						if (!resp.data) { //결과가 없다면 
 							$(span).text("사용가능한 닉네임 입니다.");
 							return true;

@@ -345,7 +345,6 @@ $(function(){
 	 
 	 // 시간 / 기간 제한 설정
 	 var min_date = moment().format().slice (0,16);
-	console.log(min_date)
 	$("input[type=datetime-local]").attr("min", min_date)
 	
 	 // 오픈 기간 지정 시, 클로즈 최소 기간 >  오픈 기간
@@ -372,10 +371,6 @@ $(function(){
 			// Editor value
 			var index = $(this).parents(".card-body").children(".editor3").data("index") // 해당 카드의 editor3 의 인덱스 번호
 			var markdown = editor3[index].getMarkdown() // 해당 카드의 editor3 의 markdown 데이터
-
-			console.log(question_no)
-			console.log(q_no)
-			console.log(markdown)
 
 			// 유형 조회
 			var qt_no = $(this).data("type")
@@ -419,8 +414,6 @@ $(function(){
 
 				path = "explain"
 			}
-
-			console.log(frm)
 
 			axios.post("/arori/questionAjax/update/"+path, frm, {
 				 	headers:{
@@ -468,7 +461,7 @@ $(function(){
                     $(".multiple").hide();
                     $(".add").val("explain")
                 }
-              	console.log($(".add").val())
+
             });
                 
         });
@@ -478,7 +471,6 @@ $(function(){
 		$("#save").click(function(){
 			$("#quizDetailContent").val(editor.getMarkdown())
 			var q_runtime = document.querySelector("input[name=q_runtime]").value
-			console.log(q_runtime)
 			if(q_runtime >= 10) {
 				document.querySelector("#quizDetail").submit()
 			} else {
@@ -514,7 +506,6 @@ $(function(){
 							method:"post",
 							data:$("." + add).serialize()
 						}).then(function(resp){
-							console.log(resp.data)
 							$("input[name=question_no]").val(resp.data)
 
 							var clone = backup.clone()	
@@ -579,7 +570,6 @@ const editor = new Editor({
 	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
 	  hooks:{
 		'addImageBlobHook':function(blob, callback){
-			console.log(blob, callback);
 			
 			var frm = new FormData();
 			frm.append("f", blob);
@@ -606,7 +596,6 @@ const editor2 = new Editor({
 	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
 	  hooks:{
 		'addImageBlobHook':function(blob, callback){
-			console.log(blob, callback);
 			
 			var frm = new FormData();
 			frm.append("f", blob);
@@ -638,7 +627,6 @@ for(var i = 0; i < $(".editor3").length; i++) {
 		  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
 		  hooks:{
 			'addImageBlobHook':function(blob, callback){
-				console.log(blob, callback);
 				
 				var frm = new FormData();
 				frm.append("f", blob);

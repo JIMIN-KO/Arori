@@ -1,6 +1,5 @@
         $(function(){
             $(".hamburger").click(function(){
-                // console.log("안녕!")
                 $(".main-nav-container").toggleClass("active")
                 $(".sub-nav").removeClass("fadeOutLeft")
                 $(".sub-nav").removeClass("fadeInLeft")

@@ -329,8 +329,6 @@
                'content-type':'application/json',
              }
           }).then(resp=>{
-			console.log(resp.data)
-			console.log($(path).text())
 			var msg
 			if($(path).text() < resp.data) {
 				msg = '구독이 완료되었습니다.'
@@ -363,7 +361,6 @@
          url : '${pageContext.request.contextPath}/searchAjax/search?keyword=' + keyword + '&searchOption=' + searchOption + "&col=" + select,
          method : 'get'
       }).then(function(resp) {
-         console.log(resp)
          // 기존에 있던 카드 삭제
          document.querySelector(".classCard").innerHTML = "";
          
@@ -402,7 +399,6 @@
       var c_no = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".card-no")
       $(c_no).val(resp.data[i].c_no)
       $(cardList[i+1]).find(".imgEdit").data("cno",resp.data[i].c_no)
-      console.log($(cardList[i+1]).find(".imgEdit").data("cno"))
       
       // title
       var title = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".title").children(".card-title")

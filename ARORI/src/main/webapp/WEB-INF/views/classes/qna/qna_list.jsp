@@ -164,7 +164,6 @@
 	$(function(){
 		// 임시 저장 데이터 작성하기 
 		$("#tempSelect").on("change",function(){
-			console.log($("#tempSelect").val())
 			if($("#tempSelect").val() != "") {
 				location.href = $("#tempSelect").val()
 			}
