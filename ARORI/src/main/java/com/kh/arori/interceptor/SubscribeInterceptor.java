@@ -27,7 +27,6 @@ public class SubscribeInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		log.info("구독 인터셉터 접속!");
 		HttpServletRequest req = (HttpServletRequest) request;
 
 		// 클래스 페이지 진입 시, 받게되는 PathVariables 값 Map 으로 받기
