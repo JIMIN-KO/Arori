@@ -111,22 +111,25 @@
 							</div>
 						</div>
                     </div>
-					<div class="row position-fixed w-75 mt-5">
-						<div class="col-12 text-right font-weight-bold timer time mt-5 pt-5">
+					<div class="row position-fixed w-100 h-100 mt-5 d-flex align-items-end ml-0 ml-md-0" style="z-index: -1; bottom: 0px;">
+						<div class="offset-lg-4 offset-md-5 col-7 text-right font-weight-bold timer time mt-5 pt-5" >
 							<span class="rounded-lg h3 bg-success shadow-lg pt-2 pb-2 pl-4 pr-4 text-white timeBox">
 								<span class="h3">
 									<svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-alarm-fill mb-2 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 								  <path fill-rule="evenodd" d="M6 .5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H9v1.07a7.001 7.001 0 0 1 3.274 12.474l.601.602a.5.5 0 0 1-.707.708l-.746-.746A6.97 6.97 0 0 1 8 16a6.97 6.97 0 0 1-3.422-.892l-.746.746a.5.5 0 0 1-.707-.708l.602-.602A7.001 7.001 0 0 1 7 2.07V1h-.5A.5.5 0 0 1 6 .5zM.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527zM8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z"/>
 								</svg>
 								</span>
+								<fmt:parseNumber var="hr" value="${quizDto.q_runtime / 60}" integerOnly="true"></fmt:parseNumber>
 								<span class="hr h3">
 									<c:choose>
 										<c:when test="${quizDto.q_runtime / 60 eq 0 }">
-											0 :
+											
 										</c:when>
-										<c:when test="${(quizDto.q_runtime / 60) > 0 and (quizDto.q_runtime / 60) < 10}">
-											<fmt:parseNumber var="hr" value="${quizDto.q_runtime / 60}" integerOnly="true"></fmt:parseNumber>
+										<c:when test="${hr > 0 and hr < 10}">
 											${hr } :
+										</c:when>
+										<c:when test="${hr eq 0 }">
+										
 										</c:when>
 										<c:when test="${quizDto.q_runtime eq 60 }">
 											1 :
@@ -231,8 +234,8 @@ if(originalTime  > 60) {
 
 setTimeout(function(){
 	// 처음 시작 시 설정 시간 1초 후 -1
-	if( (0 < min < 10) && min != 0) {
-		min = min - 1
+	if(min < 11) {
+		min -= 1
 		$(".min").addClass("h3").text("0" + min)
 	} else if(min > 9) {
 		min -= 1
@@ -243,7 +246,6 @@ setTimeout(function(){
 		min = 59
 	$(".min").addClass("h3").text(min)
 	}
-	console.log(min)
 }, 1000)
 
 setInterval(function(){
@@ -251,7 +253,6 @@ setInterval(function(){
 	if(sec1 == -1) {
 		sec1 = 5
 		if(min == 0) {
-			console.log(hr)
 			// 시 단위 계산
 			if(hr === 0) {
 				hr = 0
@@ -260,22 +261,18 @@ setInterval(function(){
 			if(hr > 0) {
 				hr -= 1
 			}
-			console.log(hr)
+
 			if(hr == 0) {
 				$(".hr").addClass("h3").text("")
 			} else {
 				$(".hr").addClass("h3").text(hr + " :")
 			}
-			console.log(hr)
 		}
 
-		console.log(min)
 		// 분 단위 계산
 		if(-1 < min < 60) {
-			console.log(min)
 			min -= 1
 			if(min < 0) {
-				console.log(min)
 				min = 59
 			}
 		} 
@@ -291,7 +288,6 @@ setInterval(function(){
 
 		// 만약 분이 10분 미만이라면 min 앞에 "0" 을 붙인다.
 		// 분 갱신
-		console.log(min)
 		if(min < 10) {
 			$(".min").addClass("h3").text("0" + min)
 		} else {
