@@ -55,11 +55,9 @@ public class AdminReadmeServiceImpl implements AdminReadmeService {
 		String content = toastService.content(r_content);
 
 		readmeDto.setR_content(content);
-		System.out.println("content : " + content);
 
 		// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송
 		int result = adminReadmeDao.editReadmeAdmin(readmeDto);
-		System.out.println("result : " + result);
 		
 		int c_no = readmeDto.getC_no();
 		int r_no = readmeDto.getR_no();

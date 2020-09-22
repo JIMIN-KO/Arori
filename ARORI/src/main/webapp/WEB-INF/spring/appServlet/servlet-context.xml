@@ -84,6 +84,13 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- swagger -->
+<beans:bean id="swagger2Config" 
+    class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"></beans:bean>
+
+<resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></resources>
+<resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"></resources>
+	
 	<!-- 
 		Web Socket
 		- websocket 을 사용하기 위해서 namespace를 해당 xml 에 등록

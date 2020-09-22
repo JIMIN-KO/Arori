@@ -83,8 +83,6 @@ public class MemberServiceImple implements MemberService {
 		// 3. 회원 가입
 		memberDao.join(memberDto);
 
-		System.out.println("Service");
-
 	}
 
 	// (아로리) 회원 가입
@@ -239,7 +237,6 @@ public class MemberServiceImple implements MemberService {
 
 				// 2-1. 평균 점수 계산
 				score += (double) quiz.getScore();
-				System.out.println(score);
 
 				// 3-1. 정답률 계산
 				myAnswerDto.setQ_no(quiz.getQ_no()); // 현재 퀴즈 번호 삽입
@@ -254,10 +251,6 @@ public class MemberServiceImple implements MemberService {
 
 			int avgScore = (int) (score / (double) myQuizSize); // @ 최종 평균 점수 @
 			curAvg = curAvg / myQuizSize; // @ 최종 정답률 @
-
-			System.out.println(myQuizSize);
-			System.out.println(avgScore);
-			System.out.println(curAvg);
 
 			List<Integer> memberScore = new ArrayList<Integer>();
 			memberScore.add(myQuizSize);
@@ -276,13 +269,9 @@ public class MemberServiceImple implements MemberService {
 
 		// 페이지 네이션을 위한 1~10번째 게시글 번호 받아오기
 		Map<String, Integer> pagination = paginationService.pagination("member_no", member_no, pageNo);
-		System.out.println(pagination.get("start"));
-		System.out.println(pagination.get("finish"));
 
 		// 페이지 네이션 결과값을 통해 데이터 받아오기
 		List<MqInfoDto> list = quizDao.getMQInfo(pagination);
-
-		System.out.println(list.size());
 
 		// 푼 퀴즈가 하나라도 있다면
 		if (!list.isEmpty()) {
@@ -324,12 +313,6 @@ public class MemberServiceImple implements MemberService {
 				thisVo.setIncorrect(myIncur); // 나의 오답 개수
 				thisVo.setTotalScore(thisQuizAvg); // 해당 퀴즈의 평균 점수
 				thisVo.setTotalQuestion(thisQuizSize);
-
-				System.out.println("나의 점수 : " + thisVo.getMyScore());
-				System.out.println("나의 정답률 : " + thisVo.getMyPer());
-				System.out.println("나의 정답 개수 : " + thisVo.getCorrect());
-				System.out.println("나의 오답 개수 : " + thisVo.getIncorrect());
-				System.out.println("해당 퀴즈 평균 점수 : " + thisVo.getTotalScore());
 
 				mqisList.add(thisVo);
 

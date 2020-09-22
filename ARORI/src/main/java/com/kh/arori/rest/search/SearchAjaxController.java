@@ -43,11 +43,7 @@ public class SearchAjaxController {
 		map.put("order", order);
 	
 		List<MCIDto> list = classesDao.searchList(map);
-		
-		for(MCIDto dto : list) {
-			System.out.println(dto.getC_title());
-			System.out.println(dto.getMember_nick());
-		}
+
 		model.addAttribute("MCIDto", list);
 		return list;
 	}

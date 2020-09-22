@@ -77,7 +77,7 @@ public class ReportController {
 	// 신고글 삭제
 	@GetMapping("/delete/{report_no}")
 	public String memberDelete(@PathVariable int report_no) {
-		System.out.println();
+
 		reportDao.delete(report_no);
 
 		return "redirect:/admin/report_list/1";

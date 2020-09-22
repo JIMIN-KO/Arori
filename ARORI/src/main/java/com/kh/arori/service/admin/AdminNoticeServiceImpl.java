@@ -55,11 +55,9 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		String content = toastService.content(n_content);
 
 		noticeDto.setN_content(content);
-		System.out.println("content : " + content);
 
 		// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송
 		int result = adminNoticeDao.editNoticeAdmin(noticeDto);
-		System.out.println("result : " + result);
 
 		int c_no = noticeDto.getC_no();
 		int n_no = noticeDto.getN_no();

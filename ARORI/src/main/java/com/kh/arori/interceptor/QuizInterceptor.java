@@ -27,22 +27,22 @@ public class QuizInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpServletRequest req = (HttpServletRequest) request;
-		
+
 		// 만약 관리자라면 통과
 		MemberDto userinfo = (MemberDto) req.getSession().getAttribute("userinfo");
-		if(userinfo.getMember_auth() == 1) {
+		if (userinfo.getMember_auth() == 1) {
 			return true;
 		}
-		
+
 		// 퀴즈 번호 받아오기
 		String uri = request.getRequestURI();
 		int q_no = Integer.parseInt(uri.substring(25));
 
 		// 해당 퀴즈 정보 받아오기
-		QuizDto quizDto = QuizDto.builder().q_no(q_no).build();		
+		QuizDto quizDto = QuizDto.builder().q_no(q_no).build();
 		quizDto = quizDao.get(quizDto);
-		
-		// 퀴즈 생성자 비교 
+
+		// 퀴즈 생성자 비교
 		ClassesDto classesDto = classesDao.get(quizDto.getC_no());
 
 		if (classesDto.getMember_no() == userinfo.getMember_no()) {
@@ -66,12 +66,12 @@ public class QuizInterceptor extends HandlerInterceptorAdapter {
 			if (isOpen) {
 				return true;
 			}
-			
+
 			// 오픈 기간이 아닐 경우 디테일 페이지로 강제 이동
-			System.out.println("퀴즈 기간 인터셉터 통과!");
-			response.sendRedirect(
-					request.getContextPath() + "/classes/quiz/detail/" + quizDto.getC_no() + "/" + quizDto.getQ_no() + "?sorry");
-			
+
+			response.sendRedirect(request.getContextPath() + "/classes/quiz/detail/" + quizDto.getC_no() + "/"
+					+ quizDto.getQ_no() + "?sorry");
+
 			return false;
 		}
 

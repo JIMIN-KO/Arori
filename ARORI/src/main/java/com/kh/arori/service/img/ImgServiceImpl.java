@@ -100,14 +100,12 @@ public class ImgServiceImpl implements ImgService {
 		List<This_imgDto> img_list = imgDao.get2(this_imgDto);
 
 		for (This_imgDto thisImg : img_list) {
-			System.out.println(thisImg.getAi_no());
-			System.out.println(thisImg.getThis_no());
+
 			thisImg.setTable_name(table_name); // 해당 테이블의 이미지를 조회하기 위한 상수 입력
 
 			// 이미지 통합 테이블의 해당 게시글의 이미지 조회
 			All_imgDto all_imgDto = imgDao.get(thisImg);
-			System.out.println(all_imgDto.getImg_no());
-			System.out.println(all_imgDto.getImg_name());
+
 			// 이미지 통합 테이블의 데이터 삭제
 			imgDao.delete(all_imgDto);
 

@@ -128,10 +128,6 @@ public class QnaController {
 	@PostMapping("/classes/qna/edit")
 	public String qnaEdit(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
 
-		System.out.println(qnaDto.getC_no());
-		System.out.println(qnaDto.getQna_no());
-		System.out.println(qnaDto.getQna_title());
-		System.out.println(qnaDto.getMember_no());
 		// 객체 > Service 에서 수정 후 URL 받아오기
 		String result = qnaService.edit(content, qnaDto);
 
@@ -141,10 +137,6 @@ public class QnaController {
 	// qna 게시글 답글 작성 / 수정 기능
 	@PostMapping("/classes/qna/edit_reply")
 	public String qnaEditReply(@RequestParam List<String> content, @ModelAttribute QnaDto qnaDto) {
-		System.out.println(qnaDto.getC_no());
-		System.out.println(qnaDto.getQna_no());
-		System.out.println(qnaDto.getQna_title());
-		System.out.println(qnaDto.getMember_no());
 
 		// 객체 > Service 에서 수정 후 URL 받아오기
 		String result = qnaService.editReply(content, qnaDto);

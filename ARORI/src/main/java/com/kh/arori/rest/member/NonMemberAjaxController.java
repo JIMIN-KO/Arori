@@ -44,7 +44,7 @@ public class NonMemberAjaxController {
 	// 소셜 이메일 회원 조회
 	@RequestMapping("/checkEmail")
 	public boolean checkEmail(@RequestParam String member_id) {
-		System.out.println(member_id);
+		
 		// 1. 파라미터로 소셜 로그인 요청 회원의 이메일 데이터 조회
 		MemberDto member = memberDao.get(member_id);
 
@@ -65,7 +65,7 @@ public class NonMemberAjaxController {
 		if (member != null) {
 			member_id = member.getMember_id().substring(0, member.getMember_id().length() - 2) + "**";
 		}
-		System.out.println(member_id);
+		
 		return member_id;
 	}
 
@@ -81,7 +81,7 @@ public class NonMemberAjaxController {
 //			email = member_email.substring(0, member_email.indexOf("@")-4) + "****@" + member_email.substring(member_email.indexOf("@")+1,member_email.indexOf("@")+4) + "****";
 			email = "회원님의 이메일로 임시 비밀번호를 발급했습니다.";
 		}
-		System.out.println(email);
+		
 		return email;
 	}
 
