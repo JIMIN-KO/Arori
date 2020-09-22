@@ -11,12 +11,8 @@
            </div>
            <div class="card-body">
              <blockquote class="mb-0">
-               <p><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-</svg>총 회원 수는 ${memberCount} 명 입니다.</p>
-               <p><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-</svg>생성 된 클래스 의 개수는 ${classCount} 클래스 입니다.</p>
+               <p>총 회원 수는 ${memberCount} 명 입니다.</p>
+               <p>생성 된 클래스 의 개수는 ${classCount} 클래스 입니다.</p>
              </blockquote>
            </div>
          </div>
