@@ -5,18 +5,17 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 <div class="row mt-5">
 	<div class="col-8 offset-2">
 		<form action="${pageContext.request.contextPath }/admin/adminUpdate" method="post" class="mt-3"
 			onSubmit="return finalcheck();">
 			<input type="hidden" name="member_no" value="${allMemberDto.member_no }">
-			<h1 class="font-weight-bold mt-4">회원정보 업데이트 페이지(관리자)</h1>
+			<h1 class="font-weight-bold mt-4 mb-3">회원정보 업데이트 페이지</h1>
+			<span class="mb-3">변경할 수 있는 정보만 표시됩니다.</span>
 			<table class="table table-hover">
 				<tbody>
-					<tr>
-						<span>변경할 수 있는 정보만 표시됩니다.</span>
+
 					<tr>
 						<th scope="col">AUTH</th>
 						<td>
@@ -55,17 +54,6 @@
 						</td>
 					</tr>
 						<!-- --바꿀부분 --- -->
-						
-					<tr>
-						<th scope="col">E-mail</th>
-						<td><input type="text" class="form-control"
-							value="${allMemberDto.member_email}" readonly="readonly"></td>
-					</tr>
-					<tr>
-						<th scope="col">PHONE</th>
-						<td><input type="text" class="form-control"
-							value="${allMemberDto.member_phone}" readonly="readonly"></td>
-					</tr>
 					<tr>
 						<th scope="col">JOIN</th>
 						<td><input type="text" class="form-control"
@@ -87,9 +75,8 @@
 					<tr>
 						<th scope="col">SUSPENSION</th>
 
-						<td><input type="text" class="form-control" name="suspension"
-							value="${allMemberDto.suspension}" placeholder="ex:2020-01-01">
-							<span>변경 예 : 2020-01-01 (yyyy-mm-dd)</span></td>
+						<td><input type="date" class="form-control" name="suspension"
+							value="${allMemberDto.suspension}" placeholder="ex:2020-01-01"></td>
 
 					</tr>
 
@@ -143,7 +130,6 @@
 										+ member_nick,
 								method : "get"
 							}).then(function(resp) {
-						console.log(resp)
 						if (!resp.data) { //결과가 없다면 
 							$(span).text("사용가능한 닉네임 입니다.");
 							return true;

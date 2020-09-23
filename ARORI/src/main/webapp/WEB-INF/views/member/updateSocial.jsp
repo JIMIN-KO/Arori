@@ -72,7 +72,6 @@ function checkNick(){
 					  url:"${pageContext.request.contextPath}/nonMemberAjax/checkOverlapNick?member_nick="+member_nick,
 					 method:"get"  
 				  }).then(function(resp){
-					 	console.log(resp)
 						if(!resp.data){ //결과가 없다면 
 						  		$(span).text("멋진 닉네임입니다");
 					  			return true;

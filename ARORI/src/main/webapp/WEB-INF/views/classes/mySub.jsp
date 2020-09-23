@@ -116,17 +116,14 @@ $(function(){
 		}
 	
 		var path = $(this).parents(".card").children(".card-body").children(".badge")
-		console.log(path)
 		
 		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
 		 	headers:{
 				'content-type':'application/json',
 		 	}
 		 }).then(function(resp){
-			 console.log(resp.data)
 
 			var msg
-			console.log($(path).text())
 			if($(path).text() < resp.data) {
 				msg = '구독이 완료되었습니다.'
 			} else {

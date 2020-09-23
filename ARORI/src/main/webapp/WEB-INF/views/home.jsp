@@ -53,7 +53,7 @@
                             </div>
                             <div class="form-group">
                                 <div style="height: 50px;"></div>
-                                <button type="button" class="btn btn-warning btn-block btn-lg text-white" data-target="#loginFail" id="loginBtn">Sign In</button>
+                                <button type="button" class="btn btn-warning btn-block btn-lg text-white" data-target="#loginFail" data-target="#loginStop" id="loginBtn">Sign In</button>
                             </div>
                         </form>
                     </div>

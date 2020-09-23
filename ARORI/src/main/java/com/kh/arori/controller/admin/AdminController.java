@@ -121,14 +121,6 @@ public class AdminController {
 
 		// 페이지 네이션 조건에 따라 게시글 개수가 다르니 현재 검색 혹은 메인 페이지에 있는 게시글만큼 페이지 네이션 블록 생성
 		List<Integer> block = adminService.pagination(thisCount.size(), pageNo);
-		// 멤버 게시글 번호
-		int index;
-
-		if (col == null && keyword == null) {
-			index = thisCount.size();
-		} else {
-			index = list.size();
-		}
 
 		int no = paginationService.no(pageNo, thisCount.size());
 		int classCount = adminDao.classCount(classesDto);
@@ -145,11 +137,11 @@ public class AdminController {
 	}
 
 	// 소셜 + 아로리) 상세정보변경
-	@GetMapping("/adminUpdate/{member_id}")
-	public String adminUpdate(@PathVariable(required = false) String member_id, Model model) {
+	@GetMapping("/adminUpdate/{member_no}")
+	public String adminUpdate(@PathVariable int member_no, Model model) {
 		// 변수가 없어도 적용가능
 
-		AllMemberDto allMemberDto = memberDao.allGet(member_id);// 회원 아이디 단일조회해서
+		AllMemberDto allMemberDto = memberDao.allGet(member_no);// 회원 아이디 단일조회해서
 		model.addAttribute("allMemberDto", allMemberDto); // 페이지로 데이터 전달한다.
 
 		return "admin/adminUpdate";
@@ -160,8 +152,6 @@ public class AdminController {
 	public String adminUpdate(@ModelAttribute AllMemberDto allMemberDto) {
 
 		adminService.adminUpdate(allMemberDto);
-
-		System.out.println("정보수정 성공");
 
 		return "redirect:/admin/memberProfile/" + allMemberDto.getMember_no();
 	}
@@ -200,7 +190,6 @@ public class AdminController {
 	// 회원탈퇴 시키기
 	@GetMapping("/delete/{member_no}")
 	public String memberDelete(@PathVariable int member_no) {
-		System.out.println();
 		adminDao.delete(member_no);
 
 		return "redirect:/admin/allList";
@@ -230,16 +219,6 @@ public class AdminController {
 
 		// 페이지네이션
 		List<Integer> block = reportService.pagination(thisCount.size(), pageNo);
-
-		// 신고 게시글 번호
-
-		int index;
-
-		if (col == null && keyword == null) {
-			index = thisCount.size();
-		} else {
-			index = list.size();
-		}
 
 		int no = paginationService.no(pageNo, thisCount.size());
 

@@ -90,7 +90,6 @@ const editor = new Editor({
 	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
 	  hooks:{
 		'addImageBlobHook':function(blob, callback){
-			console.log(blob, callback);
 			
 			var frm = new FormData();
 			frm.append("f", blob);

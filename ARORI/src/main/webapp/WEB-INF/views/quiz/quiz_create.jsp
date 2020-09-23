@@ -213,7 +213,6 @@
 
 			// 날짜 제한
 			 var min_date = moment().format().slice (0,16);
-			 console.log(min_date)
 			 $("input[type=datetime-local]").attr("value", min_date)
 			 $("input[type=datetime-local]").attr("min", min_date)
 
@@ -265,7 +264,6 @@
                     $(".multiple").hide();
                     $(".add").val("explain")
                 }
-              	console.log($(".add").val())
             });
              
         });
@@ -275,7 +273,6 @@
 			$("input[name=content]").val(editor.getMarkdown())
 			var q_runtime = document.querySelector("input[name=q_runtime]").value
 			var q_title = document.querySelector("input[name=q_title]").value
-			console.log(q_title)
 			if(q_title === "") {
 				alert("퀴즈 제목을 입력해주세요.")
 			} else if(q_runtime < 10){
@@ -314,7 +311,6 @@ $(function(){
 						method:"post",
 						data:$("." + add).serialize()
 					}).then(function(resp){
-						console.log(resp.data)
 						$("input[name=question_no]").val(resp.data)
 
 						var clone = backup.clone()	
@@ -379,7 +375,6 @@ const editor = new Editor({
 	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
 	  hooks:{
 		'addImageBlobHook':function(blob, callback){
-			console.log(blob, callback);
 			
 			var frm = new FormData();
 			frm.append("f", blob);
@@ -406,7 +401,6 @@ const editor2 = new Editor({
 	  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
 	  hooks:{
 		'addImageBlobHook':function(blob, callback){
-			console.log(blob, callback);
 			
 			var frm = new FormData();
 			frm.append("f", blob);

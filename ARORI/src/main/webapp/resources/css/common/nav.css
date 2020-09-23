@@ -17,11 +17,11 @@
 	.offset-1.null-side.null-side2 {
 		display: none;
 	}
-}
 
+}
 @media ( max-width :1500px) {
 	.content-top.mt-5 {
-		margin-top: 12%!important;
+		margin-top: 12% !important;
 	}
 	.class-menu1 {
 		display: none;

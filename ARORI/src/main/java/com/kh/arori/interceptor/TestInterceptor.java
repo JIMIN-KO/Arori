@@ -13,7 +13,6 @@ public class TestInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		log.info("테스트 인터셉터 통과!");
 		return true;
 	}
 }

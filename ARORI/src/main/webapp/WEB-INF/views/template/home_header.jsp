@@ -92,6 +92,24 @@
 	    </div>
 	  </div>
 	</div>
+	<div class="modal fade" tabindex="-1" id="loginStop">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">로그인 실패</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>현재 회원님은 일시 정지 상태입니다.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	  <!-- 아이디 찾기모달  -->
 	<div class="modal fade" tabindex="-1" id="findIdModal">
 	  <div class="modal-dialog modal-dialog-centered">
@@ -152,7 +170,21 @@
 	</div>
 	
     <div class="container-fluid">
-        <div class="row login-header mt-5">
+    	<div class="row position-fixed w-100 mt-4" style="z-index: 1;">
+    		<div class="col-12 d-flex justify-content-end">
+    			<form id="testAroriForm">
+    				<input type="hidden" name="member_id" value="tester">
+    				<input type="hidden" name="member_pw" value="tester">
+		    			<button type="button" class="btn btn-md btn-success font-weight-bold mr-3 shadow-lg" id="testArori">아로리 회원 테스트</button>
+    			</form>
+    			<form id="testAdminForm">
+					<input type="hidden" name="member_id" value="admin">
+					<input type="hidden" name="member_pw" value="admin">    			
+		    			<button type="button" class="btn btn-md btn-danger font-weight-bold shadow-lg" id="testAdmin">관리자 테스트</button>
+    			</form>
+    		</div>
+    	</div>
+        <div class="row login-header">
             <div class="col-sm-12 offset-md-2 col-md-8">
                 <div class="row mt-5">
                     <div class="offset-1 col-10 offset-md-2 col-md-8">

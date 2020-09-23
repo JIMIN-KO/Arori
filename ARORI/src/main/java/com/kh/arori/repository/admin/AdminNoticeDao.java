@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.arori.entity.study.NoticeDto;
-import com.kh.arori.entity.study.QnaDto;
-import com.kh.arori.entity.study.QnaMemberDto;
 
 public interface AdminNoticeDao {
 	

@@ -12,12 +12,9 @@
 			  plugins: [colorSyntax, codeSyntaxHighlight, tableMergedCell],
 			  hooks:{
 				'addImageBlobHook':function(blob, callback){
-					console.log(blob, callback);
 					
 					var frm = new FormData();
 					frm.append("f", blob);
-					
-					console.log(frm);
 					
 					axios({
 						contentType: false,
@@ -27,7 +24,6 @@
 						data:frm
 					}).then(function(resp) {
 						//resp.data.no;
-						console.log(resp)
 					})
 					//callback("반환된 다운로드 주소");
 				}

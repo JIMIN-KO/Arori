@@ -115,7 +115,7 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public void Delete(MemberDto memberDto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -1,6 +1,5 @@
         function clickTab(tag) {
             var id = tag.id;
-            // console.log(id);
             var selectTag = document.getElementById("icon" + id);
             var selectLi = document.getElementById(id);
             var thisTap = document.querySelector(".click2");

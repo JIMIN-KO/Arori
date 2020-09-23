@@ -156,6 +156,15 @@
                           <a>
                            <img class="card-img">      
                         </a>
+                        		<div class="row">
+								<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 35%; right: 3%;">
+									<a data-target="#imgEdit" class="imgEdit" data-cno="">
+										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:30px; height:30px; color: lightgray;">
+										  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+										</svg>
+									</a>
+								</div>
+							</div> 
                            <div class="card-body pb-0">
                               <input type="hidden" class="card-no">
                               <div class="title h4">
@@ -211,6 +220,17 @@
                               </c:otherwise>
                            </c:choose>            
                         </a>
+                        		<c:if test="${userinfo.member_auth eq 1 }">
+                        		<div class="row">
+								<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 35%; right: 3%;">
+									<a data-target="#imgEdit" class="imgEdit" data-cno="${MCIDto.c_no }">
+										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:30px; height:30px; color: lightgray;">
+										  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+										</svg>
+									</a>
+								</div>
+							</div>
+							</c:if>
                            <div class="card-body pb-0">
                               <input type="hidden" value="${MCIDto.c_no}" class="card-no">
                               <div class="title h4">
@@ -275,6 +295,27 @@
 	
    $(function() {
 	  $("#subModal").modal("hide") // 모달 수정 모달 숨김
+		$("#imgEdit").modal("hide") // 이미지 수정 모달 숨김
+		
+		// 이미지 수정 모달 띄우기
+		$(document).on("click",".imgEdit",function(){
+			$("#imgEdit").modal("show"); // 클래스 수정 모달 띄우기
+			var c_no = $(this).data("cno")
+			$("#imgEditC_no").val(c_no)
+		})
+		
+		// 이미지 수정하기
+		$("#goimgEdit").click(function(){
+			var form = document.querySelector("#addImg")
+			var file = document.querySelector("input[name=req]")
+			
+			if(file.value) {
+				$(form).submit()
+			} else {
+				alert("현재 이미지가 없거나 등록할 수 없습니다. 다시 확인해주세요.")
+			}
+		})
+	  
       // 구독 기능
       $(document).on("click",".subBtn",function(){
          var subDto = {
@@ -288,8 +329,6 @@
                'content-type':'application/json',
              }
           }).then(resp=>{
-			console.log(resp.data)
-			console.log($(path).text())
 			var msg
 			if($(path).text() < resp.data) {
 				msg = '구독이 완료되었습니다.'
@@ -322,7 +361,6 @@
          url : '${pageContext.request.contextPath}/searchAjax/search?keyword=' + keyword + '&searchOption=' + searchOption + "&col=" + select,
          method : 'get'
       }).then(function(resp) {
-         console.log(resp)
          // 기존에 있던 카드 삭제
          document.querySelector(".classCard").innerHTML = "";
          
@@ -360,6 +398,7 @@
       // c_no
       var c_no = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".card-no")
       $(c_no).val(resp.data[i].c_no)
+      $(cardList[i+1]).find(".imgEdit").data("cno",resp.data[i].c_no)
       
       // title
       var title = $(cardList[i+1]).children(".card-deck").children(".card").children(".card-body").children(".title").children(".card-title")
@@ -491,4 +530,29 @@
          </div>
       </div>
    </div>
+</div>
+
+<!-- 이미지 수정 모달 -->
+<div class="modal fade" id="imgEdit" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">클래스 이미지 수정</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${pageContext.request.contextPath }/classes/img/setting" method="post" enctype="multipart/form-data" id="addImg">
+						<input type="hidden" name="c_no" id="imgEditC_no">
+						<input type="file" accept=".jpg, .png, .jpeg" name="req">
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning btn-lg font-weight-bold" id="goimgEdit">수정하기</button>
+					<button type="button" class="btn btn-primary btn-lg font-weight-bold" data-dismiss="modal">창 닫기</button>
+				</div>
+			</div>
+		</div>
 </div>

@@ -17,8 +17,6 @@
 		                        	</c:forEach>
 		                        </select>
                         	</c:if>
-                        	
-	                        <c:if test="${classes.member_no == userinfo.member_no }">
 								<a href="${pageContext.request.contextPath }/classes/qna/create/${c_no}">
 						            <button class="btn btn-link mt-4" style="flex:0.3; color: gray;">
 							            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +24,6 @@
 										</svg>
 						            </button>
 				                </a>
-			                </c:if>
                         </div>
                     	<hr><br>
                     	
@@ -167,7 +164,6 @@
 	$(function(){
 		// 임시 저장 데이터 작성하기 
 		$("#tempSelect").on("change",function(){
-			console.log($("#tempSelect").val())
 			if($("#tempSelect").val() != "") {
 				location.href = $("#tempSelect").val()
 			}

@@ -148,8 +148,8 @@
 		member_nick=#{member_nick} , member_state=#{member_state}
 		,
 		REPORT_STATE =#{report_state} , SUSPENSION =#{suspension} WHERE
-		member_id
-		=#{member_id}
+		member_no
+		=#{member_no}
 	</update>
 
 	<!-- 이거뭔데 ? -->
@@ -214,8 +214,8 @@
 	</select>
 
 	<select id="allGet" resultType="allMemberDto"
-		parameterType="allMemberDto">
-		SELECT * FROM MEMBER WHERE MEMBER_ID = #{member_id}
+		parameterType="int">
+		SELECT * FROM MEMBER WHERE MEMBER_NO = #{member_no}
 	</select>
 	
 	

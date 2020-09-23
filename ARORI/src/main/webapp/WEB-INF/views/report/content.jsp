@@ -55,7 +55,7 @@ function del(report_no) {
             </tr>
             <tr>
                <th colspan="3"><a
-                  href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.report_crimi}"
+                  href="${pageContext.request.contextPath}/admin/adminUpdate/${reportDto.member_no}"
                   class="btn btn-primary btn-lg font-weight-bold">상태변경</a> <a
                   href="${pageContext.request.contextPath}/admin/report_list/1"
                   class="btn btn-primary btn-lg font-weight-bold">목록으로</a> 

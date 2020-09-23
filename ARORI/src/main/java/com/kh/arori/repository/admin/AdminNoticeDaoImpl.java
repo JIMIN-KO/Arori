@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.arori.entity.study.NoticeDto;
-import com.kh.arori.entity.study.QnaDto;
-import com.kh.arori.entity.study.QnaMemberDto;
 
 @Repository
 public class AdminNoticeDaoImpl implements AdminNoticeDao{

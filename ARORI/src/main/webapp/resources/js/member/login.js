@@ -29,7 +29,6 @@
 					var backup = loginEmail.indexOf("@")
 					memberNick = loginEmail.substring(0,backup)
 				}
-				console.log(result); //
 				
 				axios({
 					url:"/arori/nonMemberAjax/checkEmail?member_id=" + loginEmail,
@@ -64,7 +63,6 @@
 		function logout() {
 			firebase.auth().signOut().then(function() {
 				  // Sign-out successful.
-				  console.log("로그아웃 성공")
 				  window.location.href = "member/logout";
 			}).catch(function(error) {
 				  // An error happened.
@@ -78,6 +76,7 @@
 	$(function(){
 		// 아로리 회원 로그인 (비동기)
 		$('#loginFail').modal('hide') // 모달 숨기기 
+		$('#loginStop').modal('hide') // 모달 숨기기 
 		$("#loginBtn").click(function(){
 			var formData = $("#aroriLogin").serialize();
 			
@@ -89,21 +88,55 @@
 	            contentType: false
 			}).then(function(resp){
 				if(!resp.data) {
-					// console.log("로그인 실패!")
 					$('#loginFail').modal('show') // 로그인 실패 시 모달 띄우기 
 				} else {
-					// console.log("로그인 성공!")
-					console.log(resp.data)
+
 					if(resp.data.member_auth == 1) {
-						console.log("admin")
+
 						window.location.href = "admin/main";
 					} else {
-						console.log("member")
-						window.location.href = "member/myPage";
-					}
-					
-					
+
+						if(resp.data.report_state === '정상') {						
+							window.location.href = "member/myPage";
+						} else {
+							$('#loginStop').modal('show') // 모달 숨기기 
+						}
+					}	
 				}
+			})
+		})
+	})
+	
+	$(function(){
+		// 아로리 회원 로그인 (비동기) (테스트 버튼)
+		$("#testArori").click(function(){
+			var formData = $("#testAroriForm").serialize();
+			
+			axios({
+				url: "/arori/nonMemberAjax/loginSuccess",
+				method: "post",
+				data: formData,
+				processData: false,
+	            contentType: false
+			}).then(function(resp){
+				window.location.href = "member/myPage";
+			})
+		})
+	})
+	
+	$(function(){
+		// 관리자 계정 로그인 (비동기) (테스트 버튼)
+		$("#testAdmin").click(function(){
+			var formData = $("#testAdminForm").serialize();
+			
+			axios({
+				url: "/arori/nonMemberAjax/loginSuccess",
+				method: "post",
+				data: formData,
+				processData: false,
+	            contentType: false
+			}).then(function(resp){
+				window.location.href = "admin/main";
 			})
 		})
 	})

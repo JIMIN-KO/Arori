@@ -127,9 +127,9 @@
 						</c:choose>				
 					</a>
 					<div class="row">
-						<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 45%;">
+						<div class="col-12 d-flex justify-content-end position-absolute p-0 ml-2" style="top: 35%; right: 3%;">
 							<a data-target="#imgEdit" class="imgEdit" data-cno="${MCIDto.c_no }">
-								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:30px; height:30px;">
+								<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:30px; height:30px; color: lightgray;">
 								  <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
 								</svg>
 							</a>
@@ -187,7 +187,6 @@ $(function(){
 	if(param) {
 		var last = param.indexOf("=") + 1
 		var keyword = param.substring(last)
-		console.log(keyword)
 		$("#colSelector").val(keyword).prop("selected", true)
 	}
 })
@@ -207,7 +206,6 @@ $(function() {
 				var c_title = $(this).parents(".card-body").children(".title").text()
 				var c_info = $(this).parents(".card-body").children(".card-info").text()
 	
-				console.log(c_title)
 				$("#c_no").val(c_no)
 				$("#c_title").val(c_title) // 모달에 타이틀 데이터 던지기
 				$("#c_info").val(c_info) // 모달에 인포 데이터 던지기		
@@ -227,25 +225,27 @@ $(function() {
 	// 이미지 수정하기
 	$("#goimgEdit").click(function(){
 		var form = document.querySelector("#addImg")
-		$(form).submit()
+		var file = document.querySelector("input[name=req]")
+		
+		if(file.value) {
+			$(form).submit()
+		} else {
+			alert("현재 이미지가 없거나 등록할 수 없습니다. 다시 확인해주세요.")
+		}
 	})
 	
 	// 구독
 	$(".subBtn").click(function(){
-		console.log($(this).prev())
 		var subDto = {
 				member_no:${userinfo.member_no},
 				c_no:$(this).parent().prev().val()
 		}
-		
-		console.log(subDto)
 		
 		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
 		 	headers:{
 				'content-type':'application/json',
 		 	}
 		 }).then(resp=>{
-			console.log(resp)
 			$(".subBtn").parents(".card-body").children(".subCount").text(resp.data)			 
 	 	})
 	})

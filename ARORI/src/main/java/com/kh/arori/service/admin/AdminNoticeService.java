@@ -3,8 +3,6 @@ package com.kh.arori.service.admin;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import com.kh.arori.entity.study.NoticeDto;
 
 public interface AdminNoticeService {

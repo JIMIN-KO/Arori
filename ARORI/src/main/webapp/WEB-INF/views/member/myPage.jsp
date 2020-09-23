@@ -118,7 +118,12 @@ $(function(){
 	// 이미지 수정하기
 	$("#goimgEdit").click(function(){
 		var form = document.querySelector("#addImg")
-		$(form).submit()
+		var file = document.querySelector("input[name=req]")
+		if(file.value) {
+			$(form).submit()
+		} else  {
+			alert("현재 이미지가 없거나 등록할 수 없습니다. 다시 확인해주세요.")
+		}
 	})
 })
 

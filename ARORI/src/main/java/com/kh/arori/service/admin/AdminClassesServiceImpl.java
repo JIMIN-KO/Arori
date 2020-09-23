@@ -55,11 +55,9 @@ public class AdminClassesServiceImpl implements AdminClassesService {
 		String content = toastService.content(qna_content);
 
 		qnaDto.setQna_content(content);
-		System.out.println("content : " + content);
 
 		// 게시글 수정 후 반환 값으로 성공 / 실패 URL 전송
 		int result = adminClassesDao.editQnaAdmin(qnaDto);
-		System.out.println("result : " + result);
 		
 		int c_no = qnaDto.getC_no();
 		int qna_no = qnaDto.getQna_no();

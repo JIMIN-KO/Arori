@@ -31,6 +31,7 @@ public class AdminServiceImpl implements AdminService {
 	// 상세정보변경
 	@Override
 	public void adminUpdate(AllMemberDto allMemberDto) {
+		
 		memberDao.adminUpdate(allMemberDto);
 	}
 
