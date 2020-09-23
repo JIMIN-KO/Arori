@@ -18,7 +18,7 @@
 
    <!-- 신고글 상세조회 -->
    <select id="content" resultType="reportDto" parameterType="int">
-      SELECT* FROM report WHERE report_no=#{report_no}
+      	SELECT a.*, b.member_no FROM report a LEFT OUTER JOIN MEMBER b ON a.REPORT_CRIMI = b.MEMBER_ID WHERE a.report_no=#{report_no}
    </select>
 
    <!-- 신고글 삭제 -->

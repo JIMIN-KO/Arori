@@ -17,4 +17,5 @@ public class ReportDto {
 	private String report_content;
 	private String report_crimi;
 	private String report_date;
+	private int member_no;
 }

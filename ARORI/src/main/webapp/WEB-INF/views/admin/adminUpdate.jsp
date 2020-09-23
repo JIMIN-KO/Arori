@@ -54,17 +54,6 @@
 						</td>
 					</tr>
 						<!-- --바꿀부분 --- -->
-						
-					<tr>
-						<th scope="col">E-mail</th>
-						<td><input type="text" class="form-control"
-							value="${allMemberDto.member_email}" readonly="readonly"></td>
-					</tr>
-					<tr>
-						<th scope="col">PHONE</th>
-						<td><input type="text" class="form-control"
-							value="${allMemberDto.member_phone}" readonly="readonly"></td>
-					</tr>
 					<tr>
 						<th scope="col">JOIN</th>
 						<td><input type="text" class="form-control"
