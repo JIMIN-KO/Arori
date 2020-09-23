@@ -20,7 +20,7 @@
 							  </div>
 							  <input type="text" class="form-control" placeholder="ID" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly" value="${memberDto.member_id} ">
 							</div>
-							<form action="changePW" method="post" onSubmit="return finalcheck();">
+							<form action="${pageContext.request.contextPath }/member/changePW" method="post" onSubmit="return finalcheck();">
 								<div class="input-group input-group-lg mb-4">
 								  <div class="input-group-prepend">
 								    <span class="input-group-text" id="basic-addon1">현재 비밀번호</span>

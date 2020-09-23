@@ -123,11 +123,11 @@ const editor = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/qna/upload/${qnaDto.qna_no }" ,
+				url:"${pageContext.request.contextPath}/imgAjax/qna/upload/${qnaDto.qna_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/qna/download/" + resp.data);
+				callback("${pageContext.request.contextPath}/imgAjax/qna/download/" + resp.data);
 			})
 		}
 	}

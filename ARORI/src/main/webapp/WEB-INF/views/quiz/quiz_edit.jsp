@@ -415,7 +415,7 @@ $(function(){
 				path = "explain"
 			}
 
-			axios.post("/arori/questionAjax/update/"+path, frm, {
+			axios.post("${pageContext.request.contextPath}/questionAjax/update/"+path, frm, {
 				 	headers:{
 						/* 'content-type':'application/json', */
 				 	}
@@ -505,7 +505,7 @@ $(function(){
 				// 해당 퀘스쳔 등록하고 새로운 퀘스쳔 생성
 				$("input[name=content]").val(editor2.getMarkdown())
 					axios({
-							url:"/arori/questionAjax/create/" + add,
+							url:"${pageContext.request.contextPath}/questionAjax/create/" + add,
 							method:"post",
 							data:$("." + add).serialize()
 						}).then(function(resp){
@@ -580,11 +580,11 @@ const editor = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/quiz/upload/${quizDto.q_no }" ,
+				url:"${pageContext.request.contextPath}/imgAjax/quiz/upload/${quizDto.q_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/quiz/download/" + resp.data);
+				callback("${pageContext.request.contextPath}/imgAjax/quiz/download/" + resp.data);
 			})
 		}
 	}
@@ -606,11 +606,11 @@ const editor2 = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/quiz/upload/${quizDto.q_no }" ,
+				url:"${pageContext.request.contextPath}/imgAjax/quiz/upload/${quizDto.q_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/quiz/download/" + resp.data);
+				callback("${pageContext.request.contextPath}/imgAjax/quiz/download/" + resp.data);
 			})
 		}
 	}
@@ -637,11 +637,11 @@ for(var i = 0; i < $(".editor3").length; i++) {
 				axios({
 					contentType: false,
 					processData: false,
-					url:"/arori/imgAjax/quiz/upload/${quizDto.q_no }" ,
+					url:"${pageContext.request.contextPath}/imgAjax/quiz/upload/${quizDto.q_no }" ,
 					method:"post",
 					data:frm
 				}).then(function(resp) {
-					callback("/arori/imgAjax/quiz/download/" + resp.data);
+					callback("${pageContext.request.contextPath}/imgAjax/quiz/download/" + resp.data);
 				})
 			}
 		}

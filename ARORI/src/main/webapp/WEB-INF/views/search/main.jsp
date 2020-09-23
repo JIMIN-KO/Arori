@@ -324,7 +324,7 @@
          }
          var path = $(this).parents(".card").children(".card-body").children(".title").children(".badge")
          	
-         axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+         axios.post("${pageContext.request.contextPath}/subAjax/subscribe", JSON.stringify(subDto), {
              headers:{
                'content-type':'application/json',
              }
@@ -382,10 +382,10 @@
       
       // 이미지
       var img = $(cardList[i+1]).children(".card-deck").children(".card").children("a").children("img")
-      var path = "/arori/imgAjax/classes/download/" + resp.data[i].ai_no
+      var path = "${pageContext.request.contextPath}/imgAjax/classes/download/" + resp.data[i].ai_no
       
       if(resp.data[i].ai_no == 0) {
-         path = "/arori/imgAjax/classes/download/57"
+         path = "${pageContext.request.contextPath}/imgAjax/classes/download/57"
       }
       
       $(img).attr("src",path)

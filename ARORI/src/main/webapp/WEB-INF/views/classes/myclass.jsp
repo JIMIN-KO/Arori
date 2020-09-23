@@ -241,7 +241,7 @@ $(function() {
 				c_no:$(this).parent().prev().val()
 		}
 		
-		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+		axios.post("${pageContext.request.contextPath}/subAjax/subscribe", JSON.stringify(subDto), {
 		 	headers:{
 				'content-type':'application/json',
 		 	}

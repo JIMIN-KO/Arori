@@ -203,7 +203,7 @@
                     <div class="offset-1 col-10 offset-md-2 col-md-8">
                         <div class="row d-flex justify-content-around">
                             <div class="col-md-5 col-4">
-                                <a href="/arori"><img class="logo float-right" alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png"></a>
+                                <a href="${pageContext.request.contextPath}"><img class="logo float-right" alt="arori" src="${pageContext.request.contextPath }/resources/img/arori_logo.png"></a>
                             </div>
                             <div class="col-md-7 col-8">
                                 <span class="title font-weight-bolder">ARORI</span>

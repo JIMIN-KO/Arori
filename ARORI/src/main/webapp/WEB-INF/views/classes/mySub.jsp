@@ -117,7 +117,7 @@ $(function(){
 	
 		var path = $(this).parents(".card").children(".card-body").children(".badge")
 		
-		axios.post("/arori/subAjax/subscribe", JSON.stringify(subDto), {
+		axios.post("${pageContext.request.contextPath}/subAjax/subscribe", JSON.stringify(subDto), {
 		 	headers:{
 				'content-type':'application/json',
 		 	}

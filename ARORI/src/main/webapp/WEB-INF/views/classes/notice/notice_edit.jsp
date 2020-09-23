@@ -127,11 +127,11 @@ const editor = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/notice/upload/${noticeDto.n_no }" ,
+				url:"${pageContext.request.contextPath}/imgAjax/notice/upload/${noticeDto.n_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/notice/download/" + resp.data);
+				callback("${pageContext.request.contextPath}/imgAjax/notice/download/" + resp.data);
 			})
 		}
 	}

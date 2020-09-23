@@ -44,7 +44,7 @@
                 </div>
                 <div class="row mt-5 findId" id="selectfindId">
                     <div class="offset-1 col-10">
-                        <form action="findId" method="post" id="goId">
+                        <form action="${pageContext.request.contextPath }/member/findId" method="post" id="goId">
                             <div class="form-group">
                                 <input type="text" name="member_phone" class="form-control" placeholder="HP">
                             </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="row mt-5 findPw" id="selectfindPw">
                     <div class="offset-1 col-10">
-                        <form action="findPw" method="post" id="goPw">
+                        <form action="${pageContext.request.contextPath }/member/findPw" method="post" id="goPw">
                             <div class="form-group">
                                 <input type="text" name="member_id" class="form-control" placeholder="ID">
                             </div>

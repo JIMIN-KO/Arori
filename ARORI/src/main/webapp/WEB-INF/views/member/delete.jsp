@@ -19,7 +19,7 @@
 					        <h5>탈퇴 시 데이터는 즉시 삭제되며 복구가 불가능합니다.<br> 회원 탈퇴 시 신중히 진행해주시길 바랍니다.</h5>
 					        <br>
 					        <h5> 회원탈퇴에 동의 하신다면 아래 체크박스 체크후 탈퇴하기 버튼을 눌러주세요 .</h5>
-						   	<form action="delete" method="post"  class="mt-5">
+						   	<form action="${pageContext.request.contextPath }/member/delete" method="post"  class="mt-5">
 								<input type="checkbox" name="agree" onClick="agreeCheck(this.form)">
 									<span class="font-weight-bolder text-danger">동의합니다.</span>
 					        			<br><hr><br>

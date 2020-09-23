@@ -44,7 +44,7 @@ $(function(){
 	
 	// 모달 ) 취소 클릭시 해당 데이터 삭제 및 목록으로 이동 
 	$("#saveCancel").click(function(){
-		location.href = "/arori/classes/notice/delete/${noticeDto.c_no}/${noticeDto.n_no}"
+		location.href = "${pageContext.request.contextPath}/classes/notice/delete/${noticeDto.c_no}/${noticeDto.n_no}"
 	})
 	
 	// 모달 ) 임시 저장 클릭 시 n_state 상태 0  으로 변경 
@@ -95,11 +95,11 @@ const editor = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/notice/upload/${noticeDto.n_no }" ,
+				url:"${pageContext.request.contextPath}/imgAjax/notice/upload/${noticeDto.n_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/notice/download/" + resp.data);
+				callback("${pageContext.request.contextPath}/imgAjax/notice/download/" + resp.data);
 			})
 		}
 	}

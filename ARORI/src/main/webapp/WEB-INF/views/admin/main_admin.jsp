@@ -112,7 +112,7 @@
 				table_name:"member",
 				period:$(this).val()
 			}
-			 axios.post("/arori/chartAjax/totalChart", JSON.stringify(chartDto), {
+			 axios.post("${pageContext.request.contextPath}/chartAjax/totalChart", JSON.stringify(chartDto), {
 				 	headers:{
 						'content-type':'application/json',
 				 	}
@@ -195,7 +195,7 @@
 				table_name:"classes",
 				period:$(this).val()
 			}
-			 axios.post("/arori/chartAjax/totalChart", JSON.stringify(chartDto), {
+			 axios.post("${pageContext.request.contextPath}/chartAjax/totalChart", JSON.stringify(chartDto), {
 				 	headers:{
 						'content-type':'application/json',
 				 	}

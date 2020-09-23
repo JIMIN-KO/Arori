@@ -76,11 +76,11 @@ const editor = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/readme/upload/${readmeDto.r_no }" ,
+				url:"${pageContext.request.contextPath}/imgAjax/readme/upload/${readmeDto.r_no }" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/readme/download/" + resp.data);
+				callback("${pageContext.request.contextPath}/imgAjax/readme/download/" + resp.data);
 			})
 		}
 	}

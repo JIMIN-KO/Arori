@@ -199,7 +199,7 @@ $(".question").on("change",function(){
 		}
 		
 		if(myAnswerDto[Object.keys(myAnswerDto)[3]]) {
-			 axios.post("/arori/answerAjax/update", JSON.stringify(myAnswerDto), {
+			 axios.post("${pageContext.request.contextPath}/answerAjax/update", JSON.stringify(myAnswerDto), {
 				 	headers:{
 						'content-type':'application/json',
 				 	}
@@ -318,7 +318,7 @@ setTimeout(function(){
 
 setTimeout(function(){
 	alert("퀴즈가 종료되었습니다. 현재 답안을 제출합니다!")
-	location.href = "/arori/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}"
+	location.href = "${pageContext.request.contextPath}/classes/quiz/detail/${quizDto.c_no}/${quizDto.q_no}"
 }, quizTime)
 	
 })

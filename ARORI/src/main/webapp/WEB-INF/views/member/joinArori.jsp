@@ -217,7 +217,7 @@
                 </div>
                 <div class="row">
                     <div class="offset-2 col-8">
-                        <form action="joinArori" method="post" onSubmit="return finalcheck();">
+                        <form action="${pageContext.request.contextPath }/joinArori" method="post" onSubmit="return finalcheck();">
                             <div class="form-group">
                                 <input type="text" name="member_id"  oninput="checkID()" class="form-control form-control-sm" placeholder="ID" required="required"><span></span>
                             </div>

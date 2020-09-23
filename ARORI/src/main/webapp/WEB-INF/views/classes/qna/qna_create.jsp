@@ -49,7 +49,7 @@ $(function(){
 	
 	// 모달 ) 취소 클릭시 해당 데이터 삭제 및 목록으로 이동 
 	$("#saveCancel").click(function(){
-		location.href = "/arori/classes/qna/delete/${qnaDto.c_no}/${qnaDto.qna_no}"
+		location.href = "${pageContext.request.contextPath}/classes/qna/delete/${qnaDto.c_no}/${qnaDto.qna_no}"
 	})
 	
 	// 모달 ) 임시 저장 클릭 시 qna_state 상태 0  으로 변경 
@@ -94,11 +94,11 @@ const editor = new Editor({
 			axios({
 				contentType: false,
 				processData: false,
-				url:"/arori/imgAjax/qna/upload/${qnaDto.qna_no}" ,
+				url:"${pageContext.request.contextPath}/imgAjax/qna/upload/${qnaDto.qna_no}" ,
 				method:"post",
 				data:frm
 			}).then(function(resp) {
-				callback("/arori/imgAjax/qna/download/" + resp.data);
+				callback("${pageContext.request.contextPath}/imgAjax/qna/download/" + resp.data);
 			})
 		}
 	}

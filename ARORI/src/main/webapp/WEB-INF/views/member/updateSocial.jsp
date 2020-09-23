@@ -20,7 +20,7 @@
 							  </div>
 							  <input type="text" class="form-control" placeholder="ID" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly" value="${memberDto.member_id} ">
 							</div>
-							<form action="updateSocial" method="post" onSubmit="return finalcheck()">
+							<form action="${pageContext.request.contextPath }/member/updateSocial" method="post" onSubmit="return finalcheck()">
 								<div class="input-group input-group-lg mb-4">
 								  <div class="input-group-prepend">
 								    <span class="input-group-text" id="basic-addon1">NICK</span>
