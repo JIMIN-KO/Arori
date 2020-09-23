@@ -172,6 +172,7 @@
     <div class="container-fluid">
     	<div class="row position-fixed w-100 mt-4" style="z-index: 1;">
     		<div class="col-12 d-flex justify-content-end">
+    			<a href="${pageContext.request.contextPath }/portfolio" class="btn btn-md btn-warning font-weight-bold mr-3 shadow-lg text-white">포트폴리오 구경하기</a>
     			<form id="testAroriForm">
     				<input type="hidden" name="member_id" value="tester">
     				<input type="hidden" name="member_pw" value="tester">
