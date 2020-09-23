@@ -175,12 +175,12 @@
     			<form id="testAroriForm">
     				<input type="hidden" name="member_id" value="tester">
     				<input type="hidden" name="member_pw" value="tester">
-		    			<button type="button" class="btn btn-md btn-success font-weight-bold mr-3" id="testArori">아로리 회원 테스트</button>
+		    			<button type="button" class="btn btn-md btn-success font-weight-bold mr-3 shadow-lg" id="testArori">아로리 회원 테스트</button>
     			</form>
     			<form id="testAdminForm">
 					<input type="hidden" name="member_id" value="admin">
 					<input type="hidden" name="member_pw" value="admin">    			
-		    			<button type="button" class="btn btn-md btn-danger font-weight-bold" id="testAdmin">관리자 테스트</button>
+		    			<button type="button" class="btn btn-md btn-danger font-weight-bold shadow-lg" id="testAdmin">관리자 테스트</button>
     			</form>
     		</div>
     	</div>

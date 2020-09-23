@@ -471,10 +471,13 @@ $(function(){
 		$("#save").click(function(){
 			$("#quizDetailContent").val(editor.getMarkdown())
 			var q_runtime = document.querySelector("input[name=q_runtime]").value
-			if(q_runtime >= 10) {
-				document.querySelector("#quizDetail").submit()
+			var q_title = document.querySelector("input[name=q_title]").value
+			if(q_title === "") {
+				alert("퀴즈 제목을 입력해주세요.")
+			} else if(q_runtime < 10){
+				alert("퀴즈 런타임을 10분 이상으로 설정해주세요.")
 			} else {
-				alert("퀴즈 런타임 시간을 설정해주세요.")
+				document.querySelector("#quizDetail").submit()
 			}
 		})
 	})
