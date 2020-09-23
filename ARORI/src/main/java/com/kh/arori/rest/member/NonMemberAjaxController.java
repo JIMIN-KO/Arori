@@ -36,6 +36,9 @@ public class NonMemberAjaxController {
 			if (member.getReport_state().equals("정상")) {
 				session.setAttribute("userinfo", member);
 				return member;
+			} else {
+				
+				return member;
 			}
 		}
 		return null;

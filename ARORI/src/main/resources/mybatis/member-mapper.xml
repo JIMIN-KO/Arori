@@ -148,8 +148,8 @@
 		member_nick=#{member_nick} , member_state=#{member_state}
 		,
 		REPORT_STATE =#{report_state} , SUSPENSION =#{suspension} WHERE
-		member_id
-		=#{member_id}
+		member_no
+		=#{member_no}
 	</update>
 
 	<!-- 이거뭔데 ? -->

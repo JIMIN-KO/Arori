@@ -11,11 +11,11 @@
 		<form action="${pageContext.request.contextPath }/admin/adminUpdate" method="post" class="mt-3"
 			onSubmit="return finalcheck();">
 			<input type="hidden" name="member_no" value="${allMemberDto.member_no }">
-			<h1 class="font-weight-bold mt-4">회원정보 업데이트 페이지(관리자)</h1>
+			<h1 class="font-weight-bold mt-4 mb-3">회원정보 업데이트 페이지</h1>
+			<span class="mb-3">변경할 수 있는 정보만 표시됩니다.</span>
 			<table class="table table-hover">
 				<tbody>
-					<tr>
-						<span>변경할 수 있는 정보만 표시됩니다.</span>
+
 					<tr>
 						<th scope="col">AUTH</th>
 						<td>
@@ -86,9 +86,8 @@
 					<tr>
 						<th scope="col">SUSPENSION</th>
 
-						<td><input type="text" class="form-control" name="suspension"
-							value="${allMemberDto.suspension}" placeholder="ex:2020-01-01">
-							<span>변경 예 : 2020-01-01 (yyyy-mm-dd)</span></td>
+						<td><input type="date" class="form-control" name="suspension"
+							value="${allMemberDto.suspension}" placeholder="ex:2020-01-01"></td>
 
 					</tr>
 

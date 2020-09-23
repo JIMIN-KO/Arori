@@ -62,10 +62,10 @@
 							</form>
 								<div class="row mt-3">
 									<div class="col-6">
-										<a type="button" class="btn btn-lg btn-success btn-block font-weight-bold" href="${pageContext.request.contextPath }/member/changePW">비밀번호 변경</a>
+										<a type="button" class="btn btn-lg btn-success btn-block font-weight-bold" href="${pageContext.request.contextPath }/member/changePW" <c:if test="${(userinfo.member_no eq 3) or (userinfo.member_no eq 9) }">onclick="return false;"</c:if>>비밀번호 변경</a>
 									</div>
 									<div class="col-6">
-										<a type="button" class="btn btn-lg btn-danger btn-block font-weight-bold" href="${pageContext.request.contextPath }/member/delete">탈퇴</a>
+										<a type="button" class="btn btn-lg btn-danger btn-block font-weight-bold" href="${pageContext.request.contextPath }/member/delete" <c:if test="${(userinfo.member_no eq 3) or (userinfo.member_no eq 9) }">onclick="return false;"</c:if>>탈퇴</a>
 									</div>
 								</div>
 						  </div>

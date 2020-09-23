@@ -76,6 +76,7 @@
 	$(function(){
 		// 아로리 회원 로그인 (비동기)
 		$('#loginFail').modal('hide') // 모달 숨기기 
+		$('#loginStop').modal('hide') // 모달 숨기기 
 		$("#loginBtn").click(function(){
 			var formData = $("#aroriLogin").serialize();
 			
@@ -95,9 +96,47 @@
 						window.location.href = "admin/main";
 					} else {
 
-						window.location.href = "member/myPage";
-					}
+						if(resp.data.report_state === '정상') {						
+							window.location.href = "member/myPage";
+						} else {
+							$('#loginStop').modal('show') // 모달 숨기기 
+						}
+					}	
 				}
+			})
+		})
+	})
+	
+	$(function(){
+		// 아로리 회원 로그인 (비동기) (테스트 버튼)
+		$("#testArori").click(function(){
+			var formData = $("#testAroriForm").serialize();
+			
+			axios({
+				url: "/arori/nonMemberAjax/loginSuccess",
+				method: "post",
+				data: formData,
+				processData: false,
+	            contentType: false
+			}).then(function(resp){
+				window.location.href = "member/myPage";
+			})
+		})
+	})
+	
+	$(function(){
+		// 관리자 계정 로그인 (비동기) (테스트 버튼)
+		$("#testAdmin").click(function(){
+			var formData = $("#testAdminForm").serialize();
+			
+			axios({
+				url: "/arori/nonMemberAjax/loginSuccess",
+				method: "post",
+				data: formData,
+				processData: false,
+	            contentType: false
+			}).then(function(resp){
+				window.location.href = "admin/main";
 			})
 		})
 	})
