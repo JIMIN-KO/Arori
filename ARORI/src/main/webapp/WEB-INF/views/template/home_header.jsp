@@ -170,7 +170,7 @@
 	</div>
 	
     <div class="container-fluid">
-    	<div class="row position-fixed w-100 mt-4" style="z-index: 1;">
+    	<div class="row position-fixed w-100 mt-4" style="z-index: 2;">
     		<div class="col-12 d-flex justify-content-end">
     			<form id="testAroriForm">
     				<input type="hidden" name="member_id" value="tester">
