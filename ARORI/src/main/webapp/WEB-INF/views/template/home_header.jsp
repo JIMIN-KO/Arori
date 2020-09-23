@@ -170,7 +170,7 @@
 	</div>
 	
     <div class="container-fluid">
-    	<div class="row position-fixed w-100 mt-4" style="z-index: 1;">
+    	<div class="row position-fixed w-100 mt-4" style="z-index: 2;">
     		<div class="col-12 d-flex justify-content-end">
     			<form id="testAroriForm">
     				<input type="hidden" name="member_id" value="tester">
@@ -182,6 +182,19 @@
 					<input type="hidden" name="member_pw" value="admin">    			
 		    			<button type="button" class="btn btn-md btn-danger font-weight-bold shadow-lg" id="testAdmin">관리자 테스트</button>
     			</form>
+    		</div>
+    	</div>
+    	<div class="row position-fixed w-100 mt-5 pt-5" style="z-index: 1;">
+    		<div class="col-12 d-flex justify-content-end">
+    			<script>
+					$(function () {
+						$('[data-toggle="tooltip"]').tooltip()
+					})
+				</script>
+				<a href="${pageContext.request.contextPath }/swagger-ui.html">
+					<img src="${pageContext.request.contextPath }/resources/img/swagger_icon.svg" class="header-icon" style="width: 40px; height: 40px;"  data-toggle="tooltip" data-placement="bottom" title="Go Swagger2!"></img>
+				</a>
+				<a href="${pageContext.request.contextPath }/portfolio" class="btn btn-md btn-warning font-weight-bold ml-3 shadow-lg text-white">포트폴리오</a>
     		</div>
     	</div>
         <div class="row login-header">
