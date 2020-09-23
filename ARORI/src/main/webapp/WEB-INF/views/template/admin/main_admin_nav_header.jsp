@@ -127,14 +127,7 @@
                     <div class="col-1 text-right w-100">
                         	<div class="row h-100">
                         		<div class="col-6" >
-                        			<script>
-                        				$(function () {
-                        				  $('[data-toggle="tooltip"]').tooltip()
-                        				})
-                        			</script>
-                        			<a href="${pageContext.request.contextPath }/swagger-ui.html">
-		                        		<img src="${pageContext.request.contextPath }/resources/img/swagger_icon.svg" class="header-icon" style="width: 30px; height: 30px;"  data-toggle="tooltip" data-placement="bottom" title="Go Swagger2!"></img>
-                        			</a>
+
                         		</div>
                         		<div class="col-6">                    		
 			                    	<a href="${pageContext.request.contextPath }/member/logout">
