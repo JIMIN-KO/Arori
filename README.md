@@ -66,7 +66,7 @@
 
 - Oracle
 
-### API'S
+### API
 
 - Firebase API
 - Toast Markdown Editor/Viewer API
