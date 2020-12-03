@@ -43,3 +43,30 @@
 - **퀴즈 생성 시퀀스 다이어그램**
 
 <img width="1661" alt="퀴즈 시퀀스 다이어그램" src="https://user-images.githubusercontent.com/63778543/101054508-50323400-35cc-11eb-8d51-c341755eee8a.png">
+
+## 🛠 사용 기술
+
+### Front-end
+
+- Javascript
+- jQuery
+- Ajax
+- Bootstap
+- HTML5
+- CSS3
+
+### Back-end
+
+- Java
+  - Spring Framework
+  - Mybatis Framework
+- RESTful
+
+### Database
+
+- Oracle
+
+### API'S
+
+- Firebase API
+- Toast Markdown Editor/Viewer API
